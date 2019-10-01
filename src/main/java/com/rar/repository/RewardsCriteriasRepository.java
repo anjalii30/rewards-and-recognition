@@ -10,7 +10,7 @@ import java.util.Set;
 @Repository
 public interface RewardsCriteriasRepository extends CrudRepository<RewardsCriteria, Long> {
 
-    @Query(value="SELECT * from rewards_criterias where Reward_Id = ?1 ", nativeQuery = true)
+    @Query(value="SELECT * from rewards_criteria where reward_id = ?1 ", nativeQuery = true)
     Set<RewardsCriteria> findByRewardId(Long rewardId);
 
 }

@@ -39,19 +39,19 @@ public class RewardsController {
         return rewardsService.discontinuing(id, createreward);
     }
 
-    @GetMapping("/listrewards")
+    @GetMapping("/listRewards")
     public List<Rewards> list(@RequestHeader(value = "Authorization") String token){
         return rewardsService.findAll();
     }
 
-    @GetMapping("/listrewards/{id}")
+    @GetMapping("/listRewards/{id}")
     public Optional<Rewards> getById(@RequestHeader(value = "Authorization") String token, @PathVariable Long id){
         return rewardsService.findById(id);
     }
 
-    @GetMapping("/listreCriterias/{id}")
-    public List<Criterias> giveCriterias(@RequestHeader(value = "Authorization") String token, @PathVariable Long id){
-        return rewardsService.giveCriterias(id);
+    @GetMapping("/listCriteria/{id}")
+    public List<Criterias> getCriteria(@RequestHeader(value = "Authorization") String token, @PathVariable Long id){
+        return rewardsService.getCriteria(id);
     }
 
 

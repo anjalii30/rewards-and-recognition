@@ -62,8 +62,9 @@ public class RewardsServiceImpl implements RewardsService {
     }
 
     @Override
-    public List<Criterias> giveCriterias(Long id){
-        return rewardsRepository.giveCriterias(id);
+    public List<Criterias> getCriteria(Long id){
+
+        return rewardsRepository.getCriteria(id);
     }
 
     @Override
