@@ -30,33 +30,39 @@ public class RewardsController {
     }
 
     @PutMapping("/updateAwardStatus/{id}")
-    public Rewards updateAwardStatus(@PathVariable Long id, @RequestBody Rewards createreward){
-        return rewardsService.updateAwardStatus(id, createreward);
+    public Rewards updateAwardStatus(@RequestHeader(value = "Authorization") String token,@PathVariable Long id, @RequestBody Rewards createReward){
+        String email=validity.check(token);
+        return rewardsService.updateAwardStatus(id, createReward);
     }
 
     @PutMapping("/discontinuing/{id}")
-    public Rewards discontinuing(@PathVariable Long id, @RequestBody Rewards createreward){
-        return rewardsService.discontinuing(id, createreward);
+    public Rewards discontinuing(@RequestHeader(value = "Authorization") String token,@PathVariable Long id, @RequestBody Rewards createReward){
+        String email=validity.check(token);
+        return rewardsService.discontinuing(id, createReward);
     }
 
     @GetMapping("/listRewards")
     public List<Rewards> list(@RequestHeader(value = "Authorization") String token){
+        String email=validity.check(token);
         return rewardsService.findAll();
     }
 
     @GetMapping("/listRewards/{id}")
     public Optional<Rewards> getById(@RequestHeader(value = "Authorization") String token, @PathVariable Long id){
+        String email=validity.check(token);
         return rewardsService.findById(id);
     }
 
     @GetMapping("/listCriteria/{id}")
     public List<Criterias> getCriteria(@RequestHeader(value = "Authorization") String token, @PathVariable Long id){
+        String email=validity.check(token);
         return rewardsService.getCriteria(id);
     }
 
 
-    @DeleteMapping("/deleterewards/{id}")
+    @DeleteMapping("/deleteRewards/{id}")
     public String delete(@RequestHeader(value = "Authorization") String token, @PathVariable long id){
+        String email=validity.check(token);
         rewardsService.deleteById(id);
         return "Deleted Successfully";
     }

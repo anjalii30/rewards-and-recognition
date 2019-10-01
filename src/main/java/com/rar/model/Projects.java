@@ -14,7 +14,7 @@ public class Projects {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long project_id;
 
-    @Column(name = "project_name",nullable = false)
+    @Column(name = "project_name",unique = true,nullable = false)
     private String project_name;
 
 
@@ -35,7 +35,7 @@ public class Projects {
     }
 
 
-    
+
     public Long getProject_id() {
         return project_id;
     }
