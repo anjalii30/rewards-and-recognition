@@ -21,7 +21,7 @@ public class UserInfo implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "User_Id",unique = true,nullable = false)
+    @Column(name = "user_id",unique = true,nullable = false)
     private Long uid;
 
     @NotNull
@@ -33,9 +33,6 @@ public class UserInfo implements Serializable {
     @Column(nullable = false)
     private String name;
 
-
-
-
     @Column
     private Boolean firstSign=false;
 
@@ -43,19 +40,18 @@ public class UserInfo implements Serializable {
     private String imageUrl;
 
 
-
-
-
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
                 CascadeType.PERSIST,
                 CascadeType.MERGE
             })
+
     @JoinTable(
-            name = "user_employeerelation",
-            joinColumns = {@JoinColumn(name = "User_Id")},
+            name = "user_employeeRelation",
+            joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "EmployeeRelation_Id")}
     )
+
     private Set<EmployeeRelation> employeeRelation = new HashSet<>();
 
 
@@ -86,17 +82,10 @@ public class UserInfo implements Serializable {
             })
     @JoinTable(
             name = "user_roles",
-            joinColumns = {@JoinColumn(name = "User_Id")},
-            inverseJoinColumns = {@JoinColumn(name = "roleid")}
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id")}
     )
     private Set<Roles> roles = new HashSet<>();
-
-
-
-
-
-
-
 
 
     public UserInfo() {
@@ -205,12 +194,5 @@ public class UserInfo implements Serializable {
                 '}';
     }
 
-    public Long getUid() {
-        return uid;
-    }
-
-    public void setUid(Long uid) {
-        this.uid = uid;
-    }
 
 }

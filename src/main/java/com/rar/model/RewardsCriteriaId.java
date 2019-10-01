@@ -3,7 +3,7 @@ import javax.persistence.Embeddable;
 import java.io.Serializable;
 
 @Embeddable
-public class RewardsCriteriasId implements Serializable {
+public class RewardsCriteriaId implements Serializable {
 
     private long rewardId;
     private long criteriaId;

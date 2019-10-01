@@ -15,13 +15,13 @@ public class Criterias implements Serializable{
     @Column(name = "criteria_Id")
     private long criteriaId;
 
-    @Column(name="criterias_desc",nullable = false)
-    private String criterias_desc;
+    @Column(name="criteria_desc",nullable = false)
+    private String criteria_desc;
 
 
 
     @OneToMany(
-            mappedBy = "criterias")
+            mappedBy = "criteria")
     private List<RewardsCriterias> rewards = new ArrayList<>();
 
     public List<RewardsCriterias> getRewards() {
@@ -71,8 +71,8 @@ public class Criterias implements Serializable{
     public Criterias() {
     }
 
-    public Criterias(String criterias_desc) {
-        this.criterias_desc = criterias_desc;
+    public Criterias(String criteria_desc) {
+        this.criteria_desc = criteria_desc;
     }
 
     public long getCriteriaId() {
@@ -83,12 +83,12 @@ public class Criterias implements Serializable{
         this.criteriaId = criteriaId;
     }
 
-    public String getCriterias_desc() {
-        return criterias_desc;
+    public String getCriteria_desc() {
+        return criteria_desc;
     }
 
-    public void setCriterias_desc(String criterias_desc) {
-        this.criterias_desc = criterias_desc;
+    public void setCriteria_desc(String criteria_desc) {
+        this.criteria_desc = criteria_desc;
     }
 //
 //    public Set<Rewards> getRewards1() {
@@ -109,9 +109,9 @@ public class Criterias implements Serializable{
 
     @Override
     public String toString() {
-        return "Criterias{" +
+        return "Criteria{" +
                 "criteriaId=" + criteriaId +
-                ", criterias_desc='" + criterias_desc + '\'' +
+                ", criteria_desc='" + criteria_desc + '\'' +
                 '}';
     }
 

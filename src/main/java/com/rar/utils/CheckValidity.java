@@ -1,4 +1,6 @@
 package com.rar.utils;
+
+
 import com.rar.exception.InvalidTokenException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -25,7 +27,6 @@ public class CheckValidity  {
 
             return "Token Checked";
 
-            //return email;
         } else {
             throw new InvalidTokenException("token is expired");
         }

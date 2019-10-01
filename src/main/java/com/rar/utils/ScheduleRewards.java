@@ -43,9 +43,9 @@ public class ScheduleRewards {
 
 
     //Checking for regenration of  monthly reward whose end date has passed daily at 12 a.m.
-    //   @Scheduled(cron = "0 0 0 1/1 * ? ")
-    @Scheduled(cron="0 0/1 * 1/1 * ?")
-    public void scheduleMonthly() throws ParseException {
+    @Scheduled(cron = "0 0 0 1/1 * ? ")
+    //@Scheduled(cron="0 0/1 * 1/1 * ?")
+    public void scheduleMonthly(){
 
 
         ArrayList<Rewards> list = (ArrayList<Rewards>) rewardsRepository.findAll();
@@ -71,7 +71,7 @@ public class ScheduleRewards {
 
                 Rewards new_reward = new Rewards();
 
-                String rName1 = (old_reward.getReward_name() );
+                String rName1 = old_reward.getReward_name();
 
                 String replaceString=rName1.replaceFirst(month,month1);
 
@@ -130,9 +130,9 @@ public class ScheduleRewards {
 
     //Regenerating quarterly rewards starting from 1st of the month{jan, april, july, october} at 12 a.m.
     //Checking for regenration of  monthly reward whose end date has passed every sunday at 12 a.m.
-    // @Scheduled(cron = "0 0 0 ? * SUN ")
-    @Scheduled(cron="0 0/2 * 1/1 * ?")
-    public void scheduleQuarterly() throws ParseException {
+    @Scheduled(cron = "0 0 0 ? * SUN ")
+    //@Scheduled(cron="0 0/2 * 1/1 * ?")
+    public void scheduleQuarterly() {
 
         ArrayList<Rewards> list = (ArrayList<Rewards>) rewardsRepository.findAll();
 
@@ -157,7 +157,7 @@ public class ScheduleRewards {
 
                 Rewards new_reward = new Rewards();
 
-                String rName1 = (old_reward.getReward_name() );
+                String rName1 = old_reward.getReward_name();
 
                 String replaceString=rName1.replaceFirst(month,month1);
 
@@ -192,9 +192,6 @@ public class ScheduleRewards {
                     rewardsCriteriasRepository.save(rewardsCriterias);
 
                 }
-
-
-                //System.out.println(list.get(i));
             }
 
             i++;
@@ -207,7 +204,7 @@ public class ScheduleRewards {
     @Scheduled(cron = "0 0 12 1 1/1 ? ")
     //  @Scheduled(cron="0 0/3 * 1/1 * ?")
 
-    public void scheduleYearly() throws ParseException {
+    public void scheduleYearly(){
 
 
         ArrayList<Rewards> list = (ArrayList<Rewards>) rewardsRepository.findAll();
@@ -233,7 +230,7 @@ public class ScheduleRewards {
 
                 Rewards new_reward = new Rewards();
 
-                String rName1 = (old_reward.getReward_name() );
+                String rName1 = old_reward.getReward_name();
 
                 String replaceString=rName1.replace(year,year1);
 
@@ -268,7 +265,6 @@ public class ScheduleRewards {
                     rewardsCriteriasRepository.save(rewardsCriterias);
 
                 }
-                // System.out.println(list.get(i));
             }
 
             i++;

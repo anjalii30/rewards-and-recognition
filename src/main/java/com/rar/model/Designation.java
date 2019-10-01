@@ -28,7 +28,7 @@ public class Designation implements Serializable {
                     CascadeType.MERGE,
             },
             mappedBy = "designation")
-    private Set<UserInfo> userInfo1 = new HashSet<>();
+    private Set<UserInfo> userInfo = new HashSet<>();
 
     public Designation() {
     }
@@ -55,12 +55,12 @@ public class Designation implements Serializable {
         this.designation = designation;
     }
 
-    public Set<UserInfo> getUserInfo1() {
-        return userInfo1;
+    public Set<UserInfo> getUserInfo() {
+        return userInfo;
     }
 
-    public void setUserInfo1(Set<UserInfo> userInfo1) {
-        this.userInfo1 = userInfo1;
+    public void setUserInfo(Set<UserInfo> userInfo) {
+        this.userInfo = userInfo;
     }
 
 

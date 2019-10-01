@@ -65,7 +65,7 @@ public class Rewards implements Serializable {
     @OneToMany(
             mappedBy = "rewards"
     )
-    private List<RewardsCriterias> criterias = new ArrayList<>();
+    private List<RewardsCriterias> criteria = new ArrayList<>();
 
 
 /*
@@ -96,7 +96,7 @@ public class Rewards implements Serializable {
     }
 
 
-    public Rewards(long rewardId, String reward_name, FrequencyEnum frequency, String description, boolean regenerated, CategoryEnum category, LocalDate start_date, LocalDate end_date, boolean self_nominate, int nominations_allowed, int award_status, Date discontinuingDate, String discontinuingReason, List<RewardsCriterias> criterias, Set<UserInfo> userInfo4) {
+    public Rewards(long rewardId, String reward_name, FrequencyEnum frequency, String description, boolean regenerated, CategoryEnum category, LocalDate start_date, LocalDate end_date, boolean self_nominate, int nominations_allowed, int award_status, Date discontinuingDate, String discontinuingReason, List<RewardsCriterias> criteria, Set<UserInfo> userInfo4) {
         this.rewardId = rewardId;
         this.reward_name = reward_name;
         this.frequency = frequency;
@@ -110,7 +110,7 @@ public class Rewards implements Serializable {
         this.award_status = award_status;
         this.discontinuingDate = discontinuingDate;
         this.discontinuingReason = discontinuingReason;
-        this.criterias = criterias;
+        this.criteria = criteria;
     }
 
     public long getId() {
@@ -210,12 +210,12 @@ public class Rewards implements Serializable {
         this.discontinuingReason = discontinuingReason;
     }
 
-    public List<RewardsCriterias> getCriterias() {
-        return criterias;
+    public List<RewardsCriterias> getCriteria() {
+        return criteria;
     }
 
-    public void setCriterias(List<RewardsCriterias> criterias) {
-        this.criterias = criterias;
+    public void setCriteria(List<RewardsCriterias> criteria) {
+        this.criteria = criteria;
     }
 
 
@@ -281,7 +281,7 @@ public class Rewards implements Serializable {
                 ", award_status=" + award_status +
                 ", discontinuingDate=" + discontinuingDate +
                 ", discontinuingReason='" + discontinuingReason + '\'' +
-                ", criterias=" + criterias +
+                ", criteria=" + criteria +
                 '}';
     }
 

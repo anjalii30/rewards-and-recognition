@@ -13,11 +13,11 @@ public class Nominations implements Serializable {
 
 
     @Id
-    @Column(name = "User_Id")
+    @Column(name = "user_id")
     private long uid;
 
 
-    @Column(name = "Reward_Id")
+    @Column(name = "reward_id")
     private long rewardId;
 
     @Column (name="disable")

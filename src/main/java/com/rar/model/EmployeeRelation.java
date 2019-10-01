@@ -13,7 +13,7 @@ public class EmployeeRelation implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "EmployeeRelation_Id",unique = true,nullable = false)
-    private long erid;
+    private long ERid;
 
 
 
@@ -38,17 +38,17 @@ public class EmployeeRelation implements Serializable {
     }
 
     public EmployeeRelation(long id, String manager_email) {
-        this.erid = id;
+        this.ERid = id;
         this.manager_email = manager_email;
     }
 
 
     public long getId() {
-        return erid;
+        return ERid;
     }
 
     public void setId(long erid) {
-        this.erid = erid;
+        this.ERid = erid;
     }
 
     public String getManager_email() {
@@ -63,12 +63,12 @@ public class EmployeeRelation implements Serializable {
         return userInfo;
     }
 
-    public long getErid() {
-        return erid;
+    public long getERid() {
+        return ERid;
     }
 
-    public void setErid(long erid) {
-        this.erid = erid;
+    public void setERid(long ERid) {
+        this.ERid = ERid;
     }
 
     public void setUserInfo(Set<UserInfo> userInfo) {
@@ -78,7 +78,7 @@ public class EmployeeRelation implements Serializable {
     @Override
     public String toString() {
         return "EmployeeRelation{" +
-                "id=" + erid +
+                "id=" + ERid +
 
                 ", manager_email='" + manager_email + '\'' +
                 '}';

@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 
 @Entity
-@IdClass(RewardsCriteriasId.class)
-@Table(name = "rewards_criterias")
+@IdClass(RewardsCriteriaId.class)
+@Table(name = "rewards_criteria")
 public class RewardsCriterias{
 
     @Id
@@ -28,7 +28,7 @@ public class RewardsCriterias{
             @JoinColumn(name = "criteria_id", referencedColumnName = "criteria_id", insertable = false, updatable = false)
     })
     @JsonIgnore
-    Criterias criterias;
+    Criterias criteria;
 
 //    @ManyToOne(fetch = FetchType.EAGER)
 //    @MapsId("Reward_Id")
@@ -68,11 +68,11 @@ public class RewardsCriterias{
     }
 
     public Criterias getCriterias() {
-        return criterias;
+        return criteria;
     }
 
-    public void setCriterias(Criterias criterias) {
-        this.criterias = criterias;
+    public void setCriterias(Criterias criteria) {
+        this.criteria = criteria;
     }
 
     public Boolean getCompulsory() {
@@ -89,27 +89,27 @@ public class RewardsCriterias{
 //    public RewardsCriterias(Rewards rewards, Criterias criterias) {
 //        this.rewards = rewards;
 //        this.criterias = criterias;
-//        this.id = new RewardsCriteriasId(rewards.getId(), criterias.getCriteriaId());
+//        this.id = new RewardsCriteriaId(rewards.getId(), criterias.getCriteriaId());
 //    }
 //
 //    public RewardsCriterias(Rewards rewards, Criterias criterias, Boolean isCompulsory) {
 //        this.rewards = rewards;
 //        this.criterias = criterias;
-//        this.id = new RewardsCriteriasId(rewards.getId(), criterias.getCriteriaId());
+//        this.id = new RewardsCriteriaId(rewards.getId(), criterias.getCriteriaId());
 //        this.isCompulsory = isCompulsory;
 //
 //    }
 
     /*
     public RewardsCriterias(Rewards rewards){
-        this.id=new RewardsCriteriasId(rewards.getId(),rewards.getCriterias().iterator();
+        this.id=new RewardsCriteriaId(rewards.getId(),rewards.getCriterias().iterator();
     }*/
 //
-//    public RewardsCriteriasId getId() {
+//    public RewardsCriteriaId getId() {
 //        return id;
 //    }
 //
-//    public void setId(RewardsCriteriasId id) {
+//    public void setId(RewardsCriteriaId id) {
 //        this.id = id;
 //    }
 //    @Transient

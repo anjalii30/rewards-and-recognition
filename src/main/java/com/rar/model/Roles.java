@@ -14,10 +14,10 @@ public class Roles implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Role_Id",unique = true,nullable = false)
+    @Column(name = "role_id",unique = true,nullable = false)
     private long roleId;
 
-    @Column(name="Role",nullable = false)
+    @Column(name="role",nullable = false)
     @Enumerated(EnumType.STRING)
     private RoleEnum role;
 
@@ -28,7 +28,8 @@ public class Roles implements Serializable {
                     CascadeType.MERGE,
             },
             mappedBy = "roles")
-    private Set<UserInfo> userInfo2 = new HashSet<>();
+
+    private Set<UserInfo> userInfo = new HashSet<>();
 
 
     public Roles() {
@@ -56,12 +57,12 @@ public class Roles implements Serializable {
         this.role = role;
     }
 
-    public Set<UserInfo> getUserInfo2() {
-        return userInfo2;
+    public Set<UserInfo> getUserInfo() {
+        return userInfo;
     }
 
-    public void setUserInfo2(Set<UserInfo> userInfo2) {
-        this.userInfo2 = userInfo2;
+    public void setUserInfo(Set<UserInfo> userInfo) {
+        this.userInfo = userInfo;
     }
 
 

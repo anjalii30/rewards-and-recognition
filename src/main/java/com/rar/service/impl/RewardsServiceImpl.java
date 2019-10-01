@@ -152,14 +152,14 @@ public class RewardsServiceImpl implements RewardsService {
         long id = rewards.getId();
 
         RewardsCriterias rewardsCriterias=new RewardsCriterias();
-        System.out.println(rewards.getCriterias().size());
+        System.out.println(rewards.getCriteria().size());
 
-        for(int i=0; i<rewards.getCriterias().size(); i++){
+        for(int i = 0; i<rewards.getCriteria().size(); i++){
             rewardsCriterias = new RewardsCriterias();
 
             rewardsCriterias.setRewardId(id);
-            rewardsCriterias.setCriteriaId(rewards.getCriterias().get(i).getCriteriaId());
-            rewardsCriterias.setCompulsory(rewards.getCriterias().get(i).getCompulsory());
+            rewardsCriterias.setCriteriaId(rewards.getCriteria().get(i).getCriteriaId());
+            rewardsCriterias.setCompulsory(rewards.getCriteria().get(i).getCompulsory());
 
             rewardsCriteriasRepository.save(rewardsCriterias);
         }
@@ -182,7 +182,7 @@ public class RewardsServiceImpl implements RewardsService {
 
 
 
-//        RewardsCriteriasId rewardsCriteriasId = new RewardsCriteriasId();
+//        RewardsCriteriaId rewardsCriteriasId = new RewardsCriteriaId();
 //        System.out.println(reward.getCriterias().size());
 //
 ///*        for(int i=0;i<reward.getCriterias().size();i++){
@@ -198,7 +198,7 @@ public class RewardsServiceImpl implements RewardsService {
 //        for (Iterator<RewardsCriterias> it = reward.getCriterias().iterator(); it.hasNext(); ) {
 //            RewardsCriterias f = it.next();
 //            RewardsCriterias d = new RewardsCriterias();
-////            rewardsCriteriasId = new RewardsCriteriasId();
+////            rewardsCriteriasId = new RewardsCriteriaId();
 //            System.out.println("Reward:" + f.getCriterias().getCriteriaId());
 //
 //            Criterias c = f.getCriterias();
