@@ -4,6 +4,7 @@ import com.rar.model.Projects;
 import com.rar.model.UserProjects;
 import org.springframework.http.ResponseEntity;
 
+import javax.jws.soap.SOAPBinding;
 import java.util.List;
 
 public interface ProjectService {
@@ -12,5 +13,7 @@ public interface ProjectService {
 
     List<Projects> findAll();
 
-    void assign(UserProjects userProjects);
+    void assign(UserProjects userProjects) throws Exception;
+
+    Long getIdByProject(String project_name) throws Exception;
 }

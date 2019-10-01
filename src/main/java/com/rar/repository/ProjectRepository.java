@@ -1,12 +1,9 @@
 package com.rar.repository;
 
 import com.rar.model.Projects;
-import com.rar.model.UserProjects;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,4 +14,7 @@ public interface ProjectRepository  extends JpaRepository<Projects,Long> {
     @Transactional
     @Query(value="insert into user_projects (user_id, project_id) values (:user_id, :project_id)",nativeQuery = true)
     void assign( Long user_id, Long project_id);
+
+    @Query(value="select project_id from projects where project_name=?1", nativeQuery = true)
+    Long getIdByName(String project_name);
 }

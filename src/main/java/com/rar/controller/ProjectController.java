@@ -3,6 +3,7 @@ package com.rar.controller;
 import com.rar.model.Projects;
 import com.rar.model.Rewards;
 import com.rar.model.UserProjects;
+import com.rar.service.LoginService;
 import com.rar.service.ProjectService;
 import com.rar.utils.CheckValidity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ public class ProjectController {
     private ProjectService projectService;
 
 
+
     @PostMapping("/ProjectSave")
     public Projects save(@RequestHeader(value = "Authorization") String token , @RequestBody Projects projects) throws Exception{
         String email=validity.check(token);
@@ -36,8 +38,10 @@ public class ProjectController {
     }
 
     @PostMapping("/assignProjects")
-    public void assignProjects(@RequestHeader(value = "Authorization") String token,@RequestBody UserProjects userProjects) throws Exception{
+    public void assignProjects(@RequestHeader(value = "Authorization") String token, @RequestBody UserProjects userProjects) throws Exception{
         String email=validity.check(token);
-         projectService.assign(userProjects);
+
+        projectService.assign(userProjects);
+
     }
 }

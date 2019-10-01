@@ -175,6 +175,12 @@ public class LoginServiceImpl implements LoginService {
 
         userRepository.deleteByemail(email);
     }
+
+    @Override
+    public Long getIdByName(String user_email) throws Exception {
+        return userRepository.getIdByEmail(user_email);
+    }
+
     @Override
     public Optional<UserInfo> findByemail(String email) {
         return userRepository.findByemail(email);

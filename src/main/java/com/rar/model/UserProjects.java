@@ -3,23 +3,23 @@ package com.rar.model;
 
 public class UserProjects {
 
-    private Long user_id;
+    private String user_email;
 
-    private Long project_id;
+    private String project_name;
 
-    public Long getUser_id() {
-        return user_id;
+    public String getUser_email() {
+        return user_email;
     }
 
-    public void setUser_id(Long user_id) {
-        this.user_id = user_id;
+    public void setUser_email(String user_email) {
+        this.user_email = user_email;
     }
 
-    public Long getProject_id() {
-        return project_id;
+    public String getProject_name() {
+        return project_name;
     }
 
-    public void setProject_id(Long project_id) {
-        this.project_id = project_id;
+    public void setProject_name(String project_name) {
+        this.project_name = project_name;
     }
 }

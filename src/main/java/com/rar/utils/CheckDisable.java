@@ -23,7 +23,7 @@ public class CheckDisable {
     public List<Rewards> checkForDisable(String email) {
 
 
-        String user_id = userRepository.getIdByEmail(email);
+        Long user_id = userRepository.getIdByEmail(email);
 
               nominationsRepository.setDisable(user_id);
 
