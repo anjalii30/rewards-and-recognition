@@ -30,10 +30,6 @@ public class EmployeeRelation implements Serializable {
     private Set<UserInfo> userInfo = new HashSet<>();
 
 
-
-
-
-
     public EmployeeRelation() {
     }
 

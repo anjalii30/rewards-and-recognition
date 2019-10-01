@@ -88,18 +88,39 @@ public class UserInfo implements Serializable {
     private Set<Roles> roles = new HashSet<>();
 
 
+
+    //Projects
+
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            })
+    @JoinTable(
+            name="user_projects",
+            joinColumns ={@JoinColumn(name="user_id")},
+            inverseJoinColumns = {@JoinColumn(name="project_id")}
+    )
+    private Set<Projects> projects= new HashSet<>();
+
+
     public UserInfo() {
 
     }
 
-    public UserInfo(Long uid, @NotNull @Email @Size(max = 100) String email, String name, RoleEnum role, DesignationEnum designation, Boolean firstSign, String imageUrl) {
+    public UserInfo(Long uid, @NotNull @Email @Size(max = 100) String email, String name, Boolean firstSign, String imageUrl, Set<EmployeeRelation> employeeRelation, Set<Designation> designation, Set<Roles> roles, Set<Projects> projects) {
         this.uid = uid;
         this.email = email;
         this.name = name;
         this.firstSign = firstSign;
         this.imageUrl = imageUrl;
+        this.employeeRelation = employeeRelation;
+        this.designation = designation;
+        this.roles = roles;
+        this.projects = projects;
     }
-//
+
+    //
 //    public UserInfo(Long uid, @NotNull @Email @Size(max = 100) String email, String name, RoleEnum role, DesignationEnum designation, Boolean firstSign, String imageUrl, Set<EmployeeRelation> employeeRelation) {
 //        this.uid = uid;
 //        this.email = email;
@@ -140,11 +161,9 @@ public class UserInfo implements Serializable {
     }
 
 
-
     public void setName(String name) {
         this.name = name;
     }
-
 
     public String getImageUrl() {
         return imageUrl;
@@ -180,7 +199,13 @@ public class UserInfo implements Serializable {
         this.roles = roles;
     }
 
+    public Set<Projects> getProjects() {
+        return projects;
+    }
 
+    public void setProjects(Set<Projects> projects) {
+        this.projects = projects;
+    }
 
     @Override
     public String toString() {
@@ -191,8 +216,9 @@ public class UserInfo implements Serializable {
                 ", firstSign=" + firstSign +
                 ", imageUrl='" + imageUrl + '\'' +
                 ", employeeRelation=" + employeeRelation +
+                ", designation=" + designation +
+                ", roles=" + roles +
+                ", projects=" + projects +
                 '}';
     }
-
-
 }
