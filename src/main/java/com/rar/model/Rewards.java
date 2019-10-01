@@ -65,7 +65,7 @@ public class Rewards implements Serializable {
     @OneToMany(
             mappedBy = "rewards"
     )
-    private List<RewardsCriterias> criteria = new ArrayList<>();
+    private List<RewardsCriteria> criteria = new ArrayList<>();
 
 
 /*
@@ -81,11 +81,11 @@ public class Rewards implements Serializable {
             inverseJoinColumns = {@JoinColumn(name = "Criterias_Id")}
 
     )
-    private Set<RewardsCriterias> criterias= new HashSet<>();*/
+    private Set<RewardsCriteria> criterias= new HashSet<>();*/
 //    private Set<Criterias> criterias = new HashSet<>();
 
 
-   // private Set<RewardsCriterias> rewardsCriterias= new HashSet<>();
+   // private Set<RewardsCriteria> rewardsCriterias= new HashSet<>();
 
 
     //nominations
@@ -96,7 +96,7 @@ public class Rewards implements Serializable {
     }
 
 
-    public Rewards(long rewardId, String reward_name, FrequencyEnum frequency, String description, boolean regenerated, CategoryEnum category, LocalDate start_date, LocalDate end_date, boolean self_nominate, int nominations_allowed, int award_status, Date discontinuingDate, String discontinuingReason, List<RewardsCriterias> criteria, Set<UserInfo> userInfo4) {
+    public Rewards(long rewardId, String reward_name, FrequencyEnum frequency, String description, boolean regenerated, CategoryEnum category, LocalDate start_date, LocalDate end_date, boolean self_nominate, int nominations_allowed, int award_status, Date discontinuingDate, String discontinuingReason, List<RewardsCriteria> criteria, Set<UserInfo> userInfo4) {
         this.rewardId = rewardId;
         this.reward_name = reward_name;
         this.frequency = frequency;
@@ -210,11 +210,11 @@ public class Rewards implements Serializable {
         this.discontinuingReason = discontinuingReason;
     }
 
-    public List<RewardsCriterias> getCriteria() {
+    public List<RewardsCriteria> getCriteria() {
         return criteria;
     }
 
-    public void setCriteria(List<RewardsCriterias> criteria) {
+    public void setCriteria(List<RewardsCriteria> criteria) {
         this.criteria = criteria;
     }
 
@@ -229,21 +229,21 @@ public class Rewards implements Serializable {
 
 
 //
-//    public Set<RewardsCriterias> getRewardsCriterias() {
+//    public Set<RewardsCriteria> getRewardsCriterias() {
 //        return rewardsCriterias;
 //    }
 //
-//    public void setRewardsCriterias(Set<RewardsCriterias> rewardsCriterias) {
+//    public void setRewardsCriterias(Set<RewardsCriteria> rewardsCriterias) {
 //        this.rewardsCriterias = rewardsCriterias;
 //    }
 
 /*
 
-    public Set<RewardsCriterias> getCriterias() {
+    public Set<RewardsCriteria> getCriterias() {
         return criterias;
     }
 
-    public void setCriterias(Set<RewardsCriterias> criterias) {
+    public void setCriterias(Set<RewardsCriteria> criterias) {
         this.criterias = criterias;
     }
 */

@@ -4,7 +4,7 @@ package com.rar.service.impl;
 import com.rar.enums.FrequencyEnum;
 import com.rar.model.Criterias;
 import com.rar.model.Rewards;
-import com.rar.model.RewardsCriterias;
+import com.rar.model.RewardsCriteria;
 import com.rar.repository.RewardsCriteriasRepository;
 import com.rar.repository.RewardsRepository;
 import com.rar.service.RewardsService;
@@ -151,21 +151,21 @@ public class RewardsServiceImpl implements RewardsService {
 
         long id = rewards.getId();
 
-        RewardsCriterias rewardsCriterias=new RewardsCriterias();
+        RewardsCriteria rewardsCriteria =new RewardsCriteria();
         System.out.println(rewards.getCriteria().size());
 
         for(int i = 0; i<rewards.getCriteria().size(); i++){
-            rewardsCriterias = new RewardsCriterias();
+            rewardsCriteria = new RewardsCriteria();
 
-            rewardsCriterias.setRewardId(id);
-            rewardsCriterias.setCriteriaId(rewards.getCriteria().get(i).getCriteriaId());
-            rewardsCriterias.setCompulsory(rewards.getCriteria().get(i).getCompulsory());
+            rewardsCriteria.setRewardId(id);
+            rewardsCriteria.setCriteriaId(rewards.getCriteria().get(i).getCriteriaId());
+            rewardsCriteria.setCompulsory(rewards.getCriteria().get(i).getCompulsory());
 
-            rewardsCriteriasRepository.save(rewardsCriterias);
+            rewardsCriteriasRepository.save(rewardsCriteria);
         }
 
         HashMap<String,Object> s=new HashMap<>();
-        s.put("criterias",rewardsCriterias);
+        s.put("criterias", rewardsCriteria);
         s.put("rewards",rewards);
         Object returnValue=s;
         return ResponseEntity.ok(s);
@@ -186,18 +186,18 @@ public class RewardsServiceImpl implements RewardsService {
 //        System.out.println(reward.getCriterias().size());
 //
 ///*        for(int i=0;i<reward.getCriterias().size();i++){
-//            rewardsCriterias = new RewardsCriterias();
+//            rewardsCriterias = new RewardsCriteria();
 //
 //            rewardsCriterias.setCriterias(reward.getCriterias());
 //
 //        }*/
-//        RewardsCriterias rewardsCriterias;
+//        RewardsCriteria rewardsCriterias;
 //
 //        long id = reward.getId();
 //
-//        for (Iterator<RewardsCriterias> it = reward.getCriterias().iterator(); it.hasNext(); ) {
-//            RewardsCriterias f = it.next();
-//            RewardsCriterias d = new RewardsCriterias();
+//        for (Iterator<RewardsCriteria> it = reward.getCriterias().iterator(); it.hasNext(); ) {
+//            RewardsCriteria f = it.next();
+//            RewardsCriteria d = new RewardsCriteria();
 ////            rewardsCriteriasId = new RewardsCriteriaId();
 //            System.out.println("Reward:" + f.getCriterias().getCriteriaId());
 //
@@ -205,7 +205,7 @@ public class RewardsServiceImpl implements RewardsService {
 //            Rewards r = f.getRewards();
 //            Boolean b = f.getCompulsory();
 //
-//             new RewardsCriterias(r, c, b);
+//             new RewardsCriteria(r, c, b);
 
 //            d.setCriterias(f.getCriterias());
 
@@ -217,10 +217,10 @@ public class RewardsServiceImpl implements RewardsService {
 
 
 //
-//        RewardsCriterias rewardsCriterias = new RewardsCriterias();
+//        RewardsCriteria rewardsCriterias = new RewardsCriteria();
 
         /*for (long i = 0; i < reward.getCriterias().size(); i++) {
-            rewardsCriterias = new RewardsCriterias();
+            rewardsCriterias = new RewardsCriteria();
 
 
             rewardsCriterias.setRewardId(id);

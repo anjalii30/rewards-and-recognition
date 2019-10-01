@@ -2,7 +2,7 @@ package com.rar.utils;
 
 import com.rar.enums.FrequencyEnum;
 import com.rar.model.Rewards;
-import com.rar.model.RewardsCriterias;
+import com.rar.model.RewardsCriteria;
 import com.rar.repository.RewardsCriteriasRepository;
 import com.rar.repository.RewardsRepository;
 import com.rar.service.RewardsService;
@@ -12,7 +12,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -91,12 +90,12 @@ public class ScheduleRewards {
 
                 rewardsService.save(new_reward);
 
-                Set<RewardsCriterias> criterias= rewardsCriteriasRepository.findByRewardId(old_reward.getId());
+                Set<RewardsCriteria> criterias= rewardsCriteriasRepository.findByRewardId(old_reward.getId());
 /*
                 for(int j=0;j<criterias.size();j++)
                 {
-                    RewardsCriterias rewardsCriterias = new RewardsCriterias();
-                    RewardsCriterias rewardsCriterias1=criterias.iterator(j);
+                    RewardsCriteria rewardsCriterias = new RewardsCriteria();
+                    RewardsCriteria rewardsCriterias1=criterias.iterator(j);
 
                     rewardsCriterias.setRewardId(new_reward.getId());
                     rewardsCriterias.setCriteriaId(criterias.get(j)getCriteriaId());
@@ -106,15 +105,15 @@ public class ScheduleRewards {
 
                 }*/
 
-                for (Iterator<RewardsCriterias> it = criterias.iterator(); it.hasNext(); ) {
-                    RewardsCriterias f = it.next();
+                for (Iterator<RewardsCriteria> it = criterias.iterator(); it.hasNext(); ) {
+                    RewardsCriteria f = it.next();
 
-                    RewardsCriterias rewardsCriterias = new RewardsCriterias();
-                    rewardsCriterias.setRewardId(new_reward.getId());
-                    rewardsCriterias.setCriteriaId(f.getCriteriaId());
-                    rewardsCriterias.setCompulsory(f.getCompulsory());
+                    RewardsCriteria rewardsCriteria = new RewardsCriteria();
+                    rewardsCriteria.setRewardId(new_reward.getId());
+                    rewardsCriteria.setCriteriaId(f.getCriteriaId());
+                    rewardsCriteria.setCompulsory(f.getCompulsory());
 
-                    rewardsCriteriasRepository.save(rewardsCriterias);
+                    rewardsCriteriasRepository.save(rewardsCriteria);
 
                 }
 
@@ -178,18 +177,18 @@ public class ScheduleRewards {
 
                 rewardsService.save(new_reward);
 
-                Set<RewardsCriterias> criterias= rewardsCriteriasRepository.findByRewardId(old_reward.getId());
+                Set<RewardsCriteria> criterias= rewardsCriteriasRepository.findByRewardId(old_reward.getId());
 
 
-                for (Iterator<RewardsCriterias> it = criterias.iterator(); it.hasNext(); ) {
-                    RewardsCriterias f = it.next();
+                for (Iterator<RewardsCriteria> it = criterias.iterator(); it.hasNext(); ) {
+                    RewardsCriteria f = it.next();
 
-                    RewardsCriterias rewardsCriterias = new RewardsCriterias();
-                    rewardsCriterias.setRewardId(new_reward.getId());
-                    rewardsCriterias.setCriteriaId(f.getCriteriaId());
-                    rewardsCriterias.setCompulsory(f.getCompulsory());
+                    RewardsCriteria rewardsCriteria = new RewardsCriteria();
+                    rewardsCriteria.setRewardId(new_reward.getId());
+                    rewardsCriteria.setCriteriaId(f.getCriteriaId());
+                    rewardsCriteria.setCompulsory(f.getCompulsory());
 
-                    rewardsCriteriasRepository.save(rewardsCriterias);
+                    rewardsCriteriasRepository.save(rewardsCriteria);
 
                 }
             }
@@ -252,17 +251,17 @@ public class ScheduleRewards {
                 rewardsService.save(new_reward);
 
 
-                Set<RewardsCriterias> criterias= rewardsCriteriasRepository.findByRewardId(old_reward.getId());
+                Set<RewardsCriteria> criterias= rewardsCriteriasRepository.findByRewardId(old_reward.getId());
 
-                for (Iterator<RewardsCriterias> it = criterias.iterator(); it.hasNext(); ) {
-                    RewardsCriterias f = it.next();
+                for (Iterator<RewardsCriteria> it = criterias.iterator(); it.hasNext(); ) {
+                    RewardsCriteria f = it.next();
 
-                    RewardsCriterias rewardsCriterias = new RewardsCriterias();
-                    rewardsCriterias.setRewardId(new_reward.getId());
-                    rewardsCriterias.setCriteriaId(f.getCriteriaId());
-                    rewardsCriterias.setCompulsory(f.getCompulsory());
+                    RewardsCriteria rewardsCriteria = new RewardsCriteria();
+                    rewardsCriteria.setRewardId(new_reward.getId());
+                    rewardsCriteria.setCriteriaId(f.getCriteriaId());
+                    rewardsCriteria.setCompulsory(f.getCompulsory());
 
-                    rewardsCriteriasRepository.save(rewardsCriterias);
+                    rewardsCriteriasRepository.save(rewardsCriteria);
 
                 }
             }

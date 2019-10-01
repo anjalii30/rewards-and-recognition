@@ -7,7 +7,7 @@ import javax.persistence.*;
 @Entity
 @IdClass(RewardsCriteriaId.class)
 @Table(name = "rewards_criteria")
-public class RewardsCriterias{
+public class RewardsCriteria {
 
     @Id
     @Column(name = "reward_id")
@@ -21,14 +21,14 @@ public class RewardsCriterias{
             @JoinColumn(name = "reward_id", referencedColumnName = "reward_id", insertable = false, updatable = false)
     })
     @JsonIgnore
-    Rewards rewards;
+    private Rewards rewards;
 
     @ManyToOne
     @JoinColumns({
             @JoinColumn(name = "criteria_id", referencedColumnName = "criteria_id", insertable = false, updatable = false)
     })
     @JsonIgnore
-    Criterias criteria;
+    private Criterias criteria;
 
 //    @ManyToOne(fetch = FetchType.EAGER)
 //    @MapsId("Reward_Id")
@@ -83,16 +83,16 @@ public class RewardsCriterias{
         isCompulsory = compulsory;
     }
 
-    //    public RewardsCriterias() {
+    //    public RewardsCriteria() {
 //    }
 //
-//    public RewardsCriterias(Rewards rewards, Criterias criterias) {
+//    public RewardsCriteria(Rewards rewards, Criterias criterias) {
 //        this.rewards = rewards;
 //        this.criterias = criterias;
 //        this.id = new RewardsCriteriaId(rewards.getId(), criterias.getCriteriaId());
 //    }
 //
-//    public RewardsCriterias(Rewards rewards, Criterias criterias, Boolean isCompulsory) {
+//    public RewardsCriteria(Rewards rewards, Criterias criterias, Boolean isCompulsory) {
 //        this.rewards = rewards;
 //        this.criterias = criterias;
 //        this.id = new RewardsCriteriaId(rewards.getId(), criterias.getCriteriaId());
@@ -101,7 +101,7 @@ public class RewardsCriterias{
 //    }
 
     /*
-    public RewardsCriterias(Rewards rewards){
+    public RewardsCriteria(Rewards rewards){
         this.id=new RewardsCriteriaId(rewards.getId(),rewards.getCriterias().iterator();
     }*/
 //
@@ -139,7 +139,7 @@ public class RewardsCriterias{
 //
 //    @Override
 //    public String toString() {
-//        return "RewardsCriterias{" +
+//        return "RewardsCriteria{" +
 //                "id=" + id +
 //                ", rewards=" + rewards +
 //                ", criterias=" + criterias +
@@ -155,7 +155,7 @@ public class RewardsCriterias{
 //        if (o == null || getClass() != o.getClass())
 //            return false;
 //
-//        RewardsCriterias that = (RewardsCriterias) o;
+//        RewardsCriteria that = (RewardsCriteria) o;
 //        return Objects.equals(rewards.getId(), that.rewards.getId()) &&
 //                Objects.equals(criterias.getCriteriaId(), that.criterias.getCriteriaId())&&
 //                Objects.equals(isCompulsory, that.isCompulsory);
@@ -172,7 +172,7 @@ public class RewardsCriterias{
 //        if (o == null || getClass() != o.getClass())
 //            return false;
 //
-//        RewardsCriterias that = (RewardsCriterias) o;
+//        RewardsCriteria that = (RewardsCriteria) o;
 //
 //        if (getId() != null ? !getId().equals(that.getId())
 //                : that.getId() != null)

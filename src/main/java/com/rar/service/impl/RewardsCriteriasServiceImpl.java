@@ -2,7 +2,7 @@ package com.rar.service.impl;
 
 
 
-import com.rar.model.RewardsCriterias;
+import com.rar.model.RewardsCriteria;
 import com.rar.repository.RewardsCriteriasRepository;
 import com.rar.service.RewardsCriteriasService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +20,13 @@ public class RewardsCriteriasServiceImpl implements RewardsCriteriasService {
 
 
     @Override
-    public RewardsCriterias save(RewardsCriterias rewardsCriterias) {
-        return rewardsCriteriasRepository.save(rewardsCriterias);
+    public RewardsCriteria save(RewardsCriteria rewardsCriteria) {
+        return rewardsCriteriasRepository.save(rewardsCriteria);
     }
 
     @Override
-    public List<RewardsCriterias> findAll() {
-        return (List<RewardsCriterias>) rewardsCriteriasRepository.findAll();
+    public List<RewardsCriteria> findAll() {
+        return (List<RewardsCriteria>) rewardsCriteriasRepository.findAll();
     }
 
 /*    @Override
@@ -36,7 +36,7 @@ public class RewardsCriteriasServiceImpl implements RewardsCriteriasService {
     }
 
     @Override
-    public Optional<RewardsCriterias> findById(Long rewardid) {
+    public Optional<RewardsCriteria> findById(Long rewardid) {
         return rewardsCriteriasRepository.findById(rewardid);
     }*/
 }

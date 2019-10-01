@@ -1,7 +1,7 @@
 package com.rar.controller;
 
 
-import com.rar.model.RewardsCriterias;
+import com.rar.model.RewardsCriteria;
 import com.rar.service.RewardsCriteriasService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,12 +17,12 @@ public class RewardsCriteriasController {
 
 
     @PostMapping("/saveRewardsCriterias")
-    public RewardsCriterias save(@RequestHeader(value = "Authorization") String token, @RequestBody RewardsCriterias rewardsCriterias){
-        return rewardsCriteriasService.save(rewardsCriterias);
+    public RewardsCriteria save(@RequestHeader(value = "Authorization") String token, @RequestBody RewardsCriteria rewardsCriteria){
+        return rewardsCriteriasService.save(rewardsCriteria);
     }
 
     @GetMapping("/listRewardsCriterias")
-    public List<RewardsCriterias> list(@RequestHeader(value = "Authorization") String token){
+    public List<RewardsCriteria> list(@RequestHeader(value = "Authorization") String token){
         return rewardsCriteriasService.findAll();
     }
 /*
@@ -33,7 +33,7 @@ public class RewardsCriteriasController {
     }
 
     @GetMapping("/listRewardsCriterias/{rewardId}")
-    public Optional<RewardsCriterias> getById(@RequestHeader(value = "Authorization") String token, @PathVariable Long rewardId){
+    public Optional<RewardsCriteria> getById(@RequestHeader(value = "Authorization") String token, @PathVariable Long rewardId){
 
         return rewardsCriteriasService.findById(rewardId);
     }*/

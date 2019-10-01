@@ -1,18 +1,18 @@
 package com.rar.service;
 
 
-import com.rar.model.RewardsCriterias;
+import com.rar.model.RewardsCriteria;
 
 import java.util.List;
 
 public interface RewardsCriteriasService {
 
-  /*  Optional<RewardsCriterias> findById(Long rewardId);*/
+  /*  Optional<RewardsCriteria> findById(Long rewardId);*/
 
-    RewardsCriterias save(RewardsCriterias rewardsCriterias);
+    RewardsCriteria save(RewardsCriteria rewardsCriteria);
 
 
-    List<RewardsCriterias> findAll();
+    List<RewardsCriteria> findAll();
 
  /*   void deleteById(long id);*/
 }
