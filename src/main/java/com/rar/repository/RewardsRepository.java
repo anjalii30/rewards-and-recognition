@@ -26,7 +26,7 @@ public interface RewardsRepository extends CrudRepository<Rewards, Long> {
             nativeQuery=true)
     List<Rewards> findByDiscontinued();
 
-    @Query(value = "Select criterias.criterias_desc from rewards_criterias join rewards on rewards_criterias.reward_id=rewards.reward_id join criterias on rewards_criterias.criteria_id=criterias.criteria_id where rewards.reward_id=?1",
+    @Query(value = "Select criterias.criteria_desc from rewards_criteria join rewards on rewards_criteria.reward_id=rewards.reward_id join criterias on rewards_criterias.criteria_id=criterias.criteria_id where rewards.reward_id=?1",
             nativeQuery=true)
     List<Criterias> giveCriterias(Long id);
 

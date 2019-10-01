@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name="criterias")
+@Table(name="criteria")
 public class Criterias implements Serializable{
 
     @Id
