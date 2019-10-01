@@ -1,24 +1,16 @@
 package com.rar.service;
 
 
+import com.rar.model.NominationPojo;
 import com.rar.model.Nominations;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface NominationsService {
 
-    Optional<Nominations> findById(Long id);
+    ResponseEntity<?> nominationsave(NominationPojo nominationPojo);
 
-    Nominations save(Nominations nominations);
-
-
-    List<Nominations> findAll();
-
-    void deleteById(long id);
-
-
+    List<Nominations> GetData(long rewardID);
 
 }
-
-

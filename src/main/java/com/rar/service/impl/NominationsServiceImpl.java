@@ -1,40 +1,68 @@
 package com.rar.service.impl;
 
-
+import com.rar.model.Evidences;
+import com.rar.model.NominationPojo;
 import com.rar.model.Nominations;
+import com.rar.repository.EvidencesRepository;
 import com.rar.repository.NominationsRepository;
 import com.rar.service.NominationsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
+
 
 @Service
+@Transactional
 public class NominationsServiceImpl implements NominationsService {
 
     @Autowired
     NominationsRepository nominationsRepository;
-
+    @Autowired
+    EvidencesRepository evidencesRepository;
 
     @Override
-    public Nominations save(Nominations nominations) {
-        return nominationsRepository.save(nominations);
+    public ResponseEntity<?> nominationsave(NominationPojo nominationPojo) {
+        Nominations nominations = new Nominations();
+        nominations.setUserID(nominationPojo.getUserId());
+        nominations.setFrequency(nominationPojo.getFrequency());
+        nominations.setRewardID(nominationPojo.getRewardId());
+        nominations.setEndingDate(nominationPojo.getEndingDate());
+        nominations.setStartingDate(nominationPojo.getStartDate());
+        nominations.setProjectName(nominationPojo.getProjectName());
+
+        nominations = nominationsRepository.save(nominations);
+
+        long nominationID = nominations.getNominationID();
+
+
+        Evidences evidences = new Evidences();
+        System.out.println(nominationPojo.getEvidencesPojoList().size());
+
+        for (int i = 0; i < nominationPojo.getEvidencesPojoList().size(); i++) {
+            evidences = new Evidences();
+
+            evidences.setNominationID(nominationID);
+            evidences.setCriterianame(nominationPojo.getEvidencesPojoList().get(i).getCriteriaName());
+            evidences.setEvidences(nominationPojo.getEvidencesPojoList().get(i).getEvidences());
+
+            evidencesRepository.save(evidences);
+        }
+
+
+        HashMap<String, Object> s = new HashMap<>();
+        s.put("evidences", evidences);
+        s.put("nominations", nominations);
+        Object returnValue = s;
+
+        return ResponseEntity.ok(s);
     }
 
     @Override
-    public List<Nominations> findAll() {
-        return (List<Nominations>) nominationsRepository.findAll();
-    }
-
-    @Override
-    public void deleteById(long id) {
-
-        nominationsRepository.deleteById(id);
-    }
-
-    @Override
-    public Optional<Nominations> findById(Long id) {
-        return nominationsRepository.findById(id);
+    public List<Nominations> GetData(long rewardID) {
+        return  nominationsRepository.GetData(rewardID);
     }
 }

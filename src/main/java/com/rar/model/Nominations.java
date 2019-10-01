@@ -1,88 +1,105 @@
 package com.rar.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
-
+import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "nominations")
 public class Nominations implements Serializable {
 
-
     @Id
-    @Column(name = "user_id")
-    private long uid;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "nomination_id")//, updatable = false, nullable = false)
+    private Long nominationID;
+    @Column(name = "project_name")
+    private String projectName;
+    @Column(name = "rewardID")
+    private long rewardID;
+    @Column(name = "User_id")
+    private Long userID;
+    @Column(name = "frequency")
+    private String frequency;
+    @Column(name = "starting_date")
+    private Date startingDate;
+    @Column(name = "ending_date")
+    private Date endingDate;
 
+    @OneToMany(mappedBy = "nominations", cascade = CascadeType.ALL)
+    private
+    List<Evidences> evidencesList;
 
-    @Column(name = "reward_id")
-    private long rewardId;
-
-    @Column (name="disable")
-    private boolean disable=false;
-
-//
-//
-//    //Nominationscriterias
-//
-//    @ManyToMany(fetch = FetchType.LAZY,
-//            cascade = {
-//                    CascadeType.PERSIST,
-//                    CascadeType.MERGE,
-//            },
-//            mappedBy = "nominations")
-//    private Set<Criterias> criterias2 = new HashSet<>();
-//
-
-
-    public Nominations() {
+    public Long getNominationID() {
+        return nominationID;
     }
 
-    public Nominations(long uid, long rewardId) {
-        this.uid = uid;
-        this.rewardId = rewardId;
+    public void setNominationID(Long nominationID) {
+        this.nominationID = nominationID;
     }
 
-    public long getUid() {
-        return uid;
+
+    public long getRewardID() {
+        return rewardID;
     }
 
-    public void setUid(long uid) {
-        this.uid = uid;
+    public void setRewardID(long rewardID) {
+        this.rewardID = rewardID;
     }
 
-    public long getRewardId() {
-        return rewardId;
+    public String getFrequency() {
+        return frequency;
     }
 
-    public void setRewardId(long rewardId) {
-        this.rewardId = rewardId;
+    public void setFrequency(String frequency) {
+        this.frequency = frequency;
     }
 
-    public boolean isDisable() {
-        return disable;
+    public String getProjectName() {
+        return projectName;
     }
 
-    public void setDisable(boolean disable) {
-        this.disable = disable;
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
     }
-//
-//    public Set<Criterias> getCriterias2() {
-//        return criterias2;
-//    }
-//
-//    public void setCriterias2(Set<Criterias> criterias2) {
-//        this.criterias2 = criterias2;
-//    }
 
-    @Override
-    public String toString() {
-        return "Nominations{" +
-//                "nominations_id=" + nominations_id +
-                ", uid=" + uid +
-                ", rewardId=" + rewardId +
-                '}';
+    public Long getUserID() {
+        return userID;
+    }
+
+    public void setUserID(Long userID) {
+        this.userID = userID;
+    }
+
+    public Date getStartingDate() {
+        return startingDate;
+    }
+
+    public void setStartingDate(Date startingDate) {
+        this.startingDate = startingDate;
+    }
+
+    public Date getEndingDate() {
+        return endingDate;
+    }
+
+    public void setEndingDate(Date endingDate) {
+        this.endingDate = endingDate;
+    }
+
+    public List<Evidences> getEvidencesList() {
+        return evidencesList;
+    }
+
+    public void setEvidencesList(List<Evidences> evidencesList) {
+        this.evidencesList = evidencesList;
     }
 }
+
+
+
+
+
+
+
+
