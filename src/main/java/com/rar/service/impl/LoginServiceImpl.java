@@ -21,10 +21,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 @Transactional
@@ -88,10 +85,10 @@ public class LoginServiceImpl implements LoginService {
         System.out.println(imageUrl);
         try {
 
-        Optional<UserInfo> repoEmail = userRepository.findByemail(email);
+        Optional<UserInfo> repoEmail = userRepository.findByEmail(email);
 
 
-        UserInfo userInfo1 = userRepository.findByemail(email).get();
+        UserInfo userInfo1 = userRepository.findByEmail(email).get();
 
 
 
@@ -155,8 +152,8 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List<UserInfo> findAll() {
-        return (List<UserInfo>) userRepository.findAll();
+    public List<Map<String, Object>> findAll() {
+        return  userRepository.findAllUsers();
     }
 
     @Override
@@ -171,9 +168,9 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public void deleteByemail(String email) {
+    public void deleteByEmail(String email) {
 
-        userRepository.deleteByemail(email);
+        userRepository.deleteByEmail(email);
     }
 
     @Override
@@ -182,8 +179,8 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public Optional<UserInfo> findByemail(String email) {
-        return userRepository.findByemail(email);
+    public Optional<UserInfo> findByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 
 

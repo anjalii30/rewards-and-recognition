@@ -13,8 +13,8 @@ public class Evidences {
     @Column(name = "evidenceID")
     private Long evidenceID;
 
-    @Column(name = "criterianame")
-    private Long criterianame;
+    @Column(name = "criteria_name")
+    private Long criteriaName;
 
     @Column(name = "evidence",length = 2147483000)
     private String evidences;
@@ -27,7 +27,7 @@ public class Evidences {
             @JoinColumn(name = "nomination_id", referencedColumnName = "nomination_id", insertable = false, updatable = false)
     })
     @JsonIgnore
-    Nominations nominations;
+    private Nominations nominations;
 
     public Long getEvidenceID() {
         return evidenceID;
@@ -37,12 +37,12 @@ public class Evidences {
         this.evidenceID = evidenceID;
     }
 
-    public Long getCriterianame() {
-        return criterianame;
+    public Long getCriteriaName() {
+        return criteriaName;
     }
 
-    public void setCriterianame(Long criterianame) {
-        this.criterianame = criterianame;
+    public void setCriteriaName(Long criteriaName) {
+        this.criteriaName = criteriaName;
     }
 
     public String getEvidences() {

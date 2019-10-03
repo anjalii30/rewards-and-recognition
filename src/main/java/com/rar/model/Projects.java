@@ -1,7 +1,7 @@
 package com.rar.model;
 
 
-import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -20,6 +20,7 @@ public class Projects {
     private String project_name;
 
 
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
                     CascadeType.PERSIST,
@@ -28,6 +29,7 @@ public class Projects {
             mappedBy = "projects")
 
     private Set<UserInfo> userInfo = new HashSet<>();
+
 
     public Projects() {
     }

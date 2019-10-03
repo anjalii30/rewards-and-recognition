@@ -7,6 +7,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Map;
+
 @Repository
 public interface ProjectRepository  extends JpaRepository<Projects,Long> {
 
@@ -20,6 +23,15 @@ public interface ProjectRepository  extends JpaRepository<Projects,Long> {
 
     @Modifying
     @Transactional
-    @Query(value="update  user_projects  set project_id=?2 where user_id=?1)",nativeQuery = true)
-    void updateAssign(Long user_id, Long project_id);
+    @Query(value="delete from user_projects  where user_id=?1 and project_id=?2)",nativeQuery = true)
+    void delete(Long user_id, Long project_id);
+
+    @Query(value="select email,name from users where user_id in (select user_id from user_projects where project_id=?1)",nativeQuery = true)
+    List getUsersById(Long project_id);
+
+    @Query(value="select email, name from users where user_id not in (select user_id from user_projects where project_id=?1)",nativeQuery = true)
+    List findNotInId(Long project_id);
+
+    @Query(value="select *  from projects",nativeQuery = true)
+    List<Map<String,Object>> findAllData();
 }

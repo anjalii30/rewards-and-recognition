@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 // don't know
@@ -35,7 +36,7 @@ public class LoginController {
 
 
     @GetMapping("/listUsers")
-    public List<UserInfo> listUser(@RequestHeader(value = "Authorization") String token){
+    public List<Map<String,Object>> listUser(@RequestHeader(value = "Authorization") String token){
         return loginService.findAll();
     }
 
@@ -46,8 +47,8 @@ public class LoginController {
     }
 
     @GetMapping("/listUsersByEmail/{email}")
-    public Optional<UserInfo> findByemail(String email) {
-        return loginService.findByemail(email);
+    public Optional<UserInfo> findByEmail(String email) {
+        return loginService.findByEmail(email);
     }
 
     @DeleteMapping("/deleteUsers/{id}")

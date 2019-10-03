@@ -5,6 +5,7 @@ package com.rar.service;
 import com.rar.model.UserInfo;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface LoginService {
@@ -13,15 +14,15 @@ public interface LoginService {
 
     Optional<UserInfo> findById(Long id);
 
-    Optional<UserInfo> findByemail(String email);
+    Optional<UserInfo> findByEmail(String email);
 
     UserInfo saveLogin(UserInfo userInfo);
 
-    List<UserInfo> findAll();
+    List<Map<String, Object>> findAll();
 
     void deleteById(Long id);
 
-    void deleteByemail(String email);
+    void deleteByEmail(String email);
 
 
     Long getIdByName(String user_email) throws Exception;

@@ -46,7 +46,7 @@ public class NominationsServiceImpl implements NominationsService {
             evidences = new Evidences();
 
             evidences.setNominationID(nominationID);
-            evidences.setCriterianame(nominationPojo.getEvidencesPojoList().get(i).getCriteriaName());
+            evidences.setCriteriaName(nominationPojo.getEvidencesPojoList().get(i).getCriteriaName());
             evidences.setEvidences(nominationPojo.getEvidencesPojoList().get(i).getEvidences());
 
             evidencesRepository.save(evidences);
