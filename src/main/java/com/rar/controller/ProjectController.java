@@ -39,7 +39,7 @@ public class ProjectController {
         return  projectService.findAllData();
     }
 
-    @GetMapping("/listAssignedUsers")
+    @PostMapping("/listAssignedUsers")
     public List UsersForProject(@RequestHeader(value = "Authorization") String token,@RequestBody Projects project_name) throws Exception {
         String email=validity.check(token);
         Long project_id = projectService.getIdByProject(project_name.getProject_name());
