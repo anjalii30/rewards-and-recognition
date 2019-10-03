@@ -1,12 +1,14 @@
 package com.rar.repository;
 
 import com.rar.model.Projects;
+import com.rar.model.UserInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -27,7 +29,7 @@ public interface ProjectRepository  extends JpaRepository<Projects,Long> {
     void delete(Long user_id, Long project_id);
 
     @Query(value="select email,name from users where user_id in (select user_id from user_projects where project_id=?1)",nativeQuery = true)
-    List getUsersById(Long project_id);
+    Object[] getUsersById(Long project_id);
 
     @Query(value="select email, name from users where user_id not in (select user_id from user_projects where project_id=?1)",nativeQuery = true)
     List findNotInId(Long project_id);

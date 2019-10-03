@@ -4,7 +4,6 @@ import com.rar.model.Projects;
 import com.rar.model.UserInfo;
 import com.rar.model.UserProjects;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -19,7 +18,7 @@ public interface ProjectService {
 
     void deleteUserFromproject(UserProjects userProjects);
 
-    List findById(Long project_id);
+   Object[] findById(Long project_id);
 
     List findNotInId(Long project_id);
 
