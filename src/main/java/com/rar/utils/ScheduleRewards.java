@@ -1,5 +1,6 @@
 package com.rar.utils;
 
+import antlr.StringUtils;
 import com.rar.enums.FrequencyEnum;
 import com.rar.model.Rewards;
 import com.rar.model.RewardsCriteria;
@@ -61,6 +62,10 @@ public class ScheduleRewards {
             Calendar cal = Calendar.getInstance();
             String month = monthName[cal.get(Calendar.MONTH)];
             String month1=monthName[cal.get(Calendar.MONTH)+1];
+            String currentYear = String.valueOf(cal.get(Calendar.YEAR));
+            String year =String.valueOf(cal.get(Calendar.YEAR)-1);
+
+
 
 
 
@@ -72,7 +77,12 @@ public class ScheduleRewards {
 
                 String rName1 = old_reward.getReward_name();
 
-                String replaceString=rName1.replaceFirst(month,month1);
+              /*  String replaceString=str;
+                        replaceString=rName1.replaceFirst(month,month1);
+                 replaceString=rName1.replaceFirst(year,currentYear);*/
+
+                String replaceString = rName1.replaceAll(month,month1).replaceAll(year,currentYear);
+
 
 
                 new_reward.setReward_name(replaceString);

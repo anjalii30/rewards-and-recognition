@@ -146,7 +146,7 @@ public class RewardsServiceImpl implements RewardsService {
             rewards.setReward_name(rewards.getReward_name()+" for year " + year);
 
         else
-            rewards.setReward_name(rewards.getReward_name()+" for month " + month);
+            rewards.setReward_name(rewards.getReward_name()+" for " + month + " " + year);
 
         Rewards rewardData= save(rewards);
 
