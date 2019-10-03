@@ -1,6 +1,8 @@
 package com.rar.model;
 
 
+import org.codehaus.jackson.annotate.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -27,6 +29,8 @@ public class Projects {
 
     private Set<UserInfo> userInfo = new HashSet<>();
 
+    public Projects() {
+    }
 
     public Projects(Long project_id, String project_name, Set<UserInfo> userInfo) {
         this.project_id = project_id;

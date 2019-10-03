@@ -2,6 +2,7 @@ package com.rar.model;
 
 import com.rar.enums.DesignationEnum;
 import com.rar.enums.RoleEnum;
+import org.codehaus.jackson.annotate.JsonManagedReference;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;

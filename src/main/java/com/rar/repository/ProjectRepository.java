@@ -17,4 +17,9 @@ public interface ProjectRepository  extends JpaRepository<Projects,Long> {
 
     @Query(value="select project_id from projects where project_name=?1", nativeQuery = true)
     Long getIdByName(String project_name);
+
+    @Modifying
+    @Transactional
+    @Query(value="update  user_projects  set project_id=?2 where user_id=?1)",nativeQuery = true)
+    void updateAssign(Long user_id, Long project_id);
 }

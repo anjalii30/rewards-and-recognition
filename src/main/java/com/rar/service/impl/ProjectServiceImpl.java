@@ -34,8 +34,9 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public List<Projects> findAll() {
-        return (List<Projects>) projectRepository.findAll();
+    public List findAll() {
+
+        return  projectRepository.findAll();
     }
 
     @Override
@@ -60,5 +61,26 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public Long getIdByProject(String project_name)  {
         return projectRepository.getIdByName(project_name);
+    }
+
+    @Override
+    public void updateAssign(UserProjects userProjects) {
+
+
+        try {
+            Long user_id = loginService.getIdByName(userProjects.getUser_email());
+
+            Long project_id = projectService.getIdByProject(userProjects.getProject_name());
+
+
+            projectRepository.updateAssign(user_id, project_id);
+
+        } catch (Exception e) {
+
+            throw new InvalidProjectException("Either employee or project is invalid...!!");
+
+        }
+
+
     }
 }
