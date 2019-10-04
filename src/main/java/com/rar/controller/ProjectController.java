@@ -47,7 +47,7 @@ public class ProjectController {
 
     }
 
-    @GetMapping("/listNotAssigned")
+    @PostMapping("/listNotAssigned")
     public List UsersNotInProject(@RequestHeader(value = "Authorization") String token,@RequestBody Projects project_name) throws Exception {
         String email = validity.check(token);
         Long project_id = projectService.getIdByProject(project_name.getProject_name());
@@ -60,15 +60,18 @@ public class ProjectController {
     public void assignProjects(@RequestHeader(value = "Authorization") String token, @RequestBody UserProjects userProjects) throws Exception {
         String email=validity.check(token);
 
-        projectService.assign(userProjects);
+          projectService.assign(userProjects);
+
+
+
 
     }
     @DeleteMapping("/deleteFromProject")
-    public ResponseEntity deleteUserFromProject(@RequestHeader(value = "Authorization") String token, @RequestBody UserProjects userProjects) throws Exception{
+    public ResponseEntity deleteUserFromProject(@RequestHeader(value = "Authorization") String token, @RequestBody UserProjects userProjects) throws Exception {
 
         String email=validity.check(token);
 
-        projectService.deleteUserFromproject(userProjects);
+        projectService.deleteUserFromProject(userProjects);
 
         return ResponseEntity.ok( "User deleted from " + userProjects.getProject_name());
 

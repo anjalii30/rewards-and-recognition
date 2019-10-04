@@ -2,12 +2,12 @@ package com.rar.service.impl;
 
 import com.rar.exception.InvalidProjectException;
 import com.rar.model.Projects;
-import com.rar.model.UserInfo;
 import com.rar.model.UserProjects;
 import com.rar.repository.ProjectRepository;
 import com.rar.service.LoginService;
 import com.rar.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,7 +37,7 @@ public class ProjectServiceImpl implements ProjectService {
 
 
     @Override
-    public void assign(UserProjects userProjects)  {
+    public void assign(UserProjects userProjects) throws Exception {
 
         try {
 
@@ -61,39 +61,42 @@ public class ProjectServiceImpl implements ProjectService {
 
         }
 
+
     }
 
     @Override
-    public Long getIdByProject(String project_name)  {
+    public Long getIdByProject(String project_name) throws Exception {
 
         return projectRepository.getIdByName(project_name);
     }
 
     @Override
-    public void deleteUserFromproject(UserProjects userProjects) {
+    public void deleteUserFromProject(UserProjects userProjects) {
 
-        try {
+         try {
 
-            String[] employees = userProjects.getUser_email();
+        String[] employees = userProjects.getUser_email();
 
-            for(int i=0; i<employees.length;i++) {
-
-
-                String user_name=employees[i];
-
-                Long user_id = loginService.getIdByName(user_name);
-
-                Long project_id = projectService.getIdByProject(userProjects.getProject_name());
+        for (int i = 0; i < employees.length; i++) {
 
 
+            String user_name = employees[i];
 
-                projectRepository.delete(user_id, project_id);
-            }
+            Long user_id = loginService.getIdByName(user_name);
+            System.out.println(user_id);
+
+            Long project_id = projectService.getIdByProject(userProjects.getProject_name());
+            System.out.println(project_id);
+
+
+            projectRepository.deleteUser(user_id, project_id);
+        }
         } catch (Exception e) {
 
             throw new InvalidProjectException("Either employee or project is invalid...!!");
 
         }
+
 
 
     }

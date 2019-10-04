@@ -1,8 +1,8 @@
 package com.rar.service;
 
 import com.rar.model.Projects;
-import com.rar.model.UserInfo;
 import com.rar.model.UserProjects;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 import java.util.Map;
@@ -16,7 +16,7 @@ public interface ProjectService {
 
     Long getIdByProject(String project_name) throws Exception;
 
-    void deleteUserFromproject(UserProjects userProjects);
+    void deleteUserFromProject(UserProjects userProjects);
 
    Object[] findById(Long project_id);
 
