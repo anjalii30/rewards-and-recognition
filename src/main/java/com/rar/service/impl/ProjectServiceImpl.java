@@ -7,7 +7,6 @@ import com.rar.repository.ProjectRepository;
 import com.rar.service.LoginService;
 import com.rar.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -97,8 +96,6 @@ public class ProjectServiceImpl implements ProjectService {
 
         }
 
-
-
     }
 
     @Override
@@ -115,6 +112,5 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public List<Map<String,Object>> findAllData() {
         return projectRepository.findAllData();
-        //return null;
     }
 }

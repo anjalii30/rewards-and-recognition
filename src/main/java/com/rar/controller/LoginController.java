@@ -47,7 +47,7 @@ public class LoginController {
     }
 
     @GetMapping("/listUsersByEmail/{email}")
-    public Optional<UserInfo> findByEmail(String email) {
+    public Optional<UserInfo> findByEmail(@RequestHeader(value = "Authorization") String token ,String email) {
         return loginService.findByEmail(email);
     }
 

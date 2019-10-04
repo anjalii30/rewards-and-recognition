@@ -23,13 +23,13 @@ public class NominationController {
 
 
     @PostMapping("/save_nomination")
-    public ResponseEntity<?> nominationSave(@RequestBody NominationPojo nominationPojo) {
+    public ResponseEntity<?> nominationSave(@RequestHeader(value = "Authorization") String token ,@RequestBody NominationPojo nominationPojo) {
          nominationsService.nominationsave(nominationPojo);
          return ResponseEntity.ok(nominationPojo);
     }
 
     @GetMapping("/show_nomination")
-    public List<Nominations> show(@RequestBody Map<String,Long> rewardID){
+    public List<Nominations> show(@RequestHeader(value = "Authorization") String token ,@RequestBody Map<String,Long> rewardID){
         return nominationsService.GetData(rewardID.get("rewardID"));
     }
 }

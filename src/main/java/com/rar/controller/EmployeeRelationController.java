@@ -33,8 +33,7 @@ public class EmployeeRelationController {
     }
 
     @GetMapping("/listemp/{id}")
-    public Optional<EmployeeRelation> getById(@RequestHeader(value = "Authorization")
-                                                          String token, @PathVariable Long id){
+    public Optional<EmployeeRelation> getById(@RequestHeader(value = "Authorization") String token, @PathVariable Long id){
 
         return employeeRelationService.findById(id);
     }

@@ -2,7 +2,6 @@ package com.rar.service;
 
 import com.rar.model.Projects;
 import com.rar.model.UserProjects;
-import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 import java.util.Map;

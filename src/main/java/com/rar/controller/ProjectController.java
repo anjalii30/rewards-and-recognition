@@ -61,11 +61,8 @@ public class ProjectController {
         String email=validity.check(token);
 
           projectService.assign(userProjects);
-
-
-
-
     }
+
     @DeleteMapping("/deleteFromProject")
     public ResponseEntity deleteUserFromProject(@RequestHeader(value = "Authorization") String token, @RequestBody UserProjects userProjects) throws Exception {
 
