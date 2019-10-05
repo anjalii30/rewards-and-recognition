@@ -2,6 +2,7 @@ package com.rar.service;
 
 import com.rar.model.Projects;
 import com.rar.model.UserProjects;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 import java.util.Map;
@@ -19,7 +20,9 @@ public interface ProjectService {
 
    Object[] findById(Long project_id);
 
-    List findNotInId(Long project_id);
+    Object[] findNotInId(Long project_id);
 
     List<Map<String,Object>> findAllData();
+
+    Object[] unAssigned();
 }

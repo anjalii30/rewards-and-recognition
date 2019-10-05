@@ -7,6 +7,8 @@ import com.rar.repository.ProjectRepository;
 import com.rar.service.LoginService;
 import com.rar.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,8 +28,6 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Autowired
     private ProjectService projectService;
-
-
 
     @Override
     public Projects projectSave(Projects projects) {
@@ -100,17 +100,32 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public Object[] findById(Long project_id) {
+
+        if(project_id==4)
+            return projectRepository.unAssignedUsers();
+        else
         return projectRepository.getUsersById(project_id);
 
     }
 
     @Override
-    public List findNotInId(Long project_id) {
-        return projectRepository.findNotInId(project_id);
+    public Object[] findNotInId(Long project_id) {
+
+        /*if(project_id==4)
+            return  null;
+        else*/
+            return (Object[]) projectRepository.findNotInId(project_id);
     }
 
     @Override
     public List<Map<String,Object>> findAllData() {
         return projectRepository.findAllData();
     }
+
+    @Override
+    public Object[] unAssigned() {
+        return projectRepository.unAssignedUsers();
+    }
+
+
 }
