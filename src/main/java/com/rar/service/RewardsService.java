@@ -1,8 +1,6 @@
 package com.rar.service;
 
-import com.rar.model.Criterias;
 import com.rar.model.Rewards;
-
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
@@ -18,7 +16,7 @@ public interface RewardsService {
 
     Optional<Rewards> findById(Long id);
 
-    List<Criterias> getCriteria(Long id);
+  /*  List<Criterias> getCriteria(Long id);*/
 
     Rewards save(Rewards rewards);
 

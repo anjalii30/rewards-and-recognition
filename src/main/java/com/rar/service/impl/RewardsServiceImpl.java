@@ -2,7 +2,6 @@ package com.rar.service.impl;
 
 
 import com.rar.enums.FrequencyEnum;
-import com.rar.model.Criterias;
 import com.rar.model.Rewards;
 import com.rar.model.RewardsCriteria;
 import com.rar.repository.RewardsCriteriaRepository;
@@ -60,12 +59,12 @@ public class RewardsServiceImpl implements RewardsService {
     public Optional<Rewards> findById(Long id) {
         return rewardsRepository.findById(id);
     }
-
+/*
     @Override
     public List<Criterias> getCriteria(Long id){
 
         return rewardsRepository.getCriteria(id);
-    }
+    }*/
 
     @Override
     public List<Rewards> findByDiscontinued() {
@@ -168,7 +167,6 @@ public class RewardsServiceImpl implements RewardsService {
         HashMap<String,Object> s=new HashMap<>();
         s.put("criteria", rewardsCriteria);
         s.put("rewards",rewards);
-        Object returnValue=s;
         return ResponseEntity.ok(s);
     }
 /*
