@@ -15,7 +15,7 @@ public class Nominations implements Serializable {
     private Long nominationID;
     @Column(name = "project_name")
     private String projectName;
-    @Column(name = "rewardID")
+    @Column(name = "reward_id")
     private long rewardID;
     @Column(name = "User_id")
     private Long userID;
