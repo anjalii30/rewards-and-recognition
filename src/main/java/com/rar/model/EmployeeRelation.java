@@ -20,6 +20,7 @@ public class EmployeeRelation implements Serializable {
     @Column(name="manager_email",nullable = false)
     private String manager_email;
 
+    
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
                     CascadeType.PERSIST,
