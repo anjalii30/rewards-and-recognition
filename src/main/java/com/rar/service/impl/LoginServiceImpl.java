@@ -2,6 +2,7 @@ package com.rar.service.impl;
 
 import com.rar.exception.InvalidTokenException;
 import com.rar.exception.InvalidUserException;
+import com.rar.model.LoginUserDetails;
 import com.rar.model.UserInfo;
 import com.rar.repository.UserRepository;
 import com.rar.service.LoginService;
@@ -40,7 +41,7 @@ public class LoginServiceImpl implements LoginService {
     public static final long JWT_TOKEN_VALIDITY = 5 * 60 * 60;
 
 
-    public String login(String token) throws Exception {
+    public LoginUserDetails login(String token) throws Exception {
 
 
         //google token decryption
@@ -85,10 +86,10 @@ public class LoginServiceImpl implements LoginService {
         System.out.println(imageUrl);
         try {
 
-        Optional<UserInfo> repoEmail = userRepository.findByEmail(email);
+            Optional<UserInfo> repoEmail = userRepository.findByEmail(email);
 
 
-        UserInfo userInfo1 = userRepository.findByEmail(email).get();
+            UserInfo userInfo1 = userRepository.findByEmail(email).get();
 
 
 
@@ -108,7 +109,7 @@ public class LoginServiceImpl implements LoginService {
                             .signWith(SignatureAlgorithm.HS512, secret)
                             .compact();
 
-                    return generatedToken;
+                    return new LoginUserDetails(userInfo1.getEmail()+"",userInfo1.getName()+"",userInfo1.getImageUrl()+"",""+generatedToken);
 
                 } else {
 
@@ -118,7 +119,8 @@ public class LoginServiceImpl implements LoginService {
                             .signWith(SignatureAlgorithm.HS512, secret)
                             .compact();
 
-                    return generatedToken;
+                    return new LoginUserDetails(userInfo1.getEmail()+"",userInfo1.getName()+"",userInfo1.getImageUrl()+"",""+generatedToken);
+
                 }
                 //user already exists
             }
@@ -134,6 +136,7 @@ public class LoginServiceImpl implements LoginService {
             throw new InvalidUserException("you are not a user till now");
 
         }
+        LoginUserDetails details1=new LoginUserDetails();
        /*JSONObject reply = new JSONObject();
         //reply.put("googleId",googleId);
         reply.put("email",email);
@@ -142,7 +145,7 @@ public class LoginServiceImpl implements LoginService {
 
         //System.out.println(email +" is the email and Google Id is "+ googleId);
         return reply.toJSONString();*/
-        return "sdsad";
+        return details1;
     }
 
 

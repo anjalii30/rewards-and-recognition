@@ -10,7 +10,7 @@ import java.util.Optional;
 
 public interface LoginService {
 
-    String login(String token) throws Exception;
+    public Object login(String token) throws Exception;
 
     Optional<UserInfo> findById(Long id);
 
