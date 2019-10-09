@@ -24,8 +24,8 @@ public class RewardsController {
 
 
     @PostMapping("/save")
-    public ResponseEntity<?> save(@RequestHeader(value = "Authorization") String token , @RequestBody Rewards rewards) throws Exception{
-        String email=validity.check(token);
+    public ResponseEntity<?> save(/*@RequestHeader(value = "Authorization") String token ,*/ @RequestBody Rewards rewards) throws Exception{
+        //String email=validity.check(token);
        return rewardsService.rewardsSave(rewards);
     }
 
@@ -42,8 +42,8 @@ public class RewardsController {
     }
 
     @GetMapping("/listRewards")
-    public List<Rewards> list(@RequestHeader(value = "Authorization") String token){
-        String email=validity.check(token);
+    public List<Rewards> list(/*@RequestHeader(value = "Authorization") String token*/){
+        //String email=validity.check(token);
         return rewardsService.findAll();
     }
 

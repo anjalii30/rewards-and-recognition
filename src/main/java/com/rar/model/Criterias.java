@@ -24,6 +24,7 @@ public class Criterias implements Serializable{
             mappedBy = "criteria")
     private List<RewardsCriteria> rewards = new ArrayList<>();
 
+
     public List<RewardsCriteria> getRewards() {
         return rewards;
     }
@@ -31,6 +32,7 @@ public class Criterias implements Serializable{
     public void setRewards(List<RewardsCriteria> rewards) {
         this.rewards = rewards;
     }
+
 
 //
 //    //rewards
