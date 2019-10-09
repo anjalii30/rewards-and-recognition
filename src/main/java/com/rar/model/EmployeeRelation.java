@@ -1,7 +1,5 @@
 package com.rar.model;
 
-import com.rar.enums.DesignationEnum;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -22,7 +20,7 @@ public class EmployeeRelation implements Serializable {
     @Column(name="manager_email",nullable = false)
     private String manager_email;
 
-
+    
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
                     CascadeType.PERSIST,
