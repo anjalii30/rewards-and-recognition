@@ -1,5 +1,7 @@
 package com.rar.model;
 
+import com.rar.enums.DesignationEnum;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -19,6 +21,11 @@ public class EmployeeRelation implements Serializable {
 
     @Column(name="manager_email",nullable = false)
     private String manager_email;
+
+    @Column(name="manager_designation",nullable = false)
+    @Enumerated(EnumType.STRING)
+    private DesignationEnum manager_designation;
+
 
 
     @ManyToMany(fetch = FetchType.LAZY,
@@ -43,8 +50,8 @@ public class EmployeeRelation implements Serializable {
         return ERid;
     }
 
-    public void setId(long erid) {
-        this.ERid = erid;
+    public void setId(long ERid) {
+        this.ERid = ERid;
     }
 
     public String getManager_email() {
