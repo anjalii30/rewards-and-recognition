@@ -150,7 +150,7 @@ public class RewardsServiceImpl implements RewardsService {
 
         Rewards rewardData= save(rewards);
 
-        long id = rewards.getId();
+        long id = rewards.getRewardId();
 
         RewardsCriteria rewardsCriteria =new RewardsCriteria();
         System.out.println(rewards.getCriteria().size());
@@ -166,9 +166,8 @@ public class RewardsServiceImpl implements RewardsService {
         }
 
         HashMap<String,Object> s=new HashMap<>();
-        s.put("criterias", rewardsCriteria);
+        s.put("criteria", rewardsCriteria);
         s.put("rewards",rewards);
-        Object returnValue=s;
         return ResponseEntity.ok(s);
     }
 /*

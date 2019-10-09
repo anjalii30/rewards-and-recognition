@@ -17,24 +17,24 @@ public class DesignationController {
     @Autowired
     private DesignationService designationService;
 
-    @PostMapping("/savedesignation")
+    @PostMapping("/saveDesignation")
     public Designation save(@RequestHeader(value = "Authorization") String token, @RequestBody Designation designation){
         return designationService.save(designation);
     }
 
-    @GetMapping("/listdesignation")
+    @GetMapping("/listDesignation")
     public List<Designation> list(@RequestHeader(value = "Authorization") String token){
         return designationService.findAll();
     }
 
 
-    @DeleteMapping("/deletedesignation/{id}")
+    @DeleteMapping("/deleteDesignation/{id}")
     public String delete(@RequestHeader(value = "Authorization") String token, @PathVariable long id){
         designationService.deleteById(id);
         return "Deleted Successfully";
     }
 
-    @GetMapping("/listdesignation/{id}")
+    @GetMapping("/listDesignation/{id}")
     public Optional<Designation> getById(@RequestHeader(value = "Authorization") String token, @PathVariable Long id){
 
         return designationService.findById(id);
