@@ -34,7 +34,6 @@ public class Rewards implements Serializable {
     @Column
     private boolean regenerated=true;
 
-
     @Column
     @Enumerated(EnumType.STRING)
     private CategoryEnum category;
@@ -44,7 +43,6 @@ public class Rewards implements Serializable {
 
     @Column
     private LocalDate end_date;
-
 
     @Column
     private boolean self_nominate;
