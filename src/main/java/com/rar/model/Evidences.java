@@ -22,6 +22,9 @@ public class Evidences {
     @Column(name = "nomination_id")
     private Long nominationID;
 
+    @Column(name = "text_evidence", length = 214783000)
+    private String text_evidence;
+
     @ManyToOne
     @JoinColumns({
             @JoinColumn(name = "nomination_id", referencedColumnName = "nomination_id", insertable = false, updatable = false)
@@ -69,4 +72,11 @@ public class Evidences {
         this.nominations = nominations;
     }
 
+    public String getText_evidence() {
+        return text_evidence;
+    }
+
+    public void setText_evidence(String text_evidence) {
+        this.text_evidence = text_evidence;
+    }
 }
