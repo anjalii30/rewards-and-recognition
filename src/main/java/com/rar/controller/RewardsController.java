@@ -1,6 +1,5 @@
 package com.rar.controller;
 
-import com.rar.model.Criterias;
 import com.rar.model.Rewards;
 import com.rar.service.RewardsService;
 import com.rar.utils.CheckValidity;
@@ -52,12 +51,12 @@ public class RewardsController {
         String email=validity.check(token);
         return rewardsService.findById(id);
     }
-
+/*
     @GetMapping("/listCriteria/{id}")
     public List<Criterias> getCriteria(@RequestHeader(value = "Authorization") String token, @PathVariable Long id){
         String email=validity.check(token);
         return rewardsService.getCriteria(id);
-    }
+    }*/
 
 
     @DeleteMapping("/deleteRewards/{id}")
