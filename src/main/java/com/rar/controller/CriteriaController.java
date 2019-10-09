@@ -2,7 +2,7 @@ package com.rar.controller;
 
 
 import com.rar.model.Criterias;
-import com.rar.service.CriteriasService;
+import com.rar.service.CriteriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,31 +11,31 @@ import java.util.Optional;
 
 @CrossOrigin
 @RestController
-public class CriteriasController {
+public class CriteriaController {
 
     @Autowired
-    private CriteriasService criteriasService;
+    private CriteriaService criteriaService;
 
-    @PostMapping("/saveCriterias")
+    @PostMapping("/saveCriteria")
     public Criterias save(@RequestHeader(value = "Authorization") String token, @RequestBody Criterias criterias){
-        return criteriasService.saveCriteria(criterias);
+        return criteriaService.saveCriteria(criterias);
     }
 
-    @GetMapping("/listCriterias")
+    @GetMapping("/listCriteria")
     public List<Criterias> list(@RequestHeader(value = "Authorization") String token){
-        return criteriasService.findAll();
+        return criteriaService.findAll();
     }
 
-    @DeleteMapping("/deleteCriterias/{id}")
+    @DeleteMapping("/deleteCriteria/{id}")
     public String delete(@RequestHeader(value = "Authorization") String token, @PathVariable long id){
-        criteriasService.deleteById(id);
+        criteriaService.deleteById(id);
         return "Deleted Successfully";
     }
 
-    @GetMapping("/listCriterias/{id}")
+    @GetMapping("/listCriterion/{id}")
     public Optional<Criterias> getById(@RequestHeader(value = "Authorization") String token, @PathVariable Long id){
 
-        return criteriasService.findById(id);
+        return criteriaService.findById(id);
     }
 
 }

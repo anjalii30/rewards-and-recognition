@@ -6,6 +6,7 @@ import com.rar.model.UserProjects;
 import com.rar.service.ProjectService;
 import com.rar.utils.CheckValidity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,7 +34,7 @@ public class ProjectController {
         return projectService.projectSave(projects);
     }
 
-    @GetMapping("/listProjects")
+    @GetMapping(value = "/listProjects", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Map<String,Object>> list(@RequestHeader(value = "Authorization") String token){
         String email=validity.check(token);
         return  projectService.findAllData();

@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @Service
@@ -25,7 +26,7 @@ public class NominationsServiceImpl implements NominationsService {
     EvidencesRepository evidencesRepository;
 
     @Override
-    public ResponseEntity<?> nominationsave(NominationPojo nominationPojo) {
+    public ResponseEntity<?> nominationSave(NominationPojo nominationPojo) {
         Nominations nominations = new Nominations();
         nominations.setUserID(nominationPojo.getUserId());
         nominations.setFrequency(nominationPojo.getFrequency());
@@ -62,7 +63,7 @@ public class NominationsServiceImpl implements NominationsService {
     }
 
     @Override
-    public List<Nominations> GetData(long rewardID) {
+    public List<Nominations> GetData(Map<String, Long> rewardID) {
         return  nominationsRepository.GetData(rewardID);
     }
 }

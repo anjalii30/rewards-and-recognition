@@ -4,6 +4,8 @@ import com.rar.model.UserInfo;
 import com.rar.service.LoginService;
 import com.rar.utils.CheckValidity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,10 +13,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-// don't know
+
 @CrossOrigin
 @RestController
-public class LoginController {
+
+public class LoginController{
 
     @Autowired
     private LoginService loginService;
@@ -58,13 +61,16 @@ public class LoginController {
     }
 
 
-    @GetMapping("/hey")
-    public String hey(@RequestHeader(value = "Authorization") String token) throws Exception {
+    @GetMapping(value = "/hey", produces = MediaType.APPLICATION_JSON_VALUE)
+
+    public @ResponseBody String hey(@RequestHeader(value = "Authorization") String token) throws Exception {
+
 
         String email=validity.check(token);
         return "Hii, You have successfully logged in..!!";
 
 
     }
+
 
 }

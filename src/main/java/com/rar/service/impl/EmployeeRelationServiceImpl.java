@@ -16,7 +16,7 @@ import java.util.Optional;
 public class EmployeeRelationServiceImpl implements EmployeeRelationService {
 
     @Autowired
-    EmployeeRelationRepository employeeRelationRepository;
+    private EmployeeRelationRepository employeeRelationRepository;
 
     @Override
     public EmployeeRelation save(EmployeeRelation employeeRelation) {

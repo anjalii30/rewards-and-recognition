@@ -5,7 +5,7 @@ import com.rar.model.Criterias;
 import java.util.List;
 import java.util.Optional;
 
-public interface CriteriasService {
+public interface CriteriaService {
 
 
     Optional<Criterias> findById(Long id);

@@ -19,17 +19,17 @@ import java.util.Map;
 public class NominationController {
 
     @Autowired
-    NominationsService nominationsService;
+    private NominationsService nominationsService;
 
 
-    @PostMapping("/save_nomination")
+    @PostMapping("/saveNomination")
     public ResponseEntity<?> nominationSave(@RequestHeader(value = "Authorization") String token ,@RequestBody NominationPojo nominationPojo) {
-         nominationsService.nominationsave(nominationPojo);
+         nominationsService.nominationSave(nominationPojo);
          return ResponseEntity.ok(nominationPojo);
     }
 
-    @GetMapping("/show_nomination")
+    @GetMapping("/showNomination")
     public List<Nominations> show(@RequestHeader(value = "Authorization") String token ,@RequestBody Map<String,Long> rewardID){
-        return nominationsService.GetData(rewardID.get("rewardID"));
+        return nominationsService.GetData(rewardID);
     }
 }
