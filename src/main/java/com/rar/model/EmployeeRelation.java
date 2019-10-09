@@ -22,11 +22,6 @@ public class EmployeeRelation implements Serializable {
     @Column(name="manager_email",nullable = false)
     private String manager_email;
 
-    @Column(name="manager_designation",nullable = false)
-    @Enumerated(EnumType.STRING)
-    private DesignationEnum manager_designation;
-
-
 
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
