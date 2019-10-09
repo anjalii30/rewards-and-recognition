@@ -22,14 +22,14 @@ public class Criterias implements Serializable{
 
     @OneToMany(
             mappedBy = "criteria")
-    private List<RewardsCriteria> rewards = new ArrayList<>();
+    private List<RewardsCriteria> rewardsCriteria = new ArrayList<>();
 
     public List<RewardsCriteria> getRewards() {
-        return rewards;
+        return rewardsCriteria;
     }
 
     public void setRewards(List<RewardsCriteria> rewards) {
-        this.rewards = rewards;
+        this.rewardsCriteria = rewards;
     }
 
 //

@@ -150,7 +150,7 @@ public class RewardsServiceImpl implements RewardsService {
 
         Rewards rewardData= save(rewards);
 
-        long id = rewards.getRewardId();
+        long id = rewards.getId();
 
         RewardsCriteria rewardsCriteria =new RewardsCriteria();
         System.out.println(rewards.getCriteria().size());
