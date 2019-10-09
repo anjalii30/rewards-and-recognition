@@ -47,9 +47,9 @@ public class AwardedController {
 
     @ApiOperation(value = "show the awarded list")
     @GetMapping("/awardedList")
-    public List<Awarded> awardedList(@RequestHeader(value = "Authorization") String token){
-        String email=validity.check(token);
-        return (List<Awarded>) awardedService.findAll();
+    public List awardedList(/*@RequestHeader(value = "Authorization") String token*/){
+      //  String email=validity.check(token);
+        return  awardedService.findAllAwarded();
     }
 
     /*@ApiOperation(value = "show the awarded data by id")
