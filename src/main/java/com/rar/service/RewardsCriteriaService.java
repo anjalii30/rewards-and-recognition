@@ -5,7 +5,7 @@ import com.rar.model.RewardsCriteria;
 
 import java.util.List;
 
-public interface RewardsCriteriasService {
+public interface RewardsCriteriaService {
 
   /*  Optional<RewardsCriteria> findById(Long rewardId);*/
 

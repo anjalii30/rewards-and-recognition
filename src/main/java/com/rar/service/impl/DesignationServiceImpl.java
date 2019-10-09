@@ -16,7 +16,7 @@ import java.util.Optional;
 public class DesignationServiceImpl implements DesignationService {
     //logger
     @Autowired
-    DesignationRepository designationRepository;
+    private DesignationRepository designationRepository;
 
 
     @Override

@@ -17,23 +17,23 @@ public class RolesController {
     @Autowired
     private RolesService rolesService;
 
-    @PostMapping("/savederoles")
+    @PostMapping("/saveRoles")
     public Roles save(@RequestHeader(value = "Authorization") String token, @RequestBody Roles roles){
         return rolesService.save(roles);
     }
 
-    @GetMapping("/listderoles")
+    @GetMapping("/listRoles")
     public List<Roles> list(@RequestHeader(value = "Authorization") String token){
         return rolesService.findAll();
     }
 
-    @DeleteMapping("/deleteroles/{id}")
+    @DeleteMapping("/deleteRoles/{id}")
     public String delete(@RequestHeader(value = "Authorization") String token, @PathVariable long id){
         rolesService.deleteById(id);
         return "Deleted Successfully";
     }
 
-    @GetMapping("/listroles/{id}")
+    @GetMapping("/listRoles/{id}")
     public Optional<Roles> getById(@RequestHeader(value = "Authorization") String token, @PathVariable Long id){
 
         return rolesService.findById(id);

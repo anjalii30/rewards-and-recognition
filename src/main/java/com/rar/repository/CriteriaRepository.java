@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface CriteriasRepository extends CrudRepository<Criterias,Long> {
+public interface CriteriaRepository extends CrudRepository<Criterias,Long> {
 }

@@ -5,7 +5,7 @@ import com.rar.enums.FrequencyEnum;
 import com.rar.model.Criterias;
 import com.rar.model.Rewards;
 import com.rar.model.RewardsCriteria;
-import com.rar.repository.RewardsCriteriasRepository;
+import com.rar.repository.RewardsCriteriaRepository;
 import com.rar.repository.RewardsRepository;
 import com.rar.service.RewardsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,19 +24,19 @@ public class RewardsServiceImpl implements RewardsService {
     private RewardsRepository rewardsRepository;
 
     @Autowired
-    private RewardsCriteriasRepository rewardsCriteriasRepository;
+    private RewardsCriteriaRepository rewardsCriteriaRepository;
 
 
 
-    String[] monthName = {"January", "February",
+    private String[] monthName = {"January", "February",
             "March", "April", "May", "June", "July",
             "August", "September", "October", "November",
             "December"};
 
-    Calendar cal = Calendar.getInstance();
-    String month = monthName[cal.get(Calendar.MONTH)];
+    private Calendar cal = Calendar.getInstance();
+    private String month = monthName[cal.get(Calendar.MONTH)];
 
-    String year = String.valueOf(cal.get(Calendar.YEAR));
+    private String year = String.valueOf(cal.get(Calendar.YEAR));
 
 
     @Override
@@ -84,57 +84,57 @@ public class RewardsServiceImpl implements RewardsService {
 
 
     @Override
-    public Rewards Update(Long id, Rewards createreward) {
-        Rewards Createaward1 = rewardsRepository.findById(id).get();
-        Createaward1.setReward_name(createreward.getReward_name());
-        Createaward1.setFrequency(createreward.getFrequency());
-        Createaward1.setDescription(createreward.getDescription());
-        Createaward1.setStart_date(createreward.getStart_date());
-        Createaward1.setEnd_date(createreward.getEnd_date());
-        Createaward1.setAward_status(createreward.getAward_status());
-        Createaward1.setDiscontinuingDate(createreward.getDiscontinuingDate());
-        Createaward1.setDiscontinuingReason(createreward.getDiscontinuingReason());
-        Createaward1.setSelf_nominate(createreward.isSelf_nominate());
-        Createaward1.setNominations_allowed(createreward.getNominations_allowed());
+    public Rewards Update(Long id, Rewards createReward) {
+        Rewards CreateReward1 = rewardsRepository.findById(id).get();
+        CreateReward1.setReward_name(createReward.getReward_name());
+        CreateReward1.setFrequency(createReward.getFrequency());
+        CreateReward1.setDescription(createReward.getDescription());
+        CreateReward1.setStart_date(createReward.getStart_date());
+        CreateReward1.setEnd_date(createReward.getEnd_date());
+        CreateReward1.setAward_status(createReward.getAward_status());
+        CreateReward1.setDiscontinuingDate(createReward.getDiscontinuingDate());
+        CreateReward1.setDiscontinuingReason(createReward.getDiscontinuingReason());
+        CreateReward1.setSelf_nominate(createReward.isSelf_nominate());
+        CreateReward1.setNominations_allowed(createReward.getNominations_allowed());
 
-        Rewards update = rewardsRepository.save(Createaward1);
+        Rewards update = rewardsRepository.save(CreateReward1);
         return update;
     }
 
     @Override
-    public Rewards updateAwardStatus(Long id, Rewards createreward) {
-        Rewards Createaward1 = rewardsRepository.findById(id).get();
-        Createaward1.setReward_name(Createaward1.getReward_name());
-        Createaward1.setFrequency(Createaward1.getFrequency());
-        Createaward1.setDescription(Createaward1.getDescription());
-        Createaward1.setStart_date(Createaward1.getStart_date());
-        Createaward1.setEnd_date(Createaward1.getEnd_date());
-        Createaward1.setDiscontinuingDate(Createaward1.getDiscontinuingDate());
-        Createaward1.setDiscontinuingReason(Createaward1.getDiscontinuingReason());
-        Createaward1.setSelf_nominate(Createaward1.isSelf_nominate());
-        Createaward1.setNominations_allowed(Createaward1.getNominations_allowed());
-        Createaward1.setAward_status(createreward.getAward_status());
+    public Rewards updateAwardStatus(Long id, Rewards createReward) {
+        Rewards CreateReward1 = rewardsRepository.findById(id).get();
+        CreateReward1.setReward_name(CreateReward1.getReward_name());
+        CreateReward1.setFrequency(CreateReward1.getFrequency());
+        CreateReward1.setDescription(CreateReward1.getDescription());
+        CreateReward1.setStart_date(CreateReward1.getStart_date());
+        CreateReward1.setEnd_date(CreateReward1.getEnd_date());
+        CreateReward1.setDiscontinuingDate(CreateReward1.getDiscontinuingDate());
+        CreateReward1.setDiscontinuingReason(CreateReward1.getDiscontinuingReason());
+        CreateReward1.setSelf_nominate(CreateReward1.isSelf_nominate());
+        CreateReward1.setNominations_allowed(CreateReward1.getNominations_allowed());
+        CreateReward1.setAward_status(createReward.getAward_status());
 
-        Rewards update = rewardsRepository.save(Createaward1);
+        Rewards update = rewardsRepository.save(CreateReward1);
         return update;
     }
 
 
     @Override
-    public Rewards discontinuing(Long id, Rewards createreward) {
-        Rewards Createaward1 = rewardsRepository.findById(id).get();
-        Createaward1.setReward_name(Createaward1.getReward_name());
-        Createaward1.setFrequency(Createaward1.getFrequency());
-        Createaward1.setDescription(Createaward1.getDescription());
-        Createaward1.setStart_date(Createaward1.getStart_date());
-        Createaward1.setEnd_date(Createaward1.getEnd_date());
-        Createaward1.setDiscontinuingDate(createreward.getDiscontinuingDate());
-        Createaward1.setDiscontinuingReason(createreward.getDiscontinuingReason());
-        Createaward1.setSelf_nominate(Createaward1.isSelf_nominate());
-        Createaward1.setNominations_allowed(Createaward1.getNominations_allowed());
-        Createaward1.setAward_status(createreward.getAward_status());
+    public Rewards discontinuing(Long id, Rewards createReward) {
+        Rewards CreateReward1 = rewardsRepository.findById(id).get();
+        CreateReward1.setReward_name(CreateReward1.getReward_name());
+        CreateReward1.setFrequency(CreateReward1.getFrequency());
+        CreateReward1.setDescription(CreateReward1.getDescription());
+        CreateReward1.setStart_date(CreateReward1.getStart_date());
+        CreateReward1.setEnd_date(CreateReward1.getEnd_date());
+        CreateReward1.setDiscontinuingDate(createReward.getDiscontinuingDate());
+        CreateReward1.setDiscontinuingReason(createReward.getDiscontinuingReason());
+        CreateReward1.setSelf_nominate(CreateReward1.isSelf_nominate());
+        CreateReward1.setNominations_allowed(CreateReward1.getNominations_allowed());
+        CreateReward1.setAward_status(createReward.getAward_status());
 
-        Rewards update = rewardsRepository.save(Createaward1);
+        Rewards update = rewardsRepository.save(CreateReward1);
         return update;
     }
 
@@ -162,11 +162,11 @@ public class RewardsServiceImpl implements RewardsService {
             rewardsCriteria.setCriteriaId(rewards.getCriteria().get(i).getCriteriaId());
             rewardsCriteria.setCompulsory(rewards.getCriteria().get(i).getCompulsory());
 
-            rewardsCriteriasRepository.save(rewardsCriteria);
+            rewardsCriteriaRepository.save(rewardsCriteria);
         }
 
         HashMap<String,Object> s=new HashMap<>();
-        s.put("criterias", rewardsCriteria);
+        s.put("criteria", rewardsCriteria);
         s.put("rewards",rewards);
         Object returnValue=s;
         return ResponseEntity.ok(s);
@@ -211,7 +211,7 @@ public class RewardsServiceImpl implements RewardsService {
 //            d.setCriterias(f.getCriterias());
 
 
-//            rewardsCriteriasRepository.save(d);
+//            rewardsCriteriaRepository.save(d);
 
 
 //        }

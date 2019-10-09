@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Set;
 
 @Repository
-public interface RewardsCriteriasRepository extends CrudRepository<RewardsCriteria, Long> {
+public interface RewardsCriteriaRepository extends CrudRepository<RewardsCriteria, Long> {
 
     @Query(value="SELECT * from rewards_criteria where reward_id = ?1 ", nativeQuery = true)
     Set<RewardsCriteria> findByRewardId(Long rewardId);

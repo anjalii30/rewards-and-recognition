@@ -1,10 +1,9 @@
 package com.rar.utils;
 
-import antlr.StringUtils;
 import com.rar.enums.FrequencyEnum;
 import com.rar.model.Rewards;
 import com.rar.model.RewardsCriteria;
-import com.rar.repository.RewardsCriteriasRepository;
+import com.rar.repository.RewardsCriteriaRepository;
 import com.rar.repository.RewardsRepository;
 import com.rar.service.RewardsService;
 
@@ -28,7 +27,7 @@ public class ScheduleRewards {
     private RewardsRepository rewardsRepository;
 
     @Autowired
-    private RewardsCriteriasRepository rewardsCriteriasRepository;
+    private RewardsCriteriaRepository rewardsCriteriaRepository;
 
     @Autowired
     private RewardsService rewardsService;
@@ -81,7 +80,7 @@ public class ScheduleRewards {
                         replaceString=rName1.replaceFirst(month,month1);
                  replaceString=rName1.replaceFirst(year,currentYear);*/
 
-                String replaceString = rName1.replaceAll(month,month1).replaceAll(year,currentYear);
+                String replaceString = rName1.replaceFirst(month,month1).replaceFirst(year,currentYear);
 
 
 
@@ -100,7 +99,7 @@ public class ScheduleRewards {
 
                 rewardsService.save(new_reward);
 
-                Set<RewardsCriteria> criterias= rewardsCriteriasRepository.findByRewardId(old_reward.getId());
+                Set<RewardsCriteria> criterias= rewardsCriteriaRepository.findByRewardId(old_reward.getId());
 /*
                 for(int j=0;j<criterias.size();j++)
                 {
@@ -111,7 +110,7 @@ public class ScheduleRewards {
                     rewardsCriterias.setCriteriaId(criterias.get(j)getCriteriaId());
                     rewardsCriterias.setCompulsory(rewards.getCriterias().get(i).getCompulsory());
 
-                    rewardsCriteriasRepository.save(rewardsCriterias);
+                    rewardsCriteriaRepository.save(rewardsCriterias);
 
                 }*/
 
@@ -123,7 +122,7 @@ public class ScheduleRewards {
                     rewardsCriteria.setCriteriaId(f.getCriteriaId());
                     rewardsCriteria.setCompulsory(f.getCompulsory());
 
-                    rewardsCriteriasRepository.save(rewardsCriteria);
+                    rewardsCriteriaRepository.save(rewardsCriteria);
 
                 }
 
@@ -138,7 +137,7 @@ public class ScheduleRewards {
 
 
     //Regenerating quarterly rewards starting from 1st of the month{jan, april, july, october} at 12 a.m.
-    //Checking for regenration of  monthly reward whose end date has passed every sunday at 12 a.m.
+    //Checking for regeneration of  monthly reward whose end date has passed every sunday at 12 a.m.
     @Scheduled(cron = "0 0 0 ? * SUN ")
     //@Scheduled(cron="0 0/2 * 1/1 * ?")
     public void scheduleQuarterly() {
@@ -157,6 +156,9 @@ public class ScheduleRewards {
             Calendar cal = Calendar.getInstance();
             String month = monthName[cal.get(Calendar.MONTH)];
             String month1=monthName[cal.get(Calendar.MONTH)+4];
+            String currentYear = String.valueOf(cal.get(Calendar.YEAR));
+            String year =String.valueOf(cal.get(Calendar.YEAR)-1);
+
 
 
 
@@ -168,7 +170,10 @@ public class ScheduleRewards {
 
                 String rName1 = old_reward.getReward_name();
 
-                String replaceString=rName1.replaceFirst(month,month1);
+                String replaceString = rName1.replaceFirst(month,month1).replaceFirst(year,currentYear);
+
+
+              //  String replaceString=rName1.replaceFirst(month,month1);
 
 
                 new_reward.setReward_name(replaceString);
@@ -187,7 +192,7 @@ public class ScheduleRewards {
 
                 rewardsService.save(new_reward);
 
-                Set<RewardsCriteria> criterias= rewardsCriteriasRepository.findByRewardId(old_reward.getId());
+                Set<RewardsCriteria> criterias= rewardsCriteriaRepository.findByRewardId(old_reward.getId());
 
 
                 for (Iterator<RewardsCriteria> it = criterias.iterator(); it.hasNext(); ) {
@@ -198,7 +203,7 @@ public class ScheduleRewards {
                     rewardsCriteria.setCriteriaId(f.getCriteriaId());
                     rewardsCriteria.setCompulsory(f.getCompulsory());
 
-                    rewardsCriteriasRepository.save(rewardsCriteria);
+                    rewardsCriteriaRepository.save(rewardsCriteria);
 
                 }
             }
@@ -261,7 +266,7 @@ public class ScheduleRewards {
                 rewardsService.save(new_reward);
 
 
-                Set<RewardsCriteria> criterias= rewardsCriteriasRepository.findByRewardId(old_reward.getId());
+                Set<RewardsCriteria> criterias= rewardsCriteriaRepository.findByRewardId(old_reward.getId());
 
                 for (Iterator<RewardsCriteria> it = criterias.iterator(); it.hasNext(); ) {
                     RewardsCriteria f = it.next();
@@ -271,7 +276,7 @@ public class ScheduleRewards {
                     rewardsCriteria.setCriteriaId(f.getCriteriaId());
                     rewardsCriteria.setCompulsory(f.getCompulsory());
 
-                    rewardsCriteriasRepository.save(rewardsCriteria);
+                    rewardsCriteriaRepository.save(rewardsCriteria);
 
                 }
             }

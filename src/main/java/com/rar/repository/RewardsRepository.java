@@ -14,15 +14,15 @@ import java.util.List;
 public interface RewardsRepository extends CrudRepository<Rewards, Long> {
 
 
-    @Query(value = "SELECT * FROM createreward WHERE award_status = 1",
+    @Query(value = "SELECT * FROM rewards WHERE award_status = 1",
             nativeQuery=true)
     List<Rewards> findByRolled();
 
-    @Query(value = "SELECT * FROM createreward WHERE award_status = 2",
+    @Query(value = "SELECT * FROM rewards WHERE award_status = 2",
             nativeQuery=true)
     List<Rewards> findByNominationClosed();
 
-    @Query(value = "SELECT * FROM createreward WHERE award_status = 3",
+    @Query(value = "SELECT * FROM rewards WHERE award_status = 3",
             nativeQuery=true)
     List<Rewards> findByDiscontinued();
 

@@ -6,11 +6,12 @@ import com.rar.model.Nominations;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
+import java.util.Map;
 
 public interface NominationsService {
 
-    ResponseEntity<?> nominationsave(NominationPojo nominationPojo);
+    ResponseEntity<?> nominationSave(NominationPojo nominationPojo);
 
-    List<Nominations> GetData(long rewardID);
+    List<Nominations> GetData(Map<String, Long> rewardID);
 
 }

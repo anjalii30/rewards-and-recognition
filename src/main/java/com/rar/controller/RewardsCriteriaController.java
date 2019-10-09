@@ -2,7 +2,7 @@ package com.rar.controller;
 
 
 import com.rar.model.RewardsCriteria;
-import com.rar.service.RewardsCriteriasService;
+import com.rar.service.RewardsCriteriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,31 +10,31 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-public class RewardsCriteriasController {
+public class RewardsCriteriaController {
 
     @Autowired
-    private RewardsCriteriasService rewardsCriteriasService;
+    private RewardsCriteriaService rewardsCriteriaService;
 
 
-    @PostMapping("/saveRewardsCriterias")
+    @PostMapping("/saveRewardsCriteria")
     public RewardsCriteria save(@RequestHeader(value = "Authorization") String token, @RequestBody RewardsCriteria rewardsCriteria){
-        return rewardsCriteriasService.save(rewardsCriteria);
+        return rewardsCriteriaService.save(rewardsCriteria);
     }
 
-    @GetMapping("/listRewardsCriterias")
+    @GetMapping("/listRewardsCriteria")
     public List<RewardsCriteria> list(@RequestHeader(value = "Authorization") String token){
-        return rewardsCriteriasService.findAll();
+        return rewardsCriteriaService.findAll();
     }
 /*
-    @DeleteMapping("/deleteRewardsCriterias/{id}")
+    @DeleteMapping("/deleteRewardsCriteria/{id}")
     public String delete(@RequestHeader(value = "Authorization") String token, @PathVariable long id){
-        rewardsCriteriasService.deleteById(id);
+        rewardsCriteriaService.deleteById(id);
         return "Deleted Successfully";
     }
 
-    @GetMapping("/listRewardsCriterias/{rewardId}")
+    @GetMapping("/listRewardsCriteria/{rewardId}")
     public Optional<RewardsCriteria> getById(@RequestHeader(value = "Authorization") String token, @PathVariable Long rewardId){
 
-        return rewardsCriteriasService.findById(rewardId);
+        return rewardsCriteriaService.findById(rewardId);
     }*/
 }

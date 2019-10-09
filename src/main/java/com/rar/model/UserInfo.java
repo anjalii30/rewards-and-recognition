@@ -121,6 +121,8 @@ public class UserInfo implements Serializable {
         this.projects = projects;
     }
 
+
+
     //
 //    public UserInfo(Long uid, @NotNull @Email @Size(max = 100) String email, String name, RoleEnum role, DesignationEnum designation, Boolean firstSign, String imageUrl, Set<EmployeeRelation> employeeRelation) {
 //        this.uid = uid;

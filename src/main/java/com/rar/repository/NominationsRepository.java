@@ -4,9 +4,12 @@ import com.rar.model.Nominations;
 import com.rar.model.Rewards;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
+@Repository
 public interface NominationsRepository extends CrudRepository<Nominations, String> {
 
     @Query(value = "select nomination_id from nominations where user_id=?1, reward_id=?2", nativeQuery = true)
@@ -21,7 +24,7 @@ public interface NominationsRepository extends CrudRepository<Nominations, Strin
     List<Rewards> getRewards();
 
     @Query(value = "select * from nominations where reward_id=?1",nativeQuery = true)
-    List<Nominations> GetData(long rewardID);
+    List<Nominations> GetData(Map<String, Long> rewardID);
 
 
 }
