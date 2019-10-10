@@ -1,12 +1,15 @@
 package com.rar.service.impl;
 
+import com.rar.enums.DesignationEnum;
+import com.rar.enums.RoleEnum;
 import com.rar.exception.InvalidTokenException;
 import com.rar.exception.InvalidUserException;
+import com.rar.model.Designation;
 import com.rar.model.LoginUserDetails;
+import com.rar.model.Roles;
 import com.rar.model.UserInfo;
 import com.rar.repository.UserRepository;
 import com.rar.service.LoginService;
-
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.apache.http.HttpEntity;
@@ -91,6 +94,18 @@ public class LoginServiceImpl implements LoginService {
 
             UserInfo userInfo1 = userRepository.findByEmail(email).get();
 
+            Iterator<Roles> it= userInfo1.getRoles().iterator();
+
+            Roles r=it.next();
+            RoleEnum roleEnum=r.getRole();
+
+
+            Iterator<Designation> itt= userInfo1.getDesignation().iterator();
+            Designation d=itt.next();
+
+            DesignationEnum designationEnum= d.getDesignation();
+
+
 
 
             if (repoEmail.isPresent()) {
@@ -99,27 +114,46 @@ public class LoginServiceImpl implements LoginService {
                     userInfo1.setImageUrl(imageUrl);
                     userInfo1.setEmail(userInfo1.getEmail());
                     userInfo1.setName(userInfo1.getName());
+                    userInfo1.setDesignation(userInfo1.getDesignation());
+                    userInfo1.setRoles(userInfo1.getRoles());
 
                     userRepository.save(userInfo1);
 
 
+/*
+                    for (Iterator<RewardsCriteria> it = criterias.iterator(); it.hasNext(); ) {
+                        RewardsCriteria f = it.next();
+
+                        RewardsCriteria rewardsCriteria = new RewardsCriteria();
+                        rewardsCriteria.setRewardId(new_reward.getId());
+                        rewardsCriteria.setCriteriaId(f.getCriteriaId());
+                        rewardsCriteria.setCompulsory(f.getCompulsory());
+
+                        */
+
+
+
+
                     String generatedToken = Jwts.builder()
                             .setSubject(String.valueOf(email))
                             .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY * 1000))
                             .signWith(SignatureAlgorithm.HS512, secret)
                             .compact();
 
-                    return new LoginUserDetails(userInfo1.getEmail()+"",userInfo1.getName()+"",userInfo1.getImageUrl()+"",""+generatedToken);
+                    return new LoginUserDetails(userInfo1.getEmail()+"",userInfo1.getName()+"",userInfo1.getImageUrl()+"",""+generatedToken,roleEnum,designationEnum );
 
                 } else {
 
+
+
                     String generatedToken = Jwts.builder()
                             .setSubject(String.valueOf(email))
                             .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY * 1000))
                             .signWith(SignatureAlgorithm.HS512, secret)
                             .compact();
+                    return new LoginUserDetails(userInfo1.getEmail()+"",userInfo1.getName()+"",userInfo1.getImageUrl()+"",""+generatedToken,roleEnum,designationEnum );
 
-                    return new LoginUserDetails(userInfo1.getEmail()+"",userInfo1.getName()+"",userInfo1.getImageUrl()+"",""+generatedToken);
+
 
                 }
                 //user already exists

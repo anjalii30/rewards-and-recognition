@@ -55,13 +55,13 @@ public class Designation implements Serializable {
         this.designation = designation;
     }
 
-    public Set<UserInfo> getUserInfo() {
+/*    public Set<UserInfo> getUserInfo() {
         return userInfo;
     }
 
     public void setUserInfo(Set<UserInfo> userInfo) {
         this.userInfo = userInfo;
-    }
+    }*/
 
 
 

@@ -240,11 +240,11 @@ public class Rewards implements Serializable {
     public Set<RewardsCriteria> getCriterias() {
         return criterias;
     }
-
+*/
+/*
     public void setCriterias(Set<RewardsCriteria> criterias) {
         this.criterias = criterias;
-    }
-*/
+    }*/
 
     public long getRewardId() {
         return rewardId;
