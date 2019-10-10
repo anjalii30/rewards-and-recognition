@@ -78,7 +78,7 @@ public class ProjectController {
 
     @GetMapping("/unAssigned")
     public Object[] unAssigned(@RequestHeader(value = "Authorization") String token){
-
+        String email=validity.check(token);
         return projectService.unAssigned();
     }
 
