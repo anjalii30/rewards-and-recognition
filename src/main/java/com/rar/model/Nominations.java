@@ -16,7 +16,7 @@ public class Nominations implements Serializable {
     @Column(name = "project_name")
     private String projectName;
     @Column(name = "reward_id")
-    private long rewardID;
+    private Long rewardID;
     @Column(name = "User_id")
     private Long userID;
     @Column(name = "frequency")
@@ -25,6 +25,8 @@ public class Nominations implements Serializable {
     private Date startingDate;
     @Column(name = "ending_date")
     private Date endingDate;
+    @Column(name = "selected")
+    private boolean selected=false;
 
     @OneToMany(mappedBy = "nominations", cascade = CascadeType.ALL)
     private
@@ -87,6 +89,14 @@ public class Nominations implements Serializable {
         this.endingDate = endingDate;
     }
 
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
+
     public List<Evidences> getEvidencesList() {
         return evidencesList;
     }
@@ -94,6 +104,7 @@ public class Nominations implements Serializable {
     public void setEvidencesList(List<Evidences> evidencesList) {
         this.evidencesList = evidencesList;
     }
+
 }
 
 

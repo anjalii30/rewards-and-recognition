@@ -4,13 +4,14 @@ import java.util.Date;
 import java.util.List;
 
 public class NominationPojo {
-    long rewardId;
-    String projectName;
-    long userId;
-    String frequency;
-    Date startDate;
-    Date endingDate;
-    List<EvidencesPojo> evidencesPojoList;
+    private Long rewardId;
+    private String projectName;
+    private long userId;
+    private String frequency;
+    private Date startDate;
+    private Date endingDate;
+    private boolean selected=false;
+    private List<EvidencesPojo> evidencesPojoList;
 
     public List<EvidencesPojo> getEvidencesPojoList() {
         return evidencesPojoList;
@@ -66,5 +67,13 @@ public class NominationPojo {
 
     public void setEndingDate(Date endingDate) {
         this.endingDate = endingDate;
+    }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
     }
 }

@@ -30,6 +30,6 @@ public class NominationController {
 
     @GetMapping("/showNomination")
     public List<Nominations> show(/*@RequestHeader(value = "Authorization") String token,*/ @RequestBody Map<String,Long> rewardID){
-        return nominationsService.GetData(rewardID);
+        return nominationsService.GetData(rewardID.get("rewardID"));
     }
 }

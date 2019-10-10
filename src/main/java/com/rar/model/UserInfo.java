@@ -1,9 +1,5 @@
 package com.rar.model;
 
-import com.rar.enums.DesignationEnum;
-import com.rar.enums.RoleEnum;
-import org.codehaus.jackson.annotate.JsonManagedReference;
-
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
@@ -134,6 +130,8 @@ public class UserInfo implements Serializable {
 //        this.imageUrl = imageUrl;
 //        this.employeeRelation = employeeRelation;
 //    }
+
+
 
     public Long getId() {
         return uid;

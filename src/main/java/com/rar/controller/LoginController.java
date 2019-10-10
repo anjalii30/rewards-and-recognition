@@ -4,9 +4,7 @@ import com.rar.model.UserInfo;
 import com.rar.service.LoginService;
 import com.rar.utils.CheckValidity;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,8 +26,7 @@ public class LoginController{
 
     @PostMapping(value = "/login")
     public Object getToken(@RequestHeader(value = "Authorization") String token) throws Exception {
-        String jwtToken = loginService.login(token);
-        return ResponseEntity.ok("" + jwtToken);
+        return loginService.login(token);
     }
 
     @PostMapping("/saveUsers")
