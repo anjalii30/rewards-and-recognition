@@ -7,7 +7,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Map;
 
 @Repository
 public interface NominationsRepository extends CrudRepository<Nominations, String> {
@@ -23,8 +22,8 @@ public interface NominationsRepository extends CrudRepository<Nominations, Strin
     @Query(value = "select * from rewards where reward_id in(select reward_id from nominations where disable=false )",nativeQuery = true)
     List<Rewards> getRewards();
 
-    @Query(value = "select * from nominations where reward_id=?1",nativeQuery = true)
-    List<Nominations> GetData(Map<String, Long> rewardID);
+    @Query(value = "select * from nominations where reward_id=?1 and selected=true",nativeQuery = true)
+    List<Nominations> GetData(Long rewardID);
 
 
 }

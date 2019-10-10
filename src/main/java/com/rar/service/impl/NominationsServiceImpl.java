@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 @Service
@@ -34,6 +33,7 @@ public class NominationsServiceImpl implements NominationsService {
         nominations.setEndingDate(nominationPojo.getEndingDate());
         nominations.setStartingDate(nominationPojo.getStartDate());
         nominations.setProjectName(nominationPojo.getProjectName());
+        nominations.setSelected(nominationPojo.isSelected());
 
         nominations = nominationsRepository.save(nominations);
 
@@ -64,7 +64,7 @@ public class NominationsServiceImpl implements NominationsService {
     }
 
     @Override
-    public List<Nominations> GetData(Map<String, Long> rewardID) {
+    public List<Nominations> GetData(Long rewardID) {
         return  nominationsRepository.GetData(rewardID);
     }
 }
