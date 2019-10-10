@@ -26,33 +26,39 @@ public class LoginController{
 
     @PostMapping(value = "/login")
     public Object getToken(@RequestHeader(value = "Authorization") String token) throws Exception {
+        String email=validity.check(token);
         return loginService.login(token);
     }
 
     @PostMapping("/saveUsers")
     public UserInfo saveLogin(@RequestHeader(value = "Authorization") String token, @RequestBody UserInfo users){
+        String email=validity.check(token);
         return loginService.saveLogin(users);
     }
 
 
-    @GetMapping("/listUsers")
+    @GetMapping(value = "/listUsers", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Map<String,Object>> listUser(@RequestHeader(value = "Authorization") String token){
+        String email=validity.check(token);
         return loginService.findAll();
     }
 
     @GetMapping("/listUsers/{id}")
     public Optional<UserInfo> getById(@RequestHeader(value = "Authorization") String token, @PathVariable Long id){
+        String email=validity.check(token);
 
         return loginService.findById(id);
     }
 
     @GetMapping("/listUsersByEmail/{email}")
     public Optional<UserInfo> findByEmail(@RequestHeader(value = "Authorization") String token ,String email) {
+        String email1=validity.check(token);
         return loginService.findByEmail(email);
     }
 
     @DeleteMapping("/deleteUsers/{id}")
     public String delete(@RequestHeader(value = "Authorization") String token, @PathVariable long id){
+        String email=validity.check(token);
         loginService.deleteById(id);
         return "Deleted Successfully";
     }
