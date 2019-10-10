@@ -15,7 +15,6 @@ import java.util.Map;
 @CrossOrigin
 @RestController
 @EnableAutoConfiguration
-@RequestMapping(value = "/trail")
 public class NominationController {
 
     @Autowired
@@ -23,13 +22,13 @@ public class NominationController {
 
 
     @PostMapping("/saveNomination")
-    public ResponseEntity<?> nominationSave(/*@RequestHeader(value = "Authorization") String token ,*/@RequestBody NominationPojo nominationPojo) {
+    public ResponseEntity<?> nominationSave(@RequestHeader(value = "Authorization") String token ,@RequestBody NominationPojo nominationPojo) {
          nominationsService.nominationSave(nominationPojo);
          return ResponseEntity.ok(nominationPojo);
     }
 
     @GetMapping("/showNomination")
-    public List<Nominations> show(/*@RequestHeader(value = "Authorization") String token,*/ @RequestBody Map<String,Long> rewardID){
+    public List<Nominations> show(@RequestHeader(value = "Authorization") String token,@RequestBody Map<String,Long> rewardID){
         return nominationsService.GetData(rewardID.get("rewardID"));
     }
 }
