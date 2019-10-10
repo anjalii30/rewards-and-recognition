@@ -38,7 +38,7 @@ public class LoginController{
     }
 
 
-    @GetMapping("/listUsers")
+    @GetMapping(value = "/listUsers", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Map<String,Object>> listUser(@RequestHeader(value = "Authorization") String token){
         return loginService.findAll();
     }
