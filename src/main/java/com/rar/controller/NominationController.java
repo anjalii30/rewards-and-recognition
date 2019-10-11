@@ -30,8 +30,8 @@ public class NominationController {
     @PostMapping("/saveNomination")
     public ResponseEntity<?> nominationSave(@RequestHeader(value = "Authorization") String token ,@RequestBody NominationPojo nominationPojo) {
         String email=validity.check(token);
-         nominationsService.nominationSave(nominationPojo);
-         return ResponseEntity.ok(nominationPojo);
+        nominationsService.nominationSave(nominationPojo);
+        return ResponseEntity.ok(nominationPojo);
     }
 
     @GetMapping("/showNomination")

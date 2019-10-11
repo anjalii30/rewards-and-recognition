@@ -26,7 +26,6 @@ public class LoginController{
 
     @PostMapping(value = "/login")
     public Object getToken(@RequestHeader(value = "Authorization") String token) throws Exception {
-        String email=validity.check(token);
         return loginService.login(token);
     }
 

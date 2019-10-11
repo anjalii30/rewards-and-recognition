@@ -10,7 +10,9 @@ public class NominationPojo {
     private String frequency;
     private Date startDate;
     private Date endingDate;
+    private String employee_name;
     private boolean selected=false;
+    private String reward_name;
     private List<EvidencesPojo> evidencesPojoList;
 
     public List<EvidencesPojo> getEvidencesPojoList() {
@@ -49,6 +51,14 @@ public class NominationPojo {
         return frequency;
     }
 
+    public String getReward_name() {
+        return reward_name;
+    }
+
+    public void setReward_name(String reward_name) {
+        this.reward_name = reward_name;
+    }
+
     public void setFrequency(String frequency) {
         this.frequency = frequency;
     }
@@ -75,5 +85,13 @@ public class NominationPojo {
 
     public void setSelected(boolean selected) {
         this.selected = selected;
+    }
+
+    public String getEmployee_name() {
+        return employee_name;
+    }
+
+    public void setEmployee_name(String employee_name) {
+        this.employee_name = employee_name;
     }
 }

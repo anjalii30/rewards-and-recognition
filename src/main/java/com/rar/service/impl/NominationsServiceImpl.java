@@ -34,6 +34,8 @@ public class NominationsServiceImpl implements NominationsService {
         nominations.setStartingDate(nominationPojo.getStartDate());
         nominations.setProjectName(nominationPojo.getProjectName());
         nominations.setSelected(nominationPojo.isSelected());
+        nominations.setReward_name(nominationPojo.getReward_name());
+        nominations.setEmployee_name(nominationPojo.getEmployee_name());
 
         nominations = nominationsRepository.save(nominations);
 

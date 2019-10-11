@@ -54,10 +54,12 @@ public class EmployeeRelation implements Serializable {
     public void setManager_email(String manager_email) {
         this.manager_email = manager_email;
     }
+/*
 
     public Set<UserInfo> getUserInfo() {
         return userInfo;
     }
+*/
 
     public long getERid() {
         return ERid;
@@ -66,10 +68,10 @@ public class EmployeeRelation implements Serializable {
     public void setERid(long ERid) {
         this.ERid = ERid;
     }
-
+/*
     public void setUserInfo(Set<UserInfo> userInfo) {
         this.userInfo = userInfo;
-    }
+    }*/
 
     @Override
     public String toString() {

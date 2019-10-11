@@ -1,7 +1,6 @@
 package com.rar.controller;
 
 import com.rar.model.Projects;
-import com.rar.model.UserInfo;
 import com.rar.model.UserProjects;
 import com.rar.service.ProjectService;
 import com.rar.utils.CheckValidity;
@@ -10,8 +9,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 

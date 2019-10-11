@@ -13,7 +13,7 @@ public class Evidences {
     @Column(name = "evidenceID")
     private Long evidenceID;
 
-    @Column(name = "criteria_name")
+    @Column(name = "criteria_desc")
     private Long criteriaName;
 
     @Column(name = "evidence",length = 2147483000)

@@ -17,14 +17,18 @@ public class Nominations implements Serializable {
     private String projectName;
     @Column(name = "reward_id")
     private Long rewardID;
+    @Column(name = "reward_name")
+    private String reward_name;
     @Column(name = "User_id")
     private Long userID;
     @Column(name = "frequency")
     private String frequency;
-    @Column(name = "starting_date")
+    @Column(name = "start_date")
     private Date startingDate;
-    @Column(name = "ending_date")
+    @Column(name = "end_date")
     private Date endingDate;
+    @Column(name = "employee_name")
+    private String employee_name;
     @Column(name = "selected")
     private boolean selected=false;
 
@@ -95,6 +99,22 @@ public class Nominations implements Serializable {
 
     public void setSelected(boolean selected) {
         this.selected = selected;
+    }
+
+    public String getReward_name() {
+        return reward_name;
+    }
+
+    public void setReward_name(String reward_name) {
+        this.reward_name = reward_name;
+    }
+
+    public String getEmployee_name() {
+        return employee_name;
+    }
+
+    public void setEmployee_name(String employee_name) {
+        this.employee_name = employee_name;
     }
 
     public List<Evidences> getEvidencesList() {
