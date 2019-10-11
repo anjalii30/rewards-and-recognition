@@ -12,7 +12,7 @@ public interface ProjectService {
     Projects projectSave(Projects projects);
 
 
-    void assign(UserProjects userProjects) throws Exception;
+    void assign(long[] uId,long pId) throws Exception;
 
     Long getIdByProject(String project_name) throws Exception;
 
