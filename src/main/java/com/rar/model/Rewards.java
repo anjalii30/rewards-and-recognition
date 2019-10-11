@@ -61,7 +61,7 @@ public class Rewards implements Serializable {
 
 
     @OneToMany(
-            mappedBy = "rewards"
+            mappedBy = "rewards",cascade = CascadeType.REFRESH
     )
     private List<RewardsCriteria> criteria = new ArrayList<>();
 
