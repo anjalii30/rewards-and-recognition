@@ -95,6 +95,9 @@ public class RewardsServiceImpl implements RewardsService {
         CreateReward1.setDiscontinuingReason(createReward.getDiscontinuingReason());
         CreateReward1.setSelf_nominate(createReward.isSelf_nominate());
         CreateReward1.setNominations_allowed(createReward.getNominations_allowed());
+        CreateReward1.setCriteria(createReward.getCriteria());
+        CreateReward1.setCategory(createReward.getCategory());
+        CreateReward1.setRegenerated(CreateReward1.isRegenerated());
 
         Rewards update = rewardsRepository.save(CreateReward1);
         return update;
