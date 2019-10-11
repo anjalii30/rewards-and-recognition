@@ -37,9 +37,9 @@ public class ProjectServiceImpl implements ProjectService {
 
 
     @Override
-    public void assign(UserProjects userProjects) throws Exception {
+    public void assign(long[] uId,long pId) /*throws Exception*/ {
 
-        try {
+       /* try {
 
             String[] employees = userProjects.getUser_email();
 
@@ -59,6 +59,12 @@ public class ProjectServiceImpl implements ProjectService {
 
             throw new InvalidProjectException("Either employee or project is invalid...!!");
 
+        }
+*/
+
+        for(int i=0; i<uId.length;i++){
+            long user_id=uId[i];
+            projectRepository.assign(user_id,pId);
         }
 
 

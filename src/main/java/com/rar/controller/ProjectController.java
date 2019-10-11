@@ -59,10 +59,13 @@ public class ProjectController {
     }
 
     @PostMapping("/assignProjects")
-    public void assignProjects(@RequestHeader(value = "Authorization") String token, @RequestBody UserProjects userProjects) throws Exception {
-        String email=validity.check(token);
+    public void assignProjects(/*@RequestHeader(value = "Authorization") String token,*/ @RequestBody Map<String,Object> obj ) throws Exception {
+        //String email=validity.check(token);
+        System.out.println(obj);
+        long[] uId= (long[]) obj.get("uId");
+        long pId= (long) obj.get("pId");
 
-          projectService.assign(userProjects);
+          projectService.assign(uId,pId);
     }
 
     @DeleteMapping("/deleteFromProject")
