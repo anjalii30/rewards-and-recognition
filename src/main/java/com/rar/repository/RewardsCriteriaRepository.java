@@ -16,4 +16,7 @@ public interface RewardsCriteriaRepository extends CrudRepository<RewardsCriteri
     @Query(value="Select * from rewards_criteria where reward_id= ?1 and criteria_id= ?2", nativeQuery = true)
     Set<RewardsCriteria> findById(Long rid, Long cid);
 
+    @Query(value = "delete from rewards_criteria where reward_id = ?1 and criteria_id = ?2", nativeQuery = true)
+    void deleteById(Long rid, Long cid);
+
 }

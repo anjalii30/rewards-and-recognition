@@ -98,6 +98,23 @@ public class RewardsServiceImpl implements RewardsService {
 
        /* Iterator<Designation> itt= userInfo1.getDesignation().iterator();*/
         Iterator<RewardsCriteria> it=CreateReward1.getCriteria().iterator();
+/*
+
+        for(Iterator<RewardsCriteria> itttt = CreateReward1.getCriteria().iterator(); itttt.hasNext();){
+            RewardsCriteria ff = itttt.next();
+            for (Iterator<RewardsCriteria> ittt = createReward.getCriteria().iterator(); ittt.hasNext(); ) {
+                RewardsCriteria f = ittt.next();
+                if(ff.getRewardId() == f.getRewardId() && ff.getCriteriaId() == f.getCriteriaId())
+                    break;
+                else
+                {
+                    System.out.println(ff.getRewardId());
+                    System.out.println(ff.getCriteriaId());
+                    rewardsCriteriaRepository.deleteById(ff.getRewardId(),ff.getCriteriaId());
+                }}}
+*/
+
+
 
         for (Iterator<RewardsCriteria> ittt = createReward.getCriteria().iterator(); ittt.hasNext(); ) {
             RewardsCriteria f = ittt.next();
@@ -114,14 +131,15 @@ public class RewardsServiceImpl implements RewardsService {
                     criteria.setCompulsory(f.getCompulsory());
                     criteria.setCriterias(f.getCriterias());
 
-                    /*ff.setRewardId(f.getRewardId());
+                /*    ff.setRewardId(f.getRewardId());
                     ff.setCriteriaId(f.getCriteriaId());
                     ff.setCompulsory(f.getCompulsory());
-                    */
-
+*/
                     rewardsCriteriaRepository.save(criteria);
+
+
                 }
-                else
+                else if(f.getRewardId() == ff.getRewardId() && f.getCriteriaId() != ff.getCriteriaId())
                 {
                     RewardsCriteria rewardsCriteria = new RewardsCriteria();
 
@@ -130,14 +148,26 @@ public class RewardsServiceImpl implements RewardsService {
                     rewardsCriteria.setCompulsory(f.getCompulsory());
                     rewardsCriteria.setCriterias(f.getCriterias());
 
+                  /*  ff.setRewardId(f.getRewardId());
+                    ff.setCriteriaId(f.getCriteriaId());
+                    ff.setCompulsory(f.getCompulsory());
+*/
                     rewardsCriteriaRepository.save(rewardsCriteria);
 
+
+
                 }
+                /*else
+                {
+                    System.out.println(ff.getRewardId());
+                    System.out.println(ff.getCriteriaId());
+                    rewardsCriteriaRepository.deleteById(ff.getRewardId(),ff.getCriteriaId());
+                }*/
 
             }
 
         }
-
+        /*CreateReward1.setCriteria(i);*/
         Rewards update = rewardsRepository.save(CreateReward1);
         return update;
     }

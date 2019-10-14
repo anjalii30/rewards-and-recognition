@@ -29,11 +29,11 @@ public class RewardsCriteriaServiceImpl implements RewardsCriteriaService {
         return (List<RewardsCriteria>) rewardsCriteriaRepository.findAll();
     }
 
- /*   @Override
-    public void deleteById(long id) {
 
-        rewardsCriteriaRepository.deleteById(id);
-    }*/
+    public void deleteById(Long rid, Long cid) {
+
+        rewardsCriteriaRepository.deleteById(rid,cid);
+    }
 
     @Override
     public Set<RewardsCriteria> findById(Long rid, Long cid) {

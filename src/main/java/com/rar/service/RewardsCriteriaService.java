@@ -16,5 +16,7 @@ public interface RewardsCriteriaService {
 
     List<RewardsCriteria> findAll();
 
+    void deleteById(Long rid, Long cid);
+
  /*   void deleteById(long id);*/
 }
