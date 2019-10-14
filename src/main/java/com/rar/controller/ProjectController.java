@@ -1,6 +1,7 @@
 package com.rar.controller;
 
 import com.rar.model.Projects;
+import com.rar.model.UserInfo;
 import com.rar.model.UserProjects;
 import com.rar.service.ProjectService;
 import com.rar.utils.CheckValidity;
@@ -9,6 +10,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -22,7 +25,6 @@ public class ProjectController {
 
     @Autowired
     private ProjectService projectService;
-
 
 
 
@@ -56,13 +58,10 @@ public class ProjectController {
     }
 
     @PostMapping("/assignProjects")
-    public void assignProjects(/*@RequestHeader(value = "Authorization") String token,*/ @RequestBody Map<String,Object> obj ) throws Exception {
-        //String email=validity.check(token);
-        System.out.println(obj);
-        long[] uId= (long[]) obj.get("uId");
-        long pId= (long) obj.get("pId");
+    public void assignProjects(@RequestHeader(value = "Authorization") String token, @RequestBody UserProjects userProjects) throws Exception {
+        String email=validity.check(token);
 
-          projectService.assign(uId,pId);
+        projectService.assign(userProjects);
     }
 
     @DeleteMapping("/deleteFromProject")
@@ -78,7 +77,7 @@ public class ProjectController {
 
     @GetMapping("/unAssigned")
     public Object[] unAssigned(@RequestHeader(value = "Authorization") String token){
-        String email=validity.check(token);
+
         return projectService.unAssigned();
     }
 

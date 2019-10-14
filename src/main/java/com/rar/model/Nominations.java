@@ -17,8 +17,8 @@ public class Nominations implements Serializable {
     private String projectName;
     @Column(name = "reward_id")
     private Long rewardID;
-    @Column(name = "reward_name")
-    private String reward_name;
+    //@Column(name = "reward_name")
+    //private String reward_name;
     @Column(name = "User_id")
     private Long userID;
     @Column(name = "frequency")
@@ -31,6 +31,8 @@ public class Nominations implements Serializable {
     private String employee_name;
     @Column(name = "selected")
     private boolean selected=false;
+    @Column(name="disable")
+    private boolean disable=false;
 
     @OneToMany(mappedBy = "nominations", cascade = CascadeType.ALL)
     private
@@ -101,13 +103,13 @@ public class Nominations implements Serializable {
         this.selected = selected;
     }
 
-    public String getReward_name() {
-        return reward_name;
-    }
-
-    public void setReward_name(String reward_name) {
-        this.reward_name = reward_name;
-    }
+//    public String getReward_name() {
+//        return reward_name;
+//    }
+//
+//    public void setReward_name(String reward_name) {
+//        this.reward_name = reward_name;
+//    }
 
     public String getEmployee_name() {
         return employee_name;
