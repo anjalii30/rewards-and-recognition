@@ -58,6 +58,12 @@ public class RewardsController {
         return rewardsService.getCriteria(id);
     }*/
 
+    @PutMapping("/updateReward/{id}")
+    public Rewards Update(@RequestHeader(value = "Authorization") String token,@PathVariable Long id, @RequestBody Rewards rewards){
+        return rewardsService.Update(id, rewards);
+    }
+
+
 
     @DeleteMapping("/deleteRewards/{id}")
     public String delete(@RequestHeader(value = "Authorization") String token, @PathVariable long id){
