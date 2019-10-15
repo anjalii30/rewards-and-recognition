@@ -1,6 +1,6 @@
 package com.rar.repository;
 
-import com.rar.model.Criterias;
+import com.rar.model.Criteria;
 import com.rar.model.Rewards;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -31,7 +31,7 @@ public interface RewardsRepository extends CrudRepository<Rewards, Long> {
 
 
     @Query(value = "Select criteria.criteria_desc from rewards_criteria join rewards on rewards_criteria.reward_id=rewards.reward_id join criteria on rewards_criteria.criteria_id=criteria.criteria_id where rewards.reward_id=?1", nativeQuery=true)
-    List<Criterias> getCriteria(Long id);
+    List<Criteria> getCriteria(Long id);
 
     @Transactional
     @Modifying

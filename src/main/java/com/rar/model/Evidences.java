@@ -1,6 +1,7 @@
 package com.rar.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 
@@ -11,18 +12,23 @@ public class Evidences {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "evidenceID")
+    @ApiModelProperty(notes = "The database generated evidence ID")
     private Long evidenceID;
 
     @Column(name = "criteria_desc")
+   // @ApiModelProperty(notes = "Criteria name")
     private Long criteriaName;
 
     @Column(name = "evidence",length = 2147483000)
+  //  @ApiModelProperty(notes = "Text Evidence")
     private String evidences;
 
     @Column(name = "nomination_id")
+    @ApiModelProperty(notes = "Nomination Id")
     private Long nominationID;
 
     @Column(name = "text_evidence", length = 214783000)
+    @ApiModelProperty(notes = "Text Evidence")
     private String text_evidence;
 
     @ManyToOne

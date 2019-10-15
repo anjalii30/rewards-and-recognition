@@ -16,7 +16,7 @@ public interface RewardsService {
 
     Optional<Rewards> findById(Long id);
 
-  /*  List<Criterias> getCriteria(Long id);*/
+  /*  List<Criteria> getCriteria(Long id);*/
 
     Rewards save(Rewards rewards);
 

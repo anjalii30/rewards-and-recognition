@@ -80,7 +80,7 @@ public class Rewards implements Serializable {
 
     )
     private Set<RewardsCriteria> criterias= new HashSet<>();*/
-//    private Set<Criterias> criterias = new HashSet<>();
+//    private Set<Criteria> criterias = new HashSet<>();
 
 
    // private Set<RewardsCriteria> rewardsCriterias= new HashSet<>();
@@ -217,11 +217,11 @@ public class Rewards implements Serializable {
     }
 
 
-    //    public Set<Criterias> getCriterias() {
+    //    public Set<Criteria> getCriterias() {
 //        return criterias;
 //    }
 //
-//    public void setCriterias(Set<Criterias> criterias) {
+//    public void setCriterias(Set<Criteria> criterias) {
 //        this.criterias = criterias;
 //    }
 

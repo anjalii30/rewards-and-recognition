@@ -1,6 +1,6 @@
 package com.rar.service.impl;
 
-import com.rar.model.Criterias;
+import com.rar.model.Criteria;
 import com.rar.repository.CriteriaRepository;
 import com.rar.service.CriteriaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +20,13 @@ public class CriteriaServiceImpl implements CriteriaService {
 
 
     @Override
-    public Criterias saveCriteria(Criterias criterias) {
-        return criteriaRepository.save(criterias);
+    public Criteria saveCriteria(Criteria criteria) {
+        return criteriaRepository.save(criteria);
     }
 
     @Override
-    public List<Criterias> findAll() {
-        return (List<Criterias>) criteriaRepository.findAll();
+    public List<Criteria> findAll() {
+        return (List<Criteria>) criteriaRepository.findAll();
     }
 
     @Override
@@ -36,7 +36,7 @@ public class CriteriaServiceImpl implements CriteriaService {
     }
 
     @Override
-    public Optional<Criterias> findById(Long id) {
+    public Optional<Criteria> findById(Long id) {
         return criteriaRepository.findById(id);
     }
 

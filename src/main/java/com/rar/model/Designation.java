@@ -2,6 +2,8 @@ package com.rar.model;
 
 
 import com.rar.enums.DesignationEnum;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -10,15 +12,18 @@ import java.util.Set;
 
 @Entity
 @Table(name="designation")
+@ApiModel(description = "All details about the designations ")
 public class Designation implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Designation_Id",unique = true,nullable = false)
+    @ApiModelProperty(notes = "The database generated designation ID")
     private long designationId;
 
     @Column(name="Designation",nullable = false)
     @Enumerated(EnumType.STRING)
+    @ApiModelProperty(notes = "Designation name")
     private DesignationEnum designation;
 
 

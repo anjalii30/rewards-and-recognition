@@ -28,7 +28,7 @@ public class RewardsCriteria {
             @JoinColumn(name = "criteria_id", referencedColumnName = "criteria_id", insertable = false, updatable = false)
     })
     @JsonIgnore
-    private Criterias criteria;
+    private Criteria criteria;
 
 //    @ManyToOne(fetch = FetchType.EAGER)
 //    @MapsId("Reward_Id")
@@ -36,7 +36,7 @@ public class RewardsCriteria {
 //
 //    @ManyToOne(fetch = FetchType.EAGER)
 //    @MapsId("Criterias_Id")
-//    private Criterias criterias;
+//    private Criteria criterias;
 
     @Column(name = "isCompulsory")
     private Boolean isCompulsory;
@@ -67,11 +67,11 @@ public class RewardsCriteria {
         this.rewards = rewards;
     }
 
-    public Criterias getCriterias() {
+    public Criteria getCriterias() {
         return criteria;
     }
 
-    public void setCriterias(Criterias criteria) {
+    public void setCriterias(Criteria criteria) {
         this.criteria = criteria;
     }
 
@@ -86,13 +86,13 @@ public class RewardsCriteria {
     //    public RewardsCriteria() {
 //    }
 //
-//    public RewardsCriteria(Rewards rewards, Criterias criterias) {
+//    public RewardsCriteria(Rewards rewards, Criteria criterias) {
 //        this.rewards = rewards;
 //        this.criterias = criterias;
 //        this.id = new RewardsCriteriaId(rewards.getId(), criterias.getCriteriaId());
 //    }
 //
-//    public RewardsCriteria(Rewards rewards, Criterias criterias, Boolean isCompulsory) {
+//    public RewardsCriteria(Rewards rewards, Criteria criterias, Boolean isCompulsory) {
 //        this.rewards = rewards;
 //        this.criterias = criterias;
 //        this.id = new RewardsCriteriaId(rewards.getId(), criterias.getCriteriaId());
@@ -121,11 +121,11 @@ public class RewardsCriteria {
 //        this.rewards = rewards;
 //    }
 //    @Transient
-//    public Criterias getCriterias() {
+//    public Criteria getCriterias() {
 //        return criterias;
 //    }
 //
-//    public void setCriterias(Criterias criterias) {
+//    public void setCriterias(Criteria criterias) {
 //        this.criterias = criterias;
 //    }
 //
