@@ -21,7 +21,6 @@ import java.util.List;
 @CrossOrigin
 @RestController
 @EnableAutoConfiguration
-@RequestMapping(value = "/trail")
 @Api(value="Nomination Management System")
 public class NominationController {
 
@@ -42,25 +41,12 @@ public class NominationController {
         return ResponseEntity.ok(nominationPojo);
     }
 
-<<<<<<< HEAD
 
-    @ApiOperation(value = "Get the list of nominations")
-    @GetMapping("/showNomination/{id}")
-    public List<Nominations> show(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Get nomination object by id", required = true) @PathVariable Long id) {
-        String email = validity.check(token);
-=======
-   /* @ApiOperation(value = "Get the list of nominations")
-    @GetMapping("/showNomination")
-    public List<Nominations> show(@RequestHeader(value = "Authorization") String token,  @ApiParam(value = "Get nomination object by id", required = true) @RequestBody @NotNull Map<String,Long> rewardID){
-        String email=validity.check(token);
-        return nominationsService.GetData(rewardID.get("rewardID"));
-    }*/
 
     @ApiOperation(value = "Get the list of nominations")
     @GetMapping("/showNomination/{id}")
     public List<Nominations> show(@RequestHeader(value = "Authorization") String token,  @ApiParam(value = "Get nomination object by id", required = true) @PathVariable Long id){
         String email=validity.check(token);
->>>>>>> 32daa74b01977407d30a54e6b628474a90706ba7
         return nominationsService.GetData(id);
     }
 
