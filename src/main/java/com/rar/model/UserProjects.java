@@ -1,10 +1,15 @@
 package com.rar.model;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
+@ApiModel(description = "The mapping of users with projects")
 public class UserProjects {
 
+    @ApiModelProperty(notes = "The email of the User")
     private String[] user_email;
 
+    @ApiModelProperty(notes = "The name of the Project")
     private String project_name;
 
     public String[] getUser_email() {

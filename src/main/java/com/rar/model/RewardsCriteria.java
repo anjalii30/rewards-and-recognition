@@ -1,19 +1,24 @@
 package com.rar.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 
 @Entity
 @IdClass(RewardsCriteriaId.class)
 @Table(name = "rewards_criteria")
+@ApiModel(description = "Mapping of rewards with criteria")
 public class RewardsCriteria {
 
     @Id
     @Column(name = "reward_id")
+    @ApiModelProperty(notes = "The ID of Reward")
     private long rewardId;
     @Id
     @Column(name = "criteria_id")
+    @ApiModelProperty(notes = "The ID of Criteria")
     private long criteriaId;
 
     @ManyToOne

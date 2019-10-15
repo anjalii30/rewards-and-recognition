@@ -1,6 +1,9 @@
 package com.rar.model;
 
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -8,14 +11,17 @@ import java.util.List;
 
 @Entity
 @Table(name="criteria")
+@ApiModel(description = "All details about criteria")
 public class Criterias implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "criteria_Id")
+    @ApiModelProperty(notes = "The database generated criteria ID")
     private long criteriaId;
 
     @Column(name="criteria_desc",nullable = false)
+    @ApiModelProperty(notes = "The description of specific criteria")
     private String criteria_desc;
 
 

@@ -1,5 +1,8 @@
 package com.rar.model;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
@@ -11,7 +14,7 @@ import java.util.Set;
 
 @Entity
 @Table(name="users")
-
+@ApiModel(description = "All the details about User")
 public class UserInfo implements Serializable {
 
 
@@ -19,21 +22,26 @@ public class UserInfo implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id",unique = true,nullable = false)
+    @ApiModelProperty(notes = "The database generated User ID")
     private Long uid;
 
     @NotNull
     @Email
     @Size(max = 100)
     @Column(unique = true)
+    @ApiModelProperty(notes = "The email ID of the User")
     private String email;
 
     @Column(nullable = false)
+    @ApiModelProperty(notes = "The name of the User")
     private String name;
 
     @Column
+    @ApiModelProperty(notes = "User to store the image of User")
     private Boolean firstSign=false;
 
     @Column
+    @ApiModelProperty(notes = "The URL for user's Image")
     private String imageUrl;
 
 

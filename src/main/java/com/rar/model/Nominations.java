@@ -43,13 +43,14 @@ public class Nominations implements Serializable {
     @ApiModelProperty(notes = "The name of the employee getting nominated")
     private String employee_name;
     @Column(name = "selected")
+    @ApiModelProperty(notes = "Used in self nominated rewards when a manager approves it")
     private boolean selected=false;
     @Column(name = "disable")
+    @ApiModelProperty(notes = "Used for rejecting multiple nominations")
     private boolean disable=false;
 
     @OneToMany(mappedBy = "nominations", cascade = CascadeType.ALL)
-    private
-    List<Evidences> evidencesList;
+    private List<Evidences> evidencesList;
 
     public Long getNominationID() {
         return nominationID;

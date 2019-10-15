@@ -2,6 +2,8 @@ package com.rar.model;
 
 import com.rar.enums.CategoryEnum;
 import com.rar.enums.FrequencyEnum;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -13,50 +15,64 @@ import java.util.Set;
 
 @Entity
 @Table(name="rewards")
+@ApiModel(description = "All the details of a reward")
 public class Rewards implements Serializable {
 
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "reward_id",unique = true,nullable = false)
+    @ApiModelProperty(notes = "The database generated rewardID")
     private long rewardId;
 
     @Column
+    @ApiModelProperty(notes = "The name of the reward")
     private String reward_name;
 
     @Column
     @Enumerated(EnumType.STRING)
+    @ApiModelProperty(notes = "The frequency of the reward")
     private FrequencyEnum frequency;
 
     @Column
+    @ApiModelProperty(notes = "The description of that particular reward")
     private String description;
 
     @Column
+    @ApiModelProperty(notes = "Used for regenerated rewards")
     private boolean regenerated=true;
 
     @Column
     @Enumerated(EnumType.STRING)
+    @ApiModelProperty(notes = "Category of a particular reward")
     private CategoryEnum category;
 
     @Column
+    @ApiModelProperty(notes = "The start date of the project")
     private LocalDate start_date;
 
     @Column
+    @ApiModelProperty(notes = "The end date of the project")
     private LocalDate end_date;
 
     @Column
+    @ApiModelProperty(notes = "Used for self nominating rewards")
     private boolean self_nominate;
 
     @Column
+    @ApiModelProperty(notes = "The number of nominations allowed for reward")
     private int nominations_allowed;
 
     @Column
+    @ApiModelProperty(notes = "The status of the reward")
     private int award_status = 0;
 
     @Column
+    @ApiModelProperty(notes = "The discontinuing date of reward")
     private Date discontinuingDate;
 
     @Column
+    @ApiModelProperty(notes = "The reason for discontinuing a reward")
     private String discontinuingReason;
 
 

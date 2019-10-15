@@ -1,8 +1,15 @@
 package com.rar.model;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel(description = "All the evidences stored in another table for nominations")
 public class EvidencesPojo {
+    @ApiModelProperty(notes = "description about a particular criteria")
     String  criteria_desc;
+    @ApiModelProperty(notes = "the documented form of evidence")
     String evidences;
+    @ApiModelProperty(notes = "the textual form of evidence")
     String text_evidence;
 
     public String getCriteria_desc() {

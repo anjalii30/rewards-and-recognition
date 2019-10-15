@@ -1,5 +1,8 @@
 package com.rar.model;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -7,17 +10,20 @@ import java.util.Set;
 
 @Entity
 @Table(name="employeeRelation")
+@ApiModel(description = "All the details related to relation of employees")
 public class EmployeeRelation implements Serializable {
 
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "EmployeeRelation_Id",unique = true,nullable = false)
+    @ApiModelProperty(notes = "The database generated employee_relation ID")
     private long ERid;
 
 
 
     @Column(name="manager_email",nullable = false)
+    @ApiModelProperty(notes = "The email ID of particular manager")
     private String manager_email;
 
 
