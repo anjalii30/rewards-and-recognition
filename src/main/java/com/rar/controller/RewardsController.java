@@ -2,6 +2,7 @@ package com.rar.controller;
 
 import com.rar.model.Rewards;
 import com.rar.service.RewardsService;
+import com.rar.utils.CheckDisable;
 import com.rar.utils.CheckValidity;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -26,6 +27,7 @@ public class RewardsController {
     @Autowired
     private CheckValidity validity;
 
+    private CheckDisable checkDisable;
 
     @ApiOperation(value = "Save the rewards")
     @PostMapping("/save")
@@ -55,7 +57,8 @@ public class RewardsController {
     @GetMapping("/listRewards")
     public List<Rewards> list(@RequestHeader(value = "Authorization") String token){
         String email=validity.check(token);
-        return rewardsService.findAll();
+        return checkDisable.checkForDisable(email);
+        //return rewardsService.findAll();
     }
 
     @ApiOperation(value = "Get the list of rewards by id")

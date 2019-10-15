@@ -22,7 +22,7 @@ public interface NominationsRepository extends CrudRepository<Nominations, Strin
     @Query(value = "select * from rewards where reward_id in(select reward_id from nominations where disable=false )",nativeQuery = true)
     List<Rewards> getRewards();
 
-    @Query(value = "select * from nominations where reward_id=?1 and selected=true",nativeQuery = true)
+    @Query(value = "select * from nominations where reward_id=?1",nativeQuery = true)
     List<Nominations> GetData(Long rewardID);
 
 
