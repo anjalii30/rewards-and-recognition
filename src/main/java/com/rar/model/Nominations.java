@@ -29,7 +29,7 @@ public class Nominations implements Serializable {
     @ApiModelProperty(notes = "The name of the reward for which the employee is nominating")
     private String reward_name;
 
-    @Column(name = "User_id")
+    @Column(name = "user_id")
     @ApiModelProperty(notes = "The User Id of the employee")
     private Long userID;
     @Column(name = "frequency")

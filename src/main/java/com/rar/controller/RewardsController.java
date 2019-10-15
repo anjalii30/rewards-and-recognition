@@ -1,8 +1,9 @@
 package com.rar.controller;
 
 import com.rar.model.Rewards;
+import com.rar.repository.UserRepository;
 import com.rar.service.RewardsService;
-import com.rar.utils.CheckDisable;
+//import com.rar.utils.CheckDisable;
 import com.rar.utils.CheckValidity;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -25,9 +26,12 @@ public class RewardsController {
     private RewardsService rewardsService;
 
     @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
     private CheckValidity validity;
 
-    private CheckDisable checkDisable;
+  //  private CheckDisable checkDisable;
 
     @ApiOperation(value = "Save the rewards")
     @PostMapping("/save")
@@ -57,8 +61,19 @@ public class RewardsController {
     @GetMapping("/listRewards")
     public List<Rewards> list(@RequestHeader(value = "Authorization") String token){
         String email=validity.check(token);
-        return checkDisable.checkForDisable(email);
-        //return rewardsService.findAll();
+        //return checkDisable.checkForDisable(email);
+        return rewardsService.findAll();
+    }
+
+    @ApiOperation(value = "Get the list of rolled out  rewards")
+    @GetMapping("/listRolledOut")
+    public List<Rewards> listRolledOut(@RequestHeader(value = "Authorization") String token){
+        String email=validity.check(token);
+        System.out.println(email);
+        Long user_id = userRepository.getIdByEmail(email);
+        System.out.println(user_id);
+        //return checkDisable.checkForDisable(email);
+       return rewardsService.findByRolled(user_id);
     }
 
     @ApiOperation(value = "Get the list of rewards by id")

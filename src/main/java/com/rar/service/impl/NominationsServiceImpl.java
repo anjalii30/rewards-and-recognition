@@ -6,7 +6,7 @@ import com.rar.model.Nominations;
 import com.rar.repository.EvidencesRepository;
 import com.rar.repository.NominationsRepository;
 import com.rar.service.NominationsService;
-import com.rar.utils.CheckDisable;
+//import com.rar.utils.CheckDisable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;

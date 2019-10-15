@@ -63,7 +63,7 @@ public class RewardsServiceImpl implements RewardsService {
         return rewardsRepository.getCriteria(id);
     }*/
 
-    @Override
+    /*@Override
     public List<Rewards> findByDiscontinued() {
         return rewardsRepository.findByDiscontinued();
     }
@@ -71,11 +71,11 @@ public class RewardsServiceImpl implements RewardsService {
     @Override
     public List<Rewards> findByNominationClosed() {
         return rewardsRepository.findByNominationClosed();
-    }
+    }*/
 
     @Override
-    public List<Rewards> findByRolled() {
-        return rewardsRepository.findByRolled();
+    public List<Rewards> findByRolled(Long user_id) {
+        return rewardsRepository.findByRolled(user_id);
     }
 
 
@@ -214,7 +214,7 @@ public class RewardsServiceImpl implements RewardsService {
 
 
         if(rewards.getFrequency()== FrequencyEnum.Annually)
-            rewards.setReward_name(rewards.getReward_name()+" for year " + year);
+            rewards.setReward_name(rewards.getReward_name()+" for " + year);
 
         else
             rewards.setReward_name(rewards.getReward_name()+" for " + month + " " + year);

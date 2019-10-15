@@ -24,11 +24,11 @@ public interface RewardsService {
 
     void deleteById(long id);
 
-    List<Rewards> findByDiscontinued();
+  /*  List<Rewards> findByDiscontinued();
 
     List<Rewards> findByNominationClosed();
-
-    List<Rewards> findByRolled();
+*/
+    List<Rewards> findByRolled(Long user_id);
 
 //    Rewards function(Rewards reward);
 

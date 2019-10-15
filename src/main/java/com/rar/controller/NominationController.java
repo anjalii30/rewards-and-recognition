@@ -3,7 +3,7 @@ package com.rar.controller;
 import com.rar.model.NominationPojo;
 import com.rar.model.Nominations;
 import com.rar.service.NominationsService;
-import com.rar.utils.CheckDisable;
+//import com.rar.utils.CheckDisable;
 import com.rar.utils.CheckValidity;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
