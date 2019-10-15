@@ -1,7 +1,6 @@
 package com.rar.service.impl;
 
 
-
 import com.rar.model.RewardsCriteria;
 import com.rar.repository.RewardsCriteriaRepository;
 import com.rar.service.RewardsCriteriaService;
@@ -10,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -29,14 +29,14 @@ public class RewardsCriteriaServiceImpl implements RewardsCriteriaService {
         return (List<RewardsCriteria>) rewardsCriteriaRepository.findAll();
     }
 
-/*    @Override
-    public void deleteById(long id) {
 
-        rewardsCriteriaRepository.deleteById(id);
+    public void deleteById(Long rid, Long cid) {
+
+        rewardsCriteriaRepository.deleteById(rid,cid);
     }
 
     @Override
-    public Optional<RewardsCriteria> findById(Long rewardid) {
-        return rewardsCriteriaRepository.findById(rewardid);
-    }*/
+    public Set<RewardsCriteria> findById(Long rid, Long cid) {
+        return rewardsCriteriaRepository.findById(rid,cid);
+    }
 }

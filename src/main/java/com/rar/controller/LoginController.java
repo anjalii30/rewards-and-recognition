@@ -26,6 +26,7 @@ public class LoginController{
 
     @PostMapping(value = "/login")
     public Object getToken(@RequestHeader(value = "Authorization") String token) throws Exception {
+
         return loginService.login(token);
     }
 
@@ -43,9 +44,9 @@ public class LoginController{
     }
 
     @GetMapping("/listUsers/{id}")
-    public Optional<UserInfo> getById(@RequestHeader(value = "Authorization") String token, @PathVariable Long id){
-        String email=validity.check(token);
+    public Optional<UserInfo> getById(@RequestHeader(value = "Authorization") String token,@PathVariable Long id){
 
+        String email=validity.check(token);
         return loginService.findById(id);
     }
 
