@@ -46,8 +46,8 @@ public class LoginController{
 
     @ApiOperation(value = "Get the list of users")
     @GetMapping(value = "/listUsers", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Map<String,Object>> listUser(@RequestHeader(value = "Authorization") String token){
-        String email=validity.check(token);
+    public List listUser(/*@RequestHeader(value = "Authorization") String token*/){
+       // String email=validity.check(token);
         return loginService.findAll();
     }
 

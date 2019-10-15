@@ -189,7 +189,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List<Map<String, Object>> findAll() {
+    public List findAll() {
         return  userRepository.findAllUsers();
     }
 

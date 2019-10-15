@@ -24,5 +24,5 @@ public interface UserRepository extends CrudRepository<UserInfo,Long> {
      Long getIdByEmail(String email);
 
     @Query(value="select * from users",nativeQuery = true)
-    List<Map<String,Object>> findAllUsers();
+    List findAllUsers();
 }
