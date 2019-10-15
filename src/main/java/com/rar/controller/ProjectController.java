@@ -36,8 +36,8 @@ public class ProjectController {
     }
 
     @ApiOperation(value = "Get the list of projects")
-    @GetMapping(value = "/listProjects", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Map<String,Object>> list(@RequestHeader(value = "Authorization") String token){
+    @GetMapping(value = "/listProjects"/*, produces = MediaType.APPLICATION_JSON_VALUE*/)
+    public List list(@RequestHeader(value = "Authorization") String token){
         String email=validity.check(token);
         return  projectService.findAllData();
     }

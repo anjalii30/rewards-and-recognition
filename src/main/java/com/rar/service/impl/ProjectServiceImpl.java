@@ -119,7 +119,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public List<Map<String,Object>> findAllData() {
+    public List findAllData() {
         return projectRepository.findAllData();
     }
 
