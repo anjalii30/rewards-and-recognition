@@ -1,28 +1,36 @@
 package com.rar.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "evidences")
+@ApiModel(description = "All the details about evidences submitted during nominations")
 public class Evidences {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "evidenceID")
+    @ApiModelProperty(notes = "The database generated evidenceID")
     private Long evidenceID;
 
-    @Column(name = "criteria_desc")
-    private Long criteriaName;
+    @Column(name = "criteria_desc", length = 2147483000)
+    @ApiModelProperty(notes = "description about a particular criteria")
+    private String criteria_desc;
 
     @Column(name = "evidence",length = 2147483000)
+    @ApiModelProperty(notes = "the documented form of evidence")
     private String evidences;
 
     @Column(name = "nomination_id")
+    @ApiModelProperty(notes = "the nomination_id attached to that particular evidences")
     private Long nominationID;
 
     @Column(name = "text_evidence", length = 214783000)
+    @ApiModelProperty("the textual form of evidence")
     private String text_evidence;
 
     @ManyToOne
@@ -40,12 +48,12 @@ public class Evidences {
         this.evidenceID = evidenceID;
     }
 
-    public Long getCriteriaName() {
-        return criteriaName;
+    public String getCriteria_desc() {
+        return criteria_desc;
     }
 
-    public void setCriteriaName(Long criteriaName) {
-        this.criteriaName = criteriaName;
+    public void setCriteria_desc(String criteria_desc) {
+        this.criteria_desc = criteria_desc;
     }
 
     public String getEvidences() {

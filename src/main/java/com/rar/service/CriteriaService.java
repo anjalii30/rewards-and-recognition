@@ -1,6 +1,6 @@
 package com.rar.service;
 
-import com.rar.model.Criterias;
+import com.rar.model.Criteria;
 
 import java.util.List;
 import java.util.Optional;
@@ -8,12 +8,12 @@ import java.util.Optional;
 public interface CriteriaService {
 
 
-    Optional<Criterias> findById(Long id);
+    Optional<Criteria> findById(Long id);
 
-    Criterias saveCriteria(Criterias criterias);
+    Criteria saveCriteria(Criteria criteria);
 
 
-    List<Criterias> findAll();
+    List<Criteria> findAll();
 
     void deleteById(long id);
 }

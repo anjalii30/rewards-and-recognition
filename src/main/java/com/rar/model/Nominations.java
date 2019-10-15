@@ -1,5 +1,8 @@
 package com.rar.model;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -7,34 +10,50 @@ import java.util.List;
 
 @Entity
 @Table(name = "nominations")
+@ApiModel(description = "All the details requrired for a nomination")
 public class Nominations implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "nomination_id")//, updatable = false, nullable = false)
+    @Column(name = "nomination_id")
+    @ApiModelProperty(notes = "The database generated nomination ID")
     private Long nominationID;
-    @Column(name = "project_name")
-    private String projectName;
+    @Column(name = "project_name",length = 1000000000)
+    @ApiModelProperty(notes = "The name of the project in which the employee is working and wants to be nominated")
+    private String project_name;
     @Column(name = "reward_id")
+    @ApiModelProperty(notes = "The ID of that particular reward")
     private Long rewardID;
-    @Column(name = "reward_name")
+
+    @Column(name = "reward_name", length = 100000000)
+    @ApiModelProperty(notes = "The name of the reward for which the employee is nominating")
     private String reward_name;
-    @Column(name = "User_id")
+
+    @Column(name = "user_id")
+    @ApiModelProperty(notes = "The User Id of the employee")
     private Long userID;
     @Column(name = "frequency")
+    @ApiModelProperty(notes = "The frequency of the reward")
     private String frequency;
     @Column(name = "start_date")
-    private Date startingDate;
+    @ApiModelProperty(notes = "The start date of the reward")
+    private Date start_date;
     @Column(name = "end_date")
-    private Date endingDate;
+    @ApiModelProperty(notes = "The end date of the reward")
+    private Date end_date;
     @Column(name = "employee_name")
+    @ApiModelProperty(notes = "The name of the employee getting nominated")
     private String employee_name;
     @Column(name = "selected")
+    @ApiModelProperty(notes = "Used in self nominated rewards when a manager approves it")
     private boolean selected=false;
 
+    @ApiModelProperty(notes = "Used for rejecting multiple nominations")
+    @Column(name="disable")
+    private boolean disable=false;
+
     @OneToMany(mappedBy = "nominations", cascade = CascadeType.ALL)
-    private
-    List<Evidences> evidencesList;
+    private List<Evidences> evidencesList;
 
     public Long getNominationID() {
         return nominationID;
@@ -61,12 +80,12 @@ public class Nominations implements Serializable {
         this.frequency = frequency;
     }
 
-    public String getProjectName() {
-        return projectName;
+    public String getProject_name() {
+        return project_name;
     }
 
-    public void setProjectName(String projectName) {
-        this.projectName = projectName;
+    public void setProject_name(String project_name) {
+        this.project_name = project_name;
     }
 
     public Long getUserID() {
@@ -77,20 +96,20 @@ public class Nominations implements Serializable {
         this.userID = userID;
     }
 
-    public Date getStartingDate() {
-        return startingDate;
+    public Date getStart_date() {
+        return start_date;
     }
 
-    public void setStartingDate(Date startingDate) {
-        this.startingDate = startingDate;
+    public void setStart_date(Date start_date) {
+        this.start_date = start_date;
     }
 
-    public Date getEndingDate() {
-        return endingDate;
+    public Date getEnd_date() {
+        return end_date;
     }
 
-    public void setEndingDate(Date endingDate) {
-        this.endingDate = endingDate;
+    public void setEnd_date(Date end_date) {
+        this.end_date = end_date;
     }
 
     public boolean isSelected() {
@@ -101,13 +120,16 @@ public class Nominations implements Serializable {
         this.selected = selected;
     }
 
-    public String getReward_name() {
-        return reward_name;
+
+    public boolean isDisable() {
+        return disable;
     }
 
-    public void setReward_name(String reward_name) {
-        this.reward_name = reward_name;
+    public void setDisable(boolean disable) {
+        this.disable = disable;
     }
+
+
 
     public String getEmployee_name() {
         return employee_name;

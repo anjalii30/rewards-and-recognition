@@ -1,18 +1,34 @@
 package com.rar.model;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.util.Date;
 import java.util.List;
 
+@ApiModel(description = "All the DTO data in nominations")
 public class NominationPojo {
+    @ApiModelProperty(notes = "The ID of a particular reward")
     private Long rewardId;
-    private String projectName;
+    @ApiModelProperty(notes = "The name of the Project")
+    private String project_name;
+    @ApiModelProperty(notes = "The ID of the particular user")
     private long userId;
+    @ApiModelProperty(notes = "The frequency of the reward")
     private String frequency;
-    private Date startDate;
-    private Date endingDate;
+    @ApiModelProperty(notes = "The starting date of the Project")
+    private Date start_date;
+    @ApiModelProperty(notes = "The ending date of the Project")
+    private Date end_date;
+    @ApiModelProperty(notes = "The name of the employee for that particular nomination")
     private String employee_name;
+    @ApiModelProperty(notes = "Used in self nominated rewards when a manager approves it")
     private boolean selected=false;
+    @ApiModelProperty(notes = "Used for rejecting multiple nominations")
+    private boolean disable=false;
+    @ApiModelProperty(notes = "The name of the particular reward")
     private String reward_name;
+    @ApiModelProperty(notes = "The list of evidences for a particular nomination")
     private List<EvidencesPojo> evidencesPojoList;
 
     public List<EvidencesPojo> getEvidencesPojoList() {
@@ -31,12 +47,12 @@ public class NominationPojo {
         this.rewardId = rewardId;
     }
 
-    public String getProjectName() {
-        return projectName;
+    public String getProject_name() {
+        return project_name;
     }
 
-    public void setProjectName(String projectName) {
-        this.projectName = projectName;
+    public void setProject_name(String project_name) {
+        this.project_name = project_name;
     }
 
     public long getUserId() {
@@ -63,20 +79,20 @@ public class NominationPojo {
         this.frequency = frequency;
     }
 
-    public Date getStartDate() {
-        return startDate;
+    public Date getStart_date() {
+        return start_date;
     }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
+    public void setStart_date(Date start_date) {
+        this.start_date = start_date;
     }
 
-    public Date getEndingDate() {
-        return endingDate;
+    public Date getEnd_date() {
+        return end_date;
     }
 
-    public void setEndingDate(Date endingDate) {
-        this.endingDate = endingDate;
+    public void setEnd_date(Date end_date) {
+        this.end_date = end_date;
     }
 
     public boolean isSelected() {
@@ -93,5 +109,13 @@ public class NominationPojo {
 
     public void setEmployee_name(String employee_name) {
         this.employee_name = employee_name;
+    }
+
+    public boolean isDisable() {
+        return disable;
+    }
+
+    public void setDisable(boolean disable) {
+        this.disable = disable;
     }
 }

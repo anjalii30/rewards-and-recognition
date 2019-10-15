@@ -120,6 +120,20 @@ public class LoginServiceImpl implements LoginService {
                     userRepository.save(userInfo1);
 
 
+/*
+                    for (Iterator<RewardsCriteria> it = criterias.iterator(); it.hasNext(); ) {
+                        RewardsCriteria f = it.next();
+
+                        RewardsCriteria rewardsCriteria = new RewardsCriteria();
+                        rewardsCriteria.setRewardId(new_reward.getId());
+                        rewardsCriteria.setCriteriaId(f.getCriteriaId());
+                        rewardsCriteria.setCompulsory(f.getCompulsory());
+
+                        */
+
+
+
+
                     String generatedToken = Jwts.builder()
                             .setSubject(String.valueOf(email))
                             .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY * 1000))
@@ -175,7 +189,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List<Map<String, Object>> findAll() {
+    public List findAll() {
         return  userRepository.findAllUsers();
     }
 

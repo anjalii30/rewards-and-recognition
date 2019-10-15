@@ -37,9 +37,9 @@ public class ProjectServiceImpl implements ProjectService {
 
 
     @Override
-    public void assign(long[] uId,long pId) /*throws Exception*/ {
+    public void assign(UserProjects userProjects) throws Exception {
 
-       /* try {
+        try {
 
             String[] employees = userProjects.getUser_email();
 
@@ -60,12 +60,6 @@ public class ProjectServiceImpl implements ProjectService {
             throw new InvalidProjectException("Either employee or project is invalid...!!");
 
         }
-*/
-
-        for(int i=0; i<uId.length;i++){
-            long user_id=uId[i];
-            projectRepository.assign(user_id,pId);
-        }
 
 
     }
@@ -79,24 +73,24 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public void deleteUserFromProject(UserProjects userProjects) {
 
-         try {
+        try {
 
-        String[] employees = userProjects.getUser_email();
+            String[] employees = userProjects.getUser_email();
 
-        for (int i = 0; i < employees.length; i++) {
-
-
-            String user_name = employees[i];
-
-            Long user_id = loginService.getIdByName(user_name);
-            System.out.println(user_id);
-
-            Long project_id = projectService.getIdByProject(userProjects.getProject_name());
-            System.out.println(project_id);
+            for (int i = 0; i < employees.length; i++) {
 
 
-            projectRepository.deleteUser(user_id, project_id);
-        }
+                String user_name = employees[i];
+
+                Long user_id = loginService.getIdByName(user_name);
+                System.out.println(user_id);
+
+                Long project_id = projectService.getIdByProject(userProjects.getProject_name());
+                System.out.println(project_id);
+
+
+                projectRepository.deleteUser(user_id, project_id);
+            }
         } catch (Exception e) {
 
             throw new InvalidProjectException("Either employee or project is invalid...!!");
@@ -111,7 +105,7 @@ public class ProjectServiceImpl implements ProjectService {
         if(project_id==4)
             return projectRepository.unAssignedUsers();
         else
-        return projectRepository.getUsersById(project_id);
+            return projectRepository.getUsersById(project_id);
 
     }
 
@@ -121,11 +115,11 @@ public class ProjectServiceImpl implements ProjectService {
         /*if(project_id==4)
             return  null;
         else*/
-            return (Object[]) projectRepository.findNotInId(project_id);
+        return (Object[]) projectRepository.findNotInId(project_id);
     }
 
     @Override
-    public List<Map<String,Object>> findAllData() {
+    public List findAllData() {
         return projectRepository.findAllData();
     }
 

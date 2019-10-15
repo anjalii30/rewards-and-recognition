@@ -58,12 +58,12 @@ public class RewardsServiceImpl implements RewardsService {
     }
 /*
     @Override
-    public List<Criterias> getCriteria(Long id){
+    public List<Criteria> getCriteria(Long id){
 
         return rewardsRepository.getCriteria(id);
     }*/
 
-    @Override
+    /*@Override
     public List<Rewards> findByDiscontinued() {
         return rewardsRepository.findByDiscontinued();
     }
@@ -71,11 +71,11 @@ public class RewardsServiceImpl implements RewardsService {
     @Override
     public List<Rewards> findByNominationClosed() {
         return rewardsRepository.findByNominationClosed();
-    }
+    }*/
 
     @Override
-    public List<Rewards> findByRolled() {
-        return rewardsRepository.findByRolled();
+    public List<Rewards> findByRolled(Long user_id) {
+        return rewardsRepository.findByRolled(user_id);
     }
 
 
@@ -226,7 +226,7 @@ public class RewardsServiceImpl implements RewardsService {
 
 
         if(rewards.getFrequency()== FrequencyEnum.Annually)
-            rewards.setReward_name(rewards.getReward_name()+" for year " + year);
+            rewards.setReward_name(rewards.getReward_name()+" for " + year);
 
         else
             rewards.setReward_name(rewards.getReward_name()+" for " + month + " " + year);
@@ -284,7 +284,7 @@ public class RewardsServiceImpl implements RewardsService {
 ////            rewardsCriteriasId = new RewardsCriteriaId();
 //            System.out.println("Reward:" + f.getCriterias().getCriteriaId());
 //
-//            Criterias c = f.getCriterias();
+//            Criteria c = f.getCriterias();
 //            Rewards r = f.getRewards();
 //            Boolean b = f.getCompulsory();
 //
@@ -310,7 +310,7 @@ public class RewardsServiceImpl implements RewardsService {
             rewardsCriterias.setCriteriaId(reward.getCriterias().getClass().get);
         }*/
 //
-////        Set<Criterias> rewardsCriterias1=reward.getCriterias();
+////        Set<Criteria> rewardsCriterias1=reward.getCriterias();
 ////        rewardsCriterias.setRewardId(reward.getId());
 //////        rewardsCriterias.setCriteriaId(rewardsCriterias1.);
 ////        System.out.println(" "+rewardsCriterias1.getClass());

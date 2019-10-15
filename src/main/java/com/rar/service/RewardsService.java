@@ -16,7 +16,7 @@ public interface RewardsService {
 
     Optional<Rewards> findById(Long id);
 
-  /*  List<Criterias> getCriteria(Long id);*/
+  /*  List<Criteria> getCriteria(Long id);*/
 
     Rewards save(Rewards rewards);
 
@@ -24,11 +24,11 @@ public interface RewardsService {
 
     void deleteById(long id);
 
-    List<Rewards> findByDiscontinued();
+  /*  List<Rewards> findByDiscontinued();
 
     List<Rewards> findByNominationClosed();
-
-    List<Rewards> findByRolled();
+*/
+    List<Rewards> findByRolled(Long user_id);
 
 //    Rewards function(Rewards reward);
 

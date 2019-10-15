@@ -30,11 +30,11 @@ public interface ProjectRepository  extends JpaRepository<Projects,Long> {
     @Query(value="select email,name from users where user_id in (select user_id from user_projects where project_id=?1)",nativeQuery = true)
     Object[] getUsersById(Long project_id);
 
-    @Query(value="select email, name from users where user_id not in (select user_id from user_projects where project_id=?1)",nativeQuery = true)
+    @Query(value="select user_id,email, name from users where user_id not in (select user_id from user_projects where project_id=?1)",nativeQuery = true)
     Object[] findNotInId(Long project_id);
 
     @Query(value="select *  from projects",nativeQuery = true)
-    List<Map<String,Object>> findAllData();
+    List findAllData();
 
     @Query(value="select email,name from users where user_id not in (select user_id from user_projects)",nativeQuery =true )
     Object[] unAssignedUsers();

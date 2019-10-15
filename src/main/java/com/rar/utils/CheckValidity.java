@@ -25,7 +25,8 @@ public class CheckValidity  {
         String email=claims.getSubject();
         if (expirationDate.after(new Date(System.currentTimeMillis()))) {
 
-            return "Token Checked";
+         //   return "Token Checked";
+            return email;
 
         } else {
             throw new InvalidTokenException("token is expired");
