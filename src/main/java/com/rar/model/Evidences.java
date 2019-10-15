@@ -13,8 +13,8 @@ public class Evidences {
     @Column(name = "evidenceID")
     private Long evidenceID;
 
-    @Column(name = "criteria_desc")
-    private Long criteriaName;
+    @Column(name = "criteria_desc", length = 2147483000)
+    private String criteria_desc;
 
     @Column(name = "evidence",length = 2147483000)
     private String evidences;
@@ -40,12 +40,12 @@ public class Evidences {
         this.evidenceID = evidenceID;
     }
 
-    public Long getCriteriaName() {
-        return criteriaName;
+    public String getCriteria_desc() {
+        return criteria_desc;
     }
 
-    public void setCriteriaName(Long criteriaName) {
-        this.criteriaName = criteriaName;
+    public void setCriteria_desc(String criteria_desc) {
+        this.criteria_desc = criteria_desc;
     }
 
     public String getEvidences() {

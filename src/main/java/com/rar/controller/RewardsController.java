@@ -2,6 +2,7 @@ package com.rar.controller;
 
 import com.rar.model.Rewards;
 import com.rar.service.RewardsService;
+import com.rar.utils.CheckDisable;
 import com.rar.utils.CheckValidity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,7 @@ public class RewardsController {
     @Autowired
     private CheckValidity validity;
 
+    private CheckDisable checkDisable;
 
     @PostMapping("/save")
     public ResponseEntity<?> save(@RequestHeader(value = "Authorization") String token , @RequestBody Rewards rewards) throws Exception{
@@ -43,7 +45,8 @@ public class RewardsController {
     @GetMapping("/listRewards")
     public List<Rewards> list(@RequestHeader(value = "Authorization") String token){
         String email=validity.check(token);
-        return rewardsService.findAll();
+        return checkDisable.checkForDisable(email);
+        //return rewardsService.findAll();
     }
 
     @GetMapping("/listRewards/{id}")

@@ -1,16 +1,16 @@
 package com.rar.model;
 
 public class EvidencesPojo {
-    long criteriaName;
+    String  criteria_desc;
     String evidences;
     String text_evidence;
 
-    public long getCriteriaName() {
-        return criteriaName;
+    public String getCriteria_desc() {
+        return criteria_desc;
     }
 
-    public void setCriteriaName(long criteriaName) {
-        this.criteriaName = criteriaName;
+    public void setCriteria_desc(String criteria_desc) {
+        this.criteria_desc = criteria_desc;
     }
 
     public String getEvidences() {

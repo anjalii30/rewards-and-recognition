@@ -30,12 +30,13 @@ public class NominationsServiceImpl implements NominationsService {
         nominations.setUserID(nominationPojo.getUserId());
         nominations.setFrequency(nominationPojo.getFrequency());
         nominations.setRewardID(nominationPojo.getRewardId());
-        nominations.setEndingDate(nominationPojo.getEndingDate());
-        nominations.setStartingDate(nominationPojo.getStartDate());
-        nominations.setProjectName(nominationPojo.getProjectName());
+        nominations.setEnd_date(nominationPojo.getEnd_date());
+        nominations.setStart_date(nominationPojo.getStart_date());
+        nominations.setProject_name(nominationPojo.getProject_name());
         nominations.setSelected(nominationPojo.isSelected());
         nominations.setReward_name(nominationPojo.getReward_name());
         nominations.setEmployee_name(nominationPojo.getEmployee_name());
+        nominations.setDisable(nominationPojo.isDisable());
 
         nominations = nominationsRepository.save(nominations);
 
@@ -49,7 +50,7 @@ public class NominationsServiceImpl implements NominationsService {
             evidences = new Evidences();
 
             evidences.setNominationID(nominationID);
-            evidences.setCriteriaName(nominationPojo.getEvidencesPojoList().get(i).getCriteriaName());
+            evidences.setCriteria_desc(nominationPojo.getEvidencesPojoList().get(i).getCriteria_desc());
             evidences.setEvidences(nominationPojo.getEvidencesPojoList().get(i).getEvidences());
             evidences.setText_evidence(nominationPojo.getEvidencesPojoList().get(i).getText_evidence());
 
