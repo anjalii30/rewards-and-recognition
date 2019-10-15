@@ -6,17 +6,19 @@ import com.rar.service.AwardedService;
 import com.rar.utils.CheckValidity;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @CrossOrigin
 @RestController
 @EnableAutoConfiguration
 @RequestMapping
-@Api(value="Controller for awarded data")
+@Api(value=" Awarded data management system")
 public class AwardedController {
     @Autowired
     private AwardedService awardedService;
@@ -31,7 +33,7 @@ public class AwardedController {
 
     @ApiOperation(value = "save the data for awarded persons")
     @PostMapping("/awardedSave")
-    public Awarded save(@RequestHeader(value = "Authorization") String token,@RequestBody Awarded awarded){
+    public Awarded save(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Employee object store in database table", required = true)@Valid @RequestBody Awarded awarded){
         String email=validity.check(token);
         return awardedService.save(awarded);
 
@@ -39,7 +41,8 @@ public class AwardedController {
 
     @ApiOperation(value = "update the awarded data")
     @PutMapping("/awardedUpdate/{id}")
-    public Awarded Update(@RequestHeader(value = "Authorization") String token,@PathVariable Long id, @RequestBody Awarded awarded){
+    public Awarded Update(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Awarded Id to update awarded object", required = true)@PathVariable Long id,
+                          @ApiParam(value = "Update awarded object", required = true)@Valid @RequestBody Awarded awarded){
         String email=validity.check(token);
         return awardedService.Update(id, awarded);
     }

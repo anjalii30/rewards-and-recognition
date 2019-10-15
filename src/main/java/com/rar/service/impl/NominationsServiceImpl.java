@@ -6,6 +6,7 @@ import com.rar.model.Nominations;
 import com.rar.repository.EvidencesRepository;
 import com.rar.repository.NominationsRepository;
 import com.rar.service.NominationsService;
+import com.rar.utils.CheckDisable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -34,7 +35,7 @@ public class NominationsServiceImpl implements NominationsService {
         nominations.setStart_date(nominationPojo.getStart_date());
         nominations.setProject_name(nominationPojo.getProject_name());
         nominations.setSelected(nominationPojo.isSelected());
-        nominations.setReward_name(nominationPojo.getReward_name());
+    //    nominations.setReward_name(nominationPojo.getReward_name());
         nominations.setEmployee_name(nominationPojo.getEmployee_name());
         nominations.setDisable(nominationPojo.isDisable());
 
@@ -68,6 +69,7 @@ public class NominationsServiceImpl implements NominationsService {
 
     @Override
     public List<Nominations> GetData(Long rewardID) {
+
         return  nominationsRepository.GetData(rewardID);
     }
 }

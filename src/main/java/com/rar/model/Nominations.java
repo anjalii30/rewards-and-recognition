@@ -24,9 +24,11 @@ public class Nominations implements Serializable {
     @Column(name = "reward_id")
     @ApiModelProperty(notes = "The ID of that particular reward")
     private Long rewardID;
+
     @Column(name = "reward_name", length = 100000000)
     @ApiModelProperty(notes = "The name of the reward for which the employee is nominating")
     private String reward_name;
+
     @Column(name = "User_id")
     @ApiModelProperty(notes = "The User Id of the employee")
     private Long userID;
@@ -45,8 +47,13 @@ public class Nominations implements Serializable {
     @Column(name = "selected")
     @ApiModelProperty(notes = "Used in self nominated rewards when a manager approves it")
     private boolean selected=false;
+<<<<<<< HEAD
     @Column(name = "disable")
     @ApiModelProperty(notes = "Used for rejecting multiple nominations")
+=======
+
+    @Column(name="disable")
+>>>>>>> 32daa74b01977407d30a54e6b628474a90706ba7
     private boolean disable=false;
 
     @OneToMany(mappedBy = "nominations", cascade = CascadeType.ALL)
@@ -117,6 +124,7 @@ public class Nominations implements Serializable {
         this.selected = selected;
     }
 
+
     public boolean isDisable() {
         return disable;
     }
@@ -125,13 +133,7 @@ public class Nominations implements Serializable {
         this.disable = disable;
     }
 
-    public String getReward_name() {
-        return reward_name;
-    }
 
-    public void setReward_name(String reward_name) {
-        this.reward_name = reward_name;
-    }
 
     public String getEmployee_name() {
         return employee_name;

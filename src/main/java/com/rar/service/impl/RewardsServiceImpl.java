@@ -58,7 +58,7 @@ public class RewardsServiceImpl implements RewardsService {
     }
 /*
     @Override
-    public List<Criterias> getCriteria(Long id){
+    public List<Criteria> getCriteria(Long id){
 
         return rewardsRepository.getCriteria(id);
     }*/
@@ -272,7 +272,7 @@ public class RewardsServiceImpl implements RewardsService {
 ////            rewardsCriteriasId = new RewardsCriteriaId();
 //            System.out.println("Reward:" + f.getCriterias().getCriteriaId());
 //
-//            Criterias c = f.getCriterias();
+//            Criteria c = f.getCriterias();
 //            Rewards r = f.getRewards();
 //            Boolean b = f.getCompulsory();
 //
@@ -298,7 +298,7 @@ public class RewardsServiceImpl implements RewardsService {
             rewardsCriterias.setCriteriaId(reward.getCriterias().getClass().get);
         }*/
 //
-////        Set<Criterias> rewardsCriterias1=reward.getCriterias();
+////        Set<Criteria> rewardsCriterias1=reward.getCriterias();
 ////        rewardsCriterias.setRewardId(reward.getId());
 //////        rewardsCriterias.setCriteriaId(rewardsCriterias1.);
 ////        System.out.println(" "+rewardsCriterias1.getClass());

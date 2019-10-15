@@ -10,8 +10,12 @@ import java.util.Set;
 
 @Entity
 @Table(name="employeeRelation")
+<<<<<<< HEAD:src/main/java/com/rar/model/EmployeeRelation.java
 @ApiModel(description = "All the details related to relation of employees")
 public class EmployeeRelation implements Serializable {
+=======
+public class Manager implements Serializable {
+>>>>>>> 32daa74b01977407d30a54e6b628474a90706ba7:src/main/java/com/rar/model/Manager.java
 
 
     @Id
@@ -32,14 +36,14 @@ public class EmployeeRelation implements Serializable {
                     CascadeType.PERSIST,
                     CascadeType.MERGE
             },
-            mappedBy = "employeeRelation")
+            mappedBy = "manager")
     private Set<UserInfo> userInfo = new HashSet<>();
 
 
-    public EmployeeRelation() {
+    public Manager() {
     }
 
-    public EmployeeRelation(long id, String manager_email) {
+    public Manager(long id, String manager_email) {
         this.ERid = id;
         this.manager_email = manager_email;
     }
@@ -81,7 +85,7 @@ public class EmployeeRelation implements Serializable {
 
     @Override
     public String toString() {
-        return "EmployeeRelation{" +
+        return "Manager{" +
                 "id=" + ERid +
 
                 ", manager_email='" + manager_email + '\'' +

@@ -57,7 +57,7 @@ public class UserInfo implements Serializable {
             inverseJoinColumns = {@JoinColumn(name = "EmployeeRelation_Id")}
     )
 
-    private Set<EmployeeRelation> employeeRelation = new HashSet<>();
+    private Set<Manager> manager = new HashSet<>();
 
 
 
@@ -113,13 +113,13 @@ public class UserInfo implements Serializable {
 
     }
 
-    public UserInfo(Long uid, @NotNull @Email @Size(max = 100) String email, String name, Boolean firstSign, String imageUrl, Set<EmployeeRelation> employeeRelation, Set<Designation> designation, Set<Roles> roles, Set<Projects> projects) {
+    public UserInfo(Long uid, @NotNull @Email @Size(max = 100) String email, String name, Boolean firstSign, String imageUrl, Set<Manager> manager, Set<Designation> designation, Set<Roles> roles, Set<Projects> projects) {
         this.uid = uid;
         this.email = email;
         this.name = name;
         this.firstSign = firstSign;
         this.imageUrl = imageUrl;
-        this.employeeRelation = employeeRelation;
+        this.manager = manager;
         this.designation = designation;
         this.roles = roles;
         this.projects = projects;
@@ -128,7 +128,7 @@ public class UserInfo implements Serializable {
 
 
     //
-//    public UserInfo(Long uid, @NotNull @Email @Size(max = 100) String email, String name, RoleEnum role, DesignationEnum designation, Boolean firstSign, String imageUrl, Set<EmployeeRelation> employeeRelation) {
+//    public UserInfo(Long uid, @NotNull @Email @Size(max = 100) String email, String name, RoleEnum role, DesignationEnum designation, Boolean firstSign, String imageUrl, Set<Manager> manager) {
 //        this.uid = uid;
 //        this.email = email;
 //        this.name = name;
@@ -136,7 +136,7 @@ public class UserInfo implements Serializable {
 //        this.designation = designation;
 //        this.firstSign = firstSign;
 //        this.imageUrl = imageUrl;
-//        this.employeeRelation = employeeRelation;
+//        this.manager = manager;
 //    }
 
 
@@ -182,12 +182,12 @@ public class UserInfo implements Serializable {
         this.imageUrl = imageUrl;
     }
 
-    public Set<EmployeeRelation> getEmployeeRelation() {
-        return employeeRelation;
+    public Set<Manager> getManager() {
+        return manager;
     }
 
-    public void setEmployeeRelation(Set<EmployeeRelation> employeeRelation) {
-        this.employeeRelation = employeeRelation;
+    public void setManager(Set<Manager> manager) {
+        this.manager = manager;
     }
 
 
@@ -224,7 +224,7 @@ public class UserInfo implements Serializable {
                 ", name='" + name + '\'' +
                 ", firstSign=" + firstSign +
                 ", imageUrl='" + imageUrl + '\'' +
-                ", employeeRelation=" + employeeRelation +
+                ", manager=" + manager +
                 ", designation=" + designation +
                 ", roles=" + roles +
                 ", projects=" + projects +

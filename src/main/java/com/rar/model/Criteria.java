@@ -11,8 +11,13 @@ import java.util.List;
 
 @Entity
 @Table(name="criteria")
+<<<<<<< HEAD:src/main/java/com/rar/model/Criterias.java
 @ApiModel(description = "All details about criteria")
 public class Criterias implements Serializable{
+=======
+@ApiModel(description = "All details about the criterion. ")
+public class Criteria implements Serializable{
+>>>>>>> 32daa74b01977407d30a54e6b628474a90706ba7:src/main/java/com/rar/model/Criteria.java
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,7 +26,11 @@ public class Criterias implements Serializable{
     private long criteriaId;
 
     @Column(name="criteria_desc",nullable = false)
+<<<<<<< HEAD:src/main/java/com/rar/model/Criterias.java
     @ApiModelProperty(notes = "The description of specific criteria")
+=======
+    @ApiModelProperty(notes = "Criteria")
+>>>>>>> 32daa74b01977407d30a54e6b628474a90706ba7:src/main/java/com/rar/model/Criteria.java
     private String criteria_desc;
 
 
@@ -75,10 +84,10 @@ public class Criterias implements Serializable{
 //    private Set<Nominations> nominations = new HashSet<>();
 
 
-    public Criterias() {
+    public Criteria() {
     }
 
-    public Criterias(String criteria_desc) {
+    public Criteria(String criteria_desc) {
         this.criteria_desc = criteria_desc;
     }
 
