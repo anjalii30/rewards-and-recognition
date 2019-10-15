@@ -47,13 +47,9 @@ public class Nominations implements Serializable {
     @Column(name = "selected")
     @ApiModelProperty(notes = "Used in self nominated rewards when a manager approves it")
     private boolean selected=false;
-<<<<<<< HEAD
-    @Column(name = "disable")
-    @ApiModelProperty(notes = "Used for rejecting multiple nominations")
-=======
 
+    @ApiModelProperty(notes = "Used for rejecting multiple nominations")
     @Column(name="disable")
->>>>>>> 32daa74b01977407d30a54e6b628474a90706ba7
     private boolean disable=false;
 
     @OneToMany(mappedBy = "nominations", cascade = CascadeType.ALL)

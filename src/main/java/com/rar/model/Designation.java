@@ -12,11 +12,7 @@ import java.util.Set;
 
 @Entity
 @Table(name="designation")
-<<<<<<< HEAD
 @ApiModel(description = "All the details about types of designations")
-=======
-@ApiModel(description = "All details about the designations ")
->>>>>>> 32daa74b01977407d30a54e6b628474a90706ba7
 public class Designation implements Serializable {
 
     @Id
@@ -27,11 +23,7 @@ public class Designation implements Serializable {
 
     @Column(name="Designation",nullable = false)
     @Enumerated(EnumType.STRING)
-<<<<<<< HEAD
-    @ApiModelProperty(notes = "The specific designation")
-=======
     @ApiModelProperty(notes = "Designation name")
->>>>>>> 32daa74b01977407d30a54e6b628474a90706ba7
     private DesignationEnum designation;
 
 
