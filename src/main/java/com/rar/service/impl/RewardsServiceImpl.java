@@ -116,12 +116,25 @@ public class RewardsServiceImpl implements RewardsService {
 
 
 
+       /* for (Iterator<RewardsCriteria> ittt = createReward.getCriteria().iterator(); ittt.hasNext(); ) {
+            RewardsCriteria f = ittt.next();*/
+            for(Iterator<RewardsCriteria> itttt = CreateReward1.getCriteria().iterator(); itttt.hasNext();) {
+                RewardsCriteria ff = itttt.next();
+                System.out.println(ff.getRewardId());
+                System.out.println(ff.getCriteriaId());
+             rewardsCriteriaRepository.deleteById(ff.getRewardId(),ff.getCriteriaId());
+            }
         for (Iterator<RewardsCriteria> ittt = createReward.getCriteria().iterator(); ittt.hasNext(); ) {
             RewardsCriteria f = ittt.next();
-            for(Iterator<RewardsCriteria> itttt = CreateReward1.getCriteria().iterator(); itttt.hasNext();){
-                RewardsCriteria ff = itttt.next();
+            RewardsCriteria rewardsCriteria = new RewardsCriteria();
+            rewardsCriteria.setRewardId(f.getRewardId());
+            rewardsCriteria.setCriteriaId(f.getCriteriaId());
+            rewardsCriteria.setCompulsory(f.getCompulsory());
+            rewardsCriteria.setCriterias(f.getCriterias());
+            rewardsCriteriaRepository.save(rewardsCriteria);
 
-                if(f.getRewardId() == ff.getRewardId() && f.getCriteriaId() == ff.getCriteriaId()){
+
+                /*if(f.getRewardId() == ff.getRewardId() && f.getCriteriaId() == ff.getCriteriaId()){
 
                     Iterator<RewardsCriteria> criteriaIterator = rewardsCriteriaRepository.findById(f.getRewardId(),f.getCriteriaId()).iterator();
                     RewardsCriteria criteria=criteriaIterator.next();
@@ -131,10 +144,10 @@ public class RewardsServiceImpl implements RewardsService {
                     criteria.setCompulsory(f.getCompulsory());
                     criteria.setCriterias(f.getCriterias());
 
-                /*    ff.setRewardId(f.getRewardId());
+                *//*    ff.setRewardId(f.getRewardId());
                     ff.setCriteriaId(f.getCriteriaId());
                     ff.setCompulsory(f.getCompulsory());
-*/
+*//*
                     rewardsCriteriaRepository.save(criteria);
 
 
@@ -148,15 +161,15 @@ public class RewardsServiceImpl implements RewardsService {
                     rewardsCriteria.setCompulsory(f.getCompulsory());
                     rewardsCriteria.setCriterias(f.getCriterias());
 
-                  /*  ff.setRewardId(f.getRewardId());
+                  *//*  ff.setRewardId(f.getRewardId());
                     ff.setCriteriaId(f.getCriteriaId());
                     ff.setCompulsory(f.getCompulsory());
-*/
+*//*
                     rewardsCriteriaRepository.save(rewardsCriteria);
 
 
 
-                }
+                }*/
                 /*else
                 {
                     System.out.println(ff.getRewardId());
@@ -164,12 +177,11 @@ public class RewardsServiceImpl implements RewardsService {
                     rewardsCriteriaRepository.deleteById(ff.getRewardId(),ff.getCriteriaId());
                 }*/
 
-            }
+
 
         }
         /*CreateReward1.setCriteria(i);*/
-        Rewards update = rewardsRepository.save(CreateReward1);
-        return update;
+        return rewardsRepository.save(CreateReward1);
     }
 
     @Override
