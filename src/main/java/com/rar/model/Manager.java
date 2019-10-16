@@ -9,16 +9,16 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name="employeeRelation")
+@Table(name="managers")
 @ApiModel(description = "All the details related to relation of employees")
 public class Manager implements Serializable {
 
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "EmployeeRelation_Id",unique = true,nullable = false)
+    @Column(name = "manager_id",unique = true,nullable = false)
     @ApiModelProperty(notes = "The database generated employee_relation ID")
-    private long ERid;
+    private long manager_id;
 
 
 
@@ -40,17 +40,17 @@ public class Manager implements Serializable {
     }
 
     public Manager(long id, String manager_email) {
-        this.ERid = id;
+        this.manager_id = id;
         this.manager_email = manager_email;
     }
 
 
     public long getId() {
-        return ERid;
+        return manager_id;
     }
 
     public void setId(long ERid) {
-        this.ERid = ERid;
+        this.manager_id = ERid;
     }
 
     public String getManager_email() {
@@ -67,12 +67,12 @@ public class Manager implements Serializable {
     }
 */
 
-    public long getERid() {
-        return ERid;
+    public long getManager_id() {
+        return manager_id;
     }
 
-    public void setERid(long ERid) {
-        this.ERid = ERid;
+    public void setManager_id(long manager_id) {
+        this.manager_id = manager_id;
     }
 /*
     public void setUserInfo(Set<UserInfo> userInfo) {
@@ -82,7 +82,7 @@ public class Manager implements Serializable {
     @Override
     public String toString() {
         return "Manager{" +
-                "id=" + ERid +
+                "id=" + manager_id +
 
                 ", manager_email='" + manager_email + '\'' +
                 '}';
