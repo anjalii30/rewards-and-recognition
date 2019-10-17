@@ -30,12 +30,12 @@ public class Nominations implements Serializable {
     @ApiModelProperty(notes = "The name of the reward for which the employee is nominating")
     private String reward_name;
 
+    @ApiModelProperty(notes ="Stating the reason for nomination")
+    @Column(name = "reason", length = 1000000000)
+    private String reason;
+
     public String getReward_name() {
         return reward_name;
-    }
-
-    public void setReward_name(String reward_name) {
-        this.reward_name = reward_name;
     }
 
     @Column(name = "user_id")
@@ -54,9 +54,9 @@ public class Nominations implements Serializable {
     @Column(name="hr_selected")
     private boolean hr_selected=false;
 
-    @ApiModelProperty(notes ="Stating the reason for nomination")
-    @Column(name = "reason", length = 1000000000)
-    private String reason;
+    public void setReward_name(String reward_name) {
+        this.reward_name = reward_name;
+    }
 
     @OneToMany(mappedBy = "nominations", cascade = CascadeType.ALL)
     private List<Evidences> evidencesList;

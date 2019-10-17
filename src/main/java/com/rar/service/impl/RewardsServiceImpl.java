@@ -221,6 +221,10 @@ public class RewardsServiceImpl implements RewardsService {
         return update;
     }
 
+    public List<Rewards> latest(){
+        return rewardsRepository.latest();
+    }
+
     public ResponseEntity<?> rewardsSave(Rewards rewards) {
 
 
