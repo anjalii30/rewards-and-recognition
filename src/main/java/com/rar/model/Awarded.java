@@ -37,11 +37,6 @@ public class Awarded implements Serializable {
     @ApiModelProperty(notes = "Description of why reward is given")
     private String subjectDescription;
 
-   /* @Column(name = "employee_image")
-    @ApiModelProperty(notes = "Employee image")
-    private String employee_image;*/
-
-
 
     public Awarded() {
     }

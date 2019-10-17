@@ -1,5 +1,6 @@
 package com.rar.service.impl;
 
+import com.rar.exception.InvalidUserException;
 import com.rar.model.Evidences;
 import com.rar.model.NominationPojo;
 import com.rar.model.Nominations;
@@ -78,15 +79,20 @@ public class NominationsServiceImpl implements NominationsService {
     @Override
     public List<Nominations> showToManager(String manager_email) throws Exception {
 
-        Long manager_id = managerRepository.findByEmail(manager_email);
-        Long[] members = nominationsRepository.getMembers(manager_id);
+        try {
+            Long manager_id = managerRepository.findByEmail(manager_email);
+            Long[] members = nominationsRepository.getMembers(manager_id);
 
             List<Nominations> getNominations = null;
 
-                for (int i = 0; i < members.length; i++) {
-                    getNominations=(nominationsRepository.getNominations(members[i]));
-                }
-        return getNominations;
+            for (int i = 0; i < members.length; i++) {
+                getNominations = (nominationsRepository.getNominations(members[i]));
+            }
+            return getNominations;
+        }catch (Exception e) {
 
+            throw new InvalidUserException("you are not a manager");
+
+        }
     }
 }
