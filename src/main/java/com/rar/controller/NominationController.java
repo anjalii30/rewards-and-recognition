@@ -4,7 +4,6 @@ import com.rar.model.NominationPojo;
 import com.rar.model.Nominations;
 import com.rar.repository.UserRepository;
 import com.rar.service.NominationsService;
-//import com.rar.utils.CheckDisable;
 import com.rar.utils.CheckValidity;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -13,10 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.jetbrains.annotations.NotNull;
 
 import javax.validation.Valid;
 import java.util.List;
+
+//import com.rar.utils.CheckDisable;
 
 
 @CrossOrigin

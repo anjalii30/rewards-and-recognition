@@ -22,16 +22,19 @@ public class LoginUserDetails implements Serializable {
     private RoleEnum roleEnum;
     @ApiModelProperty(notes = "The designation of the User")
     private DesignationEnum designationEnum;
+    @ApiModelProperty(notes = "The id of the User")
+    private Long uid;
 
-    public LoginUserDetails(String email, String name, String imageUrl, String generatedToken, RoleEnum roleEnum, DesignationEnum designationEnum) {
+
+    public LoginUserDetails(String email, String name, String imageUrl, String generatedToken, RoleEnum roleEnum, DesignationEnum designationEnum, Long uid) {
         this.email = email;
         this.name = name;
         this.imageUrl = imageUrl;
         this.generatedToken = generatedToken;
         this.roleEnum = roleEnum;
         this.designationEnum = designationEnum;
+        this.uid = uid;
     }
-
 
     public LoginUserDetails() {
     }
@@ -84,5 +87,13 @@ public class LoginUserDetails implements Serializable {
 
     public void setDesignationEnum(DesignationEnum designationEnum) {
         this.designationEnum = designationEnum;
+    }
+
+    public Long getUid() {
+        return uid;
+    }
+
+    public void setUid(Long uid) {
+        this.uid = uid;
     }
 }

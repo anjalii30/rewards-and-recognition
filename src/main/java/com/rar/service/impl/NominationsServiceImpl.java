@@ -1,12 +1,12 @@
 package com.rar.service.impl;
 
-import com.rar.exception.InvalidUserException;
-import com.rar.model.*;
+import com.rar.model.Evidences;
+import com.rar.model.NominationPojo;
+import com.rar.model.Nominations;
 import com.rar.repository.EvidencesRepository;
 import com.rar.repository.ManagerRepository;
 import com.rar.repository.NominationsRepository;
 import com.rar.service.NominationsService;
-//import com.rar.utils.CheckDisable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -14,6 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
+
+//import com.rar.utils.CheckDisable;
 
 
 @Service
@@ -31,15 +33,13 @@ public class NominationsServiceImpl implements NominationsService {
     public ResponseEntity<?> nominationSave(NominationPojo nominationPojo) {
         Nominations nominations = new Nominations();
         nominations.setUserID(nominationPojo.getUserId());
-        nominations.setFrequency(nominationPojo.getFrequency());
         nominations.setRewardID(nominationPojo.getRewardId());
-        nominations.setEnd_date(nominationPojo.getEnd_date());
-        nominations.setStart_date(nominationPojo.getStart_date());
         nominations.setProject_name(nominationPojo.getProject_name());
         nominations.setSelected(nominationPojo.isSelected());
-    //    nominations.setReward_name(nominationPojo.getReward_name());
+        nominations.setReward_name(nominationPojo.getReward_name());
         nominations.setEmployee_name(nominationPojo.getEmployee_name());
         nominations.setDisable(nominationPojo.isDisable());
+        nominations.setReason(nominationPojo.getReason());
 
         nominations = nominationsRepository.save(nominations);
 
@@ -84,7 +84,6 @@ public class NominationsServiceImpl implements NominationsService {
             List<Nominations> getNominations = null;
 
                 for (int i = 0; i < members.length; i++) {
-                    System.out.println(members[i]);
                     getNominations=(nominationsRepository.getNominations(members[i]));
                 }
         return getNominations;

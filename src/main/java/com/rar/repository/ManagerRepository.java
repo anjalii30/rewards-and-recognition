@@ -1,12 +1,9 @@
 package com.rar.repository;
 
 import com.rar.model.Manager;
-import com.rar.model.UserInfo;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-
-import java.util.Optional;
 
 
 @Repository
