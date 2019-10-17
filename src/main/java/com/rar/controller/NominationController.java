@@ -2,8 +2,8 @@ package com.rar.controller;
 
 import com.rar.model.NominationPojo;
 import com.rar.model.Nominations;
+import com.rar.repository.UserRepository;
 import com.rar.service.NominationsService;
-//import com.rar.utils.CheckDisable;
 import com.rar.utils.CheckValidity;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -12,10 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.jetbrains.annotations.NotNull;
 
 import javax.validation.Valid;
 import java.util.List;
+
+//import com.rar.utils.CheckDisable;
 
 
 @CrossOrigin
@@ -30,6 +31,8 @@ public class NominationController {
     @Autowired
     private CheckValidity validity;
 
+    @Autowired
+    private UserRepository userRepository;
 
 
 
@@ -43,11 +46,19 @@ public class NominationController {
 
 
 
-    @ApiOperation(value = "Get the list of nominations")
+    @ApiOperation(value = "Get the list of nominations for admin")
     @GetMapping("/showNomination/{id}")
     public List<Nominations> show(@RequestHeader(value = "Authorization") String token,  @ApiParam(value = "Get nomination object by id", required = true) @PathVariable Long id){
         String email=validity.check(token);
         return nominationsService.GetData(id);
+    }
+
+    @ApiOperation(value = "Get the list of nominations for manager")
+    @GetMapping("/showToManager")
+    public List<Nominations> showToManager(@RequestHeader(value = "Authorization") String token) throws Exception {
+        String email=validity.check(token);
+        return nominationsService.showToManager(email);
+
     }
 
 }

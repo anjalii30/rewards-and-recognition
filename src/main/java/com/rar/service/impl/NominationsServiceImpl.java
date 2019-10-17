@@ -4,9 +4,9 @@ import com.rar.model.Evidences;
 import com.rar.model.NominationPojo;
 import com.rar.model.Nominations;
 import com.rar.repository.EvidencesRepository;
+import com.rar.repository.ManagerRepository;
 import com.rar.repository.NominationsRepository;
 import com.rar.service.NominationsService;
-//import com.rar.utils.CheckDisable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -14,6 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
+
+//import com.rar.utils.CheckDisable;
 
 
 @Service
@@ -25,6 +27,8 @@ public class NominationsServiceImpl implements NominationsService {
     @Autowired
     EvidencesRepository evidencesRepository;
 
+    @Autowired
+    private ManagerRepository managerRepository;
     @Override
     public ResponseEntity<?> nominationSave(NominationPojo nominationPojo) {
         Nominations nominations = new Nominations();
@@ -71,5 +75,21 @@ public class NominationsServiceImpl implements NominationsService {
     public List<Nominations> GetData(Long rewardID) {
 
         return  nominationsRepository.GetData(rewardID);
+    }
+
+    @Override
+    public List<Nominations> showToManager(String manager_email) throws Exception {
+
+        Long manager_id = managerRepository.findByEmail(manager_email);
+        Long[] members = nominationsRepository.getMembers(manager_id);
+
+            List<Nominations> getNominations = null;
+
+                for (int i = 0; i < members.length; i++) {
+                    System.out.println(members[i]);
+                    getNominations=(nominationsRepository.getNominations(members[i]));
+                }
+        return getNominations;
+
     }
 }

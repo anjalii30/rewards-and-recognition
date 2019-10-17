@@ -1,7 +1,6 @@
 package com.rar.repository;
 
 import com.rar.model.Nominations;
-import com.rar.model.Rewards;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -26,5 +25,10 @@ public interface NominationsRepository extends CrudRepository<Nominations, Strin
     @Query(value = "select * from nominations where reward_id=?1",nativeQuery = true)
     List<Nominations> GetData(Long rewardID);
 
+    @Query(value="select user_id from user_manager where manager_id=?1 ",nativeQuery = true)
+    Long[] getMembers(Long manager_id);
+
+    @Query(value="select * from nominations where user_id=?1",nativeQuery = true)
+    List<Nominations> getNominations(Long user_id);
 
 }

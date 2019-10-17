@@ -23,7 +23,7 @@ public class UserInfo implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id",unique = true,nullable = false)
     @ApiModelProperty(notes = "The database generated User ID")
-    private Long uid;
+    private Long user_id;
 
     @NotNull
     @Email
@@ -52,9 +52,9 @@ public class UserInfo implements Serializable {
             })
 
     @JoinTable(
-            name = "user_employeeRelation",
+            name = "user_manager",
             joinColumns = {@JoinColumn(name = "user_id")},
-            inverseJoinColumns = {@JoinColumn(name = "EmployeeRelation_Id")}
+            inverseJoinColumns = {@JoinColumn(name = "manager_id")}
     )
 
     private Set<Manager> manager = new HashSet<>();
@@ -113,8 +113,8 @@ public class UserInfo implements Serializable {
 
     }
 
-    public UserInfo(Long uid, @NotNull @Email @Size(max = 100) String email, String name, Boolean firstSign, String imageUrl, Set<Manager> manager, Set<Designation> designation, Set<Roles> roles, Set<Projects> projects) {
-        this.uid = uid;
+    public UserInfo(Long user_id, @NotNull @Email @Size(max = 100) String email, String name, Boolean firstSign, String imageUrl, Set<Manager> manager, Set<Designation> designation, Set<Roles> roles, Set<Projects> projects) {
+        this.user_id = user_id;
         this.email = email;
         this.name = name;
         this.firstSign = firstSign;
@@ -142,11 +142,11 @@ public class UserInfo implements Serializable {
 
 
     public Long getId() {
-        return uid;
+        return user_id;
     }
 
     public void setId(Long uid) {
-        this.uid = uid;
+        this.user_id = uid;
     }
 
     public String getEmail() {
@@ -219,7 +219,7 @@ public class UserInfo implements Serializable {
     @Override
     public String toString() {
         return "UserInfo{" +
-                "uid=" + uid +
+                "uid=" + user_id +
                 ", email='" + email + '\'' +
                 ", name='" + name + '\'' +
                 ", firstSign=" + firstSign +
