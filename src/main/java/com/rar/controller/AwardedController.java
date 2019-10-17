@@ -12,7 +12,6 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @CrossOrigin
 @RestController
@@ -49,9 +48,9 @@ public class AwardedController {
 
     @ApiOperation(value = "show the awarded list")
     @GetMapping("/awardedList")
-    public List awardedList(@RequestHeader(value = "Authorization") String token){
+    public Object[] awardedList(@RequestHeader(value = "Authorization") String token){
         String email=validity.check(token);
-        return  awardedService.findAllAwarded();
+        return (Object[]) awardedService.findAllAwarded();
     }
 
     /*@ApiOperation(value = "show the awarded data by id")

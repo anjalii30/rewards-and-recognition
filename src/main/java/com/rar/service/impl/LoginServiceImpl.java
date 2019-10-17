@@ -132,9 +132,6 @@ public class LoginServiceImpl implements LoginService {
 
                         */
 
-
-
-
                     String generatedToken = Jwts.builder()
                             .setSubject(String.valueOf(email))
                             .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY * 1000))

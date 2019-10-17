@@ -1,6 +1,8 @@
 package com.rar.controller;
 
 import com.rar.model.Manager;
+import com.rar.model.UserInfo;
+import com.rar.repository.ManagerRepository;
 import com.rar.service.ManagerService;
 import com.rar.utils.CheckValidity;
 import io.swagger.annotations.Api;
@@ -24,6 +26,9 @@ public class ManagerController {
     @Autowired
     private CheckValidity validity;
 
+    @Autowired
+    private ManagerRepository managerRepository;
+
 
     @ApiOperation(value = "Save the  manager")
     @PostMapping("/saveEmp")
@@ -34,7 +39,7 @@ public class ManagerController {
     }
 
     @ApiOperation(value = "Get the list of managers")
-    @GetMapping("/listEmp")
+    @GetMapping("/listManagers")
     public List<Manager> list(@RequestHeader(value = "Authorization") String token){
         String email=validity.check(token);
         return managerService.findAll();
@@ -55,6 +60,15 @@ public class ManagerController {
 
         return managerService.findById(id);
     }
+
+    @ApiOperation(value = "Get the list of employees under this manager")
+    @GetMapping("/listEmp")
+    public List listEmployees(@RequestHeader(value = "Authorization") String token){
+        String email=validity.check(token);
+        Long manager_id=managerRepository.findByEmail(email);
+        return managerService.getEmployees(manager_id);
+    }
+
 
 
 }

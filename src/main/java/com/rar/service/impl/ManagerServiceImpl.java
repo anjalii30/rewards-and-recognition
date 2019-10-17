@@ -1,6 +1,7 @@
 package com.rar.service.impl;
 
 import com.rar.model.Manager;
+import com.rar.model.UserInfo;
 import com.rar.repository.ManagerRepository;
 import com.rar.service.ManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,11 @@ public class ManagerServiceImpl implements ManagerService {
     public void deleteById(long id) {
 
         managerRepository.deleteById(id);
+    }
+
+    @Override
+    public List getEmployees(Long manager_id) {
+        return managerRepository.getEmployees(manager_id);
     }
 
     @Override

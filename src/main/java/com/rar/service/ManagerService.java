@@ -2,6 +2,7 @@ package com.rar.service;
 
 
 import com.rar.model.Manager;
+import com.rar.model.UserInfo;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,4 +17,5 @@ public interface ManagerService {
 
     void deleteById(long id);
 
+    List getEmployees(Long manager_id);
 }

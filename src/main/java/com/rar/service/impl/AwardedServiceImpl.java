@@ -40,10 +40,10 @@ public class AwardedServiceImpl implements AwardedService {
     @Override
     public Awarded Update(Long id, Awarded awarded) {
         Awarded awarded1=awardedRepository.findById(id).get();
-        awarded1.setReward_name(awarded.getReward_name());
+        awarded1.setReward_id(awarded.getReward_id());
         awarded1.setEmp_id(awarded.getEmp_id());
-        awarded1.setEmployee_image(awarded.getEmployee_image());
-        awarded1.setProject_name(awarded.getProject_name());
+        //awarded1.s(awarded.getEmployee_image());
+        awarded1.setProject_id(awarded.getProject_id());
         awarded1.setSubjectDescription(awarded.getSubjectDescription());
 
         Awarded update=awardedRepository.save(awarded1);
@@ -56,8 +56,8 @@ public class AwardedServiceImpl implements AwardedService {
     }
 
     @Override
-    public List findAllAwarded() {
-        return (List<Awarded>) awardedRepository.findAllAwarded();
+    public Object[] findAllAwarded() {
+        return (Object[]) awardedRepository.findAllAwarded();
     }
 
     /*@Override

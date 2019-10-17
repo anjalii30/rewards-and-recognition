@@ -5,12 +5,11 @@ import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 @Entity
 @Table(name = "nominations")
-@ApiModel(description = "All the details requrired for a nomination")
+@ApiModel(description = "All the details required for a nomination")
 public class Nominations implements Serializable {
 
     @Id
@@ -18,9 +17,11 @@ public class Nominations implements Serializable {
     @Column(name = "nomination_id")
     @ApiModelProperty(notes = "The database generated nomination ID")
     private Long nominationID;
+
     @Column(name = "project_name",length = 1000000000)
     @ApiModelProperty(notes = "The name of the project in which the employee is working and wants to be nominated")
     private String project_name;
+
     @Column(name = "reward_id")
     @ApiModelProperty(notes = "The ID of that particular reward")
     private Long rewardID;
@@ -29,21 +30,22 @@ public class Nominations implements Serializable {
     @ApiModelProperty(notes = "The name of the reward for which the employee is nominating")
     private String reward_name;
 
+    @ApiModelProperty(notes ="Stating the reason for nomination")
+    @Column(name = "reason", length = 1000000000)
+    private String reason;
+
+    public String getReward_name() {
+        return reward_name;
+    }
+
     @Column(name = "user_id")
     @ApiModelProperty(notes = "The User Id of the employee")
     private Long userID;
-    @Column(name = "frequency")
-    @ApiModelProperty(notes = "The frequency of the reward")
-    private String frequency;
-    @Column(name = "start_date")
-    @ApiModelProperty(notes = "The start date of the reward")
-    private Date start_date;
-    @Column(name = "end_date")
-    @ApiModelProperty(notes = "The end date of the reward")
-    private Date end_date;
+
     @Column(name = "employee_name")
     @ApiModelProperty(notes = "The name of the employee getting nominated")
     private String employee_name;
+
     @Column(name = "selected")
     @ApiModelProperty(notes = "Used in self nominated rewards when a manager approves it")
     private boolean selected=false;
@@ -51,6 +53,10 @@ public class Nominations implements Serializable {
     @ApiModelProperty(notes = "Used for rejecting multiple nominations")
     @Column(name="disable")
     private boolean disable=false;
+
+    public void setReward_name(String reward_name) {
+        this.reward_name = reward_name;
+    }
 
     @OneToMany(mappedBy = "nominations", cascade = CascadeType.ALL)
     private List<Evidences> evidencesList;
@@ -72,14 +78,6 @@ public class Nominations implements Serializable {
         this.rewardID = rewardID;
     }
 
-    public String getFrequency() {
-        return frequency;
-    }
-
-    public void setFrequency(String frequency) {
-        this.frequency = frequency;
-    }
-
     public String getProject_name() {
         return project_name;
     }
@@ -96,21 +94,6 @@ public class Nominations implements Serializable {
         this.userID = userID;
     }
 
-    public Date getStart_date() {
-        return start_date;
-    }
-
-    public void setStart_date(Date start_date) {
-        this.start_date = start_date;
-    }
-
-    public Date getEnd_date() {
-        return end_date;
-    }
-
-    public void setEnd_date(Date end_date) {
-        this.end_date = end_date;
-    }
 
     public boolean isSelected() {
         return selected;
@@ -129,7 +112,13 @@ public class Nominations implements Serializable {
         this.disable = disable;
     }
 
+    public String getReason() {
+        return reason;
+    }
 
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
 
     public String getEmployee_name() {
         return employee_name;

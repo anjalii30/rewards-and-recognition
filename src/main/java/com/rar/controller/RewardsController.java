@@ -80,7 +80,6 @@ public class RewardsController {
         System.out.println(email);
         Long user_id = userRepository.getIdByEmail(email);
         System.out.println(user_id);
-        //return checkDisable.checkForDisable(email);
        return rewardsService.findByRolled(user_id);
     }
 

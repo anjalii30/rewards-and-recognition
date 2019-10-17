@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import sun.util.resources.cldr.mg.LocaleNames_mg;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -18,48 +19,59 @@ public class Awarded implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @ApiModelProperty(notes = "The database generated awarded ID")
-    private long awarded_id;
+    private Long awarded_id;
 
-    @Column(name = "reward_name")
+    @Column(name = "reward_id")
     @ApiModelProperty(notes = "Reward name for which the person is rewarded")
-    private String reward_name;
+    private Long reward_id;
 
     @Column(name = "employee_id")
     @ApiModelProperty(notes = "Employee who is rewarded")
-    private String emp_id;
+    private Long emp_id;
 
-    @Column(name = "project_name")
+    @Column(name = "project_id")
     @ApiModelProperty(notes = "Project for which reward is given")
-    private String project_name;
+    private Long project_id;
 
     @Column(name = "subjectDescription")
     @ApiModelProperty(notes = "Description of why reward is given")
     private String subjectDescription;
 
-    @Column(name = "employee_image")
-    @ApiModelProperty(notes = "Employee image")
-    private String employee_image;
-
-
 
     public Awarded() {
     }
 
-    public long getAwarded_id() {
+
+    public Long getAwarded_id() {
         return awarded_id;
     }
 
-    public void setAwarded_id(long awarded_id) {
+    public void setAwarded_id(Long awarded_id) {
         this.awarded_id = awarded_id;
     }
 
-
-    public String getProject_name() {
-        return project_name;
+    public Long getReward_id() {
+        return reward_id;
     }
 
-    public void setProject_name(String project_name) {
-        this.project_name = project_name;
+    public void setReward_id(Long reward_id) {
+        this.reward_id = reward_id;
+    }
+
+    public Long getEmp_id() {
+        return emp_id;
+    }
+
+    public void setEmp_id(Long emp_id) {
+        this.emp_id = emp_id;
+    }
+
+    public Long getProject_id() {
+        return project_id;
+    }
+
+    public void setProject_id(Long project_id) {
+        this.project_id = project_id;
     }
 
     public String getSubjectDescription() {
@@ -70,43 +82,14 @@ public class Awarded implements Serializable {
         this.subjectDescription = subjectDescription;
     }
 
-    public String getEmployee_image() {
-        return employee_image;
-    }
-
-    public void setEmployee_image(String employee_image) {
-        this.employee_image = employee_image;
-    }
-
-    public String getReward_name() {
-        return reward_name;
-    }
-
-    public void setReward_name(String reward_name) {
-        this.reward_name = reward_name;
-    }
-
-    public String getEmp_id() {
-        return emp_id;
-    }
-
-    public void setEmp_id(String emp_id) {
-        this.emp_id = emp_id;
-    }
-
     @Override
     public String toString() {
         return "Awarded{" +
                 "awarded_id=" + awarded_id +
-                ", reward_name='" + reward_name + '\'' +
-                ", emp_id='" + emp_id + '\'' +
-                ", project_name='" + project_name + '\'' +
+                ", reward_id=" + reward_id +
+                ", emp_id=" + emp_id +
+                ", project_id=" + project_id +
                 ", subjectDescription='" + subjectDescription + '\'' +
-                ", employee_image='" + employee_image + '\'' +
                 '}';
     }
-
-
-
-
 }
