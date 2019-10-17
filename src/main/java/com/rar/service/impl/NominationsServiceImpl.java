@@ -15,6 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 //import com.rar.utils.CheckDisable;
 
@@ -77,7 +79,7 @@ public class NominationsServiceImpl implements NominationsService {
     }
 
     @Override
-    public List<Nominations> showToManager(String manager_email) throws Exception {
+    public List<Nominations> showToManager(String manager_email,Long reward_id) throws Exception {
 
         try {
             Long manager_id = managerRepository.findByEmail(manager_email);
@@ -86,7 +88,7 @@ public class NominationsServiceImpl implements NominationsService {
             List<Nominations> getNominations = null;
 
             for (int i = 0; i < members.length; i++) {
-                getNominations = (nominationsRepository.getNominations(members[i]));
+                getNominations = (nominationsRepository.getNominations(members[i],reward_id));
             }
             return getNominations;
         }catch (Exception e) {
@@ -106,5 +108,10 @@ public class NominationsServiceImpl implements NominationsService {
 
 
 
+    }
+
+    @Override
+    public List<Map<String,String>> getAwardedPeople() {
+        return nominationsRepository.getAwarded();
     }
 }

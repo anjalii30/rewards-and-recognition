@@ -1,5 +1,6 @@
 package com.rar.controller;
 
+import com.rar.model.Awarded;
 import com.rar.model.NominationPojo;
 import com.rar.model.Nominations;
 import com.rar.repository.UserRepository;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 
 @CrossOrigin
@@ -53,10 +55,10 @@ public class NominationController {
     }
 
     @ApiOperation(value = "Get the list of nominations for manager")
-    @GetMapping("/showToManager")
-    public List<Nominations> showToManager(@RequestHeader(value = "Authorization") String token) throws Exception {
+    @GetMapping("/showToManager/{id}")
+    public List<Nominations> showToManager(@RequestHeader(value = "Authorization") String token, @PathVariable Long id) throws Exception {
         String email=validity.check(token);
-        return nominationsService.showToManager(email);
+        return nominationsService.showToManager(email,id);
 
     }
 
@@ -76,4 +78,11 @@ public class NominationController {
        //   return  nominationsService.awardeeSelect(nomination_id.get("nomination_id"));
        nominationsService.awardeeSelect(n_id);
    }
+
+    @ApiOperation(value = "show the list of awardee ")
+    @GetMapping("/awardedList")
+    public List<Map<String,String>> getByAwardedId(@RequestHeader(value = "Authorization") String token){
+        return nominationsService.getAwardedPeople();
+    }
+
 }

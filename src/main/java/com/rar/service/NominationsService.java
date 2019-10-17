@@ -6,6 +6,8 @@ import com.rar.model.Nominations;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 public interface NominationsService {
 
@@ -13,7 +15,9 @@ public interface NominationsService {
 
     List<Nominations> GetData(Long rewardID);
 
-    List<Nominations> showToManager(String email) throws Exception;
+    List<Nominations> showToManager(String email,Long reward_id) throws Exception;
 
     void awardeeSelect(Long[] nomination_id);
+
+    List<Map<String,String>> getAwardedPeople();
 }
