@@ -1,9 +1,11 @@
 package com.rar.repository;
 
 import com.rar.model.Nominations;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -31,4 +33,8 @@ public interface NominationsRepository extends CrudRepository<Nominations, Strin
     @Query(value="select * from nominations where user_id=?1",nativeQuery = true)
     List<Nominations> getNominations(Long user_id);
 
+    @Transactional
+    @Modifying
+    @Query(value="update nominations set hr_selected=true where nomination_id=?1",nativeQuery = true)
+    void awardeeSelect(Long nomination_id);
 }

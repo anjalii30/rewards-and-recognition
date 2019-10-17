@@ -39,7 +39,7 @@ public class NominationsServiceImpl implements NominationsService {
         nominations.setSelected(nominationPojo.isSelected());
         nominations.setReward_name(nominationPojo.getReward_name());
         nominations.setEmployee_name(nominationPojo.getEmployee_name());
-        nominations.setDisable(nominationPojo.isDisable());
+        nominations.setHr_selected(nominationPojo.isHr_selected());
         nominations.setReason(nominationPojo.getReason());
 
         nominations = nominationsRepository.save(nominations);
@@ -94,5 +94,17 @@ public class NominationsServiceImpl implements NominationsService {
             throw new InvalidUserException("you are not a manager");
 
         }
+    }
+
+    @Override
+    public void awardeeSelect(Long[] nomination_id) {
+
+        for(int i=0;i<nomination_id.length;i++){
+
+            nominationsRepository.awardeeSelect(nomination_id[i]);
+        }
+
+
+
     }
 }

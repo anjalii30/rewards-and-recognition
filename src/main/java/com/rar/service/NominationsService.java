@@ -14,4 +14,6 @@ public interface NominationsService {
     List<Nominations> GetData(Long rewardID);
 
     List<Nominations> showToManager(String email) throws Exception;
+
+    void awardeeSelect(Long[] nomination_id);
 }

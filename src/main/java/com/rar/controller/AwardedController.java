@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin
 @RestController
@@ -47,29 +48,32 @@ public class AwardedController {
         return awardedService.Update(id, awarded);
     }
 
-    @ApiOperation(value = "show the awarded list")
-    @GetMapping("/awardedList")
-    public Object[] awardedList(@RequestHeader(value = "Authorization") String token){
-        String email=validity.check(token);
-        return (Object[]) awardedService.findAllAwarded();
-    }
+//    @ApiOperation(value = "show the awarded list")
+//    @GetMapping("/awardedList")
+//    public List<Object> awardedList(@RequestHeader(value = "Authorization") String token){
+//        String email=validity.check(token);
+//        return awardedService.findAllAwarded();
+//    }
 
-    /*@ApiOperation(value = "show the awarded data by id")
+@ApiOperation(value = "show the awarded data by id")
     @GetMapping("/awardedList/{id}")
     public Optional<Awarded> getByAwardedId(@PathVariable Long id){
         return awardedRepository.findById(id);
-    }*/
-    /*@ApiOperation(value = "delete the awarded data by id")
+    }
+
+@ApiOperation(value = "delete the awarded data by id")
     @DeleteMapping("/awardedDelete/{id}")
     public String  deleteAwarded(@PathVariable Long id){
         awardedRepository.deleteById(id);
         return "Deleted Successfully id="+id;
-    }*/
+    }
 
-    /*@ApiOperation(value = "showing employee image,reward name, description for employee home page ")
-    @GetMapping("/employeehomepage")
-    public Object ehomepage(){
-        Object awarded= awardedService.ehomepage();
-        return awarded;
-    }*/
+
+//@ApiOperation(value = "showing employee image,reward name, description for employee home page ")
+//    @GetMapping("/employeehomepage")
+//    public Object ehomepage(){
+//        Object awarded= awardedService.ehomepage();
+//        return awarded;
+//    }
+
 }

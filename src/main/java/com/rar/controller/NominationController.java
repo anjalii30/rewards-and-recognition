@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 
 
 @CrossOrigin
@@ -46,7 +47,7 @@ public class NominationController {
 
     @ApiOperation(value = "Get the list of nominations for admin")
     @GetMapping("/showNomination/{id}")
-    public List<Nominations> show(@RequestHeader(value = "Authorization") String token,  @ApiParam(value = "Get nomination object by id", required = true) @PathVariable Long id){
+    public List<Nominations> show(@RequestHeader(value = "Authorization") String token,  @ApiParam(value = "Get nomination object by reward_id", required = true) @PathVariable Long id){
         String email=validity.check(token);
         return nominationsService.GetData(id);
     }
@@ -59,4 +60,20 @@ public class NominationController {
 
     }
 
+   /* @ApiOperation(value = "mark employee selected by HR")
+    @PutMapping("/awardee/{nomination_id}")
+    public void awardeeSelect(@RequestHeader(value = "Authorization") String token , @ApiParam(value = "update Nomination object by id", required = true) @PathVariable Long nomination_id) {
+        String email=validity.check(token);
+       // Long nomination_id=nominations.getNominationID();
+     //   return  nominationsService.awardeeSelect(nomination_id.get("nomination_id"));
+        nominationsService.awardeeSelect(nomination_id);
+    }*/
+   @ApiOperation(value = "mark employee selected by HR")
+   @PutMapping("/awardee")
+   public void awardeeSelect(@RequestHeader(value = "Authorization") String token , @ApiParam(value = "update Nomination object by id", required = true) @RequestBody Long[] n_id) {
+       String email=validity.check(token);
+       // Long nomination_id=nominations.getNominationID();
+       //   return  nominationsService.awardeeSelect(nomination_id.get("nomination_id"));
+       nominationsService.awardeeSelect(n_id);
+   }
 }
