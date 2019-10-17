@@ -9,7 +9,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "nominations")
-@ApiModel(description = "All the details requrired for a nomination")
+@ApiModel(description = "All the details required for a nomination")
 public class Nominations implements Serializable {
 
     @Id
