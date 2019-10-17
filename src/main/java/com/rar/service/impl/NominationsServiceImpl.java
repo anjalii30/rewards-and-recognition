@@ -83,12 +83,12 @@ public class NominationsServiceImpl implements NominationsService {
         Long manager_id = managerRepository.findByEmail(manager_email);
         Long[] members = nominationsRepository.getMembers(manager_id);
 
-            List<Nominations> getNominations = null;
+        List<Nominations> getNominations = null;
 
-                for (int i = 0; i < members.length; i++) {
-                    System.out.println(members[i]);
-                    getNominations=(nominationsRepository.getNominations(members[i]));
-                }
+        for (int i = 0; i < members.length; i++) {
+            System.out.println(members[i]);
+            getNominations = (nominationsRepository.getNominations(members[i]));
+        }
         return getNominations;
 
     }

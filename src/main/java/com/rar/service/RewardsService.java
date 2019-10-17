@@ -34,6 +34,8 @@ public interface RewardsService {
 
     public ResponseEntity<?> rewardsSave(Rewards rewards);
 
+    List<Rewards> latest();
+
 
 
 

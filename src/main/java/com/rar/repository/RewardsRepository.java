@@ -27,6 +27,10 @@ public interface RewardsRepository extends CrudRepository<Rewards, Long> {
     void updateToNull(long id);
 
 
+    @Query(value = " Select * from rewards where award_status=1 Order by start_date DESC limit 4",nativeQuery = true)
+    List<Rewards> latest();
+
+
 
 
 
