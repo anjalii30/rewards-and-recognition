@@ -11,5 +11,5 @@ public interface AwardedService {
 
     Awarded save(Awarded awarded);
 
-    Object findAllAwarded();
+    Object[] findAllAwarded();
 }

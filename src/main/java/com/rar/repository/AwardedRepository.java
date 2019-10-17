@@ -9,7 +9,7 @@ import java.util.List;
 public interface AwardedRepository extends CrudRepository<Awarded, Long> {
 
     @Query(value="select users.name, users.image_url,projects.project_name,rewards.reward_name from users,projects,rewards,awarded where awarded.employee_id=users.user_id and projects.project_id=awarded.project_id  and rewards.reward_id=awarded.reward_id",nativeQuery = true)
-    Object findAllAwarded();
+    Object[] findAllAwarded();
 
    /* @Query(value = "SELECT  DISTINCT year from awarded ", nativeQuery = true)
     public List getAllYears();

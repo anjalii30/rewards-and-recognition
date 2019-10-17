@@ -56,8 +56,8 @@ public class AwardedServiceImpl implements AwardedService {
     }
 
     @Override
-    public Object findAllAwarded() {
-        return  awardedRepository.findAllAwarded();
+    public Object[] findAllAwarded() {
+        return (Object[]) awardedRepository.findAllAwarded();
     }
 
     /*@Override
