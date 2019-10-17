@@ -116,6 +116,7 @@ public class LoginServiceImpl implements LoginService {
                     userInfo1.setName(userInfo1.getName());
                     userInfo1.setDesignation(userInfo1.getDesignation());
                     userInfo1.setRoles(userInfo1.getRoles());
+                    userInfo1.setId(userInfo1.getId());
 
                     userRepository.save(userInfo1);
 
@@ -140,7 +141,7 @@ public class LoginServiceImpl implements LoginService {
                             .signWith(SignatureAlgorithm.HS512, secret)
                             .compact();
 
-                    return new LoginUserDetails(userInfo1.getEmail()+"",userInfo1.getName()+"",userInfo1.getImageUrl()+"",""+generatedToken,roleEnum,designationEnum );
+                    return new LoginUserDetails(userInfo1.getEmail()+"",userInfo1.getName()+"",userInfo1.getImageUrl()+"",""+generatedToken,roleEnum,designationEnum,userInfo1.getId());
 
                 } else {
 
@@ -151,7 +152,7 @@ public class LoginServiceImpl implements LoginService {
                             .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY * 1000))
                             .signWith(SignatureAlgorithm.HS512, secret)
                             .compact();
-                    return new LoginUserDetails(userInfo1.getEmail()+"",userInfo1.getName()+"",userInfo1.getImageUrl()+"",""+generatedToken,roleEnum,designationEnum );
+                    return new LoginUserDetails(userInfo1.getEmail()+"",userInfo1.getName()+"",userInfo1.getImageUrl()+"",""+generatedToken,roleEnum,designationEnum,userInfo1.getId());
 
 
 
