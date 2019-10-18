@@ -17,8 +17,8 @@ public class NominationPojo {
     private String employee_name;
     @ApiModelProperty(notes = "Used in self nominated rewards when a manager approves it")
     private boolean selected=false;
-    @ApiModelProperty(notes = "Used for rejecting multiple nominations")
-    private boolean disable=false;
+    @ApiModelProperty(notes = "Used for selecting awardee by HR")
+    private boolean hr_selected=false;
     @ApiModelProperty(notes = "The name of the particular reward")
     private String reward_name;
     @ApiModelProperty(notes = "The reason for nomination")
@@ -91,11 +91,11 @@ public class NominationPojo {
         this.employee_name = employee_name;
     }
 
-    public boolean isDisable() {
-        return disable;
+    public boolean isHr_selected() {
+        return hr_selected;
     }
 
-    public void setDisable(boolean disable) {
-        this.disable = disable;
+    public void setHr_selected(boolean hr_selected) {
+        this.hr_selected = hr_selected;
     }
 }

@@ -1,11 +1,15 @@
 package com.rar.repository;
 
 import com.rar.model.Nominations;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @Repository
 public interface NominationsRepository extends CrudRepository<Nominations, String> {
@@ -28,7 +32,14 @@ public interface NominationsRepository extends CrudRepository<Nominations, Strin
     @Query(value="select user_id from user_manager where manager_id=?1 ",nativeQuery = true)
     Long[] getMembers(Long manager_id);
 
-    @Query(value="select * from nominations where user_id=?1",nativeQuery = true)
-    List<Nominations> getNominations(Long user_id);
+    @Query(value="select * from nominations where user_id=?1 and reward_id=?2",nativeQuery = true)
+    List<Nominations> getNominations(Long user_id,Long reward_id);
 
+    @Transactional
+    @Modifying
+    @Query(value="update nominations set hr_selected=true where nomination_id=?1",nativeQuery = true)
+    void awardeeSelect(Long nomination_id);
+
+    @Query(value="select nominations.employee_name,nominations.project_name,nominations.reward_name, users.image_url from nominations,users where nominations.user_id=users.user_id and hr_selected=true",nativeQuery = true)
+    List<Map<String,String>> getAwarded();
 }
