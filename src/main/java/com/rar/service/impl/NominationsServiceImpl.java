@@ -106,12 +106,16 @@ public class NominationsServiceImpl implements NominationsService {
             nominationsRepository.awardeeSelect(nomination_id[i]);
         }
 
-
-
     }
 
     @Override
     public List<Map<String,String>> getAwardedPeople() {
         return nominationsRepository.getAwarded();
     }
+
+  /*  @Override
+    public List<Nominations> getAllNominations() {
+        return nominationsRepository.getAllNominations();
+    }*/
+
 }

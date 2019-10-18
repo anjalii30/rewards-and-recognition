@@ -20,4 +20,6 @@ public interface NominationsService {
     void awardeeSelect(Long[] nomination_id);
 
     List<Map<String,String>> getAwardedPeople();
+
+    //List<Nominations> getAllNominations();
 }

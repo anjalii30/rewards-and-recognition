@@ -1,6 +1,5 @@
 package com.rar.controller;
 
-import com.rar.model.Awarded;
 import com.rar.model.NominationPojo;
 import com.rar.model.Nominations;
 import com.rar.repository.UserRepository;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 
 @CrossOrigin
@@ -46,13 +44,19 @@ public class NominationController {
     }
 
 
-
-    @ApiOperation(value = "Get the list of nominations for admin")
+    @ApiOperation(value = "Get the list of nominations for admin by reward id")
     @GetMapping("/showNomination/{id}")
-    public List<Nominations> show(@RequestHeader(value = "Authorization") String token,  @ApiParam(value = "Get nomination object by reward_id", required = true) @PathVariable Long id){
+    public List<Nominations> showById(@RequestHeader(value = "Authorization") String token,  @ApiParam(value = "Get nomination object by reward_id", required = true) @PathVariable Long id){
         String email=validity.check(token);
         return nominationsService.GetData(id);
     }
+
+   /* @ApiOperation(value = "Get the list of nominations for admin")
+    @GetMapping("/showAllNomination")
+    public List<Nominations> show(@RequestHeader(value = "Authorization") String token){
+        String email=validity.check(token);
+        return nominationsService.getAllNominations();
+    }*/
 
     @ApiOperation(value = "Get the list of nominations for manager")
     @GetMapping("/showToManager/{id}")
@@ -70,8 +74,8 @@ public class NominationController {
      //   return  nominationsService.awardeeSelect(nomination_id.get("nomination_id"));
         nominationsService.awardeeSelect(nomination_id);
     }*/
-   @ApiOperation(value = "mark employee selected by HR")
-   @PutMapping("/awardee")
+   @ApiOperation(value = "awardee selected by admin")
+   @PostMapping("/awardee")
    public void awardeeSelect(@RequestHeader(value = "Authorization") String token , @ApiParam(value = "update Nomination object by id", required = true) @RequestBody Long[] n_id) {
        String email=validity.check(token);
        // Long nomination_id=nominations.getNominationID();

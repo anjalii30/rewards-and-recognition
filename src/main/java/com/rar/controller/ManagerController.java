@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @CrossOrigin
@@ -70,5 +71,12 @@ public class ManagerController {
     }
 
 
+    @GetMapping("/getMembers")
+    public List<Map<String,String>> getMembers(@RequestHeader(value = "Authorization") String token){
+        String email=validity.check(token);
+        Long manager_id=managerRepository.findByEmail(email);
+        return managerService.getAllMembers(manager_id);
+
+    }
 
 }

@@ -3,7 +3,6 @@ package com.rar.controller;
 import com.rar.model.Rewards;
 import com.rar.repository.UserRepository;
 import com.rar.service.RewardsService;
-//import com.rar.utils.CheckDisable;
 import com.rar.utils.CheckValidity;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -81,6 +80,13 @@ public class RewardsController {
         Long user_id = userRepository.getIdByEmail(email);
         System.out.println(user_id);
        return rewardsService.findByRolled(user_id);
+    }
+
+    @ApiOperation(value = "Get the list of rolled out  rewards which are self-nominated")
+    @GetMapping("/listSelfNominated")
+    public List<Rewards> listSelfNominate(@RequestHeader(value = "Authorization") String token){
+        String email=validity.check(token);
+        return rewardsService.listSelfNominate();
     }
 
     @ApiOperation(value = "Get the list of rewards by id")

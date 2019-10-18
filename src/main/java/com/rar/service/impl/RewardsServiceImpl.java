@@ -225,6 +225,11 @@ public class RewardsServiceImpl implements RewardsService {
         return rewardsRepository.latest();
     }
 
+    @Override
+    public List<Rewards> listSelfNominate() {
+        return rewardsRepository.getSelfNominateRewards();
+    }
+
     public ResponseEntity<?> rewardsSave(Rewards rewards) {
 
 

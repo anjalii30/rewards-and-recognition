@@ -42,4 +42,7 @@ public interface NominationsRepository extends CrudRepository<Nominations, Strin
 
     @Query(value="select nominations.employee_name,nominations.project_name,nominations.reward_name, users.image_url from nominations,users where nominations.user_id=users.user_id and hr_selected=true",nativeQuery = true)
     List<Map<String,String>> getAwarded();
+
+  /*  @Query(value="select * from nominations where selected=true")
+    List<Nominations> getAllNominations();*/
 }

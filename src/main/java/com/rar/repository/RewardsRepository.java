@@ -30,6 +30,9 @@ public interface RewardsRepository extends CrudRepository<Rewards, Long> {
     @Query(value = " Select * from rewards where award_status=1 Order by start_date DESC limit 4",nativeQuery = true)
     List<Rewards> latest();
 
+    @Query(value="select * from rewards where award_status=1 and  self_nominate=true",nativeQuery = true)
+    List<Rewards> getSelfNominateRewards();
+
 
 
 

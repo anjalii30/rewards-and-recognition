@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -38,6 +39,11 @@ public class ManagerServiceImpl implements ManagerService {
     @Override
     public List getEmployees(Long manager_id) {
         return managerRepository.getEmployees(manager_id);
+    }
+
+    @Override
+    public List<Map<String,String>> getAllMembers(Long manager_id) {
+        return managerRepository.getAllMembers(manager_id);
     }
 
     @Override

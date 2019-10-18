@@ -37,6 +37,5 @@ public interface RewardsService {
     List<Rewards> latest();
 
 
-
-
+    List<Rewards> listSelfNominate();
 }
