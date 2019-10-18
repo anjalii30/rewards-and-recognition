@@ -47,11 +47,14 @@ public interface NominationsRepository extends CrudRepository<Nominations, Strin
     @Query(value="select * from nominations where user_id=?1",nativeQuery = true)
     List<Nominations> getAllNominations(Long user_id);
 
-    @Query(value="select * from nominations where reward_id=>1 ",nativeQuery = true)
+    @Query(value="select * from nominations where reward_id=?1 ",nativeQuery = true)
     Optional<Nominations> findByRewardId(Long rewardID);
 
+    @Transactional
+    @Modifying
+    @Query(value="update nominations set selected=true where nomination_id=?1",nativeQuery = true)
+    void updateSelected(Long nomination_id);
 
-
-  /*  @Query(value="select * from nominations where selected=true")
-    List<Nominations> getAllNominations();*/
+   @Query(value="select * from nominations where selected=true",nativeQuery = true)
+    List<Nominations> getAllNominations();
 }

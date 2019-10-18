@@ -82,7 +82,7 @@ public class RewardsController {
        return rewardsService.findByRolled(user_id);
     }
 
-    @ApiOperation(value = "Get the list of rolled out  rewards which are self-nominated")
+    @ApiOperation(value = "Get the list of rolled out rewards which are self-nominated")
     @GetMapping("/listSelfNominated")
     public List<Rewards> listSelfNominate(@RequestHeader(value = "Authorization") String token){
         String email=validity.check(token);

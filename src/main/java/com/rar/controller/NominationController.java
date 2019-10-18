@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -37,20 +38,19 @@ public class NominationController {
 
     @ApiOperation(value = "Save the nomination")
     @PostMapping("/saveNomination")
-    public ResponseEntity<?> nominationSave(@RequestHeader(value = "Authorization") String token ,@ApiParam(value = "Nomination object store in database table", required = true) @Valid @RequestBody NominationPojo nominationPojo) {
+    public ResponseEntity<?> nominationSave(@RequestHeader(value = "Authorization") String token ,@ApiParam(value = "Nomination object store in database table", required = true) @Valid @RequestBody List<NominationPojo> nominationPojo) {
         String email=validity.check(token);
         nominationsService.nominationSave(nominationPojo);
         return ResponseEntity.ok(nominationPojo);
     }
 
-    @ApiOperation(value = "Manager nominating their team members")
+   /* @ApiOperation(value = "Manager nominating their team members")
     @PostMapping("/managerNominate")
-    public void managerNominate(@RequestHeader(value = "Authorization") String token,Object[] nominations){
+    public <nominationPojo> void managerNominate(@RequestHeader(value = "Authorization") String token, ArrayList<NominationPojo> nominations ){
         String email=validity.check(token);
         nominationsService.managerNominate(nominations);
 
-
-    }
+    }*/
 
     @ApiOperation(value = "Get the list of nominations for admin by reward id")
     @GetMapping("/showNomination/{id}")
@@ -59,12 +59,12 @@ public class NominationController {
         return nominationsService.GetData(id);
     }
 
-   /* @ApiOperation(value = "Get the list of nominations for admin")
+    @ApiOperation(value = "Get the list of all nominations for admin")
     @GetMapping("/showAllNomination")
     public List<Nominations> show(@RequestHeader(value = "Authorization") String token){
         String email=validity.check(token);
         return nominationsService.getAllNominations();
-    }*/
+    }
 
     @ApiOperation(value = "Get the list of nominations for manager by reward id")
     @GetMapping("/showToManager/{id}")

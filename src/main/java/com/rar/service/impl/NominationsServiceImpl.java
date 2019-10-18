@@ -30,55 +30,66 @@ public class NominationsServiceImpl implements NominationsService {
     @Autowired
     private ManagerRepository managerRepository;
     @Override
-    public ResponseEntity<?> nominationSave(NominationPojo nominationPojo) {
-        Nominations nominations = new Nominations();
-        nominations.setUserID(nominationPojo.getUserId());
-        nominations.setRewardID(nominationPojo.getRewardId());
-        nominations.setProject_name(nominationPojo.getProject_name());
-        nominations.setSelected(nominationPojo.isSelected());
-        nominations.setReward_name(nominationPojo.getReward_name());
-        nominations.setEmployee_name(nominationPojo.getEmployee_name());
-        nominations.setHr_selected(nominationPojo.isHr_selected());
-        nominations.setReason(nominationPojo.getReason());
+    public ResponseEntity<?> nominationSave(List<NominationPojo> nominationPojo) {
 
-        nominations = nominationsRepository.save(nominations);
+        Nominations nominations1 = new Nominations();
+        List<HashMap<String, Object>> s = new ArrayList<>();
+        for(int i=0;i<nominationPojo.size();i++) {
+            Nominations nominations = new Nominations();
 
-        long nominationID = nominations.getNominationID();
+                nominations.setUserID(nominationPojo.get(i).getUserId());
+                nominations.setRewardID(nominationPojo.get(i).getRewardId());
+                nominations.setProject_name(nominationPojo.get(i).getProject_name());
+                nominations.setSelected(nominationPojo.get(i).isSelected());
+                nominations.setReward_name(nominationPojo.get(i).getReward_name());
+                nominations.setEmployee_name(nominationPojo.get(i).getEmployee_name());
+                nominations.setHr_selected(nominationPojo.get(i).isHr_selected());
+                nominations.setReason(nominationPojo.get(i).getReason());
+
+                nominationsRepository.save(nominations);
+
+            long nominationID = nominations.getNominationID();
 
 
-        Evidences evidences = new Evidences();
-        System.out.println(nominationPojo.getEvidencesPojoList().size());
 
-        for (int i = 0; i < nominationPojo.getEvidencesPojoList().size(); i++) {
-            evidences = new Evidences();
+            Evidences evidences = new Evidences();
+       //     System.out.println(nominationPojo.getEvidencesPojoList().size());
 
-            evidences.setNominationID(nominationID);
-            evidences.setCriteria_desc(nominationPojo.getEvidencesPojoList().get(i).getCriteria_desc());
-            evidences.setEvidences(nominationPojo.getEvidencesPojoList().get(i).getEvidences());
-            evidences.setText_evidence(nominationPojo.getEvidencesPojoList().get(i).getText_evidence());
+            for (int j = 0; j < nominationPojo.get(i).getEvidencesPojoList().size(); j++) {
+                evidences = new Evidences();
 
-            evidencesRepository.save(evidences);
+                evidences.setNominationID(nominationID);
+                System.out.println("test"+nominationID);
+                evidences.setCriteria_desc(nominationPojo.get(i).getEvidencesPojoList().get(j).getCriteria_desc());
+                evidences.setEvidences(nominationPojo.get(i).getEvidencesPojoList().get(j).getEvidences());
+                evidences.setText_evidence(nominationPojo.get(i).getEvidencesPojoList().get(j).getText_evidence());
+
+                evidencesRepository.save(evidences);
+            }
+
+//            s.get(i).put("evidences", evidences);
+//            s.get(i).put("nominations", nominations);
+//            Object returnValue = s;
+
+           // return ResponseEntity.ok(s);
         }
 
-
-        HashMap<String, Object> s = new HashMap<>();
-        s.put("evidences", evidences);
-        s.put("nominations", nominations);
-        Object returnValue = s;
-
-        return ResponseEntity.ok(s);
+       return ResponseEntity.ok(s);
     }
 
     @Override
     public List<Nominations> GetData(Long rewardID) throws Exception {
+        
 
-        try {
-           /* Optional<Nominations> rId=nominationsRepository.findByRewardId(rewardID);
-            if(rId.isPresent())*/
-            return nominationsRepository.GetData(rewardID);
-        }catch(Exception e){
-            throw new Exception("No nominations for this reward");
-        }
+            List<Nominations> nominations = null;
+//            Optional<Nominations> rId=nominationsRepository.findByRewardId(rewardID);
+  //          if(rId.isPresent()) {
+                nominations = nominationsRepository.GetData(rewardID);
+                return nominations;
+    //        }
+     //       else
+       //         throw new Exception("No nominations for this reward");
+
     }
 
     @Override
@@ -150,33 +161,22 @@ public class NominationsServiceImpl implements NominationsService {
         }
     }
 
-    @Override
-    public void managerNominate(Object[] nominationsList) {
+//    @Override
+//    public void managerNominate(List<NominationPojo> nominationsList) {
+//
+//        System.out.println(nominationsList.size());
+//        Nominations nominations=new Nominations();
+//        for(int i=0; i<nominationsList.size();i++) {
+//            nominations.setUserID(nominationsList.);
+//
+//            System.out.println(nominationsList.get(i));
+//
+//        }
+//    }
 
-        for(int i=0; i<nominationsList.length;i++) {
-            Nominations nominations= (Nominations) nominationsList[i];
-
-            Nominations nominations1 = new Nominations();
-
-            nominations1.setSelected(true);
-            nominations1.setEmployee_name(nominations.getEmployee_name());
-            nominations1.setProject_name(nominations.getProject_name());
-            nominations1.setRewardID(nominations.getRewardID());
-            nominations1.setReward_name(nominations.getReward_name());
-            nominations1.setUserID(nominations.getUserID());
-            nominations1.setReason(nominations.getReason());
-            nominations1.setEvidencesList(nominations.getEvidencesList());
-            nominations1.setHr_selected(false);
-
-
-            Nominations n=nominationsRepository.save(nominations1);
-
-        }
-    }
-
-  /*  @Override
+   @Override
     public List<Nominations> getAllNominations() {
         return nominationsRepository.getAllNominations();
-    }*/
+ }
 
 }

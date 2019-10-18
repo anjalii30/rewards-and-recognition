@@ -5,12 +5,13 @@ import com.rar.model.NominationPojo;
 import com.rar.model.Nominations;
 import org.springframework.http.ResponseEntity;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public interface NominationsService {
 
-    ResponseEntity<?> nominationSave(NominationPojo nominationPojo);
+    ResponseEntity<?> nominationSave(List<NominationPojo> nominationPojo);
 
     List<Nominations> GetData(Long rewardID) throws Exception;
 
@@ -22,7 +23,7 @@ public interface NominationsService {
 
     List<List<Nominations>> showAllToManager(String email) throws Exception;
 
-    void managerNominate(Object[] nominations);
+//     void managerNominate(List<NominationPojo> nominationsPojo);
 
-    //List<Nominations> getAllNominations();
+  List<Nominations> getAllNominations();
 }
