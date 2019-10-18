@@ -43,10 +43,18 @@ public class NominationController {
         return ResponseEntity.ok(nominationPojo);
     }
 
+    @ApiOperation(value = "Manager nominating their team members")
+    @PostMapping("/managerNominate")
+    public void managerNominate(@RequestHeader(value = "Authorization") String token,Object[] nominations){
+        String email=validity.check(token);
+        nominationsService.managerNominate(nominations);
+
+
+    }
 
     @ApiOperation(value = "Get the list of nominations for admin by reward id")
     @GetMapping("/showNomination/{id}")
-    public List<Nominations> showById(@RequestHeader(value = "Authorization") String token,  @ApiParam(value = "Get nomination object by reward_id", required = true) @PathVariable Long id){
+    public List<Nominations> showById(@RequestHeader(value = "Authorization") String token,  @ApiParam(value = "Get nomination object by reward_id", required = true) @PathVariable Long id) throws Exception{
         String email=validity.check(token);
         return nominationsService.GetData(id);
     }
@@ -58,12 +66,19 @@ public class NominationController {
         return nominationsService.getAllNominations();
     }*/
 
-    @ApiOperation(value = "Get the list of nominations for manager")
+    @ApiOperation(value = "Get the list of nominations for manager by reward id")
     @GetMapping("/showToManager/{id}")
-    public List<Nominations> showToManager(@RequestHeader(value = "Authorization") String token, @PathVariable Long id) throws Exception {
+    public List<List<Nominations>> showToManager(@RequestHeader(value = "Authorization") String token, @PathVariable Long id) throws Exception {
         String email=validity.check(token);
         return nominationsService.showToManager(email,id);
 
+    }
+
+    @ApiOperation(value = "Get the list of all the nominations for manager")
+    @GetMapping("/showToManager")
+    public List<List<Nominations>> showAllToManager(@RequestHeader(value = "Authorization") String token) throws Exception {
+        String email = validity.check(token);
+        return nominationsService.showAllToManager(email);
     }
 
    /* @ApiOperation(value = "mark employee selected by HR")
@@ -76,11 +91,11 @@ public class NominationController {
     }*/
    @ApiOperation(value = "awardee selected by admin")
    @PostMapping("/awardee")
-   public void awardeeSelect(@RequestHeader(value = "Authorization") String token , @ApiParam(value = "update Nomination object by id", required = true) @RequestBody Long[] n_id) {
+   public void awardeeSelect(@RequestHeader(value = "Authorization") String token , @ApiParam(value = "update Nomination object by id", required = true) @RequestBody Map<String, Long[]> n) {
        String email=validity.check(token);
        // Long nomination_id=nominations.getNominationID();
        //   return  nominationsService.awardeeSelect(nomination_id.get("nomination_id"));
-       nominationsService.awardeeSelect(n_id);
+       nominationsService.awardeeSelect(n);
    }
 
     @ApiOperation(value = "show the list of awardee ")

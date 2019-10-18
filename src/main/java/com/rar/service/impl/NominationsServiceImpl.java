@@ -13,10 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 //import com.rar.utils.CheckDisable;
 
@@ -73,22 +70,30 @@ public class NominationsServiceImpl implements NominationsService {
     }
 
     @Override
-    public List<Nominations> GetData(Long rewardID) {
+    public List<Nominations> GetData(Long rewardID) throws Exception {
 
-        return  nominationsRepository.GetData(rewardID);
+        try {
+           /* Optional<Nominations> rId=nominationsRepository.findByRewardId(rewardID);
+            if(rId.isPresent())*/
+            return nominationsRepository.GetData(rewardID);
+        }catch(Exception e){
+            throw new Exception("No nominations for this reward");
+        }
     }
 
     @Override
-    public List<Nominations> showToManager(String manager_email,Long reward_id) throws Exception {
+    public  List<List<Nominations>> showToManager(String manager_email,Long reward_id) throws Exception {
 
         try {
             Long manager_id = managerRepository.findByEmail(manager_email);
             Long[] members = nominationsRepository.getMembers(manager_id);
 
-            List<Nominations> getNominations = null;
+            List<List<Nominations>> getNominations = new ArrayList<>();
 
             for (int i = 0; i < members.length; i++) {
-                getNominations = (nominationsRepository.getNominations(members[i],reward_id));
+                if(nominationsRepository.getNominations((members[i]),reward_id).isEmpty())
+                    continue;
+                getNominations.add (nominationsRepository.getNominations(members[i],reward_id));
             }
             return getNominations;
         }catch (Exception e) {
@@ -99,7 +104,9 @@ public class NominationsServiceImpl implements NominationsService {
     }
 
     @Override
-    public void awardeeSelect(Long[] nomination_id) {
+    public void awardeeSelect(Map<String, Long[]> nomination1_id) {
+
+        Long[] nomination_id= nomination1_id.get("nomination_id");
 
         for(int i=0;i<nomination_id.length;i++){
 
@@ -111,6 +118,60 @@ public class NominationsServiceImpl implements NominationsService {
     @Override
     public List<Map<String,String>> getAwardedPeople() {
         return nominationsRepository.getAwarded();
+    }
+
+    @Override
+    public List<List<Nominations>> showAllToManager(String email) throws Exception {
+        try {
+            System.out.println(email);
+            Long manager_id = managerRepository.findByEmail(email);
+            System.out.println(manager_id);
+            Long[] members = nominationsRepository.getMembers(manager_id);
+            System.out.println(Arrays.toString(members));
+            List<List<Nominations>> getNominations = new ArrayList<>();
+            ;
+          //  List<Nominations> getNominations = null;
+            for (int i = 0; i < members.length; i++) {
+                System.out.println(members.length);
+                System.out.println(members[i]);
+               // getNominations = (nominationsRepository.getAllNominations(members[i]));
+                System.out.println("test"+nominationsRepository.getAllNominations(members[i]));
+                if(nominationsRepository.getAllNominations(members[i]).isEmpty())
+                    continue;
+                getNominations.add(nominationsRepository.getAllNominations(members[i]));
+                System.out.println(getNominations);
+            }
+            System.out.println(getNominations);
+            return getNominations;
+        }catch (Exception e) {
+             System.out.println(e);
+            throw new InvalidUserException("you are not a manager");
+
+        }
+    }
+
+    @Override
+    public void managerNominate(Object[] nominationsList) {
+
+        for(int i=0; i<nominationsList.length;i++) {
+            Nominations nominations= (Nominations) nominationsList[i];
+
+            Nominations nominations1 = new Nominations();
+
+            nominations1.setSelected(true);
+            nominations1.setEmployee_name(nominations.getEmployee_name());
+            nominations1.setProject_name(nominations.getProject_name());
+            nominations1.setRewardID(nominations.getRewardID());
+            nominations1.setReward_name(nominations.getReward_name());
+            nominations1.setUserID(nominations.getUserID());
+            nominations1.setReason(nominations.getReason());
+            nominations1.setEvidencesList(nominations.getEvidencesList());
+            nominations1.setHr_selected(false);
+
+
+            Nominations n=nominationsRepository.save(nominations1);
+
+        }
     }
 
   /*  @Override

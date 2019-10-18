@@ -7,19 +7,22 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 public interface NominationsService {
 
     ResponseEntity<?> nominationSave(NominationPojo nominationPojo);
 
-    List<Nominations> GetData(Long rewardID);
+    List<Nominations> GetData(Long rewardID) throws Exception;
 
-    List<Nominations> showToManager(String email,Long reward_id) throws Exception;
+    List<List<Nominations>> showToManager(String email,Long reward_id) throws Exception;
 
-    void awardeeSelect(Long[] nomination_id);
+    void awardeeSelect(Map<String, Long[]> nomination_id);
 
     List<Map<String,String>> getAwardedPeople();
+
+    List<List<Nominations>> showAllToManager(String email) throws Exception;
+
+    void managerNominate(Object[] nominations);
 
     //List<Nominations> getAllNominations();
 }

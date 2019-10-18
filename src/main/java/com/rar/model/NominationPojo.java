@@ -34,24 +34,16 @@ public class NominationPojo {
         this.evidencesPojoList = evidencesPojoList;
     }
 
-    public long getRewardId() {
+    public Long getRewardId() {
         return rewardId;
     }
 
-    public void setRewardId(long rewardId) {
+    public void setRewardId(Long rewardId) {
         this.rewardId = rewardId;
     }
 
     public String getProject_name() {
         return project_name;
-    }
-
-    public String getReason() {
-        return reason;
-    }
-
-    public void setReason(String reason) {
-        this.reason = reason;
     }
 
     public void setProject_name(String project_name) {
@@ -66,13 +58,12 @@ public class NominationPojo {
         this.userId = userId;
     }
 
-
-    public String getReward_name() {
-        return reward_name;
+    public String getEmployee_name() {
+        return employee_name;
     }
 
-    public void setReward_name(String reward_name) {
-        this.reward_name = reward_name;
+    public void setEmployee_name(String employee_name) {
+        this.employee_name = employee_name;
     }
 
     public boolean isSelected() {
@@ -83,14 +74,6 @@ public class NominationPojo {
         this.selected = selected;
     }
 
-    public String getEmployee_name() {
-        return employee_name;
-    }
-
-    public void setEmployee_name(String employee_name) {
-        this.employee_name = employee_name;
-    }
-
     public boolean isHr_selected() {
         return hr_selected;
     }
@@ -98,4 +81,22 @@ public class NominationPojo {
     public void setHr_selected(boolean hr_selected) {
         this.hr_selected = hr_selected;
     }
+
+    public String getReward_name() {
+        return reward_name;
+    }
+
+    public void setReward_name(String reward_name) {
+        this.reward_name = reward_name;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
+
 }

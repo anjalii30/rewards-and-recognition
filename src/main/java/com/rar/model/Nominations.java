@@ -61,6 +61,32 @@ public class Nominations implements Serializable {
     @OneToMany(mappedBy = "nominations", cascade = CascadeType.ALL)
     private List<Evidences> evidencesList;
 
+    public Nominations() {
+    }
+
+    public Nominations(String project_name, Long rewardID, String reward_name, String reason, Long userID, String employee_name, List<Evidences> evidencesList) {
+        this.project_name = project_name;
+        this.rewardID = rewardID;
+        this.reward_name = reward_name;
+        this.reason = reason;
+        this.userID = userID;
+        this.employee_name = employee_name;
+        this.evidencesList = evidencesList;
+    }
+
+    public Nominations(Long nominationID, String project_name, Long rewardID, String reward_name, String reason, Long userID, String employee_name, boolean selected, boolean hr_selected, List<Evidences> evidencesList) {
+        this.nominationID = nominationID;
+        this.project_name = project_name;
+        this.rewardID = rewardID;
+        this.reward_name = reward_name;
+        this.reason = reason;
+        this.userID = userID;
+        this.employee_name = employee_name;
+        this.selected = selected;
+        this.hr_selected = hr_selected;
+        this.evidencesList = evidencesList;
+    }
+
     public Long getNominationID() {
         return nominationID;
     }
