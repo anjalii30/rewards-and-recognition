@@ -57,4 +57,7 @@ public interface NominationsRepository extends CrudRepository<Nominations, Strin
 
    @Query(value="select * from nominations where selected=true",nativeQuery = true)
     List<Nominations> getAllNominations();
+
+
+
 }

@@ -101,7 +101,16 @@ public class NominationController {
     @ApiOperation(value = "show the list of awardee ")
     @GetMapping("/awardedList")
     public List<Map<String,String>> getByAwardedId(@RequestHeader(value = "Authorization") String token){
+        String email=validity.check(token);
+
         return nominationsService.getAwardedPeople();
+    }
+
+    @ApiOperation(value="mark selected by manager from self nominations of team members by nomination id")
+    @PutMapping("/managerSelect/{nomination_id}")
+    public void managerSelect(@RequestHeader(value = "Authorization") String token ,@PathVariable Long nomination_id){
+       String email=validity.check(token);
+       nominationsService.managerSelect(nomination_id);
     }
 
 }

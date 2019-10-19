@@ -26,4 +26,6 @@ public interface NominationsService {
 //     void managerNominate(List<NominationPojo> nominationsPojo);
 
   List<Nominations> getAllNominations();
+
+    void managerSelect(Long nomination_id);
 }

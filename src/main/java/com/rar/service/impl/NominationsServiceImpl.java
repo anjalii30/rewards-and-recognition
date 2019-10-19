@@ -32,7 +32,6 @@ public class NominationsServiceImpl implements NominationsService {
     @Override
     public ResponseEntity<?> nominationSave(List<NominationPojo> nominationPojo) {
 
-        Nominations nominations1 = new Nominations();
         List<HashMap<String, Object>> s = new ArrayList<>();
         for(int i=0;i<nominationPojo.size();i++) {
             Nominations nominations = new Nominations();
@@ -52,11 +51,8 @@ public class NominationsServiceImpl implements NominationsService {
 
 
 
-            Evidences evidences = new Evidences();
-       //     System.out.println(nominationPojo.getEvidencesPojoList().size());
-
             for (int j = 0; j < nominationPojo.get(i).getEvidencesPojoList().size(); j++) {
-                evidences = new Evidences();
+               Evidences evidences = new Evidences();
 
                 evidences.setNominationID(nominationID);
                 System.out.println("test"+nominationID);
@@ -67,11 +63,6 @@ public class NominationsServiceImpl implements NominationsService {
                 evidencesRepository.save(evidences);
             }
 
-//            s.get(i).put("evidences", evidences);
-//            s.get(i).put("nominations", nominations);
-//            Object returnValue = s;
-
-           // return ResponseEntity.ok(s);
         }
 
        return ResponseEntity.ok(s);
@@ -79,17 +70,11 @@ public class NominationsServiceImpl implements NominationsService {
 
     @Override
     public List<Nominations> GetData(Long rewardID) throws Exception {
-        
 
             List<Nominations> nominations = null;
-//            Optional<Nominations> rId=nominationsRepository.findByRewardId(rewardID);
-  //          if(rId.isPresent()) {
+
                 nominations = nominationsRepository.GetData(rewardID);
                 return nominations;
-    //        }
-     //       else
-       //         throw new Exception("No nominations for this reward");
-
     }
 
     @Override
@@ -178,5 +163,10 @@ public class NominationsServiceImpl implements NominationsService {
     public List<Nominations> getAllNominations() {
         return nominationsRepository.getAllNominations();
  }
+
+    @Override
+    public void managerSelect(Long nomination_id) {
+        nominationsRepository.updateSelected(nomination_id);
+    }
 
 }
