@@ -28,4 +28,6 @@ public interface NominationsService {
   List<Nominations> getAllNominations();
 
     void managerSelect(Long nomination_id);
+
+    List<Map<String, String>> nominated_rewards();
 }

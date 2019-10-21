@@ -66,6 +66,13 @@ public class NominationController {
         return nominationsService.getAllNominations();
     }
 
+    @GetMapping("/showNominatedRewards")
+    public  List<Map<String, String>> showNominatedRewards(@RequestHeader(value = "Authorization") String token){
+        String email=validity.check(token);
+        return nominationsService.nominated_rewards();
+    }
+
+
     @ApiOperation(value = "Get the list of nominations for manager by reward id")
     @GetMapping("/showToManager/{id}")
     public List<List<Nominations>> showToManager(@RequestHeader(value = "Authorization") String token, @PathVariable Long id) throws Exception {

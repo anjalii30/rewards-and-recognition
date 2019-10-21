@@ -82,7 +82,7 @@ public class NominationsServiceImpl implements NominationsService {
 
         try {
             Long manager_id = managerRepository.findByEmail(manager_email);
-            Long[] members = nominationsRepository.getMembers(manager_id);
+            Long[] members = managerRepository.getMembers(manager_id);
 
             List<List<Nominations>> getNominations = new ArrayList<>();
 
@@ -122,7 +122,7 @@ public class NominationsServiceImpl implements NominationsService {
             System.out.println(email);
             Long manager_id = managerRepository.findByEmail(email);
             System.out.println(manager_id);
-            Long[] members = nominationsRepository.getMembers(manager_id);
+            Long[] members = managerRepository.getMembers(manager_id);
             System.out.println(Arrays.toString(members));
             List<List<Nominations>> getNominations = new ArrayList<>();
             ;
@@ -169,4 +169,8 @@ public class NominationsServiceImpl implements NominationsService {
         nominationsRepository.updateSelected(nomination_id);
     }
 
+    @Override
+    public List<Map<String, String>> nominated_rewards() {
+        return nominationsRepository.nominated_rewards();
+    }
 }
