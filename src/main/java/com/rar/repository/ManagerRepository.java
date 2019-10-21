@@ -22,4 +22,7 @@ public interface ManagerRepository extends CrudRepository<Manager, Long> {
 
     @Query(value="select user_id,name from users where user_id in (select user_id from user_manager where manager_id=?1)",nativeQuery = true)
     List<Map<String,String>> getAllMembers(Long manager_id);
+
+    @Query(value="select user_id from user_manager where manager_id=?1 ",nativeQuery = true)
+    Long[] getMembers(Long manager_id);
 }

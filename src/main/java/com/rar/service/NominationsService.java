@@ -5,7 +5,6 @@ import com.rar.model.NominationPojo;
 import com.rar.model.Nominations;
 import org.springframework.http.ResponseEntity;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -26,4 +25,8 @@ public interface NominationsService {
 //     void managerNominate(List<NominationPojo> nominationsPojo);
 
   List<Nominations> getAllNominations();
+
+    void managerSelect(Long nomination_id);
+
+    List<Map<String, String>> nominated_rewards();
 }

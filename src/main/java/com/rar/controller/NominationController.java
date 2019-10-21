@@ -14,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -66,6 +65,13 @@ public class NominationController {
         return nominationsService.getAllNominations();
     }
 
+    @GetMapping("/showNominatedRewards")
+    public  List<Map<String, String>> showNominatedRewards(@RequestHeader(value = "Authorization") String token){
+        String email=validity.check(token);
+        return nominationsService.nominated_rewards();
+    }
+
+
     @ApiOperation(value = "Get the list of nominations for manager by reward id")
     @GetMapping("/showToManager/{id}")
     public List<List<Nominations>> showToManager(@RequestHeader(value = "Authorization") String token, @PathVariable Long id) throws Exception {
@@ -101,7 +107,16 @@ public class NominationController {
     @ApiOperation(value = "show the list of awardee ")
     @GetMapping("/awardedList")
     public List<Map<String,String>> getByAwardedId(@RequestHeader(value = "Authorization") String token){
+        String email=validity.check(token);
+
         return nominationsService.getAwardedPeople();
+    }
+
+    @ApiOperation(value="mark selected by manager from self nominations of team members by nomination id")
+    @PutMapping("/managerSelect/{nomination_id}")
+    public void managerSelect(@RequestHeader(value = "Authorization") String token ,@PathVariable Long nomination_id){
+       String email=validity.check(token);
+       nominationsService.managerSelect(nomination_id);
     }
 
 }

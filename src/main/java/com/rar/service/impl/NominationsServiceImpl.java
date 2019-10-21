@@ -32,7 +32,6 @@ public class NominationsServiceImpl implements NominationsService {
     @Override
     public ResponseEntity<?> nominationSave(List<NominationPojo> nominationPojo) {
 
-        Nominations nominations1 = new Nominations();
         List<HashMap<String, Object>> s = new ArrayList<>();
         for(int i=0;i<nominationPojo.size();i++) {
             Nominations nominations = new Nominations();
@@ -52,11 +51,8 @@ public class NominationsServiceImpl implements NominationsService {
 
 
 
-            Evidences evidences = new Evidences();
-       //     System.out.println(nominationPojo.getEvidencesPojoList().size());
-
             for (int j = 0; j < nominationPojo.get(i).getEvidencesPojoList().size(); j++) {
-                evidences = new Evidences();
+               Evidences evidences = new Evidences();
 
                 evidences.setNominationID(nominationID);
                 System.out.println("test"+nominationID);
@@ -67,11 +63,6 @@ public class NominationsServiceImpl implements NominationsService {
                 evidencesRepository.save(evidences);
             }
 
-//            s.get(i).put("evidences", evidences);
-//            s.get(i).put("nominations", nominations);
-//            Object returnValue = s;
-
-           // return ResponseEntity.ok(s);
         }
 
        return ResponseEntity.ok(s);
@@ -79,17 +70,11 @@ public class NominationsServiceImpl implements NominationsService {
 
     @Override
     public List<Nominations> GetData(Long rewardID) throws Exception {
-        
 
             List<Nominations> nominations = null;
-//            Optional<Nominations> rId=nominationsRepository.findByRewardId(rewardID);
-  //          if(rId.isPresent()) {
+
                 nominations = nominationsRepository.GetData(rewardID);
                 return nominations;
-    //        }
-     //       else
-       //         throw new Exception("No nominations for this reward");
-
     }
 
     @Override
@@ -97,7 +82,7 @@ public class NominationsServiceImpl implements NominationsService {
 
         try {
             Long manager_id = managerRepository.findByEmail(manager_email);
-            Long[] members = nominationsRepository.getMembers(manager_id);
+            Long[] members = managerRepository.getMembers(manager_id);
 
             List<List<Nominations>> getNominations = new ArrayList<>();
 
@@ -137,7 +122,7 @@ public class NominationsServiceImpl implements NominationsService {
             System.out.println(email);
             Long manager_id = managerRepository.findByEmail(email);
             System.out.println(manager_id);
-            Long[] members = nominationsRepository.getMembers(manager_id);
+            Long[] members = managerRepository.getMembers(manager_id);
             System.out.println(Arrays.toString(members));
             List<List<Nominations>> getNominations = new ArrayList<>();
             ;
@@ -179,4 +164,13 @@ public class NominationsServiceImpl implements NominationsService {
         return nominationsRepository.getAllNominations();
  }
 
+    @Override
+    public void managerSelect(Long nomination_id) {
+        nominationsRepository.updateSelected(nomination_id);
+    }
+
+    @Override
+    public List<Map<String, String>> nominated_rewards() {
+        return nominationsRepository.nominated_rewards();
+    }
 }

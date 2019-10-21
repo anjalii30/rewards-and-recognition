@@ -30,8 +30,7 @@ public interface NominationsRepository extends CrudRepository<Nominations, Strin
     @Query(value = "select * from nominations where reward_id=?1",nativeQuery = true)
     List<Nominations> GetData(Long rewardID);
 
-    @Query(value="select user_id from user_manager where manager_id=?1 ",nativeQuery = true)
-    Long[] getMembers(Long manager_id);
+
 
     @Query(value="select * from nominations where user_id=?1 and reward_id=?2",nativeQuery = true)
     List<Nominations> getNominations(Long user_id,Long reward_id);
@@ -57,4 +56,11 @@ public interface NominationsRepository extends CrudRepository<Nominations, Strin
 
    @Query(value="select * from nominations where selected=true",nativeQuery = true)
     List<Nominations> getAllNominations();
+
+   @Query(value = "select distinct reward_id,reward_name from nominations",nativeQuery = true)
+   List<Map<String, String>> nominated_rewards();
+
+
+
+
 }
