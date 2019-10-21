@@ -1,7 +1,6 @@
 package com.rar.service.impl;
 
 import com.rar.model.Manager;
-import com.rar.model.UserInfo;
 import com.rar.repository.ManagerRepository;
 import com.rar.service.ManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,5 +48,10 @@ public class ManagerServiceImpl implements ManagerService {
     @Override
     public Optional<Manager> findById(Long id) {
         return managerRepository.findById(id);
+    }
+
+    @Override
+    public void assignValues(long manager_id,long project_id){
+        managerRepository.assignValues(manager_id,project_id);
     }
 }

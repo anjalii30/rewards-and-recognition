@@ -78,4 +78,12 @@ public class ManagerController {
 
     }
 
+    @ApiOperation(value = "Get projects assigned to manager")
+    @PostMapping("/listAssignedProjects")
+    public String assignValues(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "manager id ", required = true) @Valid @RequestBody long manager_id, @ApiParam(value = "project id ", required = true) @Valid @RequestBody long project_id) throws Exception {
+        String email=validity.check(token);
+        managerService.assignValues(manager_id,project_id);
+        return "Assigned";
+    }
+
 }
