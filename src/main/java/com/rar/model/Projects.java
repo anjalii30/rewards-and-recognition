@@ -35,6 +35,16 @@ public class Projects {
 
     private Set<UserInfo> userInfo = new HashSet<>();
 
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE,
+            },
+            mappedBy = "manager_projects")
+
+    private Set<Manager> managers = new HashSet<>();
+
 
     public Projects() {
     }

@@ -2,7 +2,6 @@ package com.rar.service;
 
 
 import com.rar.model.Manager;
-import com.rar.model.UserInfo;
 
 import java.util.List;
 import java.util.Map;
@@ -21,4 +20,6 @@ public interface ManagerService {
     List getEmployees(Long manager_id);
 
     List<Map<String,String>> getAllMembers(Long manager_id);
+
+    void assignValues(long manager_id,long project_id);
 }

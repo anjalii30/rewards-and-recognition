@@ -36,6 +36,19 @@ public class Manager implements Serializable {
     private Set<UserInfo> userInfo = new HashSet<>();
 
 
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            })
+    @JoinTable(
+            name="manager_projects",
+            joinColumns ={@JoinColumn(name="manager_id")},
+            inverseJoinColumns = {@JoinColumn(name="project_id")}
+    )
+    private Set<Projects> manager_projects= new HashSet<>();
+
+
     public Manager() {
     }
 
@@ -78,6 +91,14 @@ public class Manager implements Serializable {
     public void setUserInfo(Set<UserInfo> userInfo) {
         this.userInfo = userInfo;
     }*/
+
+    public Set<Projects> getManager_projects() {
+        return manager_projects;
+    }
+
+    public void setManager_projects(Set<Projects> manager_projects) {
+        this.manager_projects = manager_projects;
+    }
 
     @Override
     public String toString() {

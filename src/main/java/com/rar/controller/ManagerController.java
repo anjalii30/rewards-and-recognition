@@ -1,7 +1,6 @@
 package com.rar.controller;
 
 import com.rar.model.Manager;
-import com.rar.model.UserInfo;
 import com.rar.repository.ManagerRepository;
 import com.rar.service.ManagerService;
 import com.rar.utils.CheckValidity;
@@ -77,6 +76,14 @@ public class ManagerController {
         Long manager_id=managerRepository.findByEmail(email);
         return managerService.getAllMembers(manager_id);
 
+    }
+
+    @ApiOperation(value = "Get projects assigned to manager")
+    @PostMapping("/listAssignedProjects")
+    public String assignValues(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "manager id ", required = true) @Valid @RequestBody long manager_id, @ApiParam(value = "project id ", required = true) @Valid @RequestBody long project_id) throws Exception {
+        String email=validity.check(token);
+        managerService.assignValues(manager_id,project_id);
+        return "Assigned";
     }
 
 }
