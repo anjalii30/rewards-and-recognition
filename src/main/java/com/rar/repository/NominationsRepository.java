@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -40,7 +41,7 @@ public interface NominationsRepository extends CrudRepository<Nominations, Strin
     @Query(value="update nominations set hr_selected=true where nomination_id=?1",nativeQuery = true)
     void awardeeSelect(Long nomination_id);
 
-    @Query(value="select nominations.employee_name,nominations.project_name,nominations.reward_name, users.image_url from nominations,users where nominations.user_id=users.user_id and hr_selected=true",nativeQuery = true)
+    @Query(value="select nominations.user_name,nominations.project_name,nominations.reward_name, users.image_url from nominations,users where nominations.user_id=users.user_id and hr_selected=true ",nativeQuery = true)
     List<Map<String,String>> getAwarded();
 
     @Query(value="select * from nominations where user_id=?1",nativeQuery = true)
@@ -57,10 +58,9 @@ public interface NominationsRepository extends CrudRepository<Nominations, Strin
    @Query(value="select * from nominations where selected=true",nativeQuery = true)
     List<Nominations> getAllNominations();
 
-   @Query(value = "select distinct reward_id,reward_name from nominations",nativeQuery = true)
+   @Query(value = "select rewards.reward_id,rewards.reward_name from rewards where reward_id in(select distinct reward_id from nominations)",nativeQuery = true)
    List<Map<String, String>> nominated_rewards();
 
-
-
-
+    @Query(value="select nominations.user_name,nominations.reward_name, users.image_url from nominations,users where nominations.user_id=users.user_id and hr_selected=true Order by nomination_id DESC limit 6",nativeQuery = true)
+    List<Map<String, String>> getTopAwardee();
 }

@@ -18,33 +18,33 @@ public class Nominations implements Serializable {
     @ApiModelProperty(notes = "The database generated nomination ID")
     private Long nominationID;
 
-    @Column(name = "project_name",length = 1000000000)
-    @ApiModelProperty(notes = "The name of the project in which the employee is working and wants to be nominated")
+    @Column(name = "project_id",length = 1000000000)
+    @ApiModelProperty(notes = "The id of the project in which the employee is working and wants to be nominated")
+    private Long project_id;
+
+    @Column(name = "project_name")
+    @ApiModelProperty(notes = "The name of the project")
     private String project_name;
 
     @Column(name = "reward_id")
     @ApiModelProperty(notes = "The ID of that particular reward")
     private Long rewardID;
 
-    @Column(name = "reward_name", length = 100000000)
-    @ApiModelProperty(notes = "The name of the reward for which the employee is nominating")
+    @Column(name = "reward_name")
+    @ApiModelProperty(notes = "The name of the Reward")
     private String reward_name;
 
     @ApiModelProperty(notes ="Stating the reason for nomination")
     @Column(name = "reason", length = 1000000000)
     private String reason;
 
-    public String getReward_name() {
-        return reward_name;
-    }
-
     @Column(name = "user_id")
     @ApiModelProperty(notes = "The User Id of the employee")
     private Long userID;
 
-    @Column(name = "employee_name")
-    @ApiModelProperty(notes = "The name of the employee getting nominated")
-    private String employee_name;
+    @Column(name = "UserName")
+    @ApiModelProperty(notes = "The name of the employee")
+    private String username;
 
     @Column(name = "selected")
     @ApiModelProperty(notes = "Used in self nominated rewards when a manager approves it")
@@ -54,9 +54,6 @@ public class Nominations implements Serializable {
     @Column(name="hr_selected")
     private boolean hr_selected=false;
 
-    public void setReward_name(String reward_name) {
-        this.reward_name = reward_name;
-    }
 
     @OneToMany(mappedBy = "nominations", cascade = CascadeType.ALL)
     private List<Evidences> evidencesList;
@@ -64,24 +61,20 @@ public class Nominations implements Serializable {
     public Nominations() {
     }
 
-    public Nominations(String project_name, Long rewardID, String reward_name, String reason, Long userID, String employee_name, List<Evidences> evidencesList) {
-        this.project_name = project_name;
+    public Nominations(Long project_id, Long rewardID, String reason, Long userID, List<Evidences> evidencesList) {
+        this.project_id = project_id;
         this.rewardID = rewardID;
-        this.reward_name = reward_name;
         this.reason = reason;
         this.userID = userID;
-        this.employee_name = employee_name;
         this.evidencesList = evidencesList;
     }
 
-    public Nominations(Long nominationID, String project_name, Long rewardID, String reward_name, String reason, Long userID, String employee_name, boolean selected, boolean hr_selected, List<Evidences> evidencesList) {
+    public Nominations(Long nominationID, Long project_id, Long rewardID, String reason, Long userID,  boolean selected, boolean hr_selected, List<Evidences> evidencesList) {
         this.nominationID = nominationID;
-        this.project_name = project_name;
+        this.project_id = project_id;
         this.rewardID = rewardID;
-        this.reward_name = reward_name;
         this.reason = reason;
         this.userID = userID;
-        this.employee_name = employee_name;
         this.selected = selected;
         this.hr_selected = hr_selected;
         this.evidencesList = evidencesList;
@@ -104,13 +97,6 @@ public class Nominations implements Serializable {
         this.rewardID = rewardID;
     }
 
-    public String getProject_name() {
-        return project_name;
-    }
-
-    public void setProject_name(String project_name) {
-        this.project_name = project_name;
-    }
 
     public Long getUserID() {
         return userID;
@@ -120,6 +106,13 @@ public class Nominations implements Serializable {
         this.userID = userID;
     }
 
+    public Long getProject_id() {
+        return project_id;
+    }
+
+    public void setProject_id(Long project_id) {
+        this.project_id = project_id;
+    }
 
     public boolean isSelected() {
         return selected;
@@ -146,13 +139,6 @@ public class Nominations implements Serializable {
         this.reason = reason;
     }
 
-    public String getEmployee_name() {
-        return employee_name;
-    }
-
-    public void setEmployee_name(String employee_name) {
-        this.employee_name = employee_name;
-    }
 
     public List<Evidences> getEvidencesList() {
         return evidencesList;
@@ -162,6 +148,29 @@ public class Nominations implements Serializable {
         this.evidencesList = evidencesList;
     }
 
+    public String getProject_name() {
+        return project_name;
+    }
+
+    public void setProject_name(String project_name) {
+        this.project_name = project_name;
+    }
+
+    public String getReward_name() {
+        return reward_name;
+    }
+
+    public void setReward_name(String reward_name) {
+        this.reward_name = reward_name;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 }
 
 

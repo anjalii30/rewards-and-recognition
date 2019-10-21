@@ -28,7 +28,7 @@ public interface RewardsService {
 
     List<Rewards> findByNominationClosed();
 */
-    List<Rewards> findByRolled(Long user_id);
+    List<Rewards> findByRolled(String email) throws Exception;
 
 //    Rewards function(Rewards reward);
 
@@ -37,5 +37,5 @@ public interface RewardsService {
     List<Rewards> latest();
 
 
-    List<Rewards> listSelfNominate();
+    List<Rewards> listSelfNominate(String email) throws Exception;
 }

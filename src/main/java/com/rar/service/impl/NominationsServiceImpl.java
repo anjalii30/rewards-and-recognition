@@ -38,12 +38,13 @@ public class NominationsServiceImpl implements NominationsService {
 
                 nominations.setUserID(nominationPojo.get(i).getUserId());
                 nominations.setRewardID(nominationPojo.get(i).getRewardId());
-                nominations.setProject_name(nominationPojo.get(i).getProject_name());
+                nominations.setProject_id(nominationPojo.get(i).getProject_id());
                 nominations.setSelected(nominationPojo.get(i).isSelected());
-                nominations.setReward_name(nominationPojo.get(i).getReward_name());
-                nominations.setEmployee_name(nominationPojo.get(i).getEmployee_name());
                 nominations.setHr_selected(nominationPojo.get(i).isHr_selected());
                 nominations.setReason(nominationPojo.get(i).getReason());
+                nominations.setProject_name(nominationPojo.get(i).getProject_name());
+                nominations.setReward_name(nominationPojo.get(i).getReward_name());
+                nominations.setUsername(nominationPojo.get(i).getUser_name());
 
                 nominationsRepository.save(nominations);
 
@@ -165,12 +166,24 @@ public class NominationsServiceImpl implements NominationsService {
  }
 
     @Override
-    public void managerSelect(Long nomination_id) {
-        nominationsRepository.updateSelected(nomination_id);
+    public void managerSelect(Map<String, Long[]> nomination1_id) {
+
+
+        Long[] nomination_id = nomination1_id.get("nomination_id");
+
+        for (int i = 0; i < nomination_id.length; i++) {
+
+            nominationsRepository.updateSelected(nomination_id[i]);
+        }
     }
 
     @Override
     public List<Map<String, String>> nominated_rewards() {
         return nominationsRepository.nominated_rewards();
+    }
+
+    @Override
+    public List<Map<String, String>> getTopAwardee() {
+        return nominationsRepository.getTopAwardee();
     }
 }

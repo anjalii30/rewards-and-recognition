@@ -25,4 +25,5 @@ public interface ManagerRepository extends CrudRepository<Manager, Long> {
 
     @Query(value="select user_id from user_manager where manager_id=?1 ",nativeQuery = true)
     Long[] getMembers(Long manager_id);
+
 }

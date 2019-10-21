@@ -63,14 +63,14 @@ public class Projects {
         this.project_name = project_name;
     }
 
-    public Set<UserInfo> getUserInfo() {
+   /* public Set<UserInfo> getUserInfo() {
         return userInfo;
     }
 
     public void setUserInfo(Set<UserInfo> userInfo) {
         this.userInfo = userInfo;
     }
-
+*/
     @Override
     public String toString() {
         return "Projects{" +

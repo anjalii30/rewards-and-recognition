@@ -5,7 +5,6 @@ import com.rar.model.NominationPojo;
 import com.rar.model.Nominations;
 import org.springframework.http.ResponseEntity;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -15,7 +14,7 @@ public interface NominationsService {
 
     List<Nominations> GetData(Long rewardID) throws Exception;
 
-    List<List<Nominations>> showToManager(String email,Long reward_id) throws Exception;
+    List<List<Nominations>> showToManager(String email, Long reward_id) throws Exception;
 
     void awardeeSelect(Map<String, Long[]> nomination_id);
 
@@ -27,7 +26,9 @@ public interface NominationsService {
 
   List<Nominations> getAllNominations();
 
-    void managerSelect(Long nomination_id);
+    void managerSelect(Map<String, Long[]> nomination_id);
 
     List<Map<String, String>> nominated_rewards();
+
+    List<Map<String, String>> getTopAwardee();
 }

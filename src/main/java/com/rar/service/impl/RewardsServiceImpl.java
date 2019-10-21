@@ -2,10 +2,13 @@ package com.rar.service.impl;
 
 
 import com.rar.enums.FrequencyEnum;
+import com.rar.exception.InvalidUserException;
 import com.rar.model.Rewards;
 import com.rar.model.RewardsCriteria;
+import com.rar.repository.ManagerRepository;
 import com.rar.repository.RewardsCriteriaRepository;
 import com.rar.repository.RewardsRepository;
+import com.rar.repository.UserRepository;
 import com.rar.service.RewardsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +24,13 @@ public class RewardsServiceImpl implements RewardsService {
 
     @Autowired
     private RewardsCriteriaRepository rewardsCriteriaRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private ManagerRepository managerRepository;
+
 
 
 
@@ -74,8 +84,31 @@ public class RewardsServiceImpl implements RewardsService {
     }*/
 
     @Override
-    public List<Rewards> findByRolled(Long user_id) {
-        return rewardsRepository.findByRolled(user_id);
+    public List<Rewards> findByRolled(String email) throws Exception {
+
+        try{
+            List<Rewards> rewards = null;
+            Long manager_id = managerRepository.findByEmail(email);
+            Long user_id = userRepository.getIdByEmail(email);
+            if(manager_id!=null) {
+                Long[] members = managerRepository.getMembers(manager_id);
+
+                for (int i = 0; i < members.length; i++) {
+                    rewards = rewardsRepository.findByRolled(members[i]);
+                }
+
+            }
+            else{
+
+                rewards= rewardsRepository.findByRolledForEmp(user_id);
+
+            }
+
+            return rewards;
+
+        }catch(Exception e){
+            throw new InvalidUserException("you are not a manager..!");
+        }
     }
 
 
@@ -226,8 +259,17 @@ public class RewardsServiceImpl implements RewardsService {
     }
 
     @Override
-    public List<Rewards> listSelfNominate() {
-        return rewardsRepository.getSelfNominateRewards();
+    public List<Rewards> listSelfNominate(String email) throws Exception{
+        try {
+            Long manager_id = managerRepository.findByEmail(email);
+            List<Rewards> rewards=null;
+            if(manager_id!=null) {
+                rewards=rewardsRepository.getSelfNominateRewards();
+            }
+            return rewards;
+        }catch (Exception e){
+            throw new InvalidUserException("You are not a manager...!!");
+        }
     }
 
     public ResponseEntity<?> rewardsSave(Rewards rewards) {

@@ -74,19 +74,20 @@ public class RewardsController {
 
     @ApiOperation(value = "Get the list of rolled out  rewards")
     @GetMapping("/listRolledOut")
-    public List<Rewards> listRolledOut(@RequestHeader(value = "Authorization") String token){
+    public List<Rewards> listRolledOut(@RequestHeader(value = "Authorization") String token) throws Exception{
         String email=validity.check(token);
         System.out.println(email);
-        Long user_id = userRepository.getIdByEmail(email);
-        System.out.println(user_id);
-       return rewardsService.findByRolled(user_id);
+    //    Long user_id = userRepository.getIdByEmail(email);
+      //  System.out.println(user_id);
+      // return rewardsService.findByRolled(user_id);
+        return rewardsService.findByRolled(email);
     }
 
     @ApiOperation(value = "Get the list of rolled out rewards which are self-nominated")
     @GetMapping("/listSelfNominated")
-    public List<Rewards> listSelfNominate(@RequestHeader(value = "Authorization") String token){
+    public List<Rewards> listSelfNominate(@RequestHeader(value = "Authorization") String token) throws Exception{
         String email=validity.check(token);
-        return rewardsService.listSelfNominate();
+        return rewardsService.listSelfNominate(email);
     }
 
     @ApiOperation(value = "Get the list of rewards by id")

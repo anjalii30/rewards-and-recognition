@@ -22,7 +22,7 @@ public interface ProjectService {
 
     Object[] findNotInId(Long project_id);
 
-    List findAllData();
+    List<Projects> findAllData();
 
     Object[] unAssigned();
 }

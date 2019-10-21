@@ -1,6 +1,7 @@
 package com.rar.service.impl;
 
 import com.rar.exception.InvalidProjectException;
+import com.rar.model.Nominations;
 import com.rar.model.Projects;
 import com.rar.model.UserProjects;
 import com.rar.repository.ProjectRepository;
@@ -39,27 +40,31 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public void assign(UserProjects userProjects) throws Exception {
 
-        try {
+//        try {
 
             String[] employees = userProjects.getUser_email();
+            System.out.println(employees);
 
             for(int i=0; i<employees.length;i++) {
 
                 Long project_id = projectService.getIdByProject(userProjects.getProject_name());
+                System.out.println(project_id);
 
                 String user_name=employees[i];
 
                 Long user_id = loginService.getIdByName(user_name);
 
+                System.out.println(user_id);
+
 
                 projectRepository.assign(user_id, project_id);
-            }
-
-        } catch (Exception e) {
-
-            throw new InvalidProjectException("Either employee or project is invalid...!!");
-
-        }
+//            }
+//
+//        } catch (Exception e) {
+//
+//            throw new InvalidProjectException("Either employee or project is invalid...!!");
+//
+       }
 
 
     }
@@ -119,7 +124,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public List findAllData() {
+    public List<Projects> findAllData() {
         return projectRepository.findAllData();
     }
 
