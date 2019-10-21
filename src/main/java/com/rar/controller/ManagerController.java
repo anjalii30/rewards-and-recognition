@@ -1,7 +1,6 @@
 package com.rar.controller;
 
 import com.rar.model.Manager;
-import com.rar.model.UserInfo;
 import com.rar.repository.ManagerRepository;
 import com.rar.service.ManagerService;
 import com.rar.utils.CheckValidity;
