@@ -58,7 +58,10 @@ public interface NominationsRepository extends CrudRepository<Nominations, Strin
    @Query(value="select * from nominations where selected=true",nativeQuery = true)
     List<Nominations> getAllNominations();
 
-   @Query(value = "select rewards.reward_id,rewards.reward_name from rewards where reward_id in(select distinct reward_id from nominations)",nativeQuery = true)
+/*   @Query(value = "select reward_id,reward_name,frequency,start_date,end_date from rewards where reward_id in(select distinct reward_id from nominations)",nativeQuery = true)
+   List<Map<String, String>> nominated_rewards();*/
+
+   @Query(value = "select rewards.*,criteria.* from rewards,criteria where reward_id in(select distinct reward_id from nominations) and criteria_id in(select criteria_id from rewards_criteria where rewards.reward_id = rewards_criteria.reward_id)",nativeQuery = true)
    List<Map<String, String>> nominated_rewards();
 
     @Query(value="select nominations.user_name,nominations.reward_name, users.image_url from nominations,users where nominations.user_id=users.user_id and hr_selected=true Order by nomination_id DESC limit 6",nativeQuery = true)

@@ -54,7 +54,7 @@ public class NominationController {
     @ApiOperation(value = "Get the list of nominations for admin by reward id")
     @GetMapping("/showNomination/{id}")
     public List<Nominations> showById(@RequestHeader(value = "Authorization") String token,  @ApiParam(value = "Get nomination object by reward_id", required = true) @PathVariable Long id) throws Exception{
-        String email=validity.check(token);
+       String email=validity.check(token);
         return nominationsService.GetData(id);
     }
 

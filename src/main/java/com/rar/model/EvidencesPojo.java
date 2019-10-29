@@ -6,11 +6,11 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(description = "All the evidences stored in another table for nominations")
 public class EvidencesPojo {
     @ApiModelProperty(notes = "description about a particular criteria")
-    String  criteria_desc;
+    private String  criteria_desc;
     @ApiModelProperty(notes = "the documented form of evidence")
-    String evidences;
+    private String evidences;
     @ApiModelProperty(notes = "the textual form of evidence")
-    String text_evidence;
+    private String text_evidence;
 
     public String getCriteria_desc() {
         return criteria_desc;
