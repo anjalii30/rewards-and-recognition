@@ -38,7 +38,7 @@ public class NominationsServiceImpl implements NominationsService {
 
                 nominations.setUserID(nominationPojo.get(i).getUserId());
                 nominations.setRewardID(nominationPojo.get(i).getRewardId());
-                nominations.setProject_id(nominationPojo.get(i).getProject_id());
+               // nominations.setProject_id(nominationPojo.get(i).getProject_id());
                 nominations.setSelected(nominationPojo.get(i).isSelected());
                 nominations.setHr_selected(nominationPojo.get(i).isHr_selected());
                 nominations.setReason(nominationPojo.get(i).getReason());
@@ -49,8 +49,6 @@ public class NominationsServiceImpl implements NominationsService {
                 nominationsRepository.save(nominations);
 
             long nominationID = nominations.getNominationID();
-
-
 
             for (int j = 0; j < nominationPojo.get(i).getEvidencesPojoList().size(); j++) {
                Evidences evidences = new Evidences();
@@ -166,15 +164,18 @@ public class NominationsServiceImpl implements NominationsService {
  }
 
     @Override
-    public void managerSelect(Map<String, Long[]> nomination1_id) {
+    public void managerSelect(Nominations[] nominations)  {
 
+        for(int i=0;i<nominations.length;i++){
 
-        Long[] nomination_id = nomination1_id.get("nomination_id");
+            Long nomination_id =nominations[i].getNominationID();
 
-        for (int i = 0; i < nomination_id.length; i++) {
+            String reason=nominations[i].getReason();
 
-            nominationsRepository.updateSelected(nomination_id[i]);
+            nominationsRepository.updateSelected(nomination_id,reason);
+
         }
+
     }
 
     @Override

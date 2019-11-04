@@ -34,7 +34,7 @@ public interface RewardsService {
 
     public ResponseEntity<?> rewardsSave(Rewards rewards);
 
-    List<Rewards> latest();
+    List<Rewards> latest(String email);
 
 
     List<Rewards> listSelfNominate(String email) throws Exception;

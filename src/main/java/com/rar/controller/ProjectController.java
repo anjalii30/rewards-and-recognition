@@ -71,13 +71,16 @@ public class ProjectController {
 
     @ApiOperation(value = "Delete user from  the project")
     @DeleteMapping("/deleteFromProject")
-    public ResponseEntity deleteUserFromProject(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Project name and employee emails ", required = true) @Valid @RequestBody UserProjects userProjects) throws Exception {
+    public Object[] deleteUserFromProject(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Project name and employee emails ", required = true) @Valid @RequestBody UserProjects userProjects) throws Exception {
 
         String email=validity.check(token);
 
         projectService.deleteUserFromProject(userProjects);
+        Long project_id = projectService.getIdByProject(userProjects.getProject_name());
 
-        return ResponseEntity.ok( "User deleted from " + userProjects.getProject_name());
+       return projectService.findById(project_id);
+
+     //   return ResponseEntity.ok( "User deleted from " + userProjects.getProject_name());
 
     }
 

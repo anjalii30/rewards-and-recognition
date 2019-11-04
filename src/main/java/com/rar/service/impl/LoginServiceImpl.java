@@ -41,7 +41,7 @@ public class LoginServiceImpl implements LoginService {
             env.getProperty("service.jwt.secret"));*/
 
 
-    public static final long JWT_TOKEN_VALIDITY = 5 * 60 * 60;
+    private static final long JWT_TOKEN_VALIDITY = (long )5 * 60 * 60;
 
 
     public LoginUserDetails login(String token) throws Exception {

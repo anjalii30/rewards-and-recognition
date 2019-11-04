@@ -26,7 +26,7 @@ public interface NominationsService {
 
   List<Nominations> getAllNominations();
 
-    void managerSelect(Map<String, Long[]> nomination_id);
+    void managerSelect(Nominations[] nominations);
 
     List<Map<String, String>> nominated_rewards();
 

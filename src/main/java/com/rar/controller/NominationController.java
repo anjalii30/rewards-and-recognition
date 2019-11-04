@@ -123,9 +123,9 @@ public class NominationController {
 
     @ApiOperation(value="mark selected by manager from self nominations of team members by nomination id")
     @PutMapping("/managerSelect")
-    public void managerSelect(@RequestHeader(value = "Authorization") String token ,@RequestBody Map<String, Long[]> nomination_id){
+    public void managerSelect(@RequestHeader(value = "Authorization") String token ,@RequestBody Nominations[] nominations) {
         String email=validity.check(token);
-        nominationsService.managerSelect(nomination_id);
+        nominationsService.managerSelect(nominations);
     }
 
 }

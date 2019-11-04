@@ -18,9 +18,9 @@ public class Nominations implements Serializable {
     @ApiModelProperty(notes = "The database generated nomination ID")
     private Long nominationID;
 
-    @Column(name = "project_id",length = 1000000000)
-    @ApiModelProperty(notes = "The id of the project in which the employee is working and wants to be nominated")
-    private Long project_id;
+//    @Column(name = "project_id",length = 1000000000)
+//    @ApiModelProperty(notes = "The id of the project in which the employee is working and wants to be nominated")
+//    private Long project_id;
 
     @Column(name = "project_name")
     @ApiModelProperty(notes = "The name of the project")
@@ -62,7 +62,7 @@ public class Nominations implements Serializable {
     }
 
     public Nominations(Long project_id, Long rewardID, String reason, Long userID, List<Evidences> evidencesList) {
-        this.project_id = project_id;
+       // this.project_id = project_id;
         this.rewardID = rewardID;
         this.reason = reason;
         this.userID = userID;
@@ -71,7 +71,7 @@ public class Nominations implements Serializable {
 
     public Nominations(Long nominationID, Long project_id, Long rewardID, String reason, Long userID,  boolean selected, boolean hr_selected, List<Evidences> evidencesList) {
         this.nominationID = nominationID;
-        this.project_id = project_id;
+      //  this.project_id = project_id;
         this.rewardID = rewardID;
         this.reason = reason;
         this.userID = userID;
@@ -106,13 +106,13 @@ public class Nominations implements Serializable {
         this.userID = userID;
     }
 
-    public Long getProject_id() {
-        return project_id;
-    }
+   // public Long getProject_id() {
+      //  return project_id;
+  //  }
 
-    public void setProject_id(Long project_id) {
-        this.project_id = project_id;
-    }
+   // public void setProject_id(Long project_id) {
+      //  this.project_id = project_id;
+   // }
 
     public boolean isSelected() {
         return selected;

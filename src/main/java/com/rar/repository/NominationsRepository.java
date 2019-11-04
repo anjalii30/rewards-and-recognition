@@ -52,8 +52,8 @@ public interface NominationsRepository extends CrudRepository<Nominations, Strin
 
     @Transactional
     @Modifying
-    @Query(value="update nominations set selected=true where nomination_id=?1",nativeQuery = true)
-    void updateSelected(Long nomination_id);
+    @Query(value="update nominations set selected=true , reason=?2 where nomination_id=?1",nativeQuery = true)
+    void updateSelected(Long nomination_id, String reason);
 
    @Query(value="select * from nominations where selected=true",nativeQuery = true)
     List<Nominations> getAllNominations();

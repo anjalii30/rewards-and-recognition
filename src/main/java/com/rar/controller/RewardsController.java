@@ -68,8 +68,7 @@ public class RewardsController {
     @GetMapping("/listLatestRewards")
     public List<Rewards> latest(@RequestHeader(value = "Authorization") String token){
         String email=validity.check(token);
-        //return checkDisable.checkForDisable(email);
-        return rewardsService.latest();
+        return rewardsService.latest(email);
     }
 
     @ApiOperation(value = "Get the list of rolled out  rewards")
