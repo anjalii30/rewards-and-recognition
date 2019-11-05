@@ -115,6 +115,8 @@ public class NominationsServiceImpl implements NominationsService {
         return nominationsRepository.getAwarded();
     }
 
+
+
     @Override
     public List<List<Nominations>> showAllToManager(String email) throws Exception {
         try {
@@ -127,7 +129,6 @@ public class NominationsServiceImpl implements NominationsService {
             ;
           //  List<Nominations> getNominations = null;
             for (int i = 0; i < members.length; i++) {
-                System.out.println(members.length);
                 System.out.println(members[i]);
                // getNominations = (nominationsRepository.getAllNominations(members[i]));
                 System.out.println("test"+nominationsRepository.getAllNominations(members[i]));
