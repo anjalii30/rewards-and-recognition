@@ -261,18 +261,16 @@ public class RewardsServiceImpl implements RewardsService {
     }
 
     @Override
-    public List<Rewards> listSelfNominate(String email) throws Exception{
-        try {
+    public List<Rewards> listSelfNominate(String email) {
+
             Long manager_id = managerRepository.findByEmail(email);
             Long user_id = userRepository.getIdByEmail(email);
-            List<Rewards> rewards=null;
+            List<Rewards> rewards=new ArrayList<>();
             if(manager_id!=null) {
                 rewards=rewardsRepository.getSelfNominateRewards(user_id);
             }
             return rewards;
-        }catch (Exception e){
-            throw new InvalidUserException("You are not a manager...!!");
-        }
+            
     }
 
     public ResponseEntity<?> rewardsSave(Rewards rewards) {

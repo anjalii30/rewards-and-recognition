@@ -84,7 +84,7 @@ public class RewardsController {
 
     @ApiOperation(value = "Get the list of rolled out rewards which are self-nominated")
     @GetMapping("/listSelfNominated")
-    public List<Rewards> listSelfNominate(@RequestHeader(value = "Authorization") String token) throws Exception{
+    public List<Rewards> listSelfNominate(@RequestHeader(value = "Authorization") String token) {
         String email=validity.check(token);
         return rewardsService.listSelfNominate(email);
     }
