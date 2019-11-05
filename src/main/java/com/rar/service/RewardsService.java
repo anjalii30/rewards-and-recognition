@@ -32,7 +32,7 @@ public interface RewardsService {
 
 //    Rewards function(Rewards reward);
 
-    public ResponseEntity<?> rewardsSave(Rewards rewards);
+    public ResponseEntity rewardsSave(Rewards rewards);
 
     List<Rewards> latest(String email);
 

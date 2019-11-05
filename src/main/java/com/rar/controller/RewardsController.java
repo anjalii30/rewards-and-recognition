@@ -8,6 +8,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,9 +34,14 @@ public class RewardsController {
 
     @ApiOperation(value = "Save the rewards")
     @PostMapping("/save")
-    public ResponseEntity<?> save(@RequestHeader(value = "Authorization") String token ,@ApiParam(value = "Reward object store in database table", required = true) @Valid @RequestBody Rewards rewards) throws Exception{
-        String email=validity.check(token);
-       return rewardsService.rewardsSave(rewards);
+    public ResponseEntity save(@RequestHeader(value = "Authorization") String token ,@ApiParam(value = "Reward object store in database table", required = true) @Valid @RequestBody Rewards rewards) throws Exception{
+       try{
+           String email=validity.check(token);
+           return new ResponseEntity<>(rewardsService.rewardsSave(rewards),HttpStatus.OK) ;
+
+       }catch (Exception e){
+           return new ResponseEntity<>(HttpStatus.BAD_REQUEST) ;
+       }
     }
 
     @ApiOperation(value = "Update award status by id")
