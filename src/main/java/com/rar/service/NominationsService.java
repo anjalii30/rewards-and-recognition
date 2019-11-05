@@ -3,6 +3,7 @@ package com.rar.service;
 
 import com.rar.model.NominationPojo;
 import com.rar.model.Nominations;
+import com.rar.model.Rewards;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
@@ -28,7 +29,7 @@ public interface NominationsService {
 
     void managerSelect(Nominations[] nominations);
 
-    List<Map<String, String>> nominated_rewards();
+    List<Rewards> nominated_rewards() throws Exception;
 
     List<Map<String, String>> getTopAwardee();
 }

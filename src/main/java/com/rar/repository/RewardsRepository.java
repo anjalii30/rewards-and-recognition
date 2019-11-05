@@ -33,10 +33,12 @@ public interface RewardsRepository extends CrudRepository<Rewards, Long> {
     @Query(value = " Select * from rewards where award_status=1  and reward_id not in(select reward_id from nominations where user_id=?1) Order by start_date DESC limit 6",nativeQuery = true)
     List<Rewards> latest(Long user_id);
 
-    @Query(value="select * from rewards where award_status=1 and  self_nominate=true and reward_id not in(select reward_id from nominations where user_id=?1)",nativeQuery = true)
-    List<Rewards> getSelfNominateRewards(Long user_id);
+    @Query(value="select * from rewards where award_status=1 and  self_nominate=true and reward_id in(select reward_id from nominations where user_id=?1)",nativeQuery = true)
+    List<Rewards> managerApprovalRewards(Long user_id);
 
 
+    @Query(value = "select * from rewards where reward_id in(select distinct reward_id from nominations)",nativeQuery = true)
+   List<Rewards> nominated_rewards();
 
 
 

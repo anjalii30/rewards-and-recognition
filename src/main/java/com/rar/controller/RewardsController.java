@@ -67,7 +67,6 @@ public class RewardsController {
         System.out.println("token" +token);
 
         String email=validity.check(token);
-        //return checkDisable.checkForDisable(email);
         return rewardsService.findAll();
     }
 
@@ -89,11 +88,11 @@ public class RewardsController {
         return rewardsService.findByRolled(email);
     }
 
-    @ApiOperation(value = "Get the list of rolled out rewards which are self-nominated")
-    @GetMapping("/listSelfNominated")
+    @ApiOperation(value = "Get the list of self-nominated rewards for manager approval")
+    @GetMapping("/managerApprovalRewards")
     public List<Rewards> listSelfNominate(@RequestHeader(value = "Authorization") String token) {
         String email=validity.check(token);
-        return rewardsService.listSelfNominate(email);
+        return rewardsService.managerApprovalRewards(email);
     }
 
     @ApiOperation(value = "Get the list of rewards by id")

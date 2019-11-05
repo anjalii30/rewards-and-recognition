@@ -2,6 +2,7 @@ package com.rar.controller;
 
 import com.rar.model.NominationPojo;
 import com.rar.model.Nominations;
+import com.rar.model.Rewards;
 import com.rar.repository.UserRepository;
 import com.rar.service.NominationsService;
 import com.rar.utils.CheckValidity;
@@ -67,7 +68,7 @@ public class NominationController {
 
     @ApiOperation(value = "Get the list of rewards for all the nominations")
     @GetMapping("/showNominatedRewards")
-    public  List<Map<String, String>> showNominatedRewards(@RequestHeader(value = "Authorization") String token){
+    public  List<Rewards> showNominatedRewards(@RequestHeader(value = "Authorization") String token) throws Exception{
         String email=validity.check(token);
         return nominationsService.nominated_rewards();
     }

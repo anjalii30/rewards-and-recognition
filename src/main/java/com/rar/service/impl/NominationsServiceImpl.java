@@ -4,9 +4,11 @@ import com.rar.exception.InvalidUserException;
 import com.rar.model.Evidences;
 import com.rar.model.NominationPojo;
 import com.rar.model.Nominations;
+import com.rar.model.Rewards;
 import com.rar.repository.EvidencesRepository;
 import com.rar.repository.ManagerRepository;
 import com.rar.repository.NominationsRepository;
+import com.rar.repository.RewardsRepository;
 import com.rar.service.NominationsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +28,8 @@ public class NominationsServiceImpl implements NominationsService {
     NominationsRepository nominationsRepository;
     @Autowired
     EvidencesRepository evidencesRepository;
+    @Autowired
+    private RewardsRepository rewardsRepository;
 
     @Autowired
     private ManagerRepository managerRepository;
@@ -180,8 +184,8 @@ public class NominationsServiceImpl implements NominationsService {
     }
 
     @Override
-    public List<Map<String, String>> nominated_rewards() {
-        return nominationsRepository.nominated_rewards();
+    public List<Rewards> nominated_rewards() throws Exception {
+        return rewardsRepository.nominated_rewards();
     }
 
     @Override

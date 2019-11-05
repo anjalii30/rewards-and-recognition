@@ -37,5 +37,5 @@ public interface RewardsService {
     List<Rewards> latest(String email);
 
 
-    List<Rewards> listSelfNominate(String email);
+    List<Rewards> managerApprovalRewards(String email);
 }
