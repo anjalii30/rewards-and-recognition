@@ -11,8 +11,8 @@ public class NominationPojo {
     private Long rewardId;
     @ApiModelProperty(notes = "The name of the reward")
     private String  reward_name;
-    @ApiModelProperty(notes = "The id of the Project")
-    private Long project_id;
+    //@ApiModelProperty(notes = "The id of the Project")
+   // private Long project_id;
     @ApiModelProperty(notes = "The name of the project")
     private String project_name;
     @ApiModelProperty(notes = "The ID of the particular user")
@@ -80,13 +80,13 @@ public class NominationPojo {
         this.reason = reason;
     }
 
-    public Long getProject_id() {
-        return project_id;
-    }
+//    public Long getProject_id() {
+//        return project_id;
+//    }
 
-    public void setProject_id(Long project_id) {
-        this.project_id = project_id;
-    }
+//    public void setProject_id(Long project_id) {
+//        this.project_id = project_id;
+//    }
 
     public String getReward_name() {
         return reward_name;

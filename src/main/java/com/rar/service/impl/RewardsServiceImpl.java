@@ -254,17 +254,20 @@ public class RewardsServiceImpl implements RewardsService {
         return update;
     }
 
-    public List<Rewards> latest(){
-        return rewardsRepository.latest();
+    public List<Rewards> latest(String email){
+
+        Long user_id = userRepository.getIdByEmail(email);
+        return rewardsRepository.latest(user_id);
     }
 
     @Override
     public List<Rewards> listSelfNominate(String email) throws Exception{
         try {
             Long manager_id = managerRepository.findByEmail(email);
+            Long user_id = userRepository.getIdByEmail(email);
             List<Rewards> rewards=null;
             if(manager_id!=null) {
-                rewards=rewardsRepository.getSelfNominateRewards();
+                rewards=rewardsRepository.getSelfNominateRewards(user_id);
             }
             return rewards;
         }catch (Exception e){

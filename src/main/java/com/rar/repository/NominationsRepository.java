@@ -4,11 +4,9 @@ import com.rar.model.Nominations;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -52,8 +50,8 @@ public interface NominationsRepository extends CrudRepository<Nominations, Strin
 
     @Transactional
     @Modifying
-    @Query(value="update nominations set selected=true where nomination_id=?1",nativeQuery = true)
-    void updateSelected(Long nomination_id);
+    @Query(value="update nominations set selected=true , reason=?2 where nomination_id=?1",nativeQuery = true)
+    void updateSelected(Long nomination_id, String reason);
 
    @Query(value="select * from nominations where selected=true",nativeQuery = true)
     List<Nominations> getAllNominations();

@@ -8,13 +8,10 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Map;
 
 @CrossOrigin
 @RestController
@@ -71,13 +68,16 @@ public class ProjectController {
 
     @ApiOperation(value = "Delete user from  the project")
     @DeleteMapping("/deleteFromProject")
-    public ResponseEntity deleteUserFromProject(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Project name and employee emails ", required = true) @Valid @RequestBody UserProjects userProjects) throws Exception {
+    public Object[] deleteUserFromProject(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Project name and employee emails ", required = true) @Valid @RequestBody UserProjects userProjects) throws Exception {
 
         String email=validity.check(token);
 
         projectService.deleteUserFromProject(userProjects);
+        Long project_id = projectService.getIdByProject(userProjects.getProject_name());
 
-        return ResponseEntity.ok( "User deleted from " + userProjects.getProject_name());
+       return projectService.findById(project_id);
+
+     //   return ResponseEntity.ok( "User deleted from " + userProjects.getProject_name());
 
     }
 
