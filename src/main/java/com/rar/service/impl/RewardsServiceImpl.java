@@ -11,6 +11,7 @@ import com.rar.repository.RewardsRepository;
 import com.rar.repository.UserRepository;
 import com.rar.service.RewardsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -270,40 +271,41 @@ public class RewardsServiceImpl implements RewardsService {
                 rewards=rewardsRepository.getSelfNominateRewards(user_id);
             }
             return rewards;
-            
+
     }
 
-    public ResponseEntity<?> rewardsSave(Rewards rewards) {
+    public ResponseEntity rewardsSave(Rewards rewards) {
 
 
 
-        if(rewards.getFrequency()== FrequencyEnum.Annually)
-            rewards.setReward_name(rewards.getReward_name()+" for " + year);
+            if (rewards.getFrequency() == FrequencyEnum.Annually)
+                rewards.setReward_name(rewards.getReward_name() + " for " + year);
 
-        else
-            rewards.setReward_name(rewards.getReward_name()+" for " + month + " " + year);
+            else
+                rewards.setReward_name(rewards.getReward_name() + " for " + month + " " + year);
 
-        Rewards rewardData= save(rewards);
+            Rewards rewardData = save(rewards);
 
-        long id = rewards.getId();
+            long id = rewards.getId();
 
-        RewardsCriteria rewardsCriteria =new RewardsCriteria();
-        System.out.println(rewards.getCriteria().size());
+            RewardsCriteria rewardsCriteria = new RewardsCriteria();
+            System.out.println(rewards.getCriteria().size());
 
-        for(int i = 0; i<rewards.getCriteria().size(); i++){
-            rewardsCriteria = new RewardsCriteria();
+            for (int i = 0; i < rewards.getCriteria().size(); i++) {
+                rewardsCriteria = new RewardsCriteria();
 
-            rewardsCriteria.setRewardId(id);
-            rewardsCriteria.setCriteriaId(rewards.getCriteria().get(i).getCriteriaId());
-            rewardsCriteria.setCompulsory(rewards.getCriteria().get(i).getCompulsory());
+                rewardsCriteria.setRewardId(id);
+                rewardsCriteria.setCriteriaId(rewards.getCriteria().get(i).getCriteriaId());
+                rewardsCriteria.setCompulsory(rewards.getCriteria().get(i).getCompulsory());
 
-            rewardsCriteriaRepository.save(rewardsCriteria);
-        }
+                rewardsCriteriaRepository.save(rewardsCriteria);
+            }
 
-        HashMap<String,Object> s=new HashMap<>();
-        s.put("criteria", rewardsCriteria);
-        s.put("rewards",rewards);
-        return ResponseEntity.ok(s);
+            HashMap<String, Object> s = new HashMap<>();
+            s.put("criteria", rewardsCriteria);
+            s.put("rewards", rewards);
+            return new ResponseEntity<>(s,HttpStatus.OK);
+
     }
 /*
 
