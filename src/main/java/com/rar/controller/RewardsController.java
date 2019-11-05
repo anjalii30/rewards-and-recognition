@@ -15,7 +15,6 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
-
 @RestController
 @CrossOrigin
 @Api(value="Rewards Management System")
@@ -59,6 +58,8 @@ public class RewardsController {
     @ApiOperation(value = "Get the list of rewards")
     @GetMapping("/listRewards")
     public List<Rewards> list(@RequestHeader(value = "Authorization") String token){
+        System.out.println("token" +token);
+
         String email=validity.check(token);
         //return checkDisable.checkForDisable(email);
         return rewardsService.findAll();
