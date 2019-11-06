@@ -31,5 +31,5 @@ public interface NominationsService {
 
     List<Rewards> nominated_rewards() throws Exception;
 
-    List<Map<String, String>> getTopAwardee();
+    List getTopAwardee();
 }

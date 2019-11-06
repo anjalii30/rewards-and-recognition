@@ -52,7 +52,6 @@ public class RewardsController {
         return rewardsService.updateAwardStatus(id, createReward);
     }
 
-    //un used api
     @ApiOperation(value = "Update award status to discontinue by reward id")
     @PutMapping("/discontinuing/{id}")
     public Rewards discontinuing(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Reward Id to update discontinuing reward object", required = true)@PathVariable Long id,
@@ -67,7 +66,7 @@ public class RewardsController {
         System.out.println("token" +token);
 
         String email=validity.check(token);
-        return rewardsService.findAll();
+        return  rewardsService.findAll();
     }
 
     @ApiOperation(value = "Get the latest list of rewards")

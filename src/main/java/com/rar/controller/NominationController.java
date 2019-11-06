@@ -116,7 +116,7 @@ public class NominationController {
 
     @ApiOperation(value = "show top 6 awardee ")
     @GetMapping("/topAwardee")
-    public List<Map<String,String>> getTopAwardee(@RequestHeader(value = "Authorization") String token){
+    public List getTopAwardee(@RequestHeader(value = "Authorization") String token){
         String email=validity.check(token);
 
         return nominationsService.getTopAwardee();

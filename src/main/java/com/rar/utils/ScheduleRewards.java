@@ -41,7 +41,7 @@ public class ScheduleRewards {
             "December"};
 
 
-    //Checking for regenration of  monthly reward whose end date has passed daily at 12 a.m.
+    //Checking for regeneration of  monthly reward whose end date has passed daily at 12 a.m.
     @Scheduled(cron = "0 0 0 1/1 * ? ")
     //@Scheduled(cron="0 0/1 * 1/1 * ?")
     public void scheduleMonthly(){
@@ -100,19 +100,6 @@ public class ScheduleRewards {
                 rewardsService.save(new_reward);
 
                 Set<RewardsCriteria> criterias= rewardsCriteriaRepository.findByRewardId(old_reward.getId());
-/*
-                for(int j=0;j<criterias.size();j++)
-                {
-                    RewardsCriteria rewardsCriterias = new RewardsCriteria();
-                    RewardsCriteria rewardsCriterias1=criterias.iterator(j);
-
-                    rewardsCriterias.setRewardId(new_reward.getId());
-                    rewardsCriterias.setCriteriaId(criterias.get(j)getCriteriaId());
-                    rewardsCriterias.setCompulsory(rewards.getCriterias().get(i).getCompulsory());
-
-                    rewardsCriteriaRepository.save(rewardsCriterias);
-
-                }*/
 
                 for (Iterator<RewardsCriteria> it = criterias.iterator(); it.hasNext(); ) {
                     RewardsCriteria f = it.next();
@@ -125,8 +112,6 @@ public class ScheduleRewards {
                     rewardsCriteriaRepository.save(rewardsCriteria);
 
                 }
-
-
 
             }
 
@@ -162,7 +147,7 @@ public class ScheduleRewards {
 
 
 
-            if (old_reward.getFrequency() == FrequencyEnum.Quarterly && d2.isAfter(d1) && old_reward.isRegenerated()==true) {
+            if (old_reward.getFrequency() == FrequencyEnum.Quarterly && d2.isAfter(d1) && old_reward.isRegenerated()) {
 
                 rewardsRepository.updateToNull(old_reward.getRewardId());
 

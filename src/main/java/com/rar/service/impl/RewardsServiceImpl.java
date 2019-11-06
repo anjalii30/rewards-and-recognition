@@ -4,10 +4,7 @@ package com.rar.service.impl;
 import com.rar.enums.FrequencyEnum;
 import com.rar.model.Rewards;
 import com.rar.model.RewardsCriteria;
-import com.rar.repository.ManagerRepository;
-import com.rar.repository.RewardsCriteriaRepository;
-import com.rar.repository.RewardsRepository;
-import com.rar.repository.UserRepository;
+import com.rar.repository.*;
 import com.rar.service.RewardsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,6 +27,9 @@ public class RewardsServiceImpl implements RewardsService {
 
     @Autowired
     private ManagerRepository managerRepository;
+
+    @Autowired
+    private NominationsRepository nominationsRepository;
 
 
 
@@ -237,22 +237,61 @@ public class RewardsServiceImpl implements RewardsService {
     @Override
     public List<Rewards> managerApprovalRewards(String email) {
 
-            List<Rewards> rewards=null;
+  /*         List<List<Rewards>> rewards=new ArrayList<>();
+           List<Rewards> managerApproves=new ArrayList<>();
             Long manager_id = managerRepository.findByEmail(email);
             //Long user_id = userRepository.getIdByEmail(email);
+
         if(manager_id!=null) {
                 Long[] members = managerRepository.getMembers(manager_id);
 
                 for (int i = 0; i < members.length; i++) {
 
-                    rewards=rewardsRepository.managerApprovalRewards(members[i]);
+                    if(rewardsRepository.managerApprovalRewards(members[i]).isEmpty())
+                        continue;
+
+                    rewards.add(rewardsRepository.managerApprovalRewards(members[i]));
 //                    rewards.add((Rewards) rewards);
                     System.out.println(rewards);
                 }
+            }*/
+
+     //   rewards.stream().distinct().forEach((Consumer<? super List<Rewards>>) rewards);
+ /*           for(List<Rewards> rewardsList : rewards){
+                if(!managerApproves.contains(rewardsList)){
+                    managerApproves.add((Rewards) rewardsList);
+                }
+            }*/
+        //System.out.println(rewards);
+      //  return managerApproves;
+           return rewardsRepository.managerApprovalRewards();
+/*
+        List<Rewards> rewards = null;
+
+        Long manager_id = managerRepository.findByEmail(email);
+        Long[] members = managerRepository.getMembers(manager_id);
+        Long[] reward_ids=rewardsRepository.rewardIds();
+
+        for(int j=0;j<reward_ids.length;j++){
+            for (int i = 0; i < members.length; i++) {
+
+                if(!nominationsRepository.exist(members[i]).isEmpty()){
+                    rewards= rewardsRepository.getReward(reward_ids[j]);
+                }
+
             }
+
+         //   rewards =rewardsRepository.manager(members[i]);
+            if(rewardsRepository.manager(members[i]).isEmpty())
+                continue;
+
+            rewards.add(rewardsRepository.manager(members[i]));
             System.out.println(rewards);
-            return rewards;
-    }
+
+        }
+            */
+
+        }
 
     @Override
     public List<Rewards> findByRolled(String email) throws Exception {

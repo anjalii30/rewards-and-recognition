@@ -5,6 +5,7 @@ import com.rar.model.Rewards;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,12 +34,23 @@ public interface RewardsRepository extends CrudRepository<Rewards, Long> {
     @Query(value = " Select * from rewards where award_status=1  and reward_id not in(select reward_id from nominations where user_id=?1) Order by start_date DESC limit 6",nativeQuery = true)
     List<Rewards> latest(Long user_id);
 
-    @Query(value="select * from rewards where award_status=1 and  self_nominate=true and reward_id in(select reward_id from nominations where user_id=?1)",nativeQuery = true)
+   /* @Query(value="select * from rewards where award_status=1 and  self_nominate=true and reward_id in(select reward_id from nominations where user_id=?1)",nativeQuery = true)
     List<Rewards> managerApprovalRewards(Long user_id);
-
+*/
+   @Query(value="select * from rewards where award_status=1 and self_nominate=true",nativeQuery = true)
+   List<Rewards> managerApprovalRewards();
 
     @Query(value = "select * from rewards where reward_id in(select distinct reward_id from nominations)",nativeQuery = true)
    List<Rewards> nominated_rewards();
+
+    @Query(value = "select distinct reward_id from nominations where reward_id in(select reward_id from rewards where self_nominate=true)",nativeQuery = true)
+    Long[] rewardIds();
+
+    @Query(value="select * from rewards where self_nominate=true and  reward_id in(select reward_id from nominations where user_id=?1 )",nativeQuery = true)
+    List<Rewards> manager(Long user_id);
+
+    @Query(value="select * from rewards where reward_id=?1",nativeQuery = true)
+    List<Rewards> getReward(Long reward_id);
 
 
 

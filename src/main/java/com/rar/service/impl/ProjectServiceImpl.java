@@ -107,9 +107,9 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public Object[] findById(Long project_id) {
 
-        if(project_id==4)
+        /*if(project_id==4)
             return projectRepository.unAssignedUsers();
-        else
+        else*/
             return projectRepository.getUsersById(project_id);
 
     }
@@ -120,7 +120,7 @@ public class ProjectServiceImpl implements ProjectService {
         /*if(project_id==4)
             return  null;
         else*/
-        return (Object[]) projectRepository.findNotInId(project_id);
+        return  projectRepository.findNotInId(project_id);
     }
 
     @Override

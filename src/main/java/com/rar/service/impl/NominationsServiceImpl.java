@@ -25,9 +25,9 @@ import java.util.*;
 public class NominationsServiceImpl implements NominationsService {
 
     @Autowired
-    NominationsRepository nominationsRepository;
+    private NominationsRepository nominationsRepository;
     @Autowired
-    EvidencesRepository evidencesRepository;
+    private EvidencesRepository evidencesRepository;
     @Autowired
     private RewardsRepository rewardsRepository;
 
@@ -124,27 +124,16 @@ public class NominationsServiceImpl implements NominationsService {
     @Override
     public List<List<Nominations>> showAllToManager(String email) throws Exception {
         try {
-            System.out.println(email);
             Long manager_id = managerRepository.findByEmail(email);
-            System.out.println(manager_id);
             Long[] members = managerRepository.getMembers(manager_id);
-            System.out.println(Arrays.toString(members));
             List<List<Nominations>> getNominations = new ArrayList<>();
-            ;
-          //  List<Nominations> getNominations = null;
             for (int i = 0; i < members.length; i++) {
-                System.out.println(members[i]);
-               // getNominations = (nominationsRepository.getAllNominations(members[i]));
-                System.out.println("test"+nominationsRepository.getAllNominations(members[i]));
-                if(nominationsRepository.getAllNominations(members[i]).isEmpty())
+           if(nominationsRepository.getAllNominations(members[i]).isEmpty())
                     continue;
                 getNominations.add(nominationsRepository.getAllNominations(members[i]));
-                System.out.println(getNominations);
             }
-            System.out.println(getNominations);
             return getNominations;
         }catch (Exception e) {
-             System.out.println(e);
             throw new InvalidUserException("you are not a manager");
 
         }
@@ -177,7 +166,9 @@ public class NominationsServiceImpl implements NominationsService {
 
             String reason=nominations[i].getReason();
 
-            nominationsRepository.updateSelected(nomination_id,reason);
+            boolean selected=nominations[i].isSelected();
+
+            nominationsRepository.updateSelected(selected,reason,nomination_id);
 
         }
 

@@ -33,7 +33,7 @@ public class ProjectController {
     }
 
     @ApiOperation(value = "Get the list of projects")
-    @GetMapping(value = "/listProjects"/*, produces = MediaType.APPLICATION_JSON_VALUE*/)
+    @GetMapping(value = "/listProjects")
     public List<Projects> projects(@RequestHeader(value = "Authorization") String token){
         String email=validity.check(token);
         return  projectService.findAllData();
@@ -54,7 +54,6 @@ public class ProjectController {
         String email = validity.check(token);
         Long project_id = projectService.getIdByProject(project_name.getProject_name());
         return  projectService.findNotInId(project_id);
-
 
     }
 
