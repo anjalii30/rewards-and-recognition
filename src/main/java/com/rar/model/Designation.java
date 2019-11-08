@@ -55,7 +55,7 @@ public class Designation implements Serializable {
     public void setDesignation(DesignationEnum designation) {
         this.designation = designation;
     }
-    
+
     @Override
     public String toString() {
         return "Designation{" +
