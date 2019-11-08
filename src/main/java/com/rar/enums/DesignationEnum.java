@@ -24,5 +24,5 @@ public enum DesignationEnum {
     Scrum_Master,
     Senior_Scrum_Master,
     CEO,
-    
+
 }
