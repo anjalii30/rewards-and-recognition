@@ -13,11 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
-
 
 @CrossOrigin
 @RestController
@@ -34,8 +32,6 @@ public class NominationController {
     @Autowired
     private UserRepository userRepository;
 
-
-
     @ApiOperation(value = "Save the nomination")
     @PostMapping("/saveNomination")
     public ResponseEntity<?> nominationSave(@RequestHeader(value = "Authorization") String token ,@ApiParam(value = "Nomination object store in database table", required = true) @Valid @RequestBody List<NominationPojo> nominationPojo) {
@@ -43,14 +39,6 @@ public class NominationController {
         nominationsService.nominationSave(nominationPojo);
         return ResponseEntity.ok(nominationPojo);
     }
-
-   /* @ApiOperation(value = "Manager nominating their team members")
-    @PostMapping("/managerNominate")
-    public <nominationPojo> void managerNominate(@RequestHeader(value = "Authorization") String token, ArrayList<NominationPojo> nominations ){
-        String email=validity.check(token);
-        nominationsService.managerNominate(nominations);
-
-    }*/
 
     @ApiOperation(value = "Get the list of nominations for admin by reward id")
     @GetMapping("/showNomination/{id}")
@@ -73,7 +61,6 @@ public class NominationController {
         return nominationsService.nominated_rewards();
     }
 
-
     @ApiOperation(value = "Get the list of nominations for manager by reward id")
     @GetMapping("/showToManager/{id}")
     public List<List<Nominations>> showToManager(@RequestHeader(value = "Authorization") String token, @PathVariable Long id) throws Exception {
@@ -89,20 +76,10 @@ public class NominationController {
         return nominationsService.showAllToManager(email);
     }
 
-   /* @ApiOperation(value = "mark employee selected by HR")
-    @PutMapping("/awardee/{nomination_id}")
-    public void awardeeSelect(@RequestHeader(value = "Authorization") String token , @ApiParam(value = "update Nomination object by id", required = true) @PathVariable Long nomination_id) {
-        String email=validity.check(token);
-       // Long nomination_id=nominations.getNominationID();
-     //   return  nominationsService.awardeeSelect(nomination_id.get("nomination_id"));
-        nominationsService.awardeeSelect(nomination_id);
-    }*/
    @ApiOperation(value = "awardee selected by admin")
    @PostMapping("/awardee")
    public void awardeeSelect(@RequestHeader(value = "Authorization") String token , @ApiParam(value = "update Nomination object by id", required = true) @RequestBody Map<String, Long[]> n) {
        String email=validity.check(token);
-       // Long nomination_id=nominations.getNominationID();
-       //   return  nominationsService.awardeeSelect(nomination_id.get("nomination_id"));
        nominationsService.awardeeSelect(n);
    }
 
@@ -128,5 +105,4 @@ public class NominationController {
         String email=validity.check(token);
         nominationsService.managerSelect(nominations);
     }
-
 }

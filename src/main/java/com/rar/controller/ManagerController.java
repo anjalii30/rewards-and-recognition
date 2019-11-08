@@ -9,7 +9,6 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +27,6 @@ public class ManagerController {
 
     @Autowired
     private ManagerRepository managerRepository;
-
 
     @ApiOperation(value = "Save the  manager")
     @PostMapping("/saveEmp")
@@ -69,7 +67,6 @@ public class ManagerController {
         return managerService.getEmployees(manager_id);
     }
 
-
     @GetMapping("/getMembers")
     public List<Map<String,String>> getMembers(@RequestHeader(value = "Authorization") String token){
         String email=validity.check(token);
@@ -85,5 +82,4 @@ public class ManagerController {
         managerService.assignValues(manager_id,project_id);
         return "Assigned";
     }
-
 }

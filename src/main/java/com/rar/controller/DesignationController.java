@@ -1,6 +1,5 @@
 package com.rar.controller;
 
-
 import com.rar.model.Designation;
 import com.rar.service.DesignationService;
 import com.rar.utils.CheckValidity;
@@ -9,7 +8,6 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
@@ -18,7 +16,6 @@ import java.util.Optional;
 @RestController
 @Api(value="Designation Management System")
 public class DesignationController {
-
 
     @Autowired
     private DesignationService designationService;
@@ -39,7 +36,6 @@ public class DesignationController {
         String email=validity.check(token);
         return designationService.findAll();
     }
-
 
     @ApiOperation(value = "Delete the designation by id")
     @DeleteMapping("/deleteDesignation/{id}")
