@@ -23,7 +23,7 @@ public class RolesController {
 
     @Autowired
     private CheckValidity validity;
-    
+
     @ApiOperation(value = "Save the roles")
     @PostMapping("/saveRoles")
     public Roles save(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Role object store in database table", required = true) @Valid @RequestBody Roles roles){
