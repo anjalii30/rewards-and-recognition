@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 
@@ -74,17 +73,6 @@ public class LoginController{
         return "Deleted Successfully";
     }
 
-
-    /*@ApiOperation(value = "Get the user by id")
-    @GetMapping(value = "/hey", produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody String hey(@RequestHeader(value = "Authorization") String token) throws Exception {
-
-
-        String email=validity.check(token);
-        return "Hii, You have successfully logged in..!!";
-
-
-    }*/
 
 
 }
