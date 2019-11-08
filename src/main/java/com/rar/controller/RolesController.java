@@ -9,7 +9,6 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
@@ -19,14 +18,12 @@ import java.util.Optional;
 @Api(value="Role Management System")
 public class RolesController {
 
-
     @Autowired
     private RolesService rolesService;
 
     @Autowired
     private CheckValidity validity;
-
-
+    
     @ApiOperation(value = "Save the roles")
     @PostMapping("/saveRoles")
     public Roles save(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Role object store in database table", required = true) @Valid @RequestBody Roles roles){
