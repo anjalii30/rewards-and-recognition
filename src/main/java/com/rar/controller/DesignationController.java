@@ -23,6 +23,11 @@ public class DesignationController {
     @Autowired
     private CheckValidity validity;
 
+    /**
+     * @param token
+     * @param designation object
+     * @return saved designation object.
+     */
     @ApiOperation(value = "Save the designation")
     @PostMapping("/saveDesignation")
     public Designation save(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Designation object store in database table", required = true) @Valid @RequestBody Designation designation){
@@ -30,6 +35,10 @@ public class DesignationController {
         return designationService.save(designation);
     }
 
+    /**
+     * @param token
+     * @return list of designations.
+     */
     @ApiOperation(value = "Get the list of designations")
     @GetMapping("/listDesignation")
     public List<Designation> list(@RequestHeader(value = "Authorization") String token){
@@ -37,6 +46,11 @@ public class DesignationController {
         return designationService.findAll();
     }
 
+    /**
+     * @param token
+     * @param  id of designation
+     * @return String that displays the designation is successfully deleted.
+     */
     @ApiOperation(value = "Delete the designation by id")
     @DeleteMapping("/deleteDesignation/{id}")
     public String delete(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Designation Id to delete designation object", required = true) @PathVariable long id){
@@ -45,6 +59,11 @@ public class DesignationController {
         return "Deleted Successfully";
     }
 
+    /**
+     * @param token
+     * @param id of designation
+     * @return object of designation based on id
+     */
     @ApiOperation(value = "Get the designation by id")
     @GetMapping("/listDesignation/{id}")
     public Optional<Designation> getById(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Designation Id to get designation object", required = true) @PathVariable Long id){

@@ -25,7 +25,6 @@ public class CriteriaController {
     private CheckValidity validity;
 
     /**
-     *
      * @param token
      * @param criteria
      * @return saved criteria.
@@ -39,7 +38,6 @@ public class CriteriaController {
     }
 
     /**
-     *
      * @param token
      * @return list of criterias.
      */
@@ -52,10 +50,9 @@ public class CriteriaController {
     }
 
     /**
-     *
      * @param token
      * @param id
-     * @return String that display's that criteria is deleted successfully.
+     * @return String that displays that criteria is deleted successfully.
      */
 
     @ApiOperation(value = "Delete criteria by id")
@@ -67,10 +64,9 @@ public class CriteriaController {
     }
 
     /**
-     *
      * @param token
      * @param id
-     * @return list of criteria based on id.
+     * @return object of criteria based on id.
      */
     @ApiOperation(value = "Get criteria list by id")
     @GetMapping("/listCriterion/{id}")
