@@ -2,7 +2,6 @@ package com.rar.model;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
@@ -11,13 +10,10 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-
 @Entity
 @Table(name="users")
 @ApiModel(description = "All the details about User")
 public class UserInfo implements Serializable {
-
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,7 +40,6 @@ public class UserInfo implements Serializable {
     @ApiModelProperty(notes = "The URL for user's Image")
     private String imageUrl;
 
-
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
                 CascadeType.PERSIST,
@@ -58,8 +53,6 @@ public class UserInfo implements Serializable {
     )
 
     private Set<Manager> manager = new HashSet<>();
-
-
 
     //DESIGNATION
 
@@ -75,9 +68,6 @@ public class UserInfo implements Serializable {
     )
     private Set<Designation> designation = new HashSet<>();
 
-
-
-
     //ROLES
 
     @ManyToMany(fetch = FetchType.LAZY,
@@ -91,8 +81,6 @@ public class UserInfo implements Serializable {
             inverseJoinColumns = {@JoinColumn(name = "role_id")}
     )
     private Set<Roles> roles = new HashSet<>();
-
-
 
     //Projects
 
@@ -125,22 +113,6 @@ public class UserInfo implements Serializable {
         this.projects = projects;
     }
 
-
-
-    //
-//    public UserInfo(Long uid, @NotNull @Email @Size(max = 100) String email, String name, RoleEnum role, DesignationEnum designation, Boolean firstSign, String imageUrl, Set<Manager> manager) {
-//        this.uid = uid;
-//        this.email = email;
-//        this.name = name;
-//        this.role = role;
-//        this.designation = designation;
-//        this.firstSign = firstSign;
-//        this.imageUrl = imageUrl;
-//        this.manager = manager;
-//    }
-
-
-
     public Long getId() {
         return user_id;
     }
@@ -168,7 +140,6 @@ public class UserInfo implements Serializable {
     public void setFirstSign(Boolean firstSign) {
         this.firstSign = firstSign;
     }
-
 
     public void setName(String name) {
         this.name = name;
@@ -198,8 +169,7 @@ public class UserInfo implements Serializable {
     public void setDesignation(Set<Designation> designation) {
         this.designation = designation;
     }
-
-
+    
     public Set<Roles> getRoles() {
         return roles;
     }
