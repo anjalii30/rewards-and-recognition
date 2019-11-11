@@ -11,7 +11,7 @@ public interface NominationsService {
 
     ResponseEntity<?> nominationSave(List<NominationPojo> nominationPojo);
 
-    List<Nominations> GetData(Long rewardID) throws Exception;
+    List<Nominations> GetData(Long rewardID) ;
 
     List<List<Nominations>> showToManager(String email, Long reward_id) throws Exception;
 
@@ -25,7 +25,7 @@ public interface NominationsService {
 
     void managerSelect(Nominations[] nominations);
 
-    List<Rewards> nominated_rewards() throws Exception;
+    List<Rewards> nominated_rewards() ;
 
     List getTopAwardee();
 }

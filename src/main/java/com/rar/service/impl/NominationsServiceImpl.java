@@ -67,7 +67,7 @@ public class NominationsServiceImpl implements NominationsService {
     }
 
     @Override
-    public List<Nominations> GetData(Long rewardID) throws Exception {
+    public List<Nominations> GetData(Long rewardID)  {
 
             List<Nominations> nominations = null;
 
@@ -155,7 +155,7 @@ public class NominationsServiceImpl implements NominationsService {
     }
 
     @Override
-    public List<Rewards> nominated_rewards() throws Exception {
+    public List<Rewards> nominated_rewards() {
         return rewardsRepository.nominated_rewards();
     }
 
