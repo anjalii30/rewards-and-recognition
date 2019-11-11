@@ -24,7 +24,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.*;
 
 @Service
@@ -37,20 +36,13 @@ public class LoginServiceImpl implements LoginService {
     @Value("${jwt.secret}")
     private String secret;
 
-   /* final Key signingKey = EncryptionUtil.getPrivateKey(
-            env.getProperty("service.jwt.secret"));*/
-
-
     private static final long JWT_TOKEN_VALIDITY = (long )5 * 60 * 60;
 
 
     public LoginUserDetails login(String token) throws Exception {
 
-
         //google token decryption
         UserInfo userInfo = new UserInfo();
-
-
         CloseableHttpClient client = HttpClients.createDefault();
         HttpGet request = new HttpGet("https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=" + token);
         CloseableHttpResponse response = null;
@@ -78,19 +70,13 @@ public class LoginServiceImpl implements LoginService {
 
         String email = (String) json.get("email");
         System.out.println("" + email);
-        // String googleId = (String) json.get("sub");
-
-
         String name = (String) json.get("name");
         System.out.println("" + name);
-
-
         String imageUrl = (String) json.get("picture");
         System.out.println(imageUrl);
         try {
 
             Optional<UserInfo> repoEmail = userRepository.findByEmail(email);
-
 
             UserInfo userInfo1 = userRepository.findByEmail(email).get();
 
@@ -99,14 +85,10 @@ public class LoginServiceImpl implements LoginService {
             Roles r=it.next();
             RoleEnum roleEnum=r.getRole();
 
-
             Iterator<Designation> itt= userInfo1.getDesignation().iterator();
             Designation d=itt.next();
 
             DesignationEnum designationEnum= d.getDesignation();
-
-
-
 
             if (repoEmail.isPresent()) {
                 if (!userInfo1.getFirstSign()) {
@@ -120,18 +102,6 @@ public class LoginServiceImpl implements LoginService {
 
                     userRepository.save(userInfo1);
 
-
-/*
-                    for (Iterator<RewardsCriteria> it = criterias.iterator(); it.hasNext(); ) {
-                        RewardsCriteria f = it.next();
-
-                        RewardsCriteria rewardsCriteria = new RewardsCriteria();
-                        rewardsCriteria.setRewardId(new_reward.getId());
-                        rewardsCriteria.setCriteriaId(f.getCriteriaId());
-                        rewardsCriteria.setCompulsory(f.getCompulsory());
-
-                        */
-
                     String generatedToken = Jwts.builder()
                             .setSubject(String.valueOf(email))
                             .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY * 1000))
@@ -141,8 +111,6 @@ public class LoginServiceImpl implements LoginService {
                     return new LoginUserDetails(userInfo1.getEmail()+"",userInfo1.getName()+"",userInfo1.getImageUrl()+"",""+generatedToken,roleEnum,designationEnum,userInfo1.getId());
 
                 } else {
-
-
 
                     String generatedToken = Jwts.builder()
                             .setSubject(String.valueOf(email))
@@ -156,30 +124,15 @@ public class LoginServiceImpl implements LoginService {
                 }
                 //user already exists
             }
-//        else
-//            {
-//            throw new InvalidUserException("you are not a user till now");
 
-
-            //  temp.setGoogleId(googleId);
-//
         } catch (Exception e) {
 
             throw new InvalidUserException("you are not a user till now");
 
         }
         LoginUserDetails details1=new LoginUserDetails();
-       /*JSONObject reply = new JSONObject();
-        //reply.put("googleId",googleId);
-        reply.put("email",email);
-        reply.put("name",name);
-
-
-        //System.out.println(email +" is the email and Google Id is "+ googleId);
-        return reply.toJSONString();*/
         return details1;
     }
-
 
     @Override
     public UserInfo saveLogin(UserInfo userInfo) {
@@ -217,8 +170,5 @@ public class LoginServiceImpl implements LoginService {
     public Optional<UserInfo> findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
-
-
-
-
+    
 }

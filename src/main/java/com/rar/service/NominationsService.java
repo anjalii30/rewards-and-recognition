@@ -1,11 +1,9 @@
 package com.rar.service;
 
-
 import com.rar.model.NominationPojo;
 import com.rar.model.Nominations;
 import com.rar.model.Rewards;
 import org.springframework.http.ResponseEntity;
-
 import java.util.List;
 import java.util.Map;
 
@@ -13,7 +11,7 @@ public interface NominationsService {
 
     ResponseEntity<?> nominationSave(List<NominationPojo> nominationPojo);
 
-    List<Nominations> GetData(Long rewardID) throws Exception;
+    List<Nominations> GetData(Long rewardID) ;
 
     List<List<Nominations>> showToManager(String email, Long reward_id) throws Exception;
 
@@ -23,13 +21,11 @@ public interface NominationsService {
 
     List<List<Nominations>> showAllToManager(String email) throws Exception;
 
-//     void managerNominate(List<NominationPojo> nominationsPojo);
-
-  List<Nominations> getAllNominations();
+    List<Nominations> getAllNominations();
 
     void managerSelect(Nominations[] nominations);
 
-    List<Rewards> nominated_rewards() throws Exception;
+    List<Rewards> nominated_rewards() ;
 
     List getTopAwardee();
 }

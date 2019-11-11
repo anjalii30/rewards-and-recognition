@@ -28,14 +28,22 @@ public class ManagerController {
     @Autowired
     private ManagerRepository managerRepository;
 
+    /**
+     * @param token
+     * @param manager
+     * @return saved manager object.
+     */
     @ApiOperation(value = "Save the  manager")
     @PostMapping("/saveEmp")
-    public Manager save(@RequestHeader(value = "Authorization") String token,
-                        @ApiParam(value = "Manager object stored in database table", required = true) @Valid @RequestBody Manager manager){
+    public Manager save(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Manager object stored in database table", required = true) @Valid @RequestBody Manager manager){
         String email=validity.check(token);
         return managerService.save(manager);
     }
 
+    /**
+     * @param token
+     * @return list of Managers.
+     */
     @ApiOperation(value = "Get the list of managers")
     @GetMapping("/listManagers")
     public List<Manager> list(@RequestHeader(value = "Authorization") String token){
@@ -43,6 +51,11 @@ public class ManagerController {
         return managerService.findAll();
     }
 
+    /**
+     * @param token
+     * @param id
+     * @return String that displays that manager has been successfully deleted.
+     */
     @ApiOperation(value = "Delete the manager detail by id")
     @DeleteMapping("/deleteEmp/{id}")
     public String delete(@RequestHeader(value = "Authorization") String token, @ApiParam(value = " Id to delete manager", required = true) @PathVariable long id){
@@ -51,6 +64,11 @@ public class ManagerController {
         return "Deleted Successfully";
     }
 
+    /**
+     * @param token
+     * @param id
+     * @return object of manager based on id.
+     */
     @ApiOperation(value = "Get the manager by id")
     @GetMapping("/listEmp/{id}")
     public Optional<Manager> getById(@RequestHeader(value = "Authorization") String token, @ApiParam(value = " Id to get manager object", required = true) @PathVariable Long id){

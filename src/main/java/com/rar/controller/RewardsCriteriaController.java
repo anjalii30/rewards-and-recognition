@@ -23,6 +23,11 @@ public class RewardsCriteriaController {
     @Autowired
     private CheckValidity validity;
 
+    /**
+     * @param token
+     * @param rewardsCriteria
+     * @return object that contains the saved criteria.
+     */
     @ApiOperation(value = "Assign criteria to reward")
     @PostMapping("/saveRewardsCriteria")
     public RewardsCriteria save(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Reward Assigned to criteria", required = true) @Valid @RequestBody RewardsCriteria rewardsCriteria){
@@ -30,6 +35,10 @@ public class RewardsCriteriaController {
         return rewardsCriteriaService.save(rewardsCriteria);
     }
 
+    /**
+     * @param token
+     * @return list of all the saved criteria
+     */
     @ApiOperation(value = "Get the mapping of criterion with rewards")
     @GetMapping("/listRewardsCriteria")
     public List<RewardsCriteria> list(@RequestHeader(value = "Authorization") String token){
