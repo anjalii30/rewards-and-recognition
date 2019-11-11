@@ -103,7 +103,7 @@ public class Nominations implements Serializable {
     public void setSelected(boolean selected) {
         this.selected = selected;
     }
-    
+
     public boolean isHr_selected() {
         return hr_selected;
     }
