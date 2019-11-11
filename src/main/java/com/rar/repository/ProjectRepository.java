@@ -6,10 +6,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.xml.ws.Response;
 import java.util.List;
-import java.util.Map;
 
 @Repository
 public interface ProjectRepository  extends JpaRepository<Projects,Long> {
@@ -38,6 +35,5 @@ public interface ProjectRepository  extends JpaRepository<Projects,Long> {
 
     @Query(value="select email,name from users where user_id not in (select user_id from user_projects)",nativeQuery =true )
     Object[] unAssignedUsers();
-
 
 }
