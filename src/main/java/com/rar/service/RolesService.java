@@ -1,13 +1,11 @@
 package com.rar.service;
 
 import com.rar.model.Roles;
-
 import java.util.List;
 import java.util.Optional;
 
 public interface RolesService {
-
-
+    
     Optional<Roles> findById(Long id);
 
     Roles save(Roles roles);
