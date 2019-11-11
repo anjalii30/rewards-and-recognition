@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
@@ -29,8 +28,6 @@ public class RewardsController {
 
     @Autowired
     private CheckValidity validity;
-
-  //  private CheckDisable checkDisable;
 
     @ApiOperation(value = "Save the rewards")
     @PostMapping("/save")
@@ -64,7 +61,6 @@ public class RewardsController {
     @GetMapping("/listRewards")
     public List<Rewards> list(@RequestHeader(value = "Authorization") String token){
         System.out.println("token" +token);
-
         String email=validity.check(token);
         return  rewardsService.findAll();
     }
@@ -81,9 +77,6 @@ public class RewardsController {
     public List<Rewards> listRolledOut(@RequestHeader(value = "Authorization") String token) throws Exception{
         String email=validity.check(token);
         System.out.println(email);
-    //    Long user_id = userRepository.getIdByEmail(email);
-      //  System.out.println(user_id);
-      // return rewardsService.findByRolled(user_id);
         return rewardsService.findByRolled(email);
     }
 
@@ -100,12 +93,6 @@ public class RewardsController {
         String email=validity.check(token);
         return rewardsService.findById(id);
     }
-/*
-    @GetMapping("/listCriteria/{id}")
-    public List<Criteria> getCriteria(@RequestHeader(value = "Authorization") String token, @PathVariable Long id){
-        String email=validity.check(token);
-        return rewardsService.getCriteria(id);
-    }*/
 
     @ApiOperation(value = "Update the reward by id")
     @PutMapping("/updateReward/{id}")

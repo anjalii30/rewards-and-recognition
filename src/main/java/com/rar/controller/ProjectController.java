@@ -9,7 +9,6 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 import java.util.List;
 
@@ -17,7 +16,6 @@ import java.util.List;
 @RestController
 @Api(value="Project Assigning System")
 public class ProjectController {
-
 
     @Autowired
     private CheckValidity validity;
@@ -45,7 +43,6 @@ public class ProjectController {
         String email=validity.check(token);
         Long project_id = projectService.getIdByProject(project_name.getProject_name());
         return projectService.findById(project_id);
-
     }
 
     @ApiOperation(value = "Get users not assigned to the project")
@@ -54,14 +51,12 @@ public class ProjectController {
         String email = validity.check(token);
         Long project_id = projectService.getIdByProject(project_name.getProject_name());
         return  projectService.findNotInId(project_id);
-
     }
 
     @ApiOperation(value = "Assign project to users")
     @PostMapping("/assignProjects")
     public void assignProjects(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Project name and employee emails ", required = true) @Valid @RequestBody UserProjects userProjects) throws Exception {
         String email=validity.check(token);
-
         projectService.assign(userProjects);
     }
 
@@ -70,22 +65,14 @@ public class ProjectController {
     public Object[] deleteUserFromProject(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Project name and employee emails ", required = true) @Valid @RequestBody UserProjects userProjects) throws Exception {
 
         String email=validity.check(token);
-
         projectService.deleteUserFromProject(userProjects);
         Long project_id = projectService.getIdByProject(userProjects.getProject_name());
-
-       return projectService.findById(project_id);
-
-     //   return ResponseEntity.ok( "User deleted from " + userProjects.getProject_name());
-
+        return projectService.findById(project_id);
     }
 
     @ApiOperation(value = "Get the list of users not assigned to any project")
     @GetMapping("/unAssigned")
     public Object[] unAssigned(@RequestHeader(value = "Authorization") String token){
-
         return projectService.unAssigned();
     }
-
-
 }

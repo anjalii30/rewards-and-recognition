@@ -9,12 +9,9 @@ import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-
 
 @CrossOrigin
 @RestController
@@ -27,7 +24,6 @@ public class LoginController{
 
     @Autowired
     private CheckValidity validity;
-
 
     @ApiOperation(value = "Login by gmail Id")
     @PostMapping(value = "/login")
@@ -42,7 +38,6 @@ public class LoginController{
         String email=validity.check(token);
         return loginService.saveLogin(users);
     }
-
 
     @ApiOperation(value = "Get the list of users")
     @GetMapping(value = "/listUsers", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -73,18 +68,4 @@ public class LoginController{
         loginService.deleteById(id);
         return "Deleted Successfully";
     }
-
-
-    /*@ApiOperation(value = "Get the user by id")
-    @GetMapping(value = "/hey", produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody String hey(@RequestHeader(value = "Authorization") String token) throws Exception {
-
-
-        String email=validity.check(token);
-        return "Hii, You have successfully logged in..!!";
-
-
-    }*/
-
-
 }

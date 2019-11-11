@@ -2,7 +2,6 @@ package com.rar.model;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -17,10 +16,6 @@ public class Nominations implements Serializable {
     @Column(name = "nomination_id")
     @ApiModelProperty(notes = "The database generated nomination ID")
     private Long nominationID;
-
-//    @Column(name = "project_id",length = 1000000000)
-//    @ApiModelProperty(notes = "The id of the project in which the employee is working and wants to be nominated")
-//    private Long project_id;
 
     @Column(name = "project_name")
     @ApiModelProperty(notes = "The name of the project")
@@ -54,24 +49,21 @@ public class Nominations implements Serializable {
     @Column(name="hr_selected")
     private boolean hr_selected=false;
 
-
     @OneToMany(mappedBy = "nominations", cascade = CascadeType.ALL)
     private List<Evidences> evidencesList;
 
     public Nominations() {
     }
 
-    public Nominations(Long project_id, Long rewardID, String reason, Long userID, List<Evidences> evidencesList) {
-       // this.project_id = project_id;
+    public Nominations(Long rewardID, String reason, Long userID, List<Evidences> evidencesList) {
         this.rewardID = rewardID;
         this.reason = reason;
         this.userID = userID;
         this.evidencesList = evidencesList;
     }
 
-    public Nominations(Long nominationID, Long project_id, Long rewardID, String reason, Long userID,  boolean selected, boolean hr_selected, List<Evidences> evidencesList) {
+    public Nominations(Long nominationID, Long rewardID, String reason, Long userID, boolean selected, boolean hr_selected, List<Evidences> evidencesList) {
         this.nominationID = nominationID;
-      //  this.project_id = project_id;
         this.rewardID = rewardID;
         this.reason = reason;
         this.userID = userID;
@@ -88,7 +80,6 @@ public class Nominations implements Serializable {
         this.nominationID = nominationID;
     }
 
-
     public long getRewardID() {
         return rewardID;
     }
@@ -96,7 +87,6 @@ public class Nominations implements Serializable {
     public void setRewardID(long rewardID) {
         this.rewardID = rewardID;
     }
-
 
     public Long getUserID() {
         return userID;
@@ -106,14 +96,6 @@ public class Nominations implements Serializable {
         this.userID = userID;
     }
 
-   // public Long getProject_id() {
-      //  return project_id;
-  //  }
-
-   // public void setProject_id(Long project_id) {
-      //  this.project_id = project_id;
-   // }
-
     public boolean isSelected() {
         return selected;
     }
@@ -121,7 +103,6 @@ public class Nominations implements Serializable {
     public void setSelected(boolean selected) {
         this.selected = selected;
     }
-
 
     public boolean isHr_selected() {
         return hr_selected;
@@ -138,7 +119,6 @@ public class Nominations implements Serializable {
     public void setReason(String reason) {
         this.reason = reason;
     }
-
 
     public List<Evidences> getEvidencesList() {
         return evidencesList;

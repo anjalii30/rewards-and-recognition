@@ -1,6 +1,5 @@
 package com.rar.controller;
 
-
 import com.rar.model.Criteria;
 import com.rar.service.CriteriaService;
 import com.rar.utils.CheckValidity;
@@ -9,7 +8,6 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;

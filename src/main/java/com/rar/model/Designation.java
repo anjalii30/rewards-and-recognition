@@ -1,10 +1,8 @@
 package com.rar.model;
 
-
 import com.rar.enums.DesignationEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -25,7 +23,6 @@ public class Designation implements Serializable {
     @Enumerated(EnumType.STRING)
     @ApiModelProperty(notes = "Designation name")
     private DesignationEnum designation;
-
 
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
@@ -51,7 +48,6 @@ public class Designation implements Serializable {
             this.designationId = did;
     }
 
-
     public DesignationEnum getDesignation() {
         return designation;
     }
@@ -59,16 +55,6 @@ public class Designation implements Serializable {
     public void setDesignation(DesignationEnum designation) {
         this.designation = designation;
     }
-
-/*    public Set<UserInfo> getUserInfo() {
-        return userInfo;
-    }
-
-    public void setUserInfo(Set<UserInfo> userInfo) {
-        this.userInfo = userInfo;
-    }*/
-
-
 
     @Override
     public String toString() {

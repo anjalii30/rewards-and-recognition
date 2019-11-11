@@ -4,7 +4,6 @@ import com.rar.enums.CategoryEnum;
 import com.rar.enums.FrequencyEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -17,7 +16,6 @@ import java.util.Set;
 @Table(name="rewards")
 @ApiModel(description = "All the details of a reward")
 public class Rewards implements Serializable {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -75,40 +73,13 @@ public class Rewards implements Serializable {
     @ApiModelProperty(notes = "The reason for discontinuing a reward")
     private String discontinuingReason;
 
-
     @OneToMany(
             mappedBy = "rewards",cascade = CascadeType.REFRESH
     )
     private List<RewardsCriteria> criteria = new ArrayList<>();
 
-
-/*
-    //CRITERIAS
-
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {
-                    CascadeType.MERGE
-            })
-    @JoinTable(
-            name = "rewards_criterias",
-            joinColumns = {@JoinColumn(name = "Reward_Id")},
-            inverseJoinColumns = {@JoinColumn(name = "Criterias_Id")}
-
-    )
-    private Set<RewardsCriteria> criterias= new HashSet<>();*/
-//    private Set<Criteria> criterias = new HashSet<>();
-
-
-   // private Set<RewardsCriteria> rewardsCriterias= new HashSet<>();
-
-
-    //nominations
-
-
-
     public Rewards() {
     }
-
 
     public Rewards(long rewardId, String reward_name, FrequencyEnum frequency, String description, boolean regenerated, CategoryEnum category, LocalDate start_date, LocalDate end_date, boolean self_nominate, int nominations_allowed, int award_status, Date discontinuingDate, String discontinuingReason, List<RewardsCriteria> criteria, Set<UserInfo> userInfo4) {
         this.rewardId = rewardId;
@@ -232,36 +203,6 @@ public class Rewards implements Serializable {
         this.criteria = criteria;
     }
 
-
-    //    public Set<Criteria> getCriterias() {
-//        return criterias;
-//    }
-//
-//    public void setCriterias(Set<Criteria> criterias) {
-//        this.criterias = criterias;
-//    }
-
-
-//
-//    public Set<RewardsCriteria> getRewardsCriterias() {
-//        return rewardsCriterias;
-//    }
-//
-//    public void setRewardsCriterias(Set<RewardsCriteria> rewardsCriterias) {
-//        this.rewardsCriterias = rewardsCriterias;
-//    }
-
-/*
-
-    public Set<RewardsCriteria> getCriterias() {
-        return criterias;
-    }
-*/
-/*
-    public void setCriterias(Set<RewardsCriteria> criterias) {
-        this.criterias = criterias;
-    }*/
-
     public long getRewardId() {
         return rewardId;
     }
@@ -278,7 +219,6 @@ public class Rewards implements Serializable {
     public void setCategory(CategoryEnum category) {
         this.category = category;
     }
-
 
     @Override
     public String toString() {
@@ -298,17 +238,5 @@ public class Rewards implements Serializable {
                 ", criteria=" + criteria +
                 '}';
     }
-
-   /* public void add(Tag tag) {
-        PostTag postTag = new PostTag(this, tag);
-        tags.add(postTag);
-        tag.getPosts().add(postTag);*/
-//    }
-
-
-
-
-
-
 
 }
