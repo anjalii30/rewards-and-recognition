@@ -1,11 +1,7 @@
 package com.rar.service;
 
-
-
 import com.rar.model.UserInfo;
-
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 public interface LoginService {
@@ -23,7 +19,6 @@ public interface LoginService {
     void deleteById(Long id);
 
     void deleteByEmail(String email);
-
 
     Long getIdByName(String user_email) throws Exception;
 }

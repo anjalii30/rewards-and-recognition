@@ -1,11 +1,9 @@
 package com.rar.service;
 
-
 import com.rar.model.NominationPojo;
 import com.rar.model.Nominations;
 import com.rar.model.Rewards;
 import org.springframework.http.ResponseEntity;
-
 import java.util.List;
 import java.util.Map;
 
@@ -23,9 +21,7 @@ public interface NominationsService {
 
     List<List<Nominations>> showAllToManager(String email) throws Exception;
 
-//     void managerNominate(List<NominationPojo> nominationsPojo);
-
-  List<Nominations> getAllNominations();
+    List<Nominations> getAllNominations();
 
     void managerSelect(Nominations[] nominations);
 
