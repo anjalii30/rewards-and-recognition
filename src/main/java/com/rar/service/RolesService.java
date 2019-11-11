@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface RolesService {
-    
+
     Optional<Roles> findById(Long id);
 
     Roles save(Roles roles);
