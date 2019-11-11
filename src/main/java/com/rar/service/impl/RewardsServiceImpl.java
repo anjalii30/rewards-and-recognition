@@ -236,9 +236,16 @@ public class RewardsServiceImpl implements RewardsService {
 
     @Override
     public List<Rewards> managerApprovalRewards(String email) {
-
-
-           return rewardsRepository.managerApprovalRewards();
+        List<Rewards> rewards= null;
+        Long manager_id = managerRepository.findByEmail(email);
+        if(manager_id!=null) {
+            rewards=rewardsRepository.managerApprovalRewards();
+        }
+        else
+        {
+            rewards= new ArrayList<Rewards>();
+        }
+        return rewards;
 
         }
 
