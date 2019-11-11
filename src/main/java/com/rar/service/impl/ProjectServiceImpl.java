@@ -107,5 +107,5 @@ public class ProjectServiceImpl implements ProjectService {
     public Object[] unAssigned() {
         return projectRepository.unAssignedUsers();
     }
-    
+
 }
