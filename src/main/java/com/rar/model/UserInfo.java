@@ -169,7 +169,7 @@ public class UserInfo implements Serializable {
     public void setDesignation(Set<Designation> designation) {
         this.designation = designation;
     }
-    
+
     public Set<Roles> getRoles() {
         return roles;
     }
