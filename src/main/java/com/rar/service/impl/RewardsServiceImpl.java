@@ -237,59 +237,8 @@ public class RewardsServiceImpl implements RewardsService {
     @Override
     public List<Rewards> managerApprovalRewards(String email) {
 
-  /*         List<List<Rewards>> rewards=new ArrayList<>();
-           List<Rewards> managerApproves=new ArrayList<>();
-            Long manager_id = managerRepository.findByEmail(email);
-            //Long user_id = userRepository.getIdByEmail(email);
 
-        if(manager_id!=null) {
-                Long[] members = managerRepository.getMembers(manager_id);
-
-                for (int i = 0; i < members.length; i++) {
-
-                    if(rewardsRepository.managerApprovalRewards(members[i]).isEmpty())
-                        continue;
-
-                    rewards.add(rewardsRepository.managerApprovalRewards(members[i]));
-//                    rewards.add((Rewards) rewards);
-                    System.out.println(rewards);
-                }
-            }*/
-
-     //   rewards.stream().distinct().forEach((Consumer<? super List<Rewards>>) rewards);
- /*           for(List<Rewards> rewardsList : rewards){
-                if(!managerApproves.contains(rewardsList)){
-                    managerApproves.add((Rewards) rewardsList);
-                }
-            }*/
-        //System.out.println(rewards);
-      //  return managerApproves;
            return rewardsRepository.managerApprovalRewards();
-/*
-        List<Rewards> rewards = null;
-
-        Long manager_id = managerRepository.findByEmail(email);
-        Long[] members = managerRepository.getMembers(manager_id);
-        Long[] reward_ids=rewardsRepository.rewardIds();
-
-        for(int j=0;j<reward_ids.length;j++){
-            for (int i = 0; i < members.length; i++) {
-
-                if(!nominationsRepository.exist(members[i]).isEmpty()){
-                    rewards= rewardsRepository.getReward(reward_ids[j]);
-                }
-
-            }
-
-         //   rewards =rewardsRepository.manager(members[i]);
-            if(rewardsRepository.manager(members[i]).isEmpty())
-                continue;
-
-            rewards.add(rewardsRepository.manager(members[i]));
-            System.out.println(rewards);
-
-        }
-            */
 
         }
 
@@ -301,17 +250,14 @@ public class RewardsServiceImpl implements RewardsService {
         Long user_id = userRepository.getIdByEmail(email);
         if(manager_id!=null) {
             Long[] members = managerRepository.getMembers(manager_id);
-            System.out.println(members);
-            System.out.println(members.length);
+
             for (int i = 0; i < members.length; i++) {
                 rewards = rewardsRepository.findByRolled(members[i]);
-                System.out.println(members[i]);
-                System.out.println(rewards);
+
             }
         }
         else{
             rewards= rewardsRepository.findByRolledForEmp(user_id);
-            System.out.println(rewards);
         }
         return rewards;
 
@@ -333,7 +279,6 @@ public class RewardsServiceImpl implements RewardsService {
             long id = rewards.getId();
 
             RewardsCriteria rewardsCriteria = new RewardsCriteria();
-            System.out.println(rewards.getCriteria().size());
 
             for (int i = 0; i < rewards.getCriteria().size(); i++) {
                 rewardsCriteria = new RewardsCriteria();
@@ -351,69 +296,9 @@ public class RewardsServiceImpl implements RewardsService {
             return new ResponseEntity<>(s,HttpStatus.OK);
 
     }
-/*
-
-    @Override
-    public Rewards function(Rewards reward) {
-        Rewards rewardData = save(reward);
-        System.out.println("Reward:" + reward.getId());
-*/
 
 
-
-
-
-//        RewardsCriteriaId rewardsCriteriasId = new RewardsCriteriaId();
-//        System.out.println(reward.getCriterias().size());
-//
-///*        for(int i=0;i<reward.getCriterias().size();i++){
-//            rewardsCriterias = new RewardsCriteria();
-//
-//            rewardsCriterias.setCriterias(reward.getCriterias());
-//
-//        }*/
-//        RewardsCriteria rewardsCriterias;
-//
-//        long id = reward.getId();
-//
-//        for (Iterator<RewardsCriteria> it = reward.getCriterias().iterator(); it.hasNext(); ) {
-//            RewardsCriteria f = it.next();
-//            RewardsCriteria d = new RewardsCriteria();
-////            rewardsCriteriasId = new RewardsCriteriaId();
-//            System.out.println("Reward:" + f.getCriterias().getCriteriaId());
-//
-//            Criteria c = f.getCriterias();
-//            Rewards r = f.getRewards();
-//            Boolean b = f.getCompulsory();
-//
-//             new RewardsCriteria(r, c, b);
-
-//            d.setCriterias(f.getCriterias());
-
-
-//            rewardsCriteriaRepository.save(d);
-
-
-//        }
-
-
-//
-//        RewardsCriteria rewardsCriterias = new RewardsCriteria();
-
-        /*for (long i = 0; i < reward.getCriterias().size(); i++) {
-            rewardsCriterias = new RewardsCriteria();
-
-
-            rewardsCriterias.setRewardId(id);
-            rewardsCriterias.setCriteriaId(reward.getCriterias().getClass().get);
-        }*/
-//
-////        Set<Criteria> rewardsCriterias1=reward.getCriterias();
-////        rewardsCriterias.setRewardId(reward.getId());
-//////        rewardsCriterias.setCriteriaId(rewardsCriterias1.);
-////        System.out.println(" "+rewardsCriterias1.getClass());
         }
 
-//            return save(reward);
 
 
