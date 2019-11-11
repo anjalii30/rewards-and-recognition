@@ -36,7 +36,7 @@ public class LoginUserDetails implements Serializable {
 
     public LoginUserDetails() {
     }
-    
+
     public String getEmail() {
         return email;
     }
