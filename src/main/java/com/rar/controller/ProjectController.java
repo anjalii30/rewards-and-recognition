@@ -23,13 +23,22 @@ public class ProjectController {
     @Autowired
     private ProjectService projectService;
 
+    /**
+     * @param token
+     * @param projects object
+     * @return saved object of projects
+     */
     @ApiOperation(value = "Save the new project")
     @PostMapping("/ProjectSave")
-    public Projects save(@RequestHeader(value = "Authorization") String token ,@ApiParam(value = "Project object store in database table", required = true) @Valid @RequestBody Projects projects) throws Exception{
+    public Projects save(@RequestHeader(value = "Authorization") String token ,@ApiParam(value = "Project object store in database table", required = true) @Valid @RequestBody Projects projects){
         String email=validity.check(token);
         return projectService.projectSave(projects);
     }
 
+    /**
+     * @param token
+     * @return list of projects
+     */
     @ApiOperation(value = "Get the list of projects")
     @GetMapping(value = "/listProjects")
     public List<Projects> projects(@RequestHeader(value = "Authorization") String token){
@@ -37,6 +46,12 @@ public class ProjectController {
         return  projectService.findAllData();
     }
 
+    /**
+     * @param token
+     * @param project_name
+     * @return list of assigned users based on project_name.
+     * @throws Exception
+     */
     @ApiOperation(value = "Get users assigned to some project")
     @PostMapping("/listAssignedUsers")
     public Object[] UsersForProject(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Project object ", required = true) @Valid @RequestBody Projects project_name) throws Exception {
@@ -45,6 +60,12 @@ public class ProjectController {
         return projectService.findById(project_id);
     }
 
+    /**
+     * @param token
+     * @param project_name
+     * @return list of users not assigned to the project based on project_name.
+     * @throws Exception
+     */
     @ApiOperation(value = "Get users not assigned to the project")
     @PostMapping("/listNotAssigned")
     public Object[] UsersNotInProject(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Project object ", required = true) @Valid @RequestBody Projects project_name) throws Exception {
@@ -53,6 +74,11 @@ public class ProjectController {
         return  projectService.findNotInId(project_id);
     }
 
+    /**
+     * @param token
+     * @param userProjects object
+     * @throws Exception
+     */
     @ApiOperation(value = "Assign project to users")
     @PostMapping("/assignProjects")
     public void assignProjects(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Project name and employee emails ", required = true) @Valid @RequestBody UserProjects userProjects) throws Exception {
@@ -60,6 +86,12 @@ public class ProjectController {
         projectService.assign(userProjects);
     }
 
+    /**
+     * @param token
+     * @param userProjects
+     * @return list of users based on project_id.
+     * @throws Exception
+     */
     @ApiOperation(value = "Delete user from  the project")
     @DeleteMapping("/deleteFromProject")
     public Object[] deleteUserFromProject(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Project name and employee emails ", required = true) @Valid @RequestBody UserProjects userProjects) throws Exception {
@@ -70,6 +102,10 @@ public class ProjectController {
         return projectService.findById(project_id);
     }
 
+    /**
+     * @param token
+     * @return list of unassigned users.
+     */
     @ApiOperation(value = "Get the list of users not assigned to any project")
     @GetMapping("/unAssigned")
     public Object[] unAssigned(@RequestHeader(value = "Authorization") String token){
