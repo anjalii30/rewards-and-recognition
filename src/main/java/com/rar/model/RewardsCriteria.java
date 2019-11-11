@@ -3,7 +3,6 @@ package com.rar.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
 import javax.persistence.*;
 
 @Entity
@@ -35,14 +34,6 @@ public class RewardsCriteria {
     @JsonIgnore
     private Criteria criteria;
 
-//    @ManyToOne(fetch = FetchType.EAGER)
-//    @MapsId("Reward_Id")
-//    private Rewards rewards;
-//
-//    @ManyToOne(fetch = FetchType.EAGER)
-//    @MapsId("Criterias_Id")
-//    private Criteria criterias;
-
     @Column(name = "isCompulsory")
     private Boolean isCompulsory;
 
@@ -61,8 +52,6 @@ public class RewardsCriteria {
     public void setCriteriaId(long criteriaId) {
         this.criteriaId = criteriaId;
     }
-
-
 
     public Rewards getRewards() {
         return rewards;
@@ -87,106 +76,4 @@ public class RewardsCriteria {
     public void setCompulsory(Boolean compulsory) {
         isCompulsory = compulsory;
     }
-
-    //    public RewardsCriteria() {
-//    }
-//
-//    public RewardsCriteria(Rewards rewards, Criteria criterias) {
-//        this.rewards = rewards;
-//        this.criterias = criterias;
-//        this.id = new RewardsCriteriaId(rewards.getId(), criterias.getCriteriaId());
-//    }
-//
-//    public RewardsCriteria(Rewards rewards, Criteria criterias, Boolean isCompulsory) {
-//        this.rewards = rewards;
-//        this.criterias = criterias;
-//        this.id = new RewardsCriteriaId(rewards.getId(), criterias.getCriteriaId());
-//        this.isCompulsory = isCompulsory;
-//
-//    }
-
-    /*
-    public RewardsCriteria(Rewards rewards){
-        this.id=new RewardsCriteriaId(rewards.getId(),rewards.getCriterias().iterator();
-    }*/
-//
-//    public RewardsCriteriaId getId() {
-//        return id;
-//    }
-//
-//    public void setId(RewardsCriteriaId id) {
-//        this.id = id;
-//    }
-//    @Transient
-//    public Rewards getRewards() {
-//        return rewards;
-//    }
-//
-//    public void setRewards(Rewards rewards) {
-//        this.rewards = rewards;
-//    }
-//    @Transient
-//    public Criteria getCriterias() {
-//        return criterias;
-//    }
-//
-//    public void setCriterias(Criteria criterias) {
-//        this.criterias = criterias;
-//    }
-//
-//    public Boolean getCompulsory() {
-//        return isCompulsory;
-//    }
-//
-//    public void setCompulsory(Boolean compulsory) {
-//        isCompulsory = compulsory;
-//    }
-//
-//    @Override
-//    public String toString() {
-//        return "RewardsCriteria{" +
-//                "id=" + id +
-//                ", rewards=" + rewards +
-//                ", criterias=" + criterias +
-//                ", isCompulsory=" + isCompulsory +
-//                '}';
-//    }
-//
-//
-///*    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//
-//        if (o == null || getClass() != o.getClass())
-//            return false;
-//
-//        RewardsCriteria that = (RewardsCriteria) o;
-//        return Objects.equals(rewards.getId(), that.rewards.getId()) &&
-//                Objects.equals(criterias.getCriteriaId(), that.criterias.getCriteriaId())&&
-//                Objects.equals(isCompulsory, that.isCompulsory);
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(rewards.getId(), criterias.getCriteriaId(),isCompulsory);
-//    }*/
-//
-//    public boolean equals(Object o) {
-//        if (this == o)
-//            return true;
-//        if (o == null || getClass() != o.getClass())
-//            return false;
-//
-//        RewardsCriteria that = (RewardsCriteria) o;
-//
-//        if (getId() != null ? !getId().equals(that.getId())
-//                : that.getId() != null)
-//            return false;
-//
-//        return true;
-//    }
-//
-//    public int hashCode() {
-//        return (getId() != null ? getId().hashCode() : 0);
-//    }
 }

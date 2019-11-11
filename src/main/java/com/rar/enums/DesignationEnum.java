@@ -2,7 +2,6 @@ package com.rar.enums;
 
 public enum DesignationEnum {
 
-
     MTS_I,
     MTS_II,
     MTS_III,
@@ -25,6 +24,5 @@ public enum DesignationEnum {
     Scrum_Master,
     Senior_Scrum_Master,
     CEO,
-
 
 }

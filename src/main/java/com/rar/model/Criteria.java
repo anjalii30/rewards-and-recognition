@@ -1,9 +1,7 @@
 package com.rar.model;
 
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -23,59 +21,11 @@ public class Criteria implements Serializable{
 
     @Column(name="criteria_desc",nullable = false)
     @ApiModelProperty(notes = "The description of specific criteria")
-
     private String criteria_desc;
-
-
 
     @OneToMany(
             mappedBy = "criteria",cascade = CascadeType.REFRESH)
     private List<RewardsCriteria> rewards = new ArrayList<>();
-
-
-   /* public List<RewardsCriteria> getRewards() {
-        return rewards;
-    }
-
-    public void setRewards(List<RewardsCriteria> rewards) {
-        this.rewards = rewards;
-    }*/
-
-//
-//    //rewards
-//    @ManyToMany(fetch = FetchType.LAZY,
-//            cascade = {
-//                    CascadeType.MERGE,
-//            },
-//            mappedBy = "criterias")
-//    private Set<Rewards> rewards1 = new HashSet<>();
-//
-//
-
-//
-//    //nominationscriterias
-//    @ManyToMany(fetch = FetchType.LAZY,
-//            cascade = {
-//                    CascadeType.PERSIST,
-//                    CascadeType.MERGE,
-//            },
-//            mappedBy = "criterias2")
-//    private Set<Nominations> nominations = new HashSet<>();
-//
-//
-
-//    @ManyToMany(fetch = FetchType.LAZY,
-//            cascade = {
-//                    CascadeType.PERSIST,
-//                    CascadeType.MERGE
-//            })
-//    @JoinTable(
-//            name = "nominations_criterias",
-//            joinColumns = {@JoinColumn(name = "Criterias_Id")},
-//            inverseJoinColumns = {@JoinColumn(name = "User_Id"),@JoinColumn(name = "Reward_Id")}
-//    )
-//    private Set<Nominations> nominations = new HashSet<>();
-
 
     public Criteria() {
     }
@@ -99,22 +49,6 @@ public class Criteria implements Serializable{
     public void setCriteria_desc(String criteria_desc) {
         this.criteria_desc = criteria_desc;
     }
-//
-//    public Set<Rewards> getRewards1() {
-//        return rewards1;
-//    }
-//
-//    public void setRewards1(Set<Rewards> rewards1) {
-//        this.rewards1 = rewards1;
-//    }
-
-//    public Set<Nominations> getNominations() {
-//        return nominations;
-//    }
-//
-//    public void setNominations(Set<Nominations> nominations) {
-//        this.nominations = nominations;
-//    }
 
     @Override
     public String toString() {
@@ -123,8 +57,4 @@ public class Criteria implements Serializable{
                 ", criteria_desc='" + criteria_desc + '\'' +
                 '}';
     }
-
-
-
-
 }

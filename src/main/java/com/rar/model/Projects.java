@@ -1,10 +1,8 @@
 package com.rar.model;
 
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.codehaus.jackson.annotate.JsonIgnore;
-
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,7 +12,6 @@ import java.util.Set;
 @ApiModel(description = "All the details about projects")
 public class Projects {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @ApiModelProperty(notes = "The database generated project ID")
@@ -23,7 +20,6 @@ public class Projects {
     @Column(name = "project_name",unique = true,nullable = false)
     @ApiModelProperty(notes = "The name of the Project")
     private String project_name;
-
 
     @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY,
@@ -45,7 +41,6 @@ public class Projects {
 
     private Set<Manager> managers = new HashSet<>();
 
-
     public Projects() {
     }
 
@@ -54,8 +49,6 @@ public class Projects {
         this.project_name = project_name;
         this.userInfo = userInfo;
     }
-
-
 
     public Long getProject_id() {
         return project_id;
@@ -73,14 +66,6 @@ public class Projects {
         this.project_name = project_name;
     }
 
-   /* public Set<UserInfo> getUserInfo() {
-        return userInfo;
-    }
-
-    public void setUserInfo(Set<UserInfo> userInfo) {
-        this.userInfo = userInfo;
-    }
-*/
     @Override
     public String toString() {
         return "Projects{" +

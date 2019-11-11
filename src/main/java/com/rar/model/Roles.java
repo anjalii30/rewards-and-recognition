@@ -1,10 +1,8 @@
 package com.rar.model;
 
-
 import com.rar.enums.RoleEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -26,7 +24,6 @@ public class Roles implements Serializable {
     @ApiModelProperty(notes = "Used to determine the type of role")
     private RoleEnum role;
 
-
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
                     CascadeType.PERSIST,
@@ -36,7 +33,6 @@ public class Roles implements Serializable {
 
     private Set<UserInfo> userInfo = new HashSet<>();
 
-
     public Roles() {
     }
 
@@ -44,7 +40,6 @@ public class Roles implements Serializable {
         this.roleId = roleId;
         this.role = role;
     }
-
 
     public long getRoleId() {
         return roleId;
@@ -61,14 +56,6 @@ public class Roles implements Serializable {
     public void setRole(RoleEnum role) {
         this.role = role;
     }
-
-   /* public Set<UserInfo> getUserInfo() {
-        return userInfo;
-    }
-
-    public void setUserInfo(Set<UserInfo> userInfo) {
-        this.userInfo = userInfo;
-    }*/
 
     @Override
     public String toString() {

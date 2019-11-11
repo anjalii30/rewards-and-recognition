@@ -2,7 +2,6 @@ package com.rar.model;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
 import java.util.List;
 
 @ApiModel(description = "All the DTO data in nominations")
@@ -11,8 +10,6 @@ public class NominationPojo {
     private Long rewardId;
     @ApiModelProperty(notes = "The name of the reward")
     private String  reward_name;
-    //@ApiModelProperty(notes = "The id of the Project")
-   // private Long project_id;
     @ApiModelProperty(notes = "The name of the project")
     private String project_name;
     @ApiModelProperty(notes = "The ID of the particular user")
@@ -44,8 +41,6 @@ public class NominationPojo {
         this.rewardId = rewardId;
     }
 
-
-
     public long getUserId() {
         return userId;
     }
@@ -53,7 +48,6 @@ public class NominationPojo {
     public void setUserId(long userId) {
         this.userId = userId;
     }
-
 
     public boolean isSelected() {
         return selected;
@@ -71,7 +65,6 @@ public class NominationPojo {
         this.hr_selected = hr_selected;
     }
 
-
     public String getReason() {
         return reason;
     }
@@ -79,14 +72,6 @@ public class NominationPojo {
     public void setReason(String reason) {
         this.reason = reason;
     }
-
-//    public Long getProject_id() {
-//        return project_id;
-//    }
-
-//    public void setProject_id(Long project_id) {
-//        this.project_id = project_id;
-//    }
 
     public String getReward_name() {
         return reward_name;
