@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
@@ -23,6 +24,12 @@ public class CriteriaController {
     @Autowired
     private CheckValidity validity;
 
+    /**
+     *
+     * @param token
+     * @param criteria
+     * @return saved criteria.
+     */
 
     @ApiOperation(value = "save the criterion")
     @PostMapping("/saveCriteria")
@@ -31,12 +38,25 @@ public class CriteriaController {
         return criteriaService.saveCriteria(criteria);
     }
 
+    /**
+     *
+     * @param token
+     * @return list of criterias.
+     */
+
     @ApiOperation(value = "Get list of criterion")
     @GetMapping("/listCriteria")
     public List<Criteria> list(@RequestHeader(value = "Authorization") String token){
         String email=validity.check(token);
         return criteriaService.findAll();
     }
+
+    /**
+     *
+     * @param token
+     * @param id
+     * @return String that display's that criteria is deleted successfully.
+     */
 
     @ApiOperation(value = "Delete criteria by id")
     @DeleteMapping("/deleteCriteria/{id}")
@@ -46,6 +66,12 @@ public class CriteriaController {
         return "Deleted Successfully";
     }
 
+    /**
+     *
+     * @param token
+     * @param id
+     * @return list of criteria based on id.
+     */
     @ApiOperation(value = "Get criteria list by id")
     @GetMapping("/listCriterion/{id}")
     public Optional<Criteria> getById(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Criteria Id to get criteria object", required = true) @PathVariable Long id){
