@@ -14,11 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.*;
-
-//import com.rar.utils.CheckDisable;
-
 
 @Service
 @Transactional
@@ -42,7 +38,6 @@ public class NominationsServiceImpl implements NominationsService {
 
                 nominations.setUserID(nominationPojo.get(i).getUserId());
                 nominations.setRewardID(nominationPojo.get(i).getRewardId());
-               // nominations.setProject_id(nominationPojo.get(i).getProject_id());
                 nominations.setSelected(nominationPojo.get(i).isSelected());
                 nominations.setHr_selected(nominationPojo.get(i).isHr_selected());
                 nominations.setReason(nominationPojo.get(i).getReason());
@@ -119,8 +114,6 @@ public class NominationsServiceImpl implements NominationsService {
         return nominationsRepository.getAwarded();
     }
 
-
-
     @Override
     public List<List<Nominations>> showAllToManager(String email) throws Exception {
         try {
@@ -138,19 +131,6 @@ public class NominationsServiceImpl implements NominationsService {
 
         }
     }
-
-//    @Override
-//    public void managerNominate(List<NominationPojo> nominationsList) {
-//
-//        System.out.println(nominationsList.size());
-//        Nominations nominations=new Nominations();
-//        for(int i=0; i<nominationsList.size();i++) {
-//            nominations.setUserID(nominationsList.);
-//
-//            System.out.println(nominationsList.get(i));
-//
-//        }
-//    }
 
    @Override
     public List<Nominations> getAllNominations() {
