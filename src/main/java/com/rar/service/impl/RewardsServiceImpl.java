@@ -147,7 +147,7 @@ public class RewardsServiceImpl implements RewardsService {
         }
 
     @Override
-    public List<Rewards> findByRolled(String email) throws Exception {
+    public List<Rewards> findByRolled(String email) {
 
         List<Rewards> rewards = null;
         Long manager_id = managerRepository.findByEmail(email);

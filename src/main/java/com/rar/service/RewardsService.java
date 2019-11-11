@@ -21,7 +21,7 @@ public interface RewardsService {
 
     void deleteById(long id);
 
-    List<Rewards> findByRolled(String email) throws Exception;
+    List<Rewards> findByRolled(String email);
 
     public ResponseEntity rewardsSave(Rewards rewards);
 
