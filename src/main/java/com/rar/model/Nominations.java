@@ -49,6 +49,7 @@ public class Nominations implements Serializable {
     @Column(name="hr_selected")
     private boolean hr_selected=false;
 
+
     @OneToMany(mappedBy = "nominations", cascade = CascadeType.ALL)
     private List<Evidences> evidencesList;
 
@@ -151,6 +152,8 @@ public class Nominations implements Serializable {
     public void setUsername(String username) {
         this.username = username;
     }
+
+
 }
 
 

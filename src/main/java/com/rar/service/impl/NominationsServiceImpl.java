@@ -11,6 +11,7 @@ import com.rar.repository.NominationsRepository;
 import com.rar.repository.RewardsRepository;
 import com.rar.service.NominationsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -71,13 +72,24 @@ public class NominationsServiceImpl implements NominationsService {
        return ResponseEntity.ok(s);
     }
 
-    @Override
-    public List<Nominations> GetData(Long rewardID) throws Exception {
+/*    @Override
+    public ResponseEntity<?> GetData(Long rewardID) throws Exception {
 
             List<Nominations> nominations = null;
 
                 nominations = nominationsRepository.GetData(rewardID);
-                return nominations;
+
+                return ResponseEntity.ok(nominations);
+    }*/
+
+    @Override
+    public List<Nominations> GetData(Long rewardID) throws Exception {
+
+        List<Nominations> nominations = null;
+
+        nominations = nominationsRepository.GetData(rewardID);
+
+        return nominations;
     }
 
     @Override
@@ -158,7 +170,7 @@ public class NominationsServiceImpl implements NominationsService {
  }
 
     @Override
-    public void managerSelect(Nominations[] nominations)  {
+    public void managerSelect(Nominations[] nominations,Long manager_id,String manager_name)  {
 
         for(int i=0;i<nominations.length;i++){
 
@@ -168,7 +180,7 @@ public class NominationsServiceImpl implements NominationsService {
 
             boolean selected=nominations[i].isSelected();
 
-            nominationsRepository.updateSelected(selected,reason,nomination_id);
+            nominationsRepository.updateSelected(selected,reason,nomination_id,manager_id,manager_name);
 
         }
 

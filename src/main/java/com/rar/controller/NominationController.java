@@ -3,6 +3,7 @@ package com.rar.controller;
 import com.rar.model.NominationPojo;
 import com.rar.model.Nominations;
 import com.rar.model.Rewards;
+import com.rar.repository.ManagerRepository;
 import com.rar.repository.UserRepository;
 import com.rar.service.NominationsService;
 import com.rar.utils.CheckValidity;
@@ -11,6 +12,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
@@ -32,26 +34,43 @@ public class NominationController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private ManagerRepository managerRepository;
+
     @ApiOperation(value = "Save the nomination")
     @PostMapping("/saveNomination")
-    public ResponseEntity<?> nominationSave(@RequestHeader(value = "Authorization") String token ,@ApiParam(value = "Nomination object store in database table", required = true) @Valid @RequestBody List<NominationPojo> nominationPojo) {
+    public ResponseEntity nominationSave(@RequestHeader(value = "Authorization") String token , @ApiParam(value = "Nomination object store in database table", required = true) @Valid @RequestBody List<NominationPojo> nominationPojo) {
         String email=validity.check(token);
         nominationsService.nominationSave(nominationPojo);
-        return ResponseEntity.ok(nominationPojo);
+        return new ResponseEntity<>(nominationPojo, HttpStatus.OK);
     }
+
+    /*@ApiOperation(value = "Get the list of nominations for admin by reward id")
+    @GetMapping("/showNomination/{id}")
+    public ResponseEntity showById(@RequestHeader(value = "Authorization") String token,  @ApiParam(value = "Get nomination object by reward_id", required = true) @PathVariable Long id) throws Exception{
+      try {
+          String email = validity.check(token);
+          return  ResponseEntity.ok (nominationsService.GetData(id));
+      }catch (Exception e){
+          return new ResponseEntity(HttpStatus.BAD_REQUEST);
+      }
+    }*/
 
     @ApiOperation(value = "Get the list of nominations for admin by reward id")
     @GetMapping("/showNomination/{id}")
     public List<Nominations> showById(@RequestHeader(value = "Authorization") String token,  @ApiParam(value = "Get nomination object by reward_id", required = true) @PathVariable Long id) throws Exception{
-       String email=validity.check(token);
-        return nominationsService.GetData(id);
+
+            String email = validity.check(token);
+            return  nominationsService.GetData(id);
+
     }
 
     @ApiOperation(value = "Get the list of all nominations for admin")
     @GetMapping("/showAllNomination")
     public List<Nominations> show(@RequestHeader(value = "Authorization") String token){
         String email=validity.check(token);
-        return nominationsService.getAllNominations();
+         return  nominationsService.getAllNominations();
+
     }
 
     @ApiOperation(value = "Get the list of rewards for all the nominations")
@@ -103,6 +122,8 @@ public class NominationController {
     @PutMapping("/managerSelect")
     public void managerSelect(@RequestHeader(value = "Authorization") String token ,@RequestBody Nominations[] nominations) {
         String email=validity.check(token);
-        nominationsService.managerSelect(nominations);
+        Long manager_id=managerRepository.findByEmail(email);
+        String manager_name=userRepository.getName(email);
+        nominationsService.managerSelect(nominations,manager_id,manager_name);
     }
 }

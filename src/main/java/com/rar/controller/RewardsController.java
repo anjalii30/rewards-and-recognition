@@ -43,18 +43,18 @@ public class RewardsController {
 
     @ApiOperation(value = "Update award status by id")
     @PutMapping("/updateAwardStatus/{id}")
-    public Rewards updateAwardStatus(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Award status Id to update award status", required = true)@PathVariable Long id,
+    public ResponseEntity<Rewards> updateAwardStatus(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Award status Id to update award status", required = true)@PathVariable Long id,
                                      @ApiParam(value = "Reward object ", required = true) @Valid @RequestBody Rewards createReward){
         String email=validity.check(token);
-        return rewardsService.updateAwardStatus(id, createReward);
+        return new ResponseEntity(rewardsService.updateAwardStatus(id, createReward),HttpStatus.OK);
     }
 
     @ApiOperation(value = "Update award status to discontinue by reward id")
     @PutMapping("/discontinuing/{id}")
-    public Rewards discontinuing(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Reward Id to update discontinuing reward object", required = true)@PathVariable Long id,
-                                 @ApiParam(value = "Reward object ", required = true) @Valid @RequestBody Rewards createReward){
+    public ResponseEntity<ResponseEntity<Rewards>> discontinuing(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Reward Id to update discontinuing reward object", required = true)@PathVariable Long id,
+                                                                 @ApiParam(value = "Reward object ", required = true) @Valid @RequestBody Rewards createReward){
         String email=validity.check(token);
-        return rewardsService.discontinuing(id, createReward);
+        return new ResponseEntity<>(rewardsService.discontinuing(id, createReward),HttpStatus.OK);
     }
 
     @ApiOperation(value = "Get the list of rewards")

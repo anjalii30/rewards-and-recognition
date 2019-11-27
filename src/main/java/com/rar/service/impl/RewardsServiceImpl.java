@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.*;
 
 @Service
@@ -192,26 +193,38 @@ public class RewardsServiceImpl implements RewardsService {
     }
 
     @Override
-    public Rewards updateAwardStatus(Long id, Rewards createReward) {
+    public ResponseEntity<Rewards> updateAwardStatus(Long id, Rewards createReward) {
+
+        LocalDate today = LocalDate.now();
+
         Rewards CreateReward1 = rewardsRepository.findById(id).get();
         CreateReward1.setReward_name(CreateReward1.getReward_name());
         CreateReward1.setFrequency(CreateReward1.getFrequency());
         CreateReward1.setDescription(CreateReward1.getDescription());
-        CreateReward1.setStart_date(CreateReward1.getStart_date());
-        CreateReward1.setEnd_date(CreateReward1.getEnd_date());
         CreateReward1.setDiscontinuingDate(CreateReward1.getDiscontinuingDate());
         CreateReward1.setDiscontinuingReason(CreateReward1.getDiscontinuingReason());
         CreateReward1.setSelf_nominate(CreateReward1.isSelf_nominate());
         CreateReward1.setNominations_allowed(CreateReward1.getNominations_allowed());
         CreateReward1.setAward_status(createReward.getAward_status());
+        CreateReward1.setStart_date(today);
+        FrequencyEnum frequency =CreateReward1.getFrequency();
+
+        if(frequency==FrequencyEnum.Monthly)
+            CreateReward1.setEnd_date(today.plusMonths(1));
+        else
+            if(frequency==FrequencyEnum.Quarterly)
+                CreateReward1.setEnd_date(today.plusMonths(4));
+        else
+            if(frequency==FrequencyEnum.Annually)
+                CreateReward1.setEnd_date(today.plusYears(1));
 
         Rewards update = rewardsRepository.save(CreateReward1);
-        return update;
+        return ResponseEntity.ok(update);
     }
 
 
     @Override
-    public Rewards discontinuing(Long id, Rewards createReward) {
+    public ResponseEntity<Rewards> discontinuing(Long id, Rewards createReward) {
         Rewards CreateReward1 = rewardsRepository.findById(id).get();
         CreateReward1.setReward_name(CreateReward1.getReward_name());
         CreateReward1.setFrequency(CreateReward1.getFrequency());
@@ -225,7 +238,7 @@ public class RewardsServiceImpl implements RewardsService {
         CreateReward1.setAward_status(createReward.getAward_status());
 
         Rewards update = rewardsRepository.save(CreateReward1);
-        return update;
+        return ResponseEntity.ok(update);
     }
 
     public List<Rewards> latest(String email){
@@ -237,10 +250,18 @@ public class RewardsServiceImpl implements RewardsService {
     @Override
     public List<Rewards> managerApprovalRewards(String email) {
 
+        List<Rewards> rewards = null;
+        Long manager_id = managerRepository.findByEmail(email);
 
-           return rewardsRepository.managerApprovalRewards();
+        if (manager_id != null) {
 
+            rewards=rewardsRepository.managerApprovalRewards();
+            return rewards;
         }
+
+        else
+            return rewards;
+    }
 
     @Override
     public List<Rewards> findByRolled(String email) throws Exception {

@@ -13,7 +13,11 @@ public interface NominationsService {
 
     ResponseEntity<?> nominationSave(List<NominationPojo> nominationPojo);
 
-    List<Nominations> GetData(Long rewardID) throws Exception;
+/*
+    ResponseEntity<?> GetData(Long rewardID) throws Exception;
+*/
+List<Nominations> GetData(Long rewardID) throws Exception;
+
 
     List<List<Nominations>> showToManager(String email, Long reward_id) throws Exception;
 
@@ -25,9 +29,9 @@ public interface NominationsService {
 
 //     void managerNominate(List<NominationPojo> nominationsPojo);
 
-  List<Nominations> getAllNominations();
+    List<Nominations> getAllNominations();
 
-    void managerSelect(Nominations[] nominations);
+    void managerSelect(Nominations[] nominations,Long manager_id, String manager_name);
 
     List<Rewards> nominated_rewards() throws Exception;
 

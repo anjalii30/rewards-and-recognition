@@ -4,6 +4,7 @@ import com.rar.model.Nominations;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
@@ -41,11 +42,11 @@ public interface NominationsRepository extends CrudRepository<Nominations, Strin
 
     @Transactional
     @Modifying
-    @Query(value="update nominations set selected=?1 , reason=?2 where nomination_id=?3",nativeQuery = true)
-    void updateSelected(boolean selected,String reason,Long nomination_id );
+    @Query(value="update nominations set selected=?1 , reason=?2 , manager_id=?4 , approved_by=?5 where nomination_id=?3",nativeQuery = true)
+    void updateSelected(boolean selected,String reason,Long nomination_id,Long manager_id,String manager_name );
 
    @Query(value="select * from nominations where selected=true",nativeQuery = true)
-    List<Nominations> getAllNominations();
+   List<Nominations> getAllNominations();
 
     @Query(value="select nominations.user_name,nominations.reward_name, users.image_url from nominations,users where nominations.user_id=users.user_id and hr_selected=true Order by nomination_id DESC limit 6",nativeQuery = true)
     List<Map<String, String>> getTopAwardee();
