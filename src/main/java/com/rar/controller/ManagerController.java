@@ -29,8 +29,8 @@ public class ManagerController {
     private ManagerRepository managerRepository;
 
     /**
-     * @param token
-     * @param manager
+     * @param token jwt token
+     * @param manager Manager object
      * @return saved manager object.
      */
     @ApiOperation(value = "Save the  manager")
@@ -41,7 +41,7 @@ public class ManagerController {
     }
 
     /**
-     * @param token
+     * @param token jwt token
      * @return list of Managers.
      */
     @ApiOperation(value = "Get the list of managers")
@@ -52,8 +52,8 @@ public class ManagerController {
     }
 
     /**
-     * @param token
-     * @param id
+     * @param token jwt token
+     * @param id manager id
      * @return String that displays that manager has been successfully deleted.
      */
     @ApiOperation(value = "Delete the manager detail by id")
@@ -65,8 +65,8 @@ public class ManagerController {
     }
 
     /**
-     * @param token
-     * @param id
+     * @param token jwt token
+     * @param id manager id
      * @return object of manager based on id.
      */
     @ApiOperation(value = "Get the manager by id")
@@ -77,6 +77,11 @@ public class ManagerController {
         return managerService.findById(id);
     }
 
+    /**
+     *
+     * @param token jwt token
+     * @return list of employees details under this manager
+     */
     @ApiOperation(value = "Get the list of employees under this manager")
     @GetMapping("/listEmp")
     public List listEmployees(@RequestHeader(value = "Authorization") String token){
@@ -85,6 +90,11 @@ public class ManagerController {
         return managerService.getEmployees(manager_id);
     }
 
+    /**
+     *
+     * @param token jwt token
+     * @return list of employee id and names under this manager
+     */
     @GetMapping("/getMembers")
     public List<Map<String,String>> getMembers(@RequestHeader(value = "Authorization") String token){
         String email=validity.check(token);
@@ -93,6 +103,14 @@ public class ManagerController {
 
     }
 
+    /**
+     *
+     * @param token jwt token
+     * @param manager_id manager id
+     * @param project_id project id
+     * @return a string "assigned"
+     * @throws Exception project not found
+     */
     @ApiOperation(value = "Get projects assigned to manager")
     @PostMapping("/listAssignedProjects")
     public String assignValues(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "manager id ", required = true) @Valid @RequestBody long manager_id, @ApiParam(value = "project id ", required = true) @Valid @RequestBody long project_id) throws Exception {

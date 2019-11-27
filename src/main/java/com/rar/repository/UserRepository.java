@@ -8,7 +8,8 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends CrudRepository<UserInfo,Long> {
+public interface UserRepository extends CrudRepository< UserInfo,Long> {
+
 
     @Query(value = "DELETE from users where email = ?1", nativeQuery = true)
     void deleteByEmail(String email);

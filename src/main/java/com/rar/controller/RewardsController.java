@@ -30,27 +30,22 @@ public class RewardsController {
     private CheckValidity validity;
 
     /**
-     * @param token
-     * @param rewards
+     * @param token jwt token
+     * @param rewards Rewards object
      * @return object of saved reward.
-     * @throws Exception
      */
     @ApiOperation(value = "Save the rewards")
     @PostMapping("/save")
-    public ResponseEntity save(@RequestHeader(value = "Authorization") String token ,@ApiParam(value = "Reward object store in database table", required = true) @Valid @RequestBody Rewards rewards) throws Exception{
-       try{
+    public ResponseEntity save(@RequestHeader(value = "Authorization") String token ,@ApiParam(value = "Reward object store in database table", required = true) @Valid @RequestBody Rewards rewards){
            String email=validity.check(token);
            return new ResponseEntity<>(rewardsService.rewardsSave(rewards),HttpStatus.OK) ;
 
-       }catch (Exception e){
-           return new ResponseEntity<>(HttpStatus.BAD_REQUEST) ;
-       }
     }
 
     /**
-     * @param token
-     * @param id
-     * @param createReward
+     * @param token jwt token
+     * @param id reward id
+     * @param createReward reward object
      * @return the object of reward for which the award status has been changed.
      */
     @ApiOperation(value = "Update award status by id")
@@ -63,9 +58,9 @@ public class RewardsController {
     }
 
     /**
-     * @param token
-     * @param id
-     * @param createReward
+     * @param token jwt token
+     * @param id reward id
+     * @param createReward CreateReward object
      * @return the object of reward which is discontinued.
      */
     @ApiOperation(value = "Update award status to discontinue by reward id")
@@ -77,7 +72,7 @@ public class RewardsController {
     }
 
     /**
-     * @param token
+     * @param token jwt token
      * @return list of rewards.
      */
     @ApiOperation(value = "Get the list of rewards")
@@ -89,7 +84,7 @@ public class RewardsController {
     }
 
     /**
-     * @param token
+     * @param token jwt token
      * @return list of latest rewards.
      */
     @ApiOperation(value = "Get the latest list of rewards")
@@ -100,7 +95,7 @@ public class RewardsController {
     }
 
     /**
-     * @param token
+     * @param token jwt token
      * @return list of rewards which are rolled-out.
      */
     @ApiOperation(value = "Get the list of rolled out  rewards")
@@ -112,7 +107,7 @@ public class RewardsController {
     }
 
     /**
-     * @param token
+     * @param token jwt token
      * @return list of rewards for which the manager needs to approve.
      */
     @ApiOperation(value = "Get the list of self-nominated rewards for manager approval")
@@ -123,8 +118,8 @@ public class RewardsController {
     }
 
     /**
-     * @param token
-     * @param id
+     * @param token jwt token
+     * @param id reward id
      * @return list of rewards based on id.
      */
     @ApiOperation(value = "Get the list of rewards by id")
@@ -135,9 +130,9 @@ public class RewardsController {
     }
 
     /**
-     * @param token
-     * @param id
-     * @param rewards
+     * @param token jwt token
+     * @param id reward id
+     * @param rewards Reward object
      * @return object of reward after updating.
      */
     @ApiOperation(value = "Update the reward by id")
@@ -147,8 +142,8 @@ public class RewardsController {
     }
 
     /**
-     * @param token
-     * @param id
+     * @param token jwt token
+     * @param id reward id
      * @return a string that displays the reward has been successfully deleted.
      */
     @ApiOperation(value = "Delete the reward by id")

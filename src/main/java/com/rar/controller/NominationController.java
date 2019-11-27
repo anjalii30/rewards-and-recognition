@@ -40,7 +40,7 @@ public class NominationController {
 
 
     /**
-     * @param token
+     * @param token jwt token
      * @param nominationPojo object
      * @return saved nominationPojo
      */
@@ -52,23 +52,9 @@ public class NominationController {
         return new ResponseEntity<>(nominationPojo, HttpStatus.OK);
     }
 
-
-    /*@ApiOperation(value = "Get the list of nominations for admin by reward id")
-    @GetMapping("/showNomination/{id}")
-    public ResponseEntity showById(@RequestHeader(value = "Authorization") String token,  @ApiParam(value = "Get nomination object by reward_id", required = true) @PathVariable Long id) throws Exception{
-      try {
-          String email = validity.check(token);
-          return  ResponseEntity.ok (nominationsService.GetData(id));
-      }catch (Exception e){
-          return new ResponseEntity(HttpStatus.BAD_REQUEST);
-      }
-    }*/
-
-
-
     /**
-     * @param token
-     * @param id
+     * @param token jwt token
+     * @param id reward id
      * @return list of nominations based on id.
      */
     @ApiOperation(value = "Get the list of nominations for admin by reward id")
@@ -79,7 +65,7 @@ public class NominationController {
     }
 
     /**
-     * @param token
+     * @param token jwt token
      * @return list of all nominations.
      */
     @ApiOperation(value = "Get the list of all nominations for admin")
@@ -91,7 +77,7 @@ public class NominationController {
     }
 
     /**
-     * @param token
+     * @param token jwt token
      * @return list of rewards that are nominated.
      */
     @ApiOperation(value = "Get the list of rewards for all the nominations")
@@ -102,10 +88,11 @@ public class NominationController {
     }
 
     /**
-     * @param token
-     * @param id,email
-     * @return list of list of nominations.
-     * @throws Exception that displays "You are not a manager" when a normal user logs in.
+     *
+     * @param token jwt token
+     * @param id reward id
+     * @return list of all the nominations for that manager for the particular reward
+     * @throws Exception no nominations
      */
     @ApiOperation(value = "Get the list of nominations for manager by reward id")
     @GetMapping("/showToManager/{id}")
@@ -116,7 +103,7 @@ public class NominationController {
     }
 
     /**
-     * @param token
+     * @param token jwt token
      * @return list of list of nominations.
      * @throws Exception that displays "You are not a manager" when a normal user logs in.
      */
@@ -128,7 +115,7 @@ public class NominationController {
     }
 
     /**
-     * @param token
+     * @param token jwt token
      * @param n id of the nomination that needs to be updated as awardee.
      */
    @ApiOperation(value = "awardee selected by admin")
@@ -139,7 +126,7 @@ public class NominationController {
    }
 
     /**
-     * @param token
+     * @param token jwt token
      * @return list of all awardee
      */
     @ApiOperation(value = "show the list of awardee ")
@@ -151,7 +138,7 @@ public class NominationController {
     }
 
     /**
-     * @param token
+     * @param token jwt token
      * @return list of top six awardee
      */
     @ApiOperation(value = "show top six awardee ")
@@ -163,7 +150,7 @@ public class NominationController {
     }
 
     /**
-     * @param token
+     * @param token jwt token
      * @param nominations for which the manager approves.
      */
     @ApiOperation(value="mark selected by manager from self nominations of team members by nomination id")

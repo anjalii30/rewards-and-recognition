@@ -25,8 +25,8 @@ public class RolesController {
     private CheckValidity validity;
 
     /**
-     * @param token
-     * @param roles
+     * @param token jwt token
+     * @param roles Roles object
      * @return object of the saved role.
      */
     @ApiOperation(value = "Save the roles")
@@ -37,7 +37,7 @@ public class RolesController {
     }
 
     /**
-     * @param token
+     * @param token jwt token
      * @return list of all the roles.
      */
     @ApiOperation(value = "Get the list of roles")
@@ -48,8 +48,8 @@ public class RolesController {
     }
 
     /**
-     * @param token
-     * @param id
+     * @param token jwt token
+     * @param id Role id
      * @return string that displays that role has been successfully displayed.
      */
     @ApiOperation(value = "Delete the role by id")
@@ -61,8 +61,8 @@ public class RolesController {
     }
 
     /**
-     * @param token
-     * @param id
+     * @param token jwt token
+     * @param id role id
      * @return object of role based on id.
      */
     @ApiOperation(value = "Get the role by id")

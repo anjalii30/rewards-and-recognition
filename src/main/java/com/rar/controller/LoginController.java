@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
@@ -17,7 +18,7 @@ import java.util.Optional;
 @RestController
 @Api(value="Login Management System")
 
-public class LoginController{
+public class LoginController {
 
     @Autowired
     private LoginService loginService;
@@ -44,7 +45,7 @@ public class LoginController{
      */
     @ApiOperation(value = "Save the user")
     @PostMapping("/saveUsers")
-    public UserInfo saveLogin(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "User object store in database table", required = true) @Valid @RequestBody UserInfo users){
+    public UserInfo saveLogin(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "User object store in database table", required = true) @Valid @RequestBody UserInfo users){
         String email=validity.check(token);
         return loginService.saveLogin(users);
     }
@@ -67,7 +68,7 @@ public class LoginController{
      */
     @ApiOperation(value = "Get the user by user id")
     @GetMapping("/listUsers/{id}")
-    public Optional<UserInfo> getById(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "User Id to get user object", required = true)@PathVariable Long id){
+    public Optional<UserInfo> getById(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "User Id to get user object", required = true)@PathVariable Long id){
 
         String email=validity.check(token);
         return loginService.findById(id);
@@ -80,7 +81,7 @@ public class LoginController{
      */
     @ApiOperation(value = "Get the user by email id")
     @GetMapping("/listUsersByEmail/{email}")
-    public Optional<UserInfo> findByEmail(@RequestHeader(value = "Authorization") String token ,@ApiParam(value = "User email to get user object", required = true) String email) {
+    public Optional<UserInfo> findByEmail(@RequestHeader(value = "Authorization") String token , @ApiParam(value = "User email to get user object", required = true) String email) {
         String email1=validity.check(token);
         return loginService.findByEmail(email);
     }

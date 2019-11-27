@@ -37,6 +37,9 @@ public class LoginUserDetails implements Serializable {
     public LoginUserDetails() {
     }
 
+    public LoginUserDetails(String s, String s1, String s2, String s3, RoleEnum roleEnum, Long id) {
+    }
+
     public String getEmail() {
         return email;
     }

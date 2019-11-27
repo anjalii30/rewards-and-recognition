@@ -4,6 +4,8 @@ import com.rar.model.Criteria;
 import com.rar.repository.CriteriaRepository;
 import com.rar.service.CriteriaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
@@ -17,8 +19,8 @@ public class CriteriaServiceImpl implements CriteriaService {
     private CriteriaRepository criteriaRepository;
 
     @Override
-    public Criteria saveCriteria(Criteria criteria) {
-        return criteriaRepository.save(criteria);
+    public ResponseEntity<Criteria> saveCriteria(Criteria criteria) {
+        return ResponseEntity.ok(criteriaRepository.save(criteria));
     }
 
     @Override
@@ -27,9 +29,10 @@ public class CriteriaServiceImpl implements CriteriaService {
     }
 
     @Override
-    public void deleteById(long id) {
+    public ResponseEntity deleteById(long id) {
 
         criteriaRepository.deleteById(id);
+       return ResponseEntity.noContent().build();
     }
 
     @Override

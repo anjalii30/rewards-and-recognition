@@ -24,8 +24,8 @@ public class RewardsCriteriaController {
     private CheckValidity validity;
 
     /**
-     * @param token
-     * @param rewardsCriteria
+     * @param token jwt token
+     * @param rewardsCriteria RewardsCriteria object
      * @return object that contains the saved criteria.
      */
     @ApiOperation(value = "Assign criteria to reward")
@@ -36,7 +36,7 @@ public class RewardsCriteriaController {
     }
 
     /**
-     * @param token
+     * @param token jwt token
      * @return list of all the saved criteria
      */
     @ApiOperation(value = "Get the mapping of criterion with rewards")

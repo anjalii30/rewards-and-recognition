@@ -1,6 +1,8 @@
 package com.rar.service;
 
 import com.rar.model.Criteria;
+import org.springframework.http.ResponseEntity;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -8,9 +10,9 @@ public interface CriteriaService {
 
     Optional<Criteria> findById(Long id);
 
-    Criteria saveCriteria(Criteria criteria);
+    ResponseEntity<Criteria> saveCriteria(Criteria criteria);
 
-    List<Criteria> findAll();
+    List<Criteria>findAll();
 
-    void deleteById(long id);
+    ResponseEntity<String> deleteById(long id);
 }

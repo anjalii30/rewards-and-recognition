@@ -24,7 +24,7 @@ public class ProjectController {
     private ProjectService projectService;
 
     /**
-     * @param token
+     * @param token jwt token
      * @param projects object
      * @return saved object of projects
      */
@@ -36,7 +36,7 @@ public class ProjectController {
     }
 
     /**
-     * @param token
+     * @param token jwt token
      * @return list of projects
      */
     @ApiOperation(value = "Get the list of projects")
@@ -47,10 +47,10 @@ public class ProjectController {
     }
 
     /**
-     * @param token
-     * @param project_name
+     * @param token jwt token
+     * @param project_name project name
      * @return list of assigned users based on project_name.
-     * @throws Exception
+     * @throws Exception no project found
      */
     @ApiOperation(value = "Get users assigned to some project")
     @PostMapping("/listAssignedUsers")
@@ -61,10 +61,10 @@ public class ProjectController {
     }
 
     /**
-     * @param token
-     * @param project_name
+     * @param token jwt token
+     * @param project_name project name
      * @return list of users not assigned to the project based on project_name.
-     * @throws Exception
+     * @throws Exception no project found
      */
     @ApiOperation(value = "Get users not assigned to the project")
     @PostMapping("/listNotAssigned")
@@ -75,9 +75,9 @@ public class ProjectController {
     }
 
     /**
-     * @param token
+     * @param token jwt token
      * @param userProjects object
-     * @throws Exception
+     * @throws Exception no project found
      */
     @ApiOperation(value = "Assign project to users")
     @PostMapping("/assignProjects")
@@ -87,10 +87,10 @@ public class ProjectController {
     }
 
     /**
-     * @param token
-     * @param userProjects
+     * @param token jwt token
+     * @param userProjects UserProjects object
      * @return list of users based on project_id.
-     * @throws Exception
+     * @throws Exception no project found
      */
     @ApiOperation(value = "Delete user from  the project")
     @DeleteMapping("/deleteFromProject")
@@ -103,7 +103,7 @@ public class ProjectController {
     }
 
     /**
-     * @param token
+     * @param token jwt token
      * @return list of unassigned users.
      */
     @ApiOperation(value = "Get the list of users not assigned to any project")
