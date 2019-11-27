@@ -77,7 +77,9 @@ public class RewardsServiceImpl implements RewardsService {
         CreateReward1.setCategory(createReward.getCategory());
         CreateReward1.setRegenerated(CreateReward1.isRegenerated());
 
-        Iterator<RewardsCriteria> it=CreateReward1.getCriteria().iterator();
+        Rewards rewardData1 =  rewardsRepository.save(CreateReward1);
+
+
 
             for(Iterator<RewardsCriteria> itttt = CreateReward1.getCriteria().iterator(); itttt.hasNext();) {
                 RewardsCriteria ff = itttt.next();
@@ -85,17 +87,21 @@ public class RewardsServiceImpl implements RewardsService {
                 System.out.println(ff.getCriteriaId());
              rewardsCriteriaRepository.deleteById(ff.getRewardId(),ff.getCriteriaId());
             }
-        for (Iterator<RewardsCriteria> ittt = createReward.getCriteria().iterator(); ittt.hasNext(); ) {
-            RewardsCriteria f = ittt.next();
-            RewardsCriteria rewardsCriteria = new RewardsCriteria();
-            rewardsCriteria.setRewardId(f.getRewardId());
-            rewardsCriteria.setCriteriaId(f.getCriteriaId());
-            rewardsCriteria.setCompulsory(f.getCompulsory());
-            rewardsCriteria.setCriterias(f.getCriterias());
-            rewardsCriteriaRepository.save(rewardsCriteria);
+
+        RewardsCriteria rewardsCriteria;
+
+        for (int i = 0; i < createReward.getCriteria().size(); i++) {
+            rewardsCriteria = new RewardsCriteria();
+
+            rewardsCriteria.setRewardId(id);
+            rewardsCriteria.setCriteriaId(createReward.getCriteria().get(i).getCriteriaId());
+            rewardsCriteria.setCompulsory(createReward.getCriteria().get(i).getCompulsory());
+            System.out.println(createReward.getCriteria().get(i).getCriteriaId());
+            rewardsCriteriaRepository.insertById(createReward.getCriteria().get(i).getCriteriaId(),id,createReward.getCriteria().get(i).getCompulsory());
 
         }
-        return rewardsRepository.save(CreateReward1);
+
+        return rewardData1;
     }
 
     @Override

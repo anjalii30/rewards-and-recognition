@@ -22,4 +22,9 @@ public interface RewardsCriteriaRepository extends CrudRepository<RewardsCriteri
     @Query(value = "delete from rewards_criteria where reward_id = ?1 and criteria_id = ?2", nativeQuery = true)
     void deleteById(Long rid, Long cid);
 
+    @Modifying
+    @Transactional
+    @Query(value="insert into rewards_criteria (criteria_id,reward_id,is_compulsory) values (:criteria_id, :reward_id, :compulsory)",nativeQuery = true)
+    void insertById( Long criteria_id, Long reward_id, Boolean compulsory);
+
 }
