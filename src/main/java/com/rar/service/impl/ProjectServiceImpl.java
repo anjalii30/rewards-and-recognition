@@ -33,19 +33,14 @@ public class ProjectServiceImpl implements ProjectService {
     public void assign(UserProjects userProjects) throws Exception {
 
             String[] employees = userProjects.getUser_email();
-            System.out.println(employees);
 
             for(int i=0; i<employees.length;i++) {
 
                 Long project_id = projectService.getIdByProject(userProjects.getProject_name());
-                System.out.println(project_id);
 
                 String user_name=employees[i];
 
                 Long user_id = loginService.getIdByName(user_name);
-
-                System.out.println(user_id);
-
 
                 projectRepository.assign(user_id, project_id);
 
@@ -71,10 +66,8 @@ public class ProjectServiceImpl implements ProjectService {
                 String user_name = employees[i];
 
                 Long user_id = loginService.getIdByName(user_name);
-                System.out.println(user_id);
 
                 Long project_id = projectService.getIdByProject(userProjects.getProject_name());
-                System.out.println(project_id);
 
                 projectRepository.deleteUser(user_id, project_id);
             }

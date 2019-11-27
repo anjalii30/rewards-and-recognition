@@ -78,7 +78,6 @@ public class RewardsController {
     @ApiOperation(value = "Get the list of rewards")
     @GetMapping("/listRewards")
     public List<Rewards> list(@RequestHeader(value = "Authorization") String token){
-        System.out.println("token" +token);
         String email=validity.check(token);
         return  rewardsService.findAll();
     }
@@ -102,7 +101,6 @@ public class RewardsController {
     @GetMapping("/listRolledOut")
     public List<Rewards> listRolledOut(@RequestHeader(value = "Authorization") String token){
         String email=validity.check(token);
-        System.out.println(email);
         return rewardsService.findByRolled(email);
     }
 

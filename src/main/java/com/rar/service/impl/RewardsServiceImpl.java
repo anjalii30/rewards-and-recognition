@@ -87,8 +87,7 @@ public class RewardsServiceImpl implements RewardsService {
 
             for(Iterator<RewardsCriteria> itttt = CreateReward1.getCriteria().iterator(); itttt.hasNext();) {
                 RewardsCriteria ff = itttt.next();
-                System.out.println(ff.getRewardId());
-                System.out.println(ff.getCriteriaId());
+
              rewardsCriteriaRepository.deleteById(ff.getRewardId(),ff.getCriteriaId());
             }
 
@@ -100,7 +99,6 @@ public class RewardsServiceImpl implements RewardsService {
             rewardsCriteria.setRewardId(id);
             rewardsCriteria.setCriteriaId(createReward.getCriteria().get(i).getCriteriaId());
             rewardsCriteria.setCompulsory(createReward.getCriteria().get(i).getCompulsory());
-            System.out.println(createReward.getCriteria().get(i).getCriteriaId());
             rewardsCriteriaRepository.insertById(createReward.getCriteria().get(i).getCriteriaId(),id,createReward.getCriteria().get(i).getCompulsory());
 
         }

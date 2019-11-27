@@ -54,7 +54,6 @@ public class NominationsServiceImpl implements NominationsService {
                Evidences evidences = new Evidences();
 
                 evidences.setNominationID(nominationID);
-                System.out.println("test"+nominationID);
                 evidences.setCriteria_desc(nominationPojo.get(i).getEvidencesPojoList().get(j).getCriteria_desc());
                 evidences.setEvidences(nominationPojo.get(i).getEvidencesPojoList().get(j).getEvidences());
                 evidences.setText_evidence(nominationPojo.get(i).getEvidencesPojoList().get(j).getText_evidence());
@@ -67,17 +66,6 @@ public class NominationsServiceImpl implements NominationsService {
        return ResponseEntity.ok(s);
     }
 
-/*    @Override
-    public ResponseEntity<?> GetData(Long rewardID) throws Exception {
-    @Override
-    public List<Nominations> GetData(Long rewardID)  {
-
-            List<Nominations> nominations = null;
-
-                nominations = nominationsRepository.GetData(rewardID);
-
-                return ResponseEntity.ok(nominations);
-    }*/
 
     @Override
     public List<Nominations> GetData(Long rewardID) throws Exception {
