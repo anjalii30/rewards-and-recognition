@@ -1,11 +1,9 @@
 package com.rar.service;
 
-
 import com.rar.model.NominationPojo;
 import com.rar.model.Nominations;
 import com.rar.model.Rewards;
 import org.springframework.http.ResponseEntity;
-
 import java.util.List;
 import java.util.Map;
 
@@ -33,7 +31,7 @@ List<Nominations> GetData(Long rewardID) throws Exception;
 
     void managerSelect(Nominations[] nominations,Long manager_id, String manager_name);
 
-    List<Rewards> nominated_rewards() throws Exception;
+    List<Rewards> nominated_rewards() ;
 
     List getTopAwardee();
 }
