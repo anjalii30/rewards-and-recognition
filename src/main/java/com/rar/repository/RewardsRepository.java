@@ -32,7 +32,7 @@ public interface RewardsRepository extends CrudRepository<Rewards, Long> {
    @Query(value="select * from rewards where award_status=1 and self_nominate=true and reward_id not in(select reward_id from nominations where selected=true)",nativeQuery = true)
    List<Rewards> managerApprovalRewards();
 
-    @Query(value = "select * from rewards where reward_id in(select distinct reward_id from nominations where hr_selected=false)",nativeQuery = true)
+    @Query(value = "select * from rewards where reward_id not in(select distinct reward_id from nominations where hr_selected=true)",nativeQuery = true)
    List<Rewards> nominated_rewards();
 
     @Query(value = "select distinct reward_id from nominations where reward_id in(select reward_id from rewards where self_nominate=true)",nativeQuery = true)
