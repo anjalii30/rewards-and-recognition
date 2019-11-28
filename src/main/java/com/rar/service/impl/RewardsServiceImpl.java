@@ -51,7 +51,7 @@ public class RewardsServiceImpl implements RewardsService {
     @Override
     public List<Rewards> findAll() {
 
-        return (List<Rewards>) rewardsRepository.findAll();
+        return (List<Rewards>) rewardsRepository.getAll();
     }
 
     @Override

@@ -65,10 +65,10 @@ public class RewardsController {
      */
     @ApiOperation(value = "Update award status to discontinue by reward id")
     @PutMapping("/discontinuing/{id}")
-    public ResponseEntity<ResponseEntity<Rewards>> discontinuing(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Reward Id to update discontinuing reward object", required = true)@PathVariable Long id,
+    public ResponseEntity<Rewards> discontinuing(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Reward Id to update discontinuing reward object", required = true)@PathVariable Long id,
                                                                  @ApiParam(value = "Reward object ", required = true) @Valid @RequestBody Rewards createReward){
         String email=validity.check(token);
-        return new ResponseEntity<>(rewardsService.discontinuing(id, createReward),HttpStatus.OK);
+        return new ResponseEntity(rewardsService.discontinuing(id, createReward),HttpStatus.OK);
     }
 
     /**
