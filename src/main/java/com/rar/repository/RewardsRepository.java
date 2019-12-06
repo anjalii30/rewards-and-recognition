@@ -46,4 +46,7 @@ public interface RewardsRepository extends CrudRepository<Rewards, Long> {
 
     @Query(value="select * from rewards order by reward_id desc",nativeQuery = true)
     List<Rewards> getAll();
+
+    @Query(value="select reward_name from rewards where reward_id=?1",nativeQuery = true)
+    String getRewardName(Long reward_id);
 }
