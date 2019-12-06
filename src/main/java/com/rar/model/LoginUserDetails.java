@@ -23,8 +23,11 @@ public class LoginUserDetails implements Serializable {
     private DesignationEnum designationEnum;
     @ApiModelProperty(notes = "The id of the User")
     private Long uid;
+    @ApiModelProperty(notes = "Stores whether the employee is manager or not")
+    private Boolean isManager;
 
-    public LoginUserDetails(String email, String name, String imageUrl, String generatedToken, RoleEnum roleEnum, DesignationEnum designationEnum, Long uid) {
+
+    public LoginUserDetails(String email, String name, String imageUrl, String generatedToken, RoleEnum roleEnum, DesignationEnum designationEnum, Long uid, Boolean isManager) {
         this.email = email;
         this.name = name;
         this.imageUrl = imageUrl;
@@ -32,6 +35,7 @@ public class LoginUserDetails implements Serializable {
         this.roleEnum = roleEnum;
         this.designationEnum = designationEnum;
         this.uid = uid;
+        this.isManager = isManager;
     }
 
     public LoginUserDetails() {
@@ -94,5 +98,13 @@ public class LoginUserDetails implements Serializable {
 
     public void setUid(Long uid) {
         this.uid = uid;
+    }
+
+    public Boolean getManager() {
+        return isManager;
+    }
+
+    public void setManager(Boolean manager) {
+        isManager = manager;
     }
 }
