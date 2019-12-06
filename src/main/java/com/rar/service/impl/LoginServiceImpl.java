@@ -91,6 +91,10 @@ public class LoginServiceImpl implements LoginService {
 
             DesignationEnum designationEnum= d.getDesignation();
 
+            boolean isManager=true;
+            if(userRepository.managerOrEmployee(email) == 0)
+                isManager= false;
+
             if (repoEmail.isPresent()) {
                 if (!userInfo1.getFirstSign()) {
                     userInfo1.setFirstSign(true);
@@ -109,7 +113,7 @@ public class LoginServiceImpl implements LoginService {
                             .signWith(SignatureAlgorithm.HS512, secret)
                             .compact();
 
-                    return new LoginUserDetails(userInfo1.getEmail()+"",userInfo1.getName()+"",userInfo1.getImageUrl()+"",""+generatedToken,roleEnum,designationEnum,userInfo1.getId());
+                    return new LoginUserDetails(userInfo1.getEmail()+"",userInfo1.getName()+"",userInfo1.getImageUrl()+"",""+generatedToken,roleEnum,designationEnum,userInfo1.getId(),isManager);
 
                 } else {
 
@@ -118,7 +122,7 @@ public class LoginServiceImpl implements LoginService {
                             .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY * 1000))
                             .signWith(SignatureAlgorithm.HS512, secret)
                             .compact();
-                    return new LoginUserDetails(userInfo1.getEmail()+"",userInfo1.getName()+"",userInfo1.getImageUrl()+"",""+generatedToken,roleEnum,designationEnum,userInfo1.getId());
+                    return new LoginUserDetails(userInfo1.getEmail()+"",userInfo1.getName()+"",userInfo1.getImageUrl()+"",""+generatedToken,roleEnum,designationEnum,userInfo1.getId(),isManager);
 
 
 

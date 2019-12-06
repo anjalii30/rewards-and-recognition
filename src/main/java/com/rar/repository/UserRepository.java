@@ -20,6 +20,9 @@ public interface UserRepository extends CrudRepository< UserInfo,Long> {
     @Query(value = "SELECT * from users where email = ?1", nativeQuery = true)
     Optional<UserInfo> findByEmail(String email);
 
+    @Query(value = "select count(manager_email) from managers where manager_email=?1", nativeQuery = true)
+    Integer managerOrEmployee(String email);
+
     @Query(value="select user_id from users where email=?1", nativeQuery = true)
      Long getIdByEmail(String email);
 
