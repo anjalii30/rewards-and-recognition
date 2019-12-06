@@ -5,17 +5,17 @@ import com.rar.model.Evidences;
 import com.rar.model.NominationPojo;
 import com.rar.model.Nominations;
 import com.rar.model.Rewards;
-import com.rar.repository.EvidencesRepository;
-import com.rar.repository.ManagerRepository;
-import com.rar.repository.NominationsRepository;
-import com.rar.repository.RewardsRepository;
+import com.rar.repository.*;
 import com.rar.service.NominationsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -27,6 +27,8 @@ public class NominationsServiceImpl implements NominationsService {
     private EvidencesRepository evidencesRepository;
     @Autowired
     private RewardsRepository rewardsRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private ManagerRepository managerRepository;
@@ -36,6 +38,7 @@ public class NominationsServiceImpl implements NominationsService {
         List<HashMap<String, Object>> s = new ArrayList<>();
         for(int i=0;i<nominationPojo.size();i++) {
             Nominations nominations = new Nominations();
+
 
                 nominations.setUserID(nominationPojo.get(i).getUserId());
                 nominations.setRewardID(nominationPojo.get(i).getRewardId());

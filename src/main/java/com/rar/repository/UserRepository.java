@@ -29,4 +29,6 @@ public interface UserRepository extends CrudRepository< UserInfo,Long> {
     @Query(value="select * from users",nativeQuery = true)
     List findAllUsers();
 
+
+
 }
