@@ -82,12 +82,21 @@ public class Manager implements Serializable {
         this.manager_projects = manager_projects;
     }
 
-    @Override
+   /* @Override
     public String toString() {
         return "Manager{" +
                 "id=" + manager_id +
 
                 ", manager_email='" + manager_email + '\'' +
+                '}';
+    }*/
+
+    @Override
+    public String toString() {
+        return "Manager{" +
+                "manager_id=" + manager_id +
+                ", manager_email='" + manager_email + '\'' +
+                ", manager_projects=" + manager_projects +
                 '}';
     }
 }
