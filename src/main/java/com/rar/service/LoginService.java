@@ -15,7 +15,7 @@ public interface LoginService {
 
     UserInfo saveLogin(UserInfo userInfo);
 
-    List findAll();
+    List<UserInfo> findAll();
 
     void deleteById(Long id);
 

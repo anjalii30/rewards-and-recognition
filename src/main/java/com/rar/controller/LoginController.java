@@ -44,7 +44,7 @@ public class LoginController {
      * @return saved user object.
      */
     @ApiOperation(value = "Save the user")
-    @PostMapping("/saveUsers")
+    @PostMapping("/saveLoginUsers")
     public UserInfo saveLogin(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "User object store in database table", required = true) @Valid @RequestBody UserInfo users){
         String email=validity.check(token);
         return loginService.saveLogin(users);
@@ -56,7 +56,7 @@ public class LoginController {
      */
     @ApiOperation(value = "Get the list of users")
     @GetMapping(value = "/listUsers", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List listUser(@RequestHeader(value = "Authorization") String token){
+    public List<UserInfo> listUser(@RequestHeader(value = "Authorization") String token){
         String email=validity.check(token);
         return loginService.findAll();
     }

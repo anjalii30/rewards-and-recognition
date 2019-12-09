@@ -74,13 +74,13 @@ public class Manager implements Serializable {
         this.manager_id = manager_id;
     }
 
-    public Set<Projects> getManager_projects() {
+/*    public Set<Projects> getManager_projects() {
         return manager_projects;
     }
 
     public void setManager_projects(Set<Projects> manager_projects) {
         this.manager_projects = manager_projects;
-    }
+    }*/
 
    /* @Override
     public String toString() {

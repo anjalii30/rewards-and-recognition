@@ -4,10 +4,7 @@ import com.rar.enums.DesignationEnum;
 import com.rar.enums.RoleEnum;
 import com.rar.exception.InvalidTokenException;
 import com.rar.exception.InvalidUserException;
-import com.rar.model.Designation;
-import com.rar.model.LoginUserDetails;
-import com.rar.model.Roles;
-import com.rar.model.UserInfo;
+import com.rar.model.*;
 import com.rar.repository.UserRepository;
 import com.rar.service.LoginService;
 import io.jsonwebtoken.Jwts;
@@ -144,9 +141,11 @@ public class LoginServiceImpl implements LoginService {
         return userRepository.save(userInfo);
     }
 
+
     @Override
-    public List findAll() {
-        return  userRepository.findAllUsers();
+    public List<UserInfo> findAll() {
+
+        return userRepository.getAll();
     }
 
     @Override

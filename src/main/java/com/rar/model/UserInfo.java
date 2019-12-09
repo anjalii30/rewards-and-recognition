@@ -9,7 +9,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -201,42 +200,5 @@ public class UserInfo implements Serializable {
                 ", roles=" + roles +
                 ", projects=" + projects +
                 '}';
-    }
-
-    private Boolean managingProject;
-    private Boolean workingOnProject;
-    private List<Projects> managerProjects;
-    private List<Projects> userProjects;
-
-    public Boolean getManagingProject() {
-        return managingProject;
-    }
-
-    public void setManagingProject(Boolean managingProject) {
-        this.managingProject = managingProject;
-    }
-
-    public Boolean getWorkingOnProject() {
-        return workingOnProject;
-    }
-
-    public void setWorkingOnProject(Boolean workingOnProject) {
-        this.workingOnProject = workingOnProject;
-    }
-
-    public List<Projects> getManagerProjects() {
-        return managerProjects;
-    }
-
-    public void setManagerProjects(List<Projects> managerProjects) {
-        this.managerProjects = managerProjects;
-    }
-
-    public List<Projects> getUserProjects() {
-        return userProjects;
-    }
-
-    public void setUserProjects(List<Projects> userProjects) {
-        this.userProjects = userProjects;
     }
 }
