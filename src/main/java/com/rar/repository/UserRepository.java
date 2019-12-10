@@ -88,6 +88,9 @@ public interface UserRepository extends CrudRepository< UserInfo,Long> {
     @Query(value="select * from users",nativeQuery = true)
     List<UserInfo> getAll();
 
+    @Query(value="select designation_id from user_designation where user_id=?1",nativeQuery = true)
+    long findDesignationId(long user_id);
+
 }
 
 

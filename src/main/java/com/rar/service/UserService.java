@@ -15,5 +15,7 @@ public interface UserService {
 
     public ResponseEntity userSave(UserInfo userInfo);
 
+ /*   public EditUserDetails listById(long id);*/
+
 
 }

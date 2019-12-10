@@ -62,18 +62,7 @@ public class LoginController {
         return loginService.findAll();
     }
 
-    /**
-     * @param token
-     * @param id
-     * @return object of user based on id.
-     */
-    @ApiOperation(value = "Get the user by user id")
-    @GetMapping("/listUsers/{id}")
-    public Optional<UserInfo> getById(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "User Id to get user object", required = true)@PathVariable Long id){
 
-        String email=validity.check(token);
-        return loginService.findById(id);
-    }
 
     /**
      * @param token

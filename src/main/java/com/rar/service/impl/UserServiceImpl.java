@@ -1,8 +1,7 @@
 package com.rar.service.impl;
 
-import com.rar.model.Designation;
-import com.rar.model.Projects;
-import com.rar.model.UserInfo;
+import com.rar.model.*;
+import com.rar.repository.DesignationRepository;
 import com.rar.repository.UserRepository;
 import com.rar.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.*;
 
 @Service
 @Transactional
@@ -20,6 +18,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private DesignationRepository designationRepository;
 
     @Override
     public UserInfo save(UserInfo userInfo) {
@@ -40,7 +41,25 @@ public class UserServiceImpl implements UserService {
             userRepository.insertUserDesignation(id, designation.getDid());
         }
         int count=0;
-        for(Iterator<Projects> projectsIterator = userInfo.getProjects().iterator();projectsIterator.hasNext();){
+        for(int i=0;i<userInfo.getProjectDetailsUsers().size();i++)
+        {
+            if(userInfo.getProjectDetailsUsers().get(i).getManaging()){
+                if (count==0){
+                    userRepository.insertManager(userInfo.getEmail());
+                    count++;
+                }
+                long mid = userRepository.findManagerId(userInfo.getEmail());
+                userRepository.insertManagerProjects(mid, userInfo.getProjectDetailsUsers().get(i).getProject_id());
+            }
+            if(!userInfo.getProjectDetailsUsers().get(i).getManaging() && userInfo.getProjectDetailsUsers().get(i).getWorking()){
+                userRepository.insertUserProjects(id,userInfo.getProjectDetailsUsers().get(i).getProject_id());
+                userRepository.insertUserManager(id, userRepository.getManagerIdFromProjectId(userInfo.getProjectDetailsUsers().get(i).getProject_id()));
+            }
+
+        }
+
+
+  /*      for(Iterator<Projects> projectsIterator = userInfo.getProjects().iterator();projectsIterator.hasNext();){
             Projects projects = projectsIterator.next();
             if(projects.getManaging()){
                 if (count==0){
@@ -54,7 +73,7 @@ public class UserServiceImpl implements UserService {
                 userRepository.insertUserProjects(id,projects.getProject_id());
                 userRepository.insertUserManager(id, userRepository.getManagerIdFromProjectId(projects.getProject_id()));
             }
-        }
+        }*/
 
 //        int count=0;
 //        for(int i=0;i<userInfo.getProjectDetails().size();i++)
@@ -95,5 +114,25 @@ public class UserServiceImpl implements UserService {
     }
 
 
+   /* @Override
+    public EditUserDetails listById(long id) {
+        Optional<UserInfo> userInfo= userRepository.findById(id);
 
+        List<Designation> designations= (List<Designation>) designationRepository.findAll();
+        List<DesignationSelected> designationSelected = new ArrayList<>();
+
+        long designationId= userRepository.findDesignationId(id);
+
+        for(int i=0;i<designations.size();i++){
+            if(designations.get(i).getDid()==designationId){
+                designationSelected.add(i, new DesignationSelected(designationId,designations.get(i).getDesignation(), true));
+            }
+            else
+            {
+                designationSelected.add(i,new DesignationSelected(designations.get(i).getDid(),designations.get(i).getDesignation(),false));
+            }
+        }
+
+      *//*  List<Projects> projects =*//*
+    }*/
 }
