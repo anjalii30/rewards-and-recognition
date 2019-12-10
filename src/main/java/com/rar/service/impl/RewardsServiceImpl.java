@@ -1,7 +1,6 @@
 package com.rar.service.impl;
 
 import com.rar.enums.FrequencyEnum;
-import com.rar.model.Manager;
 import com.rar.model.Rewards;
 import com.rar.model.RewardsCriteria;
 import com.rar.repository.*;
@@ -12,11 +11,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-
 import javax.mail.MessagingException;
 import java.io.IOException;
 import java.time.LocalDate;
-
 import java.util.*;
 
 @Service
@@ -114,7 +111,7 @@ public class RewardsServiceImpl implements RewardsService {
     }
 
     @Override
-    public ResponseEntity<Rewards> updateAwardStatus(Long id, Rewards createReward) throws IOException, MessagingException {
+    public ResponseEntity<Rewards> updateAwardStatus(Long id, Rewards createReward) throws IOException, MessagingException, com.sun.xml.messaging.saaj.packaging.mime.MessagingException {
 
 
         LocalDate today = LocalDate.now();

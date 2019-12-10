@@ -1,15 +1,12 @@
 package com.rar.utils;
 
+import com.sun.xml.messaging.saaj.packaging.mime.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.File;
 import java.io.IOException;
@@ -23,7 +20,7 @@ public class EmailNewReward {
    // private static final String PATH="/home/nineleaps/Desktop/github/rar/src/main/resources/image.jpg";
 
 
-    public void sendEmail() throws IOException, MessagingException {
+    public void sendEmail() throws IOException, MessagingException, javax.mail.MessagingException {
 
 //        SimpleMailMessage msg= new SimpleMailMessage();
 //        msg.setTo("anjali.garg@nineleaps.com","reshma.kosana@nineleaps.com");
@@ -34,7 +31,7 @@ public class EmailNewReward {
         sendEmailWithoutAttachment("anjali.garg@nineleaps.com","Testing from SpringBoot","Hello World \\n Spring Boot Email ");
 
     }
-    public void sendEmailWithoutAttachment(String emails,String subject,String message) throws MessagingException, IOException {
+    public void sendEmailWithoutAttachment(String emails,String subject,String message) throws MessagingException, IOException, javax.mail.MessagingException {
         MimeMessage msg = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(msg, true);
         helper.setTo(emails);
@@ -45,7 +42,7 @@ public class EmailNewReward {
         javaMailSender.send(msg);
     }
 
-    public void sendEmailWithAttachment(String emails,String subject) throws MessagingException, IOException {
+    public void sendEmailWithAttachment(String emails,String subject) throws MessagingException, IOException, javax.mail.MessagingException {
 
         MimeMessage msg = javaMailSender.createMimeMessage();
 

@@ -1,9 +1,9 @@
 package com.rar.service;
 
 import com.rar.model.Rewards;
+import com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException;
 import org.springframework.http.ResponseEntity;
 
-import javax.mail.MessagingException;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
@@ -12,7 +12,7 @@ public interface RewardsService {
 
      Rewards Update(Long id, Rewards createreward);
 
-    ResponseEntity<Rewards> updateAwardStatus(Long id, Rewards createreward) throws IOException, MessagingException;
+    ResponseEntity<Rewards> updateAwardStatus(Long id, Rewards createreward) throws IOException, MessagingException, javax.mail.MessagingException, com.sun.xml.messaging.saaj.packaging.mime.MessagingException;
 
 
     Optional<Rewards> findById(Long id);
