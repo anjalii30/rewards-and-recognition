@@ -1,7 +1,8 @@
 package com.rar.controller;
 
+import com.rar.model.CreateProjectPojo;
 import com.rar.model.Projects;
-import com.rar.model.UserProjects;
+import com.rar.model.UserProjectsPojo;
 import com.rar.service.ProjectService;
 import com.rar.utils.CheckValidity;
 import io.swagger.annotations.Api;
@@ -76,29 +77,34 @@ public class ProjectController {
 
     /**
      * @param token jwt token
-     * @param userProjects object
+     * @param userProjectsPojo object
      * @throws Exception no project found
      */
     @ApiOperation(value = "Assign project to users")
     @PostMapping("/assignProjects")
-    public void assignProjects(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Project name and employee emails ", required = true) @Valid @RequestBody UserProjects userProjects) throws Exception {
+    public void assignProjects(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Project name and employee emails ", required = true) @Valid @RequestBody UserProjectsPojo userProjectsPojo) throws Exception {
         String email=validity.check(token);
-        projectService.assign(userProjects);
+        projectService.assign(userProjectsPojo);
+    }
+
+    @PostMapping("/createProject")
+    public void createProject(@RequestBody CreateProjectPojo createProjectPojo){
+        projectService.createProject(createProjectPojo);
     }
 
     /**
      * @param token jwt token
-     * @param userProjects UserProjects object
+     * @param userProjectsPojo UserProjects object
      * @return list of users based on project_id.
      * @throws Exception no project found
      */
     @ApiOperation(value = "Delete user from  the project")
     @DeleteMapping("/deleteFromProject")
-    public Object[] deleteUserFromProject(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Project name and employee emails ", required = true) @Valid @RequestBody UserProjects userProjects) throws Exception {
+    public Object[] deleteUserFromProject(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Project name and employee emails ", required = true) @Valid @RequestBody UserProjectsPojo userProjectsPojo) throws Exception {
 
         String email=validity.check(token);
-        projectService.deleteUserFromProject(userProjects);
-        Long project_id = projectService.getIdByProject(userProjects.getProject_name());
+        projectService.deleteUserFromProject(userProjectsPojo);
+        Long project_id = projectService.getIdByProject(userProjectsPojo.getProject_name());
         return projectService.findById(project_id);
     }
 

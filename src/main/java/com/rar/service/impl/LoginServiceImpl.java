@@ -4,10 +4,7 @@ import com.rar.enums.DesignationEnum;
 import com.rar.enums.RoleEnum;
 import com.rar.exception.InvalidTokenException;
 import com.rar.exception.InvalidUserException;
-import com.rar.model.Designation;
-import com.rar.model.LoginUserDetails;
-import com.rar.model.Roles;
-import com.rar.model.UserInfo;
+import com.rar.model.*;
 import com.rar.repository.UserRepository;
 import com.rar.service.LoginService;
 import io.jsonwebtoken.Jwts;
@@ -144,9 +141,18 @@ public class LoginServiceImpl implements LoginService {
         return userRepository.save(userInfo);
     }
 
+
     @Override
-    public List findAll() {
-        return  userRepository.findAllUsers();
+    public List<LoginUserDetails> findAll() {
+
+        List<UserInfo> userInfos = userRepository.getAll();
+        List<LoginUserDetails> userInfoList=new ArrayList<>();
+
+        for(int i =0;i<userInfos.size();i++){
+            userInfoList.add(i, new LoginUserDetails(userInfos.get(i).getEmail(), userInfos.get(i).getName(), userInfos.get(i).getImageUrl(), userInfos.get(i).getId()));
+        }
+        return userInfoList;
+
     }
 
     @Override
@@ -167,7 +173,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public Long getIdByName(String user_email) throws Exception {
+    public Long getIdByName(String user_email) {
         return userRepository.getIdByEmail(user_email);
     }
 

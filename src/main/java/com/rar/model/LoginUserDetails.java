@@ -4,6 +4,7 @@ import com.rar.enums.DesignationEnum;
 import com.rar.enums.RoleEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 
 @ApiModel(description = "All the Login details of user")
@@ -25,7 +26,6 @@ public class LoginUserDetails implements Serializable {
     private Long uid;
     @ApiModelProperty(notes = "Stores whether the employee is manager or not")
     private Boolean isManager;
-
 
     public LoginUserDetails(String email, String name, String imageUrl, String generatedToken, RoleEnum roleEnum, DesignationEnum designationEnum, Long uid, Boolean isManager) {
         this.email = email;
@@ -106,5 +106,12 @@ public class LoginUserDetails implements Serializable {
 
     public void setManager(Boolean manager) {
         isManager = manager;
+    }
+
+    public LoginUserDetails(String email, String name, String imageUrl, Long uid) {
+        this.email = email;
+        this.name = name;
+        this.imageUrl = imageUrl;
+        this.uid = uid;
     }
 }

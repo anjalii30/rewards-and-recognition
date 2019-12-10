@@ -15,6 +15,10 @@ public interface ManagerRepository extends CrudRepository<Manager, Long> {
     @Query(value = "SELECT manager_id from managers where manager_email = ?1", nativeQuery = true)
     Long findByEmail(String email);
 
+    @Transactional
+    @Modifying
+    @Query(value = "insert into managers (manager_email) values(:manager_email)",nativeQuery = true)
+    void managerInsert(String manager_email);
 
     @Query(value="select name,email,image_url from users where user_id in (select user_id from user_manager where manager_id=?1)",nativeQuery = true)
     List getEmployees(Long manager_id);
@@ -26,10 +30,12 @@ public interface ManagerRepository extends CrudRepository<Manager, Long> {
     Long[] getMembers(Long manager_id);
 
     @Modifying
-    @Transactional
-    @Query(value="insert into manager_projects (manager_id, project_id) values (:manager_id, :project_id)",nativeQuery = true)
-    void assignValues( Long manager_id, Long project_id);
+    @Transactional  
+    @Query(value="insert into manager_projects values (:manager_id, :project_id)",nativeQuery = true)
+    void assignValues(Long manager_id, Long project_id);
+
 
     @Query(value="select manager_email from managers",nativeQuery = true)
     String[] getAllEmails();
+
 }

@@ -5,6 +5,8 @@ import com.rar.repository.RewardsRepository;
 import com.rar.repository.UserRepository;
 import com.rar.service.RewardsService;
 import com.rar.utils.CheckValidity;
+import com.rar.utils.EmailNewReward;
+import com.sun.xml.messaging.saaj.packaging.mime.MessagingException;
 import com.rar.utils.SendEmail;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -14,7 +16,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.mail.MessagingException;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
@@ -64,7 +65,7 @@ public class RewardsController {
     @ApiOperation(value = "Update award status by id")
     @PutMapping("/updateAwardStatus/{id}")
     public ResponseEntity<Rewards> updateAwardStatus(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Award status Id to update award status", required = true)@PathVariable Long id,
-                                     @ApiParam(value = "Reward object ", required = true) @Valid @RequestBody Rewards createReward) throws IOException, MessagingException {
+                                     @ApiParam(value = "Reward object ", required = true) @Valid @RequestBody Rewards createReward) throws IOException, MessagingException, com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException, javax.mail.MessagingException {
 
         String email=validity.check(token);
         ResponseEntity<Rewards> rewards=rewardsService.updateAwardStatus(id, createReward);
