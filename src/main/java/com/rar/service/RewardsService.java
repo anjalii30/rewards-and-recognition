@@ -2,6 +2,9 @@ package com.rar.service;
 
 import com.rar.model.Rewards;
 import org.springframework.http.ResponseEntity;
+
+import javax.mail.MessagingException;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,9 +12,8 @@ public interface RewardsService {
 
      Rewards Update(Long id, Rewards createreward);
 
-    ResponseEntity<Rewards> updateAwardStatus(Long id, Rewards createreward);
+    ResponseEntity<Rewards> updateAwardStatus(Long id, Rewards createreward) throws IOException, MessagingException;
 
-    ResponseEntity<Rewards> discontinuing(Long id, Rewards createreward);
 
     Optional<Rewards> findById(Long id);
 

@@ -1,9 +1,12 @@
 package com.rar.controller;
 
 import com.rar.model.Rewards;
+import com.rar.repository.ManagerRepository;
+import com.rar.repository.RewardsRepository;
 import com.rar.repository.UserRepository;
 import com.rar.service.RewardsService;
 import com.rar.utils.CheckValidity;
+import com.rar.utils.EmailNewReward;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -11,7 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.mail.MessagingException;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,6 +34,13 @@ public class RewardsController {
 
     @Autowired
     private CheckValidity validity;
+
+    @Autowired
+    private EmailNewReward emailNewReward;
+
+    @Autowired
+    private RewardsRepository rewardsRepository;
+
 
     /**
      * @param token jwt token
@@ -48,28 +61,32 @@ public class RewardsController {
      * @param createReward reward object
      * @return the object of reward for which the award status has been changed.
      */
+
     @ApiOperation(value = "Update award status by id")
     @PutMapping("/updateAwardStatus/{id}")
     public ResponseEntity<Rewards> updateAwardStatus(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Award status Id to update award status", required = true)@PathVariable Long id,
-                                     @ApiParam(value = "Reward object ", required = true) @Valid @RequestBody Rewards createReward){
+                                     @ApiParam(value = "Reward object ", required = true) @Valid @RequestBody Rewards createReward) throws IOException, MessagingException {
 
         String email=validity.check(token);
-        return new ResponseEntity(rewardsService.updateAwardStatus(id, createReward),HttpStatus.OK);
+        ResponseEntity<Rewards> rewards=rewardsService.updateAwardStatus(id, createReward);
+
+        return new ResponseEntity(rewards,HttpStatus.OK);
     }
 
-    /**
+
+/*    *//**
      * @param token jwt token
      * @param id reward id
      * @param createReward CreateReward object
      * @return the object of reward which is discontinued.
-     */
+     *//*
     @ApiOperation(value = "Update award status to discontinue by reward id")
     @PutMapping("/discontinuing/{id}")
     public ResponseEntity<Rewards> discontinuing(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Reward Id to update discontinuing reward object", required = true)@PathVariable Long id,
                                                                  @ApiParam(value = "Reward object ", required = true) @Valid @RequestBody Rewards createReward){
         String email=validity.check(token);
         return new ResponseEntity(rewardsService.discontinuing(id, createReward),HttpStatus.OK);
-    }
+    }*/
 
     /**
      * @param token jwt token
@@ -77,8 +94,9 @@ public class RewardsController {
      */
     @ApiOperation(value = "Get the list of rewards")
     @GetMapping("/listRewards")
-    public List<Rewards> list(@RequestHeader(value = "Authorization") String token){
+    public List<Rewards> list(@RequestHeader(value = "Authorization") String token) throws IOException, MessagingException {
         String email=validity.check(token);
+       // emailNewReward.sendEmailWithAttachment("anjali.garg@nineleaps.com","Testing from Spring Boot");
         return  rewardsService.findAll();
     }
 

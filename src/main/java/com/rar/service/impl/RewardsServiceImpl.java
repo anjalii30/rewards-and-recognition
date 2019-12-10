@@ -1,16 +1,20 @@
 package com.rar.service.impl;
 
 import com.rar.enums.FrequencyEnum;
+import com.rar.model.Manager;
 import com.rar.model.Rewards;
 import com.rar.model.RewardsCriteria;
 import com.rar.repository.*;
 import com.rar.service.RewardsService;
+import com.rar.utils.EmailNewReward;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 
+import javax.mail.MessagingException;
+import java.io.IOException;
 import java.time.LocalDate;
 
 import java.util.*;
@@ -32,6 +36,9 @@ public class RewardsServiceImpl implements RewardsService {
 
     @Autowired
     private NominationsRepository nominationsRepository;
+
+    @Autowired
+    private EmailNewReward emailNewReward;
 
     private String[] monthName = {"January", "February",
             "March", "April", "May", "June", "July",
@@ -107,16 +114,18 @@ public class RewardsServiceImpl implements RewardsService {
     }
 
     @Override
-    public ResponseEntity<Rewards> updateAwardStatus(Long id, Rewards createReward) {
+    public ResponseEntity<Rewards> updateAwardStatus(Long id, Rewards createReward) throws IOException, MessagingException {
+
 
         LocalDate today = LocalDate.now();
+
 
         Rewards CreateReward1 = rewardsRepository.findById(id).get();
         CreateReward1.setReward_name(CreateReward1.getReward_name());
         CreateReward1.setFrequency(CreateReward1.getFrequency());
         CreateReward1.setDescription(CreateReward1.getDescription());
-        CreateReward1.setDiscontinuingDate(CreateReward1.getDiscontinuingDate());
-        CreateReward1.setDiscontinuingReason(CreateReward1.getDiscontinuingReason());
+        CreateReward1.setDiscontinuingDate(createReward.getDiscontinuingDate());
+        CreateReward1.setDiscontinuingReason(createReward.getDiscontinuingReason());
         CreateReward1.setSelf_nominate(CreateReward1.isSelf_nominate());
         CreateReward1.setNominations_allowed(CreateReward1.getNominations_allowed());
         CreateReward1.setAward_status(createReward.getAward_status());
@@ -133,26 +142,39 @@ public class RewardsServiceImpl implements RewardsService {
                 CreateReward1.setEnd_date(today.plusYears(1));
 
         Rewards update = rewardsRepository.save(CreateReward1);
+
+        if(createReward.getAward_status()==1) {
+
+            String reward_name = rewardsRepository.getRewardName(id);
+            String[] emails=managerRepository.getAllEmails();
+            System.out.println(id);
+            System.out.println(reward_name);
+            for (int i = 0; i < emails.length; i++) {
+                String name=userRepository.getName(emails[i]);
+                System.out.println(emails[i]);
+                emailNewReward.sendEmailWithoutAttachment(emails[i], "New Reward rolled out",
+                        "Hello, " + name + ". A new reward " +reward_name.toUpperCase() + " has been rolled out. Go, check it out and nominate..!!");
+            }
+        }
+        else
+            if(createReward.getAward_status()==3){
+
+                String reward_name = rewardsRepository.getRewardName(id);
+                String reason=createReward.getDiscontinuingReason();
+                String[] emails=managerRepository.getAllEmails();
+                System.out.println(id);
+                System.out.println(reward_name);
+                for (int i = 0; i < emails.length; i++) {
+                    String name=userRepository.getName(emails[i]);
+                    System.out.println(emails[i]);
+                    emailNewReward.sendEmailWithoutAttachment(emails[i], "Reward discontinued",
+                            "Hello, " + name + ". " +reward_name.toUpperCase() + " has been discontinued because "+reason);
+                }
+            }
         return ResponseEntity.ok(update);
+
     }
 
-    @Override
-    public ResponseEntity<Rewards> discontinuing(Long id, Rewards createReward) {
-        Rewards CreateReward1 = rewardsRepository.findById(id).get();
-        CreateReward1.setReward_name(CreateReward1.getReward_name());
-        CreateReward1.setFrequency(CreateReward1.getFrequency());
-        CreateReward1.setDescription(CreateReward1.getDescription());
-        CreateReward1.setStart_date(CreateReward1.getStart_date());
-        CreateReward1.setEnd_date(CreateReward1.getEnd_date());
-        CreateReward1.setDiscontinuingDate(createReward.getDiscontinuingDate());
-        CreateReward1.setDiscontinuingReason(createReward.getDiscontinuingReason());
-        CreateReward1.setSelf_nominate(CreateReward1.isSelf_nominate());
-        CreateReward1.setNominations_allowed(CreateReward1.getNominations_allowed());
-        CreateReward1.setAward_status(createReward.getAward_status());
-
-        Rewards update = rewardsRepository.save(CreateReward1);
-        return ResponseEntity.ok(update);
-    }
 
     public List<Rewards> latest(String email){
 

@@ -4,12 +4,16 @@ package com.rar.controller;
 import com.rar.model.RewardsCriteria;
 import com.rar.service.RewardsCriteriaService;
 import com.rar.utils.CheckValidity;
+import com.rar.utils.EmailNewReward;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.mail.MessagingException;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 
 @CrossOrigin
@@ -19,7 +23,8 @@ public class RewardsCriteriaController {
 
     @Autowired
     private RewardsCriteriaService rewardsCriteriaService;
-
+@Autowired
+    EmailNewReward emailNewReward;
     @Autowired
     private CheckValidity validity;
 
@@ -41,7 +46,7 @@ public class RewardsCriteriaController {
      */
     @ApiOperation(value = "Get the mapping of criterion with rewards")
     @GetMapping("/listRewardsCriteria")
-    public List<RewardsCriteria> list(@RequestHeader(value = "Authorization") String token){
+    public List<RewardsCriteria> list(@RequestHeader(value = "Authorization") String token) throws IOException, MessagingException {
         String email=validity.check(token);
         return rewardsCriteriaService.findAll();
     }
