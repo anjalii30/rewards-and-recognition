@@ -74,20 +74,29 @@ public class Manager implements Serializable {
         this.manager_id = manager_id;
     }
 
-    public Set<Projects> getManager_projects() {
+/*    public Set<Projects> getManager_projects() {
         return manager_projects;
     }
 
     public void setManager_projects(Set<Projects> manager_projects) {
         this.manager_projects = manager_projects;
-    }
+    }*/
 
-    @Override
+   /* @Override
     public String toString() {
         return "Manager{" +
                 "id=" + manager_id +
 
                 ", manager_email='" + manager_email + '\'' +
+                '}';
+    }*/
+
+    @Override
+    public String toString() {
+        return "Manager{" +
+                "manager_id=" + manager_id +
+                ", manager_email='" + manager_email + '\'' +
+                ", manager_projects=" + manager_projects +
                 '}';
     }
 }

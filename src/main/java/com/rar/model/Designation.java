@@ -29,6 +29,7 @@ public class Designation implements Serializable {
             cascade = {
                     CascadeType.PERSIST,
                     CascadeType.MERGE,
+                    CascadeType.ALL
             },
             mappedBy = "designation")
     private Set<UserInfo> userInfo = new HashSet<>();

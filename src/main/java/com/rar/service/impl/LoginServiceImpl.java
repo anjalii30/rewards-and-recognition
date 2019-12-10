@@ -4,10 +4,7 @@ import com.rar.enums.DesignationEnum;
 import com.rar.enums.RoleEnum;
 import com.rar.exception.InvalidTokenException;
 import com.rar.exception.InvalidUserException;
-import com.rar.model.Designation;
-import com.rar.model.LoginUserDetails;
-import com.rar.model.Roles;
-import com.rar.model.UserInfo;
+import com.rar.model.*;
 import com.rar.repository.UserRepository;
 import com.rar.service.LoginService;
 import io.jsonwebtoken.Jwts;
@@ -91,6 +88,10 @@ public class LoginServiceImpl implements LoginService {
 
             DesignationEnum designationEnum= d.getDesignation();
 
+            boolean isManager=true;
+            if(userRepository.managerOrEmployee(email) == 0)
+                isManager= false;
+
             if (repoEmail.isPresent()) {
                 if (!userInfo1.getFirstSign()) {
                     userInfo1.setFirstSign(true);
@@ -109,7 +110,7 @@ public class LoginServiceImpl implements LoginService {
                             .signWith(SignatureAlgorithm.HS512, secret)
                             .compact();
 
-                    return new LoginUserDetails(userInfo1.getEmail()+"",userInfo1.getName()+"",userInfo1.getImageUrl()+"",""+generatedToken,roleEnum,designationEnum,userInfo1.getId());
+                    return new LoginUserDetails(userInfo1.getEmail()+"",userInfo1.getName()+"",userInfo1.getImageUrl()+"",""+generatedToken,roleEnum,designationEnum,userInfo1.getId(),isManager);
 
                 } else {
 
@@ -118,7 +119,7 @@ public class LoginServiceImpl implements LoginService {
                             .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY * 1000))
                             .signWith(SignatureAlgorithm.HS512, secret)
                             .compact();
-                    return new LoginUserDetails(userInfo1.getEmail()+"",userInfo1.getName()+"",userInfo1.getImageUrl()+"",""+generatedToken,roleEnum,designationEnum,userInfo1.getId());
+                    return new LoginUserDetails(userInfo1.getEmail()+"",userInfo1.getName()+"",userInfo1.getImageUrl()+"",""+generatedToken,roleEnum,designationEnum,userInfo1.getId(),isManager);
 
 
 
@@ -140,9 +141,18 @@ public class LoginServiceImpl implements LoginService {
         return userRepository.save(userInfo);
     }
 
+
     @Override
-    public List findAll() {
-        return  userRepository.findAllUsers();
+    public List<LoginUserDetails> findAll() {
+
+        List<UserInfo> userInfos = userRepository.getAll();
+        List<LoginUserDetails> userInfoList=new ArrayList<>();
+
+        for(int i =0;i<userInfos.size();i++){
+            userInfoList.add(i, new LoginUserDetails(userInfos.get(i).getEmail(), userInfos.get(i).getName(), userInfos.get(i).getImageUrl(), userInfos.get(i).getId()));
+        }
+        return userInfoList;
+
     }
 
     @Override

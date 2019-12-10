@@ -1,18 +1,22 @@
 package com.rar.service.impl;
 
 import com.rar.exception.InvalidUserException;
-import com.rar.model.Evidences;
-import com.rar.model.NominationPojo;
-import com.rar.model.Nominations;
-import com.rar.model.Rewards;
+import com.rar.model.*;
 import com.rar.repository.*;
 import com.rar.service.NominationsService;
+import com.rar.utils.SendEmail;
+import freemarker.template.TemplateException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.util.*;
+
+import javax.mail.MessagingException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -29,6 +33,10 @@ public class NominationsServiceImpl implements NominationsService {
 
     @Autowired
     private ManagerRepository managerRepository;
+    @Autowired
+    private SendEmail sendEmail;
+
+
     @Override
     public ResponseEntity<?> nominationSave(List<NominationPojo> nominationPojo) {
 
@@ -44,7 +52,7 @@ public class NominationsServiceImpl implements NominationsService {
                 nominations.setReason(nominationPojo.get(i).getReason());
                 nominations.setProject_name(nominationPojo.get(i).getProject_name());
                 nominations.setReward_name(nominationPojo.get(i).getReward_name());
-                nominations.setUsername(nominationPojo.get(i).getUser_name());
+                nominations.setUsername(userRepository.getNameById(nominationPojo.get(i).getUserId()));
 
                 nominationsRepository.save(nominations);
 
@@ -100,13 +108,32 @@ public class NominationsServiceImpl implements NominationsService {
     }
 
     @Override
-    public void awardeeSelect(Map<String, Long[]> nomination1_id) {
+    public void awardeeSelect(Map<String, Long[]> nomination1_id) throws IOException, MessagingException, TemplateException {
 
         Long[] nomination_id= nomination1_id.get("nomination_id");
 
-        for(int i=0;i<nomination_id.length;i++){
+        String[] emails=managerRepository.getAllEmails();
 
-            nominationsRepository.awardeeSelect(nomination_id[i]);
+        for (int i = 0; i < emails.length; i++) {
+
+            String name=userRepository.getName(emails[i]);
+
+            for (int j = 0; j < nomination_id.length; j++) {
+
+                nominationsRepository.awardeeSelect(nomination_id[j]);
+
+                String reward_name=nominationsRepository.getRewardName(nomination_id[j]);
+                String user_name=nominationsRepository.getUserName(nomination_id[j]);
+                String image =userRepository.getImage(nominationsRepository.userId(nomination_id[j]));
+
+                Map<String,Object> root = new HashMap();
+                root.put("name",name );
+                root.put("user_name", user_name);
+                root.put("reward_name",reward_name);
+                root.put("image",image);
+                sendEmail.sendEmailWithAttachment(root,emails[i], "Employee awarded for the reward");
+
+            }
         }
 
     }
