@@ -1,57 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
- img {
-	position : absolute;
-
-
-	}
-p{
-	padding : 44px 0px 57px 346px;
-text-align : left;
+.image{
+    background-image: url('https://images.unsplash.com/photo-1512418490979-92798cec1380?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9');
+    background-size: 890px 660px;
+    background-repeat : no-repeat;
 }
-
-body {
-  margin: 0;
+.body {
+  margin-top: 5px;
   font-family: Arial, Helvetica, sans-serif;
-  background-image: url('src/main/resources/gift.jpg');
-background-position: center;
-  background-repeat: no-repeat;
-
- background-size:60% 100%;
-
+  padding : 75px;
 }
-
 .header {
-  padding: 0px 0px 8px 50px;
    color: #00008B;
    text-align: center;
-margin-top:10px
+   margin-top:20px;
 }
-.background{
-margin-bottom:1px;
+.footer {
+    margin-top: 61px;
 }
-
-
+.text{
+    margin-top: -15px;
+}
 </style>
 </head>
 <body>
-<div class="header" id="myHeader">
-    <h1>REWARDS & RECOGNITION</h1>
+<div class="image">
+    <div class="header">
+        <h1>REWARDS & RECOGNITION</h1>
+    </div>
+    <div class="body" align="center">
+        <b>${reward_name}</b><br/>
+        <img src=${image}><br/>
+        <b>${user_name}</b><br/>
+    </div>
+    <div class="text" align="center">
+        Hi, <b>${name}</b><br/>
+        <b> ${user_name} </b>has been awarded for reward <b>${reward_name}</b><br/>
+    </div>
+    <div class="footer" align="center">
+        Regards,<br/>
+        Team R&R
+    </div>
 </div>
-<div class="body" align="center">
-    <b>${reward_name}</b><br>
-    <img src=${image}><br>
-    <b>${user_name}</b><br>
-    <p> Hi, <b>${name}</b><br><br>
-        <b> ${user_name} </b>has been awarded for reward <b>${reward_name}</b><br><br>
-
-        Regards,<br>
-        Team R&R</p>
-
-</div>
-
 </body>
 </html>

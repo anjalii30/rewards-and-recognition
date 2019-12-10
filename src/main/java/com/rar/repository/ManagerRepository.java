@@ -30,10 +30,9 @@ public interface ManagerRepository extends CrudRepository<Manager, Long> {
     Long[] getMembers(Long manager_id);
 
     @Modifying
-    @Transactional  
+    @Transactional
     @Query(value="insert into manager_projects values (:manager_id, :project_id)",nativeQuery = true)
     void assignValues(Long manager_id, Long project_id);
-
 
     @Query(value="select manager_email from managers",nativeQuery = true)
     String[] getAllEmails();
