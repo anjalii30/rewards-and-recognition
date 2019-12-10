@@ -93,6 +93,26 @@ public interface UserRepository extends CrudRepository< UserInfo,Long> {
 
     @Query(value = "select count(manager_id) from managers where manager_email=?1", nativeQuery = true)
     int isManager(String email);
+
+    @Modifying
+    @Transactional
+    @Query(value="update user_designation set designation_id= ?2 where user_id=?1",nativeQuery = true)
+    void updateDesignation(Long user_id,Long designation_id);
+
+    @Modifying
+    @Transactional
+    @Query(value="delete from manager_projects where manager_id=?1",nativeQuery = true)
+    void deleteManagerProjects(Long manager_id);
+
+    @Modifying
+    @Transactional
+    @Query(value="delete from user_projects where user_id=?1",nativeQuery = true)
+    void deleteUserProjects(Long user_id);
+
+    @Modifying
+    @Transactional
+    @Query(value="delete from user_manager where user_id=?1",nativeQuery = true)
+    void deleteUserManagers(Long user_id);
 }
 
 

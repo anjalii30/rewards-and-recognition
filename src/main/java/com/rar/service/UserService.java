@@ -18,5 +18,5 @@ public interface UserService {
 
     public EditUserDetails listById(long id);
 
-
+    EditUserDetails update(long id, EditUserDetails editUserDetails);
 }

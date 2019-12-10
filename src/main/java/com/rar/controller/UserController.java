@@ -53,4 +53,16 @@ public class UserController {
         String email=validity.check(token);
         return userService.listById(id);
     }
+
+    /**
+     * @param token jwt token
+     * @param id user id
+     * @param editUserDetails user object
+     * @return object of reward after updating.
+     */
+    @ApiOperation(value = "Update the reward by id")
+    @PutMapping("/updateUser/{id}")
+    public EditUserDetails update(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "User Id to update user details", required = true)@PathVariable Long id, @ApiParam(value = "User object ", required = true) @Valid @RequestBody EditUserDetails editUserDetails){
+        return userService.update(id, editUserDetails);
+    }
 }
