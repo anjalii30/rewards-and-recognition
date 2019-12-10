@@ -3,6 +3,7 @@ package com.rar.controller;
 import com.rar.model.CreateProjectPojo;
 import com.rar.model.Projects;
 import com.rar.model.UserProjectsPojo;
+import com.rar.repository.ManagerRepository;
 import com.rar.service.ProjectService;
 import com.rar.utils.CheckValidity;
 import io.swagger.annotations.Api;
@@ -23,6 +24,9 @@ public class ProjectController {
 
     @Autowired
     private ProjectService projectService;
+
+    @Autowired
+    private ManagerRepository managerRepository;
 
     /**
      * @param token jwt token
@@ -45,6 +49,14 @@ public class ProjectController {
     public List<Projects> projects(@RequestHeader(value = "Authorization") String token){
         String email=validity.check(token);
         return  projectService.findAllData();
+    }
+
+    @ApiOperation(value = "Get the list of projects that are assigned to this manager")
+    @GetMapping(value = "/myProjects")
+    public List<Projects> projectsOfManager(@RequestHeader(value = "Authorization") String token){
+        String email=validity.check(token);
+        Long manager_id=managerRepository.findByEmail(email);
+        return  projectService.findProjects(manager_id);
     }
 
     /**

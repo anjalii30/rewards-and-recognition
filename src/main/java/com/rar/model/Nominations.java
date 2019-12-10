@@ -49,6 +49,13 @@ public class Nominations implements Serializable {
     @Column(name="hr_selected")
     private boolean hr_selected=false;
 
+    @ApiModelProperty(notes = "The ID of a particular project")
+    @Column(name = "project_id")
+    private Long projectId;
+
+    @ApiModelProperty(notes = "The ID of a the manager")
+    @Column(name = "manager_id")
+    private Long managerId;
 
     @OneToMany(mappedBy = "nominations", cascade = CascadeType.ALL)
     private List<Evidences> evidencesList;
@@ -70,6 +77,21 @@ public class Nominations implements Serializable {
         this.userID = userID;
         this.selected = selected;
         this.hr_selected = hr_selected;
+        this.evidencesList = evidencesList;
+    }
+
+    public Nominations(Long nominationID, String project_name, Long rewardID, String reward_name, String reason, Long userID, String username, boolean selected, boolean hr_selected, Long projectId, Long managerId, List<Evidences> evidencesList) {
+        this.nominationID = nominationID;
+        this.project_name = project_name;
+        this.rewardID = rewardID;
+        this.reward_name = reward_name;
+        this.reason = reason;
+        this.userID = userID;
+        this.username = username;
+        this.selected = selected;
+        this.hr_selected = hr_selected;
+        this.projectId = projectId;
+        this.managerId = managerId;
         this.evidencesList = evidencesList;
     }
 
@@ -153,7 +175,25 @@ public class Nominations implements Serializable {
         this.username = username;
     }
 
+    public void setRewardID(Long rewardID) {
+        this.rewardID = rewardID;
+    }
 
+    public Long getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(Long projectId) {
+        this.projectId = projectId;
+    }
+
+    public Long getManagerId() {
+        return managerId;
+    }
+
+    public void setManagerId(Long managerId) {
+        this.managerId = managerId;
+    }
 }
 
 

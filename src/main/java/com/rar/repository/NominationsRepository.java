@@ -66,4 +66,7 @@ public interface NominationsRepository extends CrudRepository<Nominations, Strin
 
     @Query(value="select user_id from nominations where nomination_id=?1",nativeQuery = true)
     Long userId(Long nomination_id);
+
+    @Query(value="select count(nomination_id) from nominations where project_id=?1 and manager_id=?2 and reward_id=?3",nativeQuery = true)
+    Long checkIfExists(Long project_id, Long manager_id, Long reward_id);
 }

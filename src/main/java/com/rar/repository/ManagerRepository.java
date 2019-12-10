@@ -38,4 +38,12 @@ public interface ManagerRepository extends CrudRepository<Manager, Long> {
     @Query(value="select manager_email from managers",nativeQuery = true)
     String[] getAllEmails();
 
+    @Query(value="select manager_id from managers",nativeQuery = true)
+    Long[] getAllIds();
+
+    @Query(value="select project_id from manager_projects where manager_id=?1",nativeQuery = true)
+    Long[] getProjectsOfManager(Long manager_id);
+
+@Query(value="select manager_email from managers where manager_id=?1",nativeQuery = true)
+    String getEmail(Long manager);
 }

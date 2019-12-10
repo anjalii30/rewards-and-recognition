@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -47,6 +49,12 @@ public interface RewardsRepository extends CrudRepository<Rewards, Long> {
     @Query(value="select * from rewards order by reward_id desc",nativeQuery = true)
     List<Rewards> getAll();
 
-    @Query(value="select reward_name from rewards where reward_id=?1",nativeQuery = true)
+    @Query(value="select reward_name from rewards where  reward_id=?1",nativeQuery = true)
     String getRewardName(Long reward_id);
+
+    @Query(value="select reward_id from rewards where award_status=1 and self_nominate=false",nativeQuery = true)
+    Long[] getAllIds();
+
+    @Query(value="select end_date from rewards where reward_id=?1",nativeQuery = true)
+    LocalDate getEndDate(Long reward_id);
 }

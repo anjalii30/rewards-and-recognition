@@ -32,13 +32,16 @@ public class NominationsServiceImpl implements NominationsService {
     private UserRepository userRepository;
 
     @Autowired
+    private ProjectRepository projectRepository;
+
+    @Autowired
     private ManagerRepository managerRepository;
     @Autowired
     private SendEmail sendEmail;
 
 
     @Override
-    public ResponseEntity<?> nominationSave(List<NominationPojo> nominationPojo) {
+    public ResponseEntity<?> nominationSave(List<NominationPojo> nominationPojo, Long manager_id) {
 
         List<HashMap<String, Object>> s = new ArrayList<>();
         for(int i=0;i<nominationPojo.size();i++) {
@@ -50,10 +53,17 @@ public class NominationsServiceImpl implements NominationsService {
                 nominations.setSelected(nominationPojo.get(i).isSelected());
                 nominations.setHr_selected(nominationPojo.get(i).isHr_selected());
                 nominations.setReason(nominationPojo.get(i).getReason());
-                nominations.setProject_name(nominationPojo.get(i).getProject_name());
+                nominations.setProject_name(projectRepository.getProjectName(nominationPojo.get(i).getProjectId()));
                 nominations.setReward_name(nominationPojo.get(i).getReward_name());
                 nominations.setUsername(userRepository.getNameById(nominationPojo.get(i).getUserId()));
+                nominations.setManagerId(manager_id);
+//                nominations.setProjectId(nominationPojo.get(i).getProjectId());
+                nominations.setProjectId(nominationPojo.get(i).getProjectId());
 
+
+                System.out.println("rewards"+nominationPojo.get(i).getRewardId());
+                System.out.println("userid"+nominationPojo.get(i).getUserId());
+                System.out.println("check"+nominationPojo.get(i).getProjectId());
                 nominationsRepository.save(nominations);
 
             long nominationID = nominations.getNominationID();

@@ -40,6 +40,8 @@ public class SendEmail  {
         }
     }
 
+
+
     public ResponseEntity sendEmailWithAttachment(Map root, String emails, String subject) throws MessagingException, IOException, TemplateException {
 
         MimeMessage msg = javaMailSender.createMimeMessage();

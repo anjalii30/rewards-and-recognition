@@ -24,4 +24,6 @@ public interface ProjectService {
     List<Projects> findAllData();
 
     Object[] unAssigned();
+
+    List<Projects> findProjects(Long manager_id);
 }

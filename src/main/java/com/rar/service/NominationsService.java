@@ -13,7 +13,7 @@ import java.util.Map;
 
 public interface NominationsService {
 
-    ResponseEntity<?> nominationSave(List<NominationPojo> nominationPojo);
+    ResponseEntity<?> nominationSave(List<NominationPojo> nominationPojo, Long manager_id);
 
 /*
     ResponseEntity<?> GetData(Long rewardID) throws Exception;

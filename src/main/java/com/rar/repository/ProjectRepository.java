@@ -20,6 +20,9 @@ public interface ProjectRepository  extends CrudRepository<Projects,Long> {
     @Query(value="select project_id from projects where project_name=?1", nativeQuery = true)
     Long getIdByName(String project_name);
 
+    @Query(value="select project_name from projects where project_id=?1",nativeQuery = true)
+    String getProjectName(Long project_id);
+
     @Modifying
     @Transactional
     @Query(value="delete from user_projects where user_id=?1 and project_id=?2",nativeQuery = true)
@@ -42,4 +45,7 @@ public interface ProjectRepository  extends CrudRepository<Projects,Long> {
     @Transactional
     @Query(value="insert into projects (project_name) values(:project_name)",nativeQuery = true)
     void saveProject(String project_name);
+
+    @Query(value="select * from projects where project_id in(select project_id from manager_projects where manager_id=?1)",nativeQuery = true)
+    List<Projects> findProject(Long manager_id);
 }

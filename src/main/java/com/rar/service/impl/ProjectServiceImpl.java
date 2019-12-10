@@ -142,4 +142,9 @@ public class ProjectServiceImpl implements ProjectService {
         return projectRepository.unAssignedUsers();
     }
 
+    @Override
+    public List<Projects> findProjects(Long manager_id) {
+        return projectRepository.findProject(manager_id);
+    }
+
 }
