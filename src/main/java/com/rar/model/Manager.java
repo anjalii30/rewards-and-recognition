@@ -33,7 +33,8 @@ public class Manager implements Serializable {
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
                     CascadeType.PERSIST,
-                    CascadeType.MERGE
+                    CascadeType.MERGE,
+                    CascadeType.ALL
             })
     @JoinTable(
             name="manager_projects",

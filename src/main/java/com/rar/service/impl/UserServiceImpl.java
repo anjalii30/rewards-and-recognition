@@ -173,23 +173,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public EditUserDetails update(long id, EditUserDetails editUserDetails) {
 
-        for (int i = 0; i < editUserDetails.getDesignationSelected().size(); i++)
-            userRepository.updateDesignation(id, editUserDetails.getDesignationSelected().get(i).getDid());
+        for (int i = 0; i < editUserDetails.getDesignationSelected().size(); i++){
+            userRepository.updateDesignation(id, editUserDetails.getDesignationSelected().get(i).getDid());}
         userRepository.deleteUserProjects(id);
         userRepository.deleteUserManagers(id);
         long mid=0;
-        if(userRepository.isManager(editUserDetails.getEmail())>0)
-            mid = userRepository.findManagerId(editUserDetails.getEmail());
+        if(userRepository.isManager(editUserDetails.getEmail())>0){
+            mid = userRepository.findManagerId(editUserDetails.getEmail());}
 
         userRepository.deleteManagerProjects(mid);
 
-        int count=0;
+
         for(int j=0; j < editUserDetails.getProjectsList().size(); j++){
             if(editUserDetails.getProjectsList().get(j).getManaging()){
-                if (count==0){
-                    userRepository.insertManager(editUserDetails.getEmail());
-                    count++;
-                }
+
                  mid = userRepository.findManagerId(editUserDetails.getEmail());
                 userRepository.insertManagerProjects(mid, editUserDetails.getProjectsList().get(j).getProject_id());
             }
