@@ -7,6 +7,7 @@ import com.rar.repository.ManagerRepository;
 import com.rar.repository.UserRepository;
 import com.rar.service.NominationsService;
 import com.rar.utils.CheckValidity;
+import freemarker.template.TemplateException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -15,7 +16,10 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.mail.MessagingException;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -120,7 +124,7 @@ public class NominationController {
      */
    @ApiOperation(value = "awardee selected by admin")
    @PostMapping("/awardee")
-   public void awardeeSelect(@RequestHeader(value = "Authorization") String token , @ApiParam(value = "update Nomination object by id", required = true) @RequestBody Map<String, Long[]> n) {
+   public void awardeeSelect(@RequestHeader(value = "Authorization") String token , @ApiParam(value = "update Nomination object by id", required = true) @RequestBody Map<String, Long[]> n) throws IOException, MessagingException, TemplateException {
        String email=validity.check(token);
        nominationsService.awardeeSelect(n);
    }

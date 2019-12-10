@@ -4,7 +4,7 @@ package com.rar.controller;
 import com.rar.model.RewardsCriteria;
 import com.rar.service.RewardsCriteriaService;
 import com.rar.utils.CheckValidity;
-import com.rar.utils.EmailNewReward;
+import com.rar.utils.SendEmail;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -24,7 +24,7 @@ public class RewardsCriteriaController {
     @Autowired
     private RewardsCriteriaService rewardsCriteriaService;
 @Autowired
-    EmailNewReward emailNewReward;
+SendEmail sendEmail;
     @Autowired
     private CheckValidity validity;
 

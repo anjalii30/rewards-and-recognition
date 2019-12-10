@@ -32,6 +32,7 @@ public interface UserRepository extends CrudRepository< UserInfo,Long> {
     @Query(value="select * from users",nativeQuery = true)
     List findAllUsers();
 
+
     @Modifying
     @Transactional
     @Query(value="insert into users (email,name) values (:email, :name)",nativeQuery = true)
@@ -59,6 +60,11 @@ public interface UserRepository extends CrudRepository< UserInfo,Long> {
 
     @Query(value="select manager_id from managers where manager_email=?1",nativeQuery = true)
     Long findManagerId(String email);
+    @Query(value="select name from users where user_id=?1",nativeQuery = true)
+    String getNameById(Long user_id);
+
+    @Query(value="select image_url from users where user_id=?1",nativeQuery = true)
+    String getImage(Long user_id);
 
     @Modifying
     @Transactional
