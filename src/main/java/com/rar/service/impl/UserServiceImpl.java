@@ -2,6 +2,7 @@ package com.rar.service.impl;
 
 import com.rar.model.*;
 import com.rar.repository.DesignationRepository;
+import com.rar.repository.ProjectRepository;
 import com.rar.repository.UserRepository;
 import com.rar.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private DesignationRepository designationRepository;
 
+    @Autowired
+    private ProjectRepository projectRepository;
+
     @Override
     public UserInfo save(UserInfo userInfo) {
         return userRepository.save(userInfo);
@@ -29,7 +33,7 @@ public class UserServiceImpl implements UserService {
 
     public ResponseEntity userSave(UserInfo userInfo) {
 
-       userRepository.insertUser(userInfo.getEmail(),userInfo.getName());
+        userRepository.insertUser(userInfo.getEmail(),userInfo.getName());
 
 
 
@@ -41,7 +45,24 @@ public class UserServiceImpl implements UserService {
             userRepository.insertUserDesignation(id, designation.getDid());
         }
         int count=0;
-        for(int i=0;i<userInfo.getProjectDetailsUsers().size();i++)
+        for(Iterator<Projects> projectsIterator = userInfo.getProjects().iterator();projectsIterator.hasNext();){
+            Projects projects = projectsIterator.next();
+            if(projects.getManaging()){
+                if (count==0){
+                    userRepository.insertManager(userInfo.getEmail());
+                    count++;
+                }
+                long mid = userRepository.findManagerId(userInfo.getEmail());
+                userRepository.insertManagerProjects(mid, projects.getProject_id());
+            }
+            if(!projects.getManaging() && projects.getWorking()){
+                userRepository.insertUserProjects(id,projects.getProject_id());
+                userRepository.insertUserManager(id, userRepository.getManagerIdFromProjectId(projects.getProject_id()));
+            }
+        }
+
+
+         /*  for(int i=0;i<userInfo.getProjectDetailsUsers().size();i++)
         {
             if(userInfo.getProjectDetailsUsers().get(i).getManaging()){
                 if (count==0){
@@ -56,23 +77,6 @@ public class UserServiceImpl implements UserService {
                 userRepository.insertUserManager(id, userRepository.getManagerIdFromProjectId(userInfo.getProjectDetailsUsers().get(i).getProject_id()));
             }
 
-        }
-
-
-  /*      for(Iterator<Projects> projectsIterator = userInfo.getProjects().iterator();projectsIterator.hasNext();){
-            Projects projects = projectsIterator.next();
-            if(projects.getManaging()){
-                if (count==0){
-                    userRepository.insertManager(userInfo.getEmail());
-                    count++;
-                }
-                long mid = userRepository.findManagerId(userInfo.getEmail());
-                userRepository.insertManagerProjects(mid, projects.getProject_id());
-            }
-            if(!projects.getManaging() && projects.getWorking()){
-                userRepository.insertUserProjects(id,projects.getProject_id());
-                userRepository.insertUserManager(id, userRepository.getManagerIdFromProjectId(projects.getProject_id()));
-            }
         }*/
 
 //        int count=0;
@@ -114,7 +118,7 @@ public class UserServiceImpl implements UserService {
     }
 
 
-   /* @Override
+    @Override
     public EditUserDetails listById(long id) {
         Optional<UserInfo> userInfo= userRepository.findById(id);
 
@@ -133,6 +137,39 @@ public class UserServiceImpl implements UserService {
             }
         }
 
-      *//*  List<Projects> projects =*//*
-    }*/
+        List<Projects> projects = projectRepository.findAllData();
+
+        List<Projects> projectsList = new ArrayList<>();
+
+        boolean managing, working;long mid=0;
+        for(int i =0;i<projects.size();i++){
+           projectRepository.userProjectPresent(id, projects.get(i).getProject_id());
+
+           if(userRepository.isManager(userInfo.get().getEmail())>0)
+               mid = userRepository.findManagerId(userInfo.get().getEmail());
+
+            if(projectRepository.userProjectPresent(id, projects.get(i).getProject_id())>0){
+                working= true;
+                if(projectRepository.managerProjectPresent(mid, projects.get(i).getProject_id())>0)
+                    managing=true;
+                else
+                    managing=false;
+            }
+            else{
+                if(projectRepository.managerProjectPresent(mid, projects.get(i).getProject_id())>0){
+                    managing=true;
+                    working=true;}
+                else{
+                    managing=false;
+                    working=false;
+                }
+            }
+            projectsList.add(i, new Projects(projects.get(i).getProject_id(),projects.get(i).getProject_name(),working,managing));
+        }
+
+        return new EditUserDetails(id,userInfo.get().getEmail(),userInfo.get().getName(),designationSelected,projectsList);
+    }
+
+
+
 }

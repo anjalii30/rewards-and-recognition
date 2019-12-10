@@ -21,8 +21,7 @@ public class Projects {
     @ApiModelProperty(notes = "The name of the Project")
     private String project_name;
 
- /*   private Boolean working; private Boolean managing;
-    */
+    private Boolean working; private Boolean managing;
 
     @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY,
@@ -70,8 +69,11 @@ public class Projects {
     }
 
 
-/*    public Boolean getManaging() {
-        return managing;
+    public Projects(Long project_id, String project_name, Boolean working, Boolean managing) {
+        this.project_id = project_id;
+        this.project_name = project_name;
+        this.working = working;
+        this.managing = managing;
     }
 
     public void setManaging(Boolean managing) {
@@ -82,9 +84,9 @@ public class Projects {
         return working;
     }
 
-    public void setWorking(Boolean working) {
-        this.working = working;
-    }*/
+    public Boolean getManaging() {
+        return managing;
+    }
 
     @Override
     public String toString() {
@@ -92,5 +94,9 @@ public class Projects {
                 "project_id=" + project_id +
                 ", project_name='" + project_name + '\'' +
                 '}';
+    }
+
+    public void setWorking(Boolean working) {
+        this.working = working;
     }
 }

@@ -91,6 +91,8 @@ public interface UserRepository extends CrudRepository< UserInfo,Long> {
     @Query(value="select designation_id from user_designation where user_id=?1",nativeQuery = true)
     long findDesignationId(long user_id);
 
+    @Query(value = "select count(manager_id) from managers where manager_email=?1", nativeQuery = true)
+    int isManager(String email);
 }
 
 

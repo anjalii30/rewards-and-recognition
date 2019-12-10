@@ -9,7 +9,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -201,15 +200,5 @@ public class UserInfo implements Serializable {
                 ", roles=" + roles +
                 ", projects=" + projects +
                 '}';
-    }
-
-    private List<ProjectDetailsUsers> projectDetailsUsers;
-
-    public List<ProjectDetailsUsers> getProjectDetailsUsers() {
-        return projectDetailsUsers;
-    }
-
-    public void setProjectDetailsUsers(List<ProjectDetailsUsers> projectDetailsUsers) {
-        this.projectDetailsUsers = projectDetailsUsers;
     }
 }

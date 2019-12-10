@@ -1,6 +1,7 @@
 package com.rar.controller;
 
 
+import com.rar.model.EditUserDetails;
 import com.rar.model.UserInfo;
 import com.rar.repository.UserRepository;
 import com.rar.service.UserService;
@@ -45,11 +46,11 @@ public class UserController {
      * @param id
      * @return object of user based on id.
      */
-/*    @ApiOperation(value = "Get the user details for editing by user id")
+    @ApiOperation(value = "Get the user details for editing by user id")
     @GetMapping("/listUser/{id}")
     public EditUserDetails listById(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "User Id to get user object", required = true)@PathVariable Long id){
 
         String email=validity.check(token);
         return userService.listById(id);
-    }*/
+    }
 }
