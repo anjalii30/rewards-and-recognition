@@ -1,12 +1,11 @@
 package com.rar.controller;
 
 import com.rar.model.Rewards;
-import com.rar.repository.ManagerRepository;
 import com.rar.repository.RewardsRepository;
 import com.rar.repository.UserRepository;
 import com.rar.service.RewardsService;
 import com.rar.utils.CheckValidity;
-import com.rar.utils.EmailNewReward;
+import com.rar.utils.SendEmail;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -36,7 +35,7 @@ public class RewardsController {
     private CheckValidity validity;
 
     @Autowired
-    private EmailNewReward emailNewReward;
+    private SendEmail sendEmail;
 
     @Autowired
     private RewardsRepository rewardsRepository;
@@ -96,7 +95,7 @@ public class RewardsController {
     @GetMapping("/listRewards")
     public List<Rewards> list(@RequestHeader(value = "Authorization") String token) throws IOException, MessagingException {
         String email=validity.check(token);
-       // emailNewReward.sendEmailWithAttachment("anjali.garg@nineleaps.com","Testing from Spring Boot");
+       // sendEmail.sendEmailWithAttachment("anjali.garg@nineleaps.com","Testing from Spring Boot");
         return  rewardsService.findAll();
     }
 

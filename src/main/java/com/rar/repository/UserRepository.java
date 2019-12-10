@@ -29,6 +29,11 @@ public interface UserRepository extends CrudRepository< UserInfo,Long> {
     @Query(value="select * from users",nativeQuery = true)
     List findAllUsers();
 
+    @Query(value="select name from users where user_id=?1",nativeQuery = true)
+    String getNameById(Long user_id);
+
+    @Query(value="select image_url from users where user_id=?1",nativeQuery = true)
+    String getImage(Long user_id);
 
 
 }

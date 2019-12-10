@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<style>
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.top-container {
+  background-color: #f1f1f1;
+  padding: 30px;
+  text-align: center;
+}
+
+.header {
+  padding: 10px 16px;
+ background-color: #282c34;
+   color: white;
+   text-align: center;
+}
+
+.content {
+  padding: 16px;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.sticky + .content {
+  padding-top: 102px;
+}
+
+.footer {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   background-color: #282c34;
+   color: white;
+   text-align: center;
+}
+ a{
+     text-decoration:none;
+        }
+ 
+</style>
+</head>
+<body>
+
+
+<div class="header" id="myHeader">
+  <h2>REWARDS & RECOGNITION</h2>
+</div>
+
+<div class="content">
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td align="center" valign="top" bgcolor="#d3be6c"
+style="background-color: #ffffff; font-family: Arial, Helvetica, sans-serif; font-size: 13px; color: #000000; padding: 0px 15px 10px 15px;">
+
+<div style="font-size: 24px; color: #555100;">
+ </div>
+    <div style="font-size:17px"></div>
+
+<img src=${image}>
+
+    <p> Hi, <b>${name}</b><br>
+      <b> ${user_name} </b>have been awarded for reward <b>${reward_name}</b>"</p>
+
+</td>
+</tr>
+  </table>
+</div>
+<div class="footer">
+  <p><img class="img-responsive" src="src/main/resources/nineleaps.png" width="212" height="36" alt="NINELEAPS,BANGALORE" style="color:white,font-size:28px"><br/><a href="https://www.nineleaps.com/privacy-policy">
+            <font color="#2980B9">Privacy Policy</font>
+          </a>&copy;2019</p>
+</div>
+
+</body>
+</html>
+
+

@@ -1,12 +1,11 @@
 package com.rar.service.impl;
 
 import com.rar.enums.FrequencyEnum;
-import com.rar.model.Manager;
 import com.rar.model.Rewards;
 import com.rar.model.RewardsCriteria;
 import com.rar.repository.*;
 import com.rar.service.RewardsService;
-import com.rar.utils.EmailNewReward;
+import com.rar.utils.SendEmail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,7 +37,7 @@ public class RewardsServiceImpl implements RewardsService {
     private NominationsRepository nominationsRepository;
 
     @Autowired
-    private EmailNewReward emailNewReward;
+    private SendEmail sendEmail;
 
     private String[] monthName = {"January", "February",
             "March", "April", "May", "June", "July",
@@ -116,9 +115,7 @@ public class RewardsServiceImpl implements RewardsService {
     @Override
     public ResponseEntity<Rewards> updateAwardStatus(Long id, Rewards createReward) throws IOException, MessagingException {
 
-
         LocalDate today = LocalDate.now();
-
 
         Rewards CreateReward1 = rewardsRepository.findById(id).get();
         CreateReward1.setReward_name(CreateReward1.getReward_name());
@@ -152,7 +149,7 @@ public class RewardsServiceImpl implements RewardsService {
             for (int i = 0; i < emails.length; i++) {
                 String name=userRepository.getName(emails[i]);
                 System.out.println(emails[i]);
-                emailNewReward.sendEmailWithoutAttachment(emails[i], "New Reward rolled out",
+                sendEmail.sendEmailWithoutAttachment(emails[i], "New Reward rolled out",
                         "Hello, " + name + ". A new reward " +reward_name.toUpperCase() + " has been rolled out. Go, check it out and nominate..!!");
             }
         }
@@ -167,7 +164,7 @@ public class RewardsServiceImpl implements RewardsService {
                 for (int i = 0; i < emails.length; i++) {
                     String name=userRepository.getName(emails[i]);
                     System.out.println(emails[i]);
-                    emailNewReward.sendEmailWithoutAttachment(emails[i], "Reward discontinued",
+                    sendEmail.sendEmailWithoutAttachment(emails[i], "Reward discontinued",
                             "Hello, " + name + ". " +reward_name.toUpperCase() + " has been discontinued because "+reason);
                 }
             }

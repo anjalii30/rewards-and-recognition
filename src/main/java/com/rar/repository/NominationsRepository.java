@@ -1,6 +1,7 @@
 package com.rar.repository;
 
 import com.rar.model.Nominations;
+import com.rar.model.UserInfo;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -53,4 +54,16 @@ public interface NominationsRepository extends CrudRepository<Nominations, Strin
 
     @Query(value="select * from nominations where user_id=?1",nativeQuery = true)
     List<Nominations> exist(Long user_id);
+
+    @Query(value="select * from users where user_id in(select user_id from nominations where nomination_id=?1)",nativeQuery = true)
+    UserInfo getUserDetails(Long nomination_id);
+
+    @Query(value="select reward_name from rewards where reward_id in(select reward_id from nominations where nomination_id=?1)",nativeQuery = true)
+    String getRewardName(Long nomination_id);
+
+    @Query(value="select name from users where user_id in(select user_id from nominations where nomination_id=?1)",nativeQuery = true)
+    String getUserName(Long nomination_id);
+
+    @Query(value="select user_id from nominations where nomination_id=?1",nativeQuery = true)
+    Long userId(Long nomination_id);
 }
