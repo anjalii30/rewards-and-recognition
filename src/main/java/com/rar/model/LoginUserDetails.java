@@ -107,4 +107,11 @@ public class LoginUserDetails implements Serializable {
     public void setManager(Boolean manager) {
         isManager = manager;
     }
+
+    public LoginUserDetails(String email, String name, String imageUrl, Long uid) {
+        this.email = email;
+        this.name = name;
+        this.imageUrl = imageUrl;
+        this.uid = uid;
+    }
 }

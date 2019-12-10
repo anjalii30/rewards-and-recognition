@@ -1,5 +1,6 @@
 package com.rar.controller;
 
+import com.rar.model.LoginUserDetails;
 import com.rar.model.UserInfo;
 import com.rar.service.LoginService;
 import com.rar.utils.CheckValidity;
@@ -56,7 +57,7 @@ public class LoginController {
      */
     @ApiOperation(value = "Get the list of users")
     @GetMapping(value = "/listUsers", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<UserInfo> listUser(@RequestHeader(value = "Authorization") String token){
+    public List<LoginUserDetails> listUser(@RequestHeader(value = "Authorization") String token){
         String email=validity.check(token);
         return loginService.findAll();
     }

@@ -1,5 +1,6 @@
 package com.rar.service;
 
+import com.rar.model.LoginUserDetails;
 import com.rar.model.UserInfo;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public interface LoginService {
 
     UserInfo saveLogin(UserInfo userInfo);
 
-    List<UserInfo> findAll();
+    List<LoginUserDetails> findAll();
 
     void deleteById(Long id);
 

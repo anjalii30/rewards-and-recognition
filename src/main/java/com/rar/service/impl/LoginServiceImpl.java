@@ -143,9 +143,16 @@ public class LoginServiceImpl implements LoginService {
 
 
     @Override
-    public List<UserInfo> findAll() {
+    public List<LoginUserDetails> findAll() {
 
-        return userRepository.getAll();
+        List<UserInfo> userInfos = userRepository.getAll();
+        List<LoginUserDetails> userInfoList=new ArrayList<>();
+
+        for(int i =0;i<userInfos.size();i++){
+            userInfoList.add(i, new LoginUserDetails(userInfos.get(i).getEmail(), userInfos.get(i).getName(), userInfos.get(i).getImageUrl(), userInfos.get(i).getId()));
+        }
+        return userInfoList;
+
     }
 
     @Override
