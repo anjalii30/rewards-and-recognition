@@ -163,7 +163,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public Long getIdByName(String user_email) throws Exception {
+    public Long getIdByName(String user_email) {
         return userRepository.getIdByEmail(user_email);
     }
 
