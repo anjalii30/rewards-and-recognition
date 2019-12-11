@@ -88,6 +88,9 @@ public interface UserRepository extends CrudRepository< UserInfo,Long> {
     @Query(value="select * from users",nativeQuery = true)
     List<UserInfo> getAll();
 
+    @Query(value="select email from users where user_id in(select user_id from user_roles where role_id=1)",nativeQuery = true)
+    String[] getAllEmails();
+
 }
 
 

@@ -5,7 +5,6 @@ import com.rar.repository.RewardsRepository;
 import com.rar.repository.UserRepository;
 import com.rar.service.RewardsService;
 import com.rar.utils.CheckValidity;
-import com.rar.utils.EmailNewReward;
 import com.sun.xml.messaging.saaj.packaging.mime.MessagingException;
 import com.rar.utils.SendEmail;
 import io.swagger.annotations.Api;

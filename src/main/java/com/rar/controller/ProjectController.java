@@ -10,6 +10,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
@@ -98,9 +100,11 @@ public class ProjectController {
      */
     @ApiOperation(value = "Assign project to users")
     @PostMapping("/assignProjects")
-    public void assignProjects(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Project name and employee emails ", required = true) @Valid @RequestBody UserProjectsPojo userProjectsPojo) throws Exception {
+    public ResponseEntity assignProjects(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Project name and employee emails ", required = true) @Valid @RequestBody UserProjectsPojo userProjectsPojo) throws Exception {
         String email=validity.check(token);
         projectService.assign(userProjectsPojo);
+        Long project_id = projectService.getIdByProject(userProjectsPojo.getProject_name());
+        return new ResponseEntity(projectService.findById(project_id), HttpStatus.OK);
     }
 
     @PostMapping("/createProject")

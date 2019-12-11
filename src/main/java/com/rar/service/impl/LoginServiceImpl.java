@@ -34,7 +34,7 @@ public class LoginServiceImpl implements LoginService {
     @Value("${jwt.secret}")
     private String secret;
 
-    private static final long JWT_TOKEN_VALIDITY = (long )5 * 60 * 60;
+    private static final long JWT_TOKEN_VALIDITY = (long )7* 24 * 60 * 60;
 
 
     public LoginUserDetails login(String token) throws Exception {

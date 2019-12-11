@@ -3,13 +3,15 @@ package com.rar.service;
 import com.rar.model.CreateProjectPojo;
 import com.rar.model.Projects;
 import com.rar.model.UserProjectsPojo;
+import org.springframework.http.ResponseEntity;
+
 import java.util.List;
 
 public interface ProjectService {
 
     Projects projectSave(Projects projects);
 
-    void assign(UserProjectsPojo userProjectsPojo) throws Exception;
+    ResponseEntity assign(UserProjectsPojo userProjectsPojo) throws Exception;
 
     void createProject(CreateProjectPojo createProjectPojo);
 
