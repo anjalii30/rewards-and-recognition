@@ -22,6 +22,10 @@ public class NominationPojo {
     private boolean hr_selected=false;
     @ApiModelProperty(notes = "The reason for nomination")
     private String reason;
+    @ApiModelProperty(notes = "The ID of a particular project")
+    private Long projectId;
+    @ApiModelProperty(notes = "The ID of a the manager")
+    private Long managerId;
     @ApiModelProperty(notes = "The list of evidences for a particular nomination")
     private List<EvidencesPojo> evidencesPojoList;
 
@@ -95,5 +99,21 @@ public class NominationPojo {
 
     public void setUser_name(String user_name) {
         this.user_name = user_name;
+    }
+
+    public Long getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(Long projectId) {
+        this.projectId = projectId;
+    }
+
+    public Long getManagerId() {
+        return managerId;
+    }
+
+    public void setManagerId(Long managerId) {
+        this.managerId = managerId;
     }
 }

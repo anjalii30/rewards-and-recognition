@@ -2,26 +2,47 @@
 <html lang="en">
 <head>
     <style>
- img {
-	position : absolute;
-    margin-left: -25%;
-	z-index : -1;
-
-	}
-p{
-	padding : 240px;
+.image{
+    background-image: url('https://images.unsplash.com/photo-1512418490979-92798cec1380?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9');
+    background-size: 890px 660px;
+    background-repeat : no-repeat;
+}
+.body {
+  margin-top: 5px;
+  font-family: Arial, Helvetica, sans-serif;
+  padding : 75px;
+}
+.header {
+   color: #00008B;
+   text-align: center;
+   margin-top:20px;
+}
+.footer {
+    margin-top: 61px;
+}
+.text{
+    margin-top: -15px;
 }
 </style>
 </head>
 <body>
-<div class="background" align="center">
-
-    <img src="src/main/resources/gift.jpg" style="width:50%">
-    <p>sdsjsds
-        adadad
-        aasas
-        adada</p>
+<div class="image">
+    <div class="header">
+        <h1>REWARDS & RECOGNITION</h1>
+    </div>
+    <div align="center" class="body">
+        <b>${reward_name}</b><br/>
+        <img src=${image}><br/>
+        <b>${user_name}</b><br/>
+    </div>
+    <div align="center" class="text">
+        Hi, <b>${name}</b><br/>
+        <b> ${user_name} </b>has been awarded for reward <b>${reward_name}</b><br/>
+    </div>
+    <div align="center" class="footer">
+        Regards,<br/>
+        Team R&R
+    </div>
 </div>
-
 </body>
 </html>

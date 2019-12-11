@@ -52,7 +52,8 @@ public class NominationController {
     @PostMapping("/saveNomination")
     public ResponseEntity nominationSave(@RequestHeader(value = "Authorization") String token , @ApiParam(value = "Nomination object store in database table", required = true) @Valid @RequestBody List<NominationPojo> nominationPojo) {
         String email=validity.check(token);
-        nominationsService.nominationSave(nominationPojo);
+        Long manager_id=managerRepository.findByEmail(email);
+        nominationsService.nominationSave(nominationPojo, manager_id);
         return new ResponseEntity<>(nominationPojo, HttpStatus.OK);
     }
 

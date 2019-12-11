@@ -40,6 +40,8 @@ public class SendEmail  {
         }
     }
 
+
+
     public ResponseEntity sendEmailWithAttachment(Map root, String emails, String subject) throws MessagingException, IOException, TemplateException {
 
         MimeMessage msg = javaMailSender.createMimeMessage();
@@ -47,7 +49,7 @@ public class SendEmail  {
         try {
             MimeMessageHelper helper = new MimeMessageHelper(msg, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED, StandardCharsets.UTF_8.name());
 
-            Template t = freemarkerConfig.getTemplate("abc.html");
+            Template t = freemarkerConfig.getTemplate("Winner.html");
             String text = FreeMarkerTemplateUtils.processTemplateIntoString(t, root);
 
             helper.setTo(emails);

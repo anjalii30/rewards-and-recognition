@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 @ApiModel(description = "The mapping of users with projects")
-public class UserProjects {
+public class UserProjectsPojo  {
 
     @ApiModelProperty(notes = "The email of the User")
     private String[] user_email;
