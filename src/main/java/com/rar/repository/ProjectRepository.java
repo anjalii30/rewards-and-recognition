@@ -41,6 +41,13 @@ public interface ProjectRepository  extends CrudRepository<Projects,Long> {
     @Query(value="select email,name from users where user_id not in (select user_id from user_projects)",nativeQuery =true )
     Object[] unAssignedUsers();
 
+
+    @Query(value = "select count(project_id) from manager_projects where manager_id= ?1 and project_id= ?2",nativeQuery =true )
+    long managerProjectPresent(long manager_id, long project_id);
+
+    @Query(value = "select count(user_id) from user_projects where user_id=?1 and project_id= ?2",nativeQuery =true)
+    int userProjectPresent(long user_id, long project_id);
+
     @Modifying
     @Transactional
     @Query(value="insert into projects (project_name) values(:project_name)",nativeQuery = true)

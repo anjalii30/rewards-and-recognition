@@ -1,18 +1,14 @@
 package com.rar.utils;
 
-import com.rar.model.Manager;
 import com.rar.repository.*;
-import org.hibernate.annotations.AttributeAccessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
-import javax.validation.constraints.Null;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.Optional;
 
 @Component
 @Service

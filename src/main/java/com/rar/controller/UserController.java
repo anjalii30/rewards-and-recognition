@@ -1,7 +1,7 @@
 package com.rar.controller;
 
 
-import com.rar.model.UserInfo;
+import com.rar.model.EditUserDetails;
 import com.rar.repository.UserRepository;
 import com.rar.service.UserService;
 import com.rar.utils.CheckValidity;
@@ -29,13 +29,39 @@ public class UserController {
 
     /**
      * @param token jwt token
-     * @param userInfo UserInfo object
+     * @param editUserDetails UserInfo object
      * @return object of saved user.
      */
     @ApiOperation(value = "Save the user")
     @PostMapping("/saveUser")
-    public ResponseEntity save(@RequestHeader(value = "Authorization") String token , @ApiParam(value = "user object store in database table", required = true) @Valid @RequestBody UserInfo userInfo){
+    public ResponseEntity save(@RequestHeader(value = "Authorization") String token , @ApiParam(value = "user object store in database table", required = true) @Valid @RequestBody EditUserDetails editUserDetails){
         String email=validity.check(token);
-        return new ResponseEntity<>(userService.userSave(userInfo), HttpStatus.OK) ;
+        return new ResponseEntity<>(userService.userSave(editUserDetails), HttpStatus.OK) ;
+    }
+
+
+    /**
+     * @param token
+     * @param id
+     * @return object of user based on id.
+     */
+    @ApiOperation(value = "Get the user details for editing by user id")
+    @GetMapping("/listUser/{id}")
+    public EditUserDetails listById(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "User Id to get user object", required = true)@PathVariable Long id){
+
+        String email=validity.check(token);
+        return userService.listById(id);
+    }
+
+    /**
+     * @param token jwt token
+     * @param id user id
+     * @param editUserDetails user object
+     * @return object of reward after updating.
+     */
+    @ApiOperation(value = "Update the reward by id")
+    @PutMapping("/updateUser/{id}")
+    public EditUserDetails update(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "User Id to update user details", required = true)@PathVariable Long id, @ApiParam(value = "User object ", required = true) @Valid @RequestBody EditUserDetails editUserDetails){
+        return userService.update(id, editUserDetails);
     }
 }
