@@ -2,7 +2,6 @@ package com.rar.controller;
 
 
 import com.rar.model.EditUserDetails;
-import com.rar.model.UserInfo;
 import com.rar.repository.UserRepository;
 import com.rar.service.UserService;
 import com.rar.utils.CheckValidity;
@@ -30,14 +29,14 @@ public class UserController {
 
     /**
      * @param token jwt token
-     * @param userInfo UserInfo object
+     * @param editUserDetails UserInfo object
      * @return object of saved user.
      */
     @ApiOperation(value = "Save the user")
     @PostMapping("/saveUser")
-    public ResponseEntity save(@RequestHeader(value = "Authorization") String token , @ApiParam(value = "user object store in database table", required = true) @Valid @RequestBody UserInfo userInfo){
+    public ResponseEntity save(@RequestHeader(value = "Authorization") String token , @ApiParam(value = "user object store in database table", required = true) @Valid @RequestBody EditUserDetails editUserDetails){
         String email=validity.check(token);
-        return new ResponseEntity<>(userService.userSave(userInfo), HttpStatus.OK) ;
+        return new ResponseEntity<>(userService.userSave(editUserDetails), HttpStatus.OK) ;
     }
 
 

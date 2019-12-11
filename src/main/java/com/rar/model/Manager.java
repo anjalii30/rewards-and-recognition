@@ -34,7 +34,6 @@ public class Manager implements Serializable {
             cascade = {
                     CascadeType.PERSIST,
                     CascadeType.MERGE,
-                    CascadeType.ALL
             })
     @JoinTable(
             name="manager_projects",

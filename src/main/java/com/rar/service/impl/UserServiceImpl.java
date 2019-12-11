@@ -31,28 +31,32 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(userInfo);
     }
 
-    public ResponseEntity userSave(UserInfo userInfo) {
+    public ResponseEntity userSave(EditUserDetails editUserDetails) {
 
-        userRepository.insertUser(userInfo.getEmail(),userInfo.getName());
+        userRepository.insertUser(editUserDetails.getEmail(),editUserDetails.getName());
 
 
 
-        long id = userRepository.getUserId(userInfo.getEmail());
+        long id = userRepository.getUserId(editUserDetails.getEmail());
         System.out.println(id);
+
         userRepository.insertUserRoles(id, (long) 1);
-        for (Iterator<Designation> designationIterator = userInfo.getDesignation().iterator(); designationIterator.hasNext(); ) {
-            Designation designation = designationIterator.next();
-            userRepository.insertUserDesignation(id, designation.getDid());
+        for(int i=0;i<editUserDetails.getDesignationSelected().size();i++){
+            userRepository.insertUserDesignation(id, editUserDetails.getDesignationSelected().get(i).getDid());
         }
+       /* for (Iterator<DesignationSelected> designationIterator = editUserDetails.getDesignationSelected().iterator(); designationIterator.hasNext(); ) {
+            DesignationSelected designation = designationIterator.next();
+            userRepository.insertUserDesignation(id, designation.getDid());
+        }*/
         int count=0;
-        for(Iterator<Projects> projectsIterator = userInfo.getProjects().iterator();projectsIterator.hasNext();){
-            Projects projects = projectsIterator.next();
+        for(int j=0;j<editUserDetails.getProjectsList().size();j++){
+            ProjectDetailsUser projects = editUserDetails.getProjectsList().get(j);
             if(projects.getManaging()){
                 if (count==0){
-                    userRepository.insertManager(userInfo.getEmail());
+                    userRepository.insertManager(editUserDetails.getEmail());
                     count++;
                 }
-                long mid = userRepository.findManagerId(userInfo.getEmail());
+                long mid = userRepository.findManagerId(editUserDetails.getEmail());
                 userRepository.insertManagerProjects(mid, projects.getProject_id());
             }
             if(!projects.getManaging() && projects.getWorking()){
@@ -60,7 +64,6 @@ public class UserServiceImpl implements UserService {
                 userRepository.insertUserManager(id, userRepository.getManagerIdFromProjectId(projects.getProject_id()));
             }
         }
-
 
          /*  for(int i=0;i<userInfo.getProjectDetailsUsers().size();i++)
         {
@@ -113,7 +116,7 @@ public class UserServiceImpl implements UserService {
         }*/
 
         HashMap<String, Object> s = new HashMap<>();
-        s.put("user", userInfo);
+        s.put("user", editUserDetails);
         return new ResponseEntity<>(s, HttpStatus.OK);
     }
 
@@ -139,7 +142,7 @@ public class UserServiceImpl implements UserService {
 
         List<Projects> projects = projectRepository.findAllData();
 
-        List<Projects> projectsList = new ArrayList<>();
+        List<ProjectDetailsUser> projectsList = new ArrayList<>();
 
         boolean managing, working;long mid=0;
         for(int i =0;i<projects.size();i++){
@@ -164,7 +167,7 @@ public class UserServiceImpl implements UserService {
                     working=false;
                 }
             }
-            projectsList.add(i, new Projects(projects.get(i).getProject_id(),projects.get(i).getProject_name(),working,managing));
+            projectsList.add(i, new ProjectDetailsUser(projects.get(i).getProject_id(),projects.get(i).getProject_name(),working,managing));
         }
 
         return new EditUserDetails(id,userInfo.get().getEmail(),userInfo.get().getName(),designationSelected,projectsList);

@@ -9,7 +9,7 @@ public interface UserService {
     UserInfo save(UserInfo userInfo);
 
 
-    public ResponseEntity userSave(UserInfo userInfo);
+    public ResponseEntity userSave(EditUserDetails editUserDetails);
 
     public EditUserDetails listById(long id);
 

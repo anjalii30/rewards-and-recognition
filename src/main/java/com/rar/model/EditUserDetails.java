@@ -9,9 +9,9 @@ public class EditUserDetails implements Serializable {
     private String email;
     private String name;
     private List<DesignationSelected> designationSelected;
-    private List<Projects> projectsList;
+    private List<ProjectDetailsUser> projectsList;
 
-    public EditUserDetails(long uid, String email, String name, List<DesignationSelected> designationSelected, List<Projects> projectsList) {
+    public EditUserDetails(long uid, String email, String name, List<DesignationSelected> designationSelected, List<ProjectDetailsUser> projectsList) {
         this.uid = uid;
         this.email = email;
         this.name = name;
@@ -51,11 +51,11 @@ public class EditUserDetails implements Serializable {
         this.designationSelected = designationSelected;
     }
 
-    public List<Projects> getProjectsList() {
+    public List<ProjectDetailsUser> getProjectsList() {
         return projectsList;
     }
 
-    public void setProjectsList(List<Projects> projectsList) {
+    public void setProjectsList(List<ProjectDetailsUser> projectsList) {
         this.projectsList = projectsList;
     }
 }
