@@ -14,7 +14,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -144,8 +147,23 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public List<Projects> findAllData() {
-        return projectRepository.findAllData();
+    public ResponseEntity findAllData() {
+         List<Projects> projects=projectRepository.findAllData();
+         List parent=new ArrayList();
+
+        for (Projects project : projects) {
+
+            Map map = new HashMap();
+
+            map.put("project_id", project.getProject_id());
+            map.put("project_name", project.getProject_name());
+            map.put("count", projectRepository.getCount(project.getProject_id()));
+
+            parent.add(map);
+        }
+
+
+        return new ResponseEntity(parent,HttpStatus.OK);
     }
 
     @Override
@@ -156,6 +174,12 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public List<Projects> findProjects(Long manager_id) {
         return projectRepository.findProject(manager_id);
+    }
+
+    @Override
+    public Long getCount() {
+
+        return null;
     }
 
 }
