@@ -249,6 +249,10 @@ public class RewardsServiceImpl implements RewardsService {
             return new ResponseEntity<>(s,HttpStatus.OK);
     }
 
+    public Optional<Rewards> rolloutListReward(long id){
+        
+    }
+
 }
 
 
