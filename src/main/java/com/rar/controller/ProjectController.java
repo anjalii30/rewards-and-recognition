@@ -75,10 +75,11 @@ public class ProjectController {
         return projectService.findById(project_id);
     }
 
-//    @PostMapping("/AssignedManager")
-//    public Object [] ManagerForProject(@RequestBody Projects project_name){
-//        Long project_id = projectService.getIdByProject(project_name.getProject_name());
-//    }
+    @PostMapping("/AssignedManager")
+    public Object [] ManagerForProject(@RequestBody Projects project_name) throws Exception {
+        Long project_id = projectService.getIdByProject(project_name.getProject_name());
+        return projectService.findManagerById(project_id);
+    }
     /**
      * @param token jwt token
      * @param project_name project name
