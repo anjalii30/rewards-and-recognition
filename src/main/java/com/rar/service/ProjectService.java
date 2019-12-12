@@ -23,9 +23,11 @@ public interface ProjectService {
 
     Object[] findNotInId(Long project_id);
 
-    List<Projects> findAllData();
+    ResponseEntity findAllData();
 
     Object[] unAssigned();
 
     List<Projects> findProjects(Long manager_id);
+
+    Long getCount();
 }

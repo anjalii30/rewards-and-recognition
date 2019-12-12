@@ -14,7 +14,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin
 @RestController
@@ -48,9 +50,9 @@ public class ProjectController {
      */
     @ApiOperation(value = "Get the list of projects")
     @GetMapping(value = "/listProjects")
-    public List<Projects> projects(@RequestHeader(value = "Authorization") String token){
+    public ResponseEntity<?> projects(@RequestHeader(value = "Authorization") String token){
         String email=validity.check(token);
-        return  projectService.findAllData();
+        return (projectService.findAllData());
     }
 
     @ApiOperation(value = "Get the list of projects that are assigned to this manager")
