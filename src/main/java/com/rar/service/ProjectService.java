@@ -21,6 +21,8 @@ public interface ProjectService {
 
     Object[] findById(Long project_id);
 
+    Object[] findManagerById(Long project_id);
+
     Object[] findNotInId(Long project_id);
 
     ResponseEntity findAllData();

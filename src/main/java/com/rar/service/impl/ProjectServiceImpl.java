@@ -134,6 +134,13 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
+    public Object[] findManagerById(Long project_id) {
+       Long manager_id = projectRepository.getManagerId(project_id);
+       String manager_email = projectRepository.getManagerEmail(manager_id);
+       return  projectRepository.getManagerDetails(manager_email);
+    }
+
+    @Override
     public Object[] findNotInId(Long project_id) {
 
         return  projectRepository.findNotInId(project_id);

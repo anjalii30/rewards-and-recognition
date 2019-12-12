@@ -28,9 +28,18 @@ public interface ProjectRepository  extends CrudRepository<Projects,Long> {
     @Query(value="delete from user_projects where user_id=?1 and project_id=?2",nativeQuery = true)
     void deleteUser(Long user_id, Long project_id);
 
-    //get manager details also.
+
     @Query(value="select email,name,image_url from users where user_id in (select user_id from user_projects where project_id=?1)",nativeQuery = true)
     Object[] getUsersById(Long project_id);
+
+    @Query(value ="select manager_id from manager_projects where project_id=?1",nativeQuery = true)
+    Long getManagerId(Long project_id);
+
+    @Query(value="select manager_email from managers where manager_id=?1",nativeQuery = true)
+    String getManagerEmail(Long manager_id);
+
+    @Query(value = "select email,name,image_url from users where email=?1",nativeQuery = true)
+    Object[] getManagerDetails(String manager_email);
 
     @Query(value="select user_id,email, name from users where user_id not in (select user_id from user_projects where project_id=?1)",nativeQuery = true)
     Object[] findNotInId(Long project_id);
