@@ -5,9 +5,8 @@ import com.rar.repository.RewardsRepository;
 import com.rar.repository.UserRepository;
 import com.rar.service.RewardsService;
 import com.rar.utils.CheckValidity;
-import com.rar.utils.EmailNewReward;
-import com.sun.xml.messaging.saaj.packaging.mime.MessagingException;
 import com.rar.utils.SendEmail;
+import com.sun.xml.messaging.saaj.packaging.mime.MessagingException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -168,5 +167,30 @@ public class RewardsController {
         String email=validity.check(token);
         rewardsService.deleteById(id);
         return "Deleted Successfully";
+    }
+
+    /**
+     * @param token
+     * @param id
+     * @return object of reward based on id.
+     */
+    @ApiOperation(value = "Get the user details for editing by user id")
+    @GetMapping("/listRolledOutRewardEdit/{id}")
+    public Optional<Rewards> rollOutListReward(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Reward Id to get reward object", required = true)@PathVariable Long id){
+
+        String email=validity.check(token);
+        return rewardsService.rollOutListReward(id);
+    }
+
+    /**
+     * @param token jwt token
+     * @param id reward id
+     * @param rewards Reward object
+     * @return object of reward after updating.
+     */
+    @ApiOperation(value = "Update the reward by id")
+    @PutMapping("/updateRollOutReward/{id}")
+    public Rewards RollOutUpdate(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Reward Id to update reward object", required = true)@PathVariable Long id, @ApiParam(value = "Reward object ", required = true) @Valid @RequestBody Rewards rewards){
+        return rewardsService.rollOutUpdate(id, rewards);
     }
 }

@@ -24,7 +24,7 @@ public class SendEmail  {
     @Autowired
     private Configuration freemarkerConfig;
 
-
+//used when award is rolled out or discontinued
     public ResponseEntity sendEmailWithoutAttachment(String emails,String subject,String message) throws MessagingException, IOException {
         MimeMessage msg = javaMailSender.createMimeMessage();
         try {
@@ -41,7 +41,7 @@ public class SendEmail  {
     }
 
 
-
+//used only for winner email
     public ResponseEntity sendEmailWithAttachment(Map root, String emails, String subject) throws MessagingException, IOException, TemplateException {
 
         MimeMessage msg = javaMailSender.createMimeMessage();
@@ -49,7 +49,33 @@ public class SendEmail  {
         try {
             MimeMessageHelper helper = new MimeMessageHelper(msg, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED, StandardCharsets.UTF_8.name());
 
+
             Template t = freemarkerConfig.getTemplate("Winner.html");
+            String text = FreeMarkerTemplateUtils.processTemplateIntoString(t, root);
+
+            helper.setTo(emails);
+            helper.setSubject(subject);
+            helper.setText(text, true);
+
+
+            javaMailSender.send(msg);
+            return ResponseEntity.ok("Successful");
+
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+    }
+
+    //used for self winner email
+    public ResponseEntity sendEmailToWinner(Map root, String emails, String subject) throws MessagingException, IOException, TemplateException {
+
+        MimeMessage msg = javaMailSender.createMimeMessage();
+
+        try {
+            MimeMessageHelper helper = new MimeMessageHelper(msg, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED, StandardCharsets.UTF_8.name());
+
+
+            Template t = freemarkerConfig.getTemplate("selfWinner.html");
             String text = FreeMarkerTemplateUtils.processTemplateIntoString(t, root);
 
             helper.setTo(emails);

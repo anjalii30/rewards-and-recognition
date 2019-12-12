@@ -249,10 +249,27 @@ public class RewardsServiceImpl implements RewardsService {
             return new ResponseEntity<>(s,HttpStatus.OK);
     }
 
-    public Optional<Rewards> rolloutListReward(long id){
-        
+    public Optional<Rewards> rollOutListReward(long id){
+        if(rewardsRepository.findEditRollOutId(id)!= 0)
+           return rewardsRepository.findById(rewardsRepository.findEditRollOutId(id));
+        else
+           return rewardsRepository.findById(id);
     }
 
+    public Rewards rollOutUpdate(Long id, Rewards reward){
+        if(rewardsRepository.findEditRollOutId(id)==0 && rewardsRepository.checkingRewardInRolledOut(id)==0)
+        {
+            rewardsSave(reward);
+            System.out.print(reward.getId());
+            rewardsRepository.regenerationCancel(id);
+            rewardsRepository.updateRolledOutColumn(id,reward.getId());
+            return reward;
+        }
+        else if(rewardsRepository.findEditRollOutId(id)==0 && rewardsRepository.checkingRewardInRolledOut(id)>0){
+            return Update(id,reward);
+        }
+        return null;
+    }
 }
 
 

@@ -9,6 +9,8 @@ import com.rar.repository.ProjectRepository;
 import com.rar.service.LoginService;
 import com.rar.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,13 +38,14 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public void assign(UserProjectsPojo userProjectsPojo) throws Exception {
+    public ResponseEntity assign(UserProjectsPojo userProjectsPojo) throws Exception {
 
             String[] employees = userProjectsPojo.getUser_email();
+             Long project_id = projectService.getIdByProject(userProjectsPojo.getProject_name());
 
             for(int i=0; i<employees.length;i++) {
 
-                Long project_id = projectService.getIdByProject(userProjectsPojo.getProject_name());
+
 
                 String user_name=employees[i];
 
@@ -51,6 +54,7 @@ public class ProjectServiceImpl implements ProjectService {
                 projectRepository.assign(user_id, project_id);
 
        }
+            return new ResponseEntity(projectService.findById(project_id), HttpStatus.OK);
 
     }
 
@@ -124,6 +128,13 @@ public class ProjectServiceImpl implements ProjectService {
     public Object[] findById(Long project_id) {
 
             return projectRepository.getUsersById(project_id);
+    }
+
+    @Override
+    public Object[] findManagerById(Long project_id) {
+       Long manager_id = projectRepository.getManagerId(project_id);
+       String manager_email = projectRepository.getManagerEmail(manager_id);
+       return  projectRepository.getManagerDetails(manager_email);
     }
 
     @Override

@@ -58,7 +58,7 @@ public class ScheduleRewards {
             String currentYear = String.valueOf(cal.get(Calendar.YEAR));
             String year =String.valueOf(cal.get(Calendar.YEAR)-1);
 
-            if (old_reward.getFrequency() == FrequencyEnum.Monthly && d2.isAfter(d1) && old_reward.isRegenerated()==true) {
+            if (old_reward.getFrequency() == FrequencyEnum.Monthly && d2.isAfter(d1) && old_reward.isRegenerated()) {
 
                 rewardsRepository.updateToNull(old_reward.getRewardId());
 

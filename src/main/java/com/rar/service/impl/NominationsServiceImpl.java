@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ws.server.endpoint.interceptor.DelegatingSmartEndpointInterceptor;
 
 import javax.mail.MessagingException;
 import java.io.IOException;
@@ -122,11 +123,12 @@ public class NominationsServiceImpl implements NominationsService {
 
         Long[] nomination_id= nomination1_id.get("nomination_id");
 
-        String[] emails=managerRepository.getAllEmails();
+        String[] emails=userRepository.getAllEmails();
 
         for (int i = 0; i < emails.length; i++) {
 
             String name=userRepository.getName(emails[i]);
+            Long user=userRepository.getIdByEmail(emails[i]);
 
             for (int j = 0; j < nomination_id.length; j++) {
 
@@ -141,6 +143,9 @@ public class NominationsServiceImpl implements NominationsService {
                 root.put("user_name", user_name);
                 root.put("reward_name",reward_name);
                 root.put("image",image);
+                if(nominationsRepository.userId(nomination_id[j])==userRepository.getIdByEmail(emails[i]))
+                    sendEmail.sendEmailToWinner(root,emails[i],"You have been awarded");
+                else
                 sendEmail.sendEmailWithAttachment(root,emails[i], "Employee awarded for the reward");
 
             }
