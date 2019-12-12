@@ -253,7 +253,7 @@ public class ScheduleRewards {
             LocalDate start_date=rewards.get(i).getStart_date();
             System.out.println("start date"+start_date);
             System.out.println(rewardsRepository.checkingRewardInRolledOut(reward_id)+"count");
-            if(rewardsRepository.checkingRewardInRolledOut(reward_id)>0 && award_status==0 && start_date.equals(today)){
+            if(rewardsRepository.checkingRewardInRolledOut(reward_id)>0 && award_status==5 && start_date.equals(today)){
                 //rewards.get(i).setAward_status(1);
                 rewardsRepository.updateAwardStatus(reward_id);
                 System.out.println("setting award status 1");

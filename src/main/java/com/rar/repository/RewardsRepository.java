@@ -79,4 +79,8 @@ public interface RewardsRepository extends CrudRepository<Rewards, Long> {
     @Query(value = "update rewards set award_status=1 where reward_id=?1", nativeQuery = true)
     void updateAwardStatus(long reward_id);
 
+    @Transactional
+    @Modifying
+    @Query(value = "update rewards set award_status=5 where reward_id=?1", nativeQuery = true)
+    void updateRolledOutEditAwardStatus(long reward_id);
 }
