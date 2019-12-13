@@ -236,25 +236,26 @@ public class ScheduleRewards {
     }
 
     //Checking everyday at 9 a.m. to Roll out after reward has been edited after roll out
-  //  @Scheduled(cron = "0 0 9 1/1 * ?  ")
+//  @Scheduled(cron = "0 0 9 1/1 * ?  ")
     @Scheduled(cron = "0 * * ? * * ")
     public void editAfterRollOut(){
-
         ArrayList<Rewards> rewards = (ArrayList<Rewards>) rewardsRepository.findAll();
-
         LocalDate today = LocalDate.now();
-
+        System.out.println(today+"today");
         for(int i=0;i<rewards.size();i++){
-
             Long reward_id=rewards.get(i).getRewardId();
+            System.out.println("id"+reward_id);
             int award_status=rewards.get(i).getAward_status();
+            System.out.println("award status"+award_status);
             LocalDate start_date=rewards.get(i).getStart_date();
-            if(rewardsRepository.checkingRewardInRolledOut(reward_id)!=0 && award_status==0 && start_date==today){
-
-                rewards.get(i).setAward_status(1);
-
-
+            System.out.println("start date"+start_date);
+            System.out.println(rewardsRepository.checkingRewardInRolledOut(reward_id)+"count");
+            if(rewardsRepository.checkingRewardInRolledOut(reward_id)>0 && award_status==5 && start_date.equals(today)){
+                //rewards.get(i).setAward_status(1);
+                rewardsRepository.updateAwardStatus(reward_id);
+                System.out.println("setting award status 1");
             }
+            System.out.println("sdfgvbjm");
         }
     }
 

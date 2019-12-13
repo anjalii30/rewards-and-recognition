@@ -139,8 +139,8 @@ public class RewardsController {
      */
     @ApiOperation(value = "Get the list of rewards by id")
     @GetMapping("/listRewards/{id}")
-    public Optional<Rewards> getById(/*@RequestHeader(value = "Authorization") String token,*/@ApiParam(value = "Reward Id to get reward object", required = true) @PathVariable Long id){
-       // String email=validity.check(token);
+    public Optional<Rewards> getById(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Reward Id to get reward object", required = true) @PathVariable Long id){
+        String email=validity.check(token);
         return rewardsService.findById(id);
     }
 
@@ -193,6 +193,7 @@ public class RewardsController {
     public Rewards RollOutUpdate(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Reward Id to update reward object", required = true)@PathVariable Long id, @ApiParam(value = "Reward object ", required = true) @Valid @RequestBody Rewards rewards){
 
         String email=validity.check(token);
+
 
         return rewardsService.rollOutUpdate(id, rewards);
     }

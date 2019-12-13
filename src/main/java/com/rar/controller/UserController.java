@@ -62,6 +62,8 @@ public class UserController {
     @ApiOperation(value = "Update the reward by id")
     @PutMapping("/updateUser/{id}")
     public EditUserDetails update(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "User Id to update user details", required = true)@PathVariable Long id, @ApiParam(value = "User object ", required = true) @Valid @RequestBody EditUserDetails editUserDetails){
+        String email=validity.check(token);
+
         return userService.update(id, editUserDetails);
     }
 }
