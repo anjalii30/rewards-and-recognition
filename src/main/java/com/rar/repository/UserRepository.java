@@ -75,7 +75,7 @@ public interface UserRepository extends CrudRepository< UserInfo,Long> {
     void insertUserProjects(Long user_id,Long project_id);
 
     @Query(value="select manager_id from manager_projects where project_id=?1",nativeQuery = true)
-    Long getManagerIdFromProjectId(Long project_id);
+    List<Long> getManagerIdFromProjectId(Long project_id);
 
     @Modifying
     @Transactional

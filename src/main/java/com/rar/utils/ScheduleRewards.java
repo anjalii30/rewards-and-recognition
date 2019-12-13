@@ -11,10 +11,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
 
 @Component
 @Service
@@ -58,7 +55,7 @@ public class ScheduleRewards {
             String currentYear = String.valueOf(cal.get(Calendar.YEAR));
             String year =String.valueOf(cal.get(Calendar.YEAR)-1);
 
-            if (old_reward.getFrequency() == FrequencyEnum.Monthly && d2.isAfter(d1) && old_reward.isRegenerated()==true) {
+            if (old_reward.getFrequency() == FrequencyEnum.Monthly && d2.isAfter(d1) && old_reward.isRegenerated()) {
 
                 rewardsRepository.updateToNull(old_reward.getRewardId());
 
@@ -237,6 +234,30 @@ public class ScheduleRewards {
         }
 
     }
+
+    //Checking everyday at 9 a.m. to Roll out after reward has been edited after roll out
+  //  @Scheduled(cron = "0 0 9 1/1 * ?  ")
+    @Scheduled(cron = "0 * * ? * * ")
+    public void editAfterRollOut(){
+
+        ArrayList<Rewards> rewards = (ArrayList<Rewards>) rewardsRepository.findAll();
+
+        LocalDate today = LocalDate.now();
+
+        for(int i=0;i<rewards.size();i++){
+
+            Long reward_id=rewards.get(i).getRewardId();
+            int award_status=rewards.get(i).getAward_status();
+            LocalDate start_date=rewards.get(i).getStart_date();
+            if(rewardsRepository.checkingRewardInRolledOut(reward_id)!=0 && award_status==0 && start_date==today){
+
+                rewards.get(i).setAward_status(1);
+
+
+            }
+        }
+    }
+
 }
 
 

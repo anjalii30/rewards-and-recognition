@@ -61,7 +61,10 @@ public class UserServiceImpl implements UserService {
             }
             if(!projects.getManaging() && projects.getWorking()){
                 userRepository.insertUserProjects(id,projects.getProject_id());
-                userRepository.insertUserManager(id, userRepository.getManagerIdFromProjectId(projects.getProject_id()));
+                for(int k=0;k< userRepository.getManagerIdFromProjectId(projects.getProject_id()).size();k++){
+                    userRepository.insertUserManager(id, userRepository.getManagerIdFromProjectId(projects.getProject_id()).get(k));
+                }
+
             }
         }
 
@@ -195,7 +198,9 @@ public class UserServiceImpl implements UserService {
             }
             if(!editUserDetails.getProjectsList().get(j).getManaging() && editUserDetails.getProjectsList().get(j).getWorking()){
                 userRepository.insertUserProjects(id,editUserDetails.getProjectsList().get(j).getProject_id());
-                userRepository.insertUserManager(id, userRepository.getManagerIdFromProjectId(editUserDetails.getProjectsList().get(j).getProject_id()));
+                for(int k=0;k< userRepository.getManagerIdFromProjectId(editUserDetails.getProjectsList().get(j).getProject_id()).size();k++){
+                    userRepository.insertUserManager(id, userRepository.getManagerIdFromProjectId(editUserDetails.getProjectsList().get(j).getProject_id()).get(k));
+                }
             }
 
          }

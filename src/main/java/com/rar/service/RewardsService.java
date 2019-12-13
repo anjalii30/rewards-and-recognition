@@ -30,4 +30,8 @@ public interface RewardsService {
     List<Rewards> latest(String email);
 
     List<Rewards> managerApprovalRewards(String email);
+
+    Optional<Rewards> rollOutListReward(long id);
+
+    Rewards rollOutUpdate(Long id, Rewards reward);
 }

@@ -73,6 +73,10 @@ public class Rewards implements Serializable {
     @ApiModelProperty(notes = "The reason for discontinuing a reward")
     private String discontinuingReason;
 
+    @Column
+    @ApiModelProperty(notes = "storing the reward id if the reward is edited in the rollout checking")
+    private long rollOutId=0;
+
     @OneToMany(
             mappedBy = "rewards",cascade = CascadeType.REFRESH
     )
@@ -218,6 +222,14 @@ public class Rewards implements Serializable {
 
     public void setCategory(CategoryEnum category) {
         this.category = category;
+    }
+
+    public long getRollOutId() {
+        return rollOutId;
+    }
+
+    public void setRollOutId(long rollOutId) {
+        this.rollOutId = rollOutId;
     }
 
     @Override

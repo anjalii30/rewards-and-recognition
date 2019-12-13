@@ -43,9 +43,9 @@ public class RewardsServiceImpl implements RewardsService {
             "December"};
 
     private Calendar cal = Calendar.getInstance();
-    private String month = monthName[cal.get(Calendar.MONTH)];
+//    private String month = monthName[cal.get(Calendar.MONTH)];
 
-    private String year = String.valueOf(cal.get(Calendar.YEAR));
+   // private String year = String.valueOf(cal.get(Calendar.YEAR));
 
     @Override
     public Rewards save(Rewards rewards) {
@@ -220,8 +220,12 @@ public class RewardsServiceImpl implements RewardsService {
     public ResponseEntity rewardsSave(Rewards rewards) {
 
 
+        String month = monthName[cal.get(rewards.getStart_date().getMonthValue())];
+         String year = String.valueOf(cal.get(rewards.getStart_date().getYear()));
+         System.out.println(year+month);
 
             if (rewards.getFrequency() == FrequencyEnum.Annually)
+
                 rewards.setReward_name(rewards.getReward_name() + " for " + year);
 
             else
@@ -249,6 +253,27 @@ public class RewardsServiceImpl implements RewardsService {
             return new ResponseEntity<>(s,HttpStatus.OK);
     }
 
+    public Optional<Rewards> rollOutListReward(long id){
+        if(rewardsRepository.findEditRollOutId(id)!= 0)
+           return rewardsRepository.findById(rewardsRepository.findEditRollOutId(id));
+        else
+           return rewardsRepository.findById(id);
+    }
+
+    public Rewards rollOutUpdate(Long id, Rewards reward){
+        if(rewardsRepository.findEditRollOutId(id)==0 && rewardsRepository.checkingRewardInRolledOut(id)==0)
+        {
+            rewardsSave(reward);
+            System.out.print(reward.getId());
+            rewardsRepository.regenerationCancel(id);
+            rewardsRepository.updateRolledOutColumn(id,reward.getId());
+            return reward;
+        }
+        else if(rewardsRepository.findEditRollOutId(id)==0 && rewardsRepository.checkingRewardInRolledOut(id)>0){
+            return Update(id,reward);
+        }
+        return null;
+    }
 }
 
 

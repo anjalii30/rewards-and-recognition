@@ -57,4 +57,16 @@ public interface RewardsRepository extends CrudRepository<Rewards, Long> {
 
     @Query(value="select end_date from rewards where reward_id=?1",nativeQuery = true)
     LocalDate getEndDate(Long reward_id);
+
+    @Query(value="select roll_out_id from rewards where reward_id=?1", nativeQuery = true)
+    long findEditRollOutId(long reward_id);
+
+    @Query(value ="select count(roll_out_id) from rewards where roll_out_id=?1", nativeQuery = true)
+    long checkingRewardInRolledOut(long reward_id);
+
+    @Query(value="update rewards set regenerated=false where reward_id=?1", nativeQuery = true)
+    void regenerationCancel(long reward_id);
+
+    @Query(value = "update rewards set roll_out_id=?2 where reward_id=?1", nativeQuery =true)
+    void updateRolledOutColumn(long id, long rollId);
 }
