@@ -31,10 +31,8 @@ public class NominationsServiceImpl implements NominationsService {
     private RewardsRepository rewardsRepository;
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private ProjectRepository projectRepository;
-
     @Autowired
     private ManagerRepository managerRepository;
     @Autowired
@@ -58,9 +56,7 @@ public class NominationsServiceImpl implements NominationsService {
                 nominations.setReward_name(nominationPojo.get(i).getReward_name());
                 nominations.setUsername(userRepository.getNameById(nominationPojo.get(i).getUserId()));
                 nominations.setManagerId(manager_id);
-//                nominations.setProjectId(nominationPojo.get(i).getProjectId());
                 nominations.setProjectId(nominationPojo.get(i).getProjectId());
-
 
                 System.out.println("rewards"+nominationPojo.get(i).getRewardId());
                 System.out.println("userid"+nominationPojo.get(i).getUserId());
@@ -207,4 +203,5 @@ public class NominationsServiceImpl implements NominationsService {
     public List<Map<String, String>> getTopAwardee() {
         return nominationsRepository.getTopAwardee();
     }
+
 }
