@@ -55,11 +55,11 @@ public class ProjectController {
     }
 
     @ApiOperation(value = "Get the list of projects that are assigned to this manager")
-    @GetMapping(value = "/myProjects")
-    public List<Projects> projectsOfManager(@RequestHeader(value = "Authorization") String token){
+    @GetMapping(value = "/myProjects/{id}")
+    public List<Projects> projectsOfManager(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Reward Id to show projects not been nominated for that reward", required = true)@PathVariable Long id){
         String email=validity.check(token);
         Long manager_id=managerRepository.findByEmail(email);
-        return  projectService.findProjects(manager_id);
+        return  projectService.findProjects(manager_id,id);
     }
 
     /**

@@ -62,8 +62,8 @@ public interface ProjectRepository  extends CrudRepository<Projects,Long> {
     @Query(value="insert into projects (project_name) values(:project_name)",nativeQuery = true)
     void saveProject(String project_name);
 
-    @Query(value="select * from projects where project_id in(select project_id from manager_projects where manager_id=?1)",nativeQuery = true)
-    List<Projects> findProject(Long manager_id);
+    @Query(value="select * from projects where project_id in(select project_id from manager_projects where manager_id=?1) and project_id not in (select project_id from nominations where reward_id=?2)",nativeQuery = true)
+    List<Projects> findProject(Long manager_id,Long reward_id);
 
     @Query(value="select count(user_id) from user_projects where project_id=?1",nativeQuery = true)
     Long getCount(Long project_id);

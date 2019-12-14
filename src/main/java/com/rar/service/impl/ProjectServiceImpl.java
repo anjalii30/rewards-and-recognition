@@ -172,8 +172,8 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public List<Projects> findProjects(Long manager_id) {
-        return projectRepository.findProject(manager_id);
+    public List<Projects> findProjects(Long manager_id,Long reward_id) {
+        return projectRepository.findProject(manager_id,reward_id);
     }
 
     @Override

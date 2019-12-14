@@ -203,10 +203,12 @@ public class RewardsServiceImpl implements RewardsService {
         Long manager_id = managerRepository.findByEmail(email);
         Long user_id = userRepository.getIdByEmail(email);
         if(manager_id!=null) {
-            Long[] members = managerRepository.getMembers(manager_id);
+          //  Long[] members = managerRepository.getMembers(manager_id);
+            Long[] projects=managerRepository.getProjectsOfManager(manager_id);
 
-            for (int i = 0; i < members.length; i++) {
-                rewards = rewardsRepository.findByRolled(members[i]);
+            for (int i = 0; i < projects.length; i++) {
+                rewards=rewardsRepository.findByRolled(projects[i]);
+              //  rewards = rewardsRepository.findByRolled(members[i]);
 
             }
         }

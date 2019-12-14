@@ -20,14 +20,18 @@ public interface ManagerRepository extends CrudRepository<Manager, Long> {
     @Query(value = "insert into managers (manager_email) values(:manager_email)",nativeQuery = true)
     void managerInsert(String manager_email);
 
-    @Query(value="select name,email,image_url from users where user_id in (select user_id from user_manager where manager_id=?1)",nativeQuery = true)
+  /* @Query(value="select name,email,image_url from users where user_id in (select user_id from user_manager where manager_id=?1)",nativeQuery = true)
     List getEmployees(Long manager_id);
 
-    @Query(value="select user_id,name from users where user_id in (select user_id from user_manager where manager_id=?1)",nativeQuery = true)
-    List<Map<String,String>> getAllMembers(Long manager_id);
+ //   @Query(value="select user_id,name from users where user_id in (select user_id from user_manager where manager_id=?1)",nativeQuery = true)
+   // List<Map<String,String>> getAllMembers(Long manager_id);*/
 
-    @Query(value="select user_id from user_manager where manager_id=?1 ",nativeQuery = true)
-    Long[] getMembers(Long manager_id);
+  /*  @Query(value="select user_id from user_manager where manager_id=?1 ",nativeQuery = true)
+    Long[] getMembers(Long manager_id);*/
+
+    @Query(value="select user_id,name from users where user_id in (select user_id from user_projects where project_id=?1)",nativeQuery = true)
+    List<Map<String,String>> getAllMembers(Long project_id);
+
 
     @Modifying
     @Transactional

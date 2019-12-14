@@ -21,13 +21,13 @@ public interface NominationsService {
 List<Nominations> GetData(Long rewardID) throws Exception;
 
 
-    List<List<Nominations>> showToManager(String email, Long reward_id) throws Exception;
+   // List<List<Nominations>> showToManager(String email, Long reward_id) throws Exception;
 
     void awardeeSelect(Map<String, Long[]> nomination_id) throws IOException, MessagingException, TemplateException;
 
     List<Map<String,String>> getAwardedPeople();
 
-    List<List<Nominations>> showAllToManager(String email) throws Exception;
+  //  List<List<Nominations>> showAllToManager(String email) throws Exception;
 
 //     void managerNominate(List<NominationPojo> nominationsPojo);
 

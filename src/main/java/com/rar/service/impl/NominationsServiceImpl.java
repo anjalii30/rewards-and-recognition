@@ -52,16 +52,16 @@ public class NominationsServiceImpl implements NominationsService {
                 nominations.setSelected(nominationPojo.get(i).isSelected());
                 nominations.setHr_selected(nominationPojo.get(i).isHr_selected());
                 nominations.setReason(nominationPojo.get(i).getReason());
-                nominations.setProject_name(projectRepository.getProjectName(nominationPojo.get(i).getProjectId()));
+                nominations.setProject_name(projectRepository.getProjectName(nominationPojo.get(i).getProject_id()));
                 nominations.setReward_name(nominationPojo.get(i).getReward_name());
                 nominations.setUsername(userRepository.getNameById(nominationPojo.get(i).getUserId()));
                 nominations.setManagerId(manager_id);
-                nominations.setProjectId(nominationPojo.get(i).getProjectId());
+                nominations.setProjectId(nominationPojo.get(i).getProject_id());
 
-                System.out.println("rewards"+nominationPojo.get(i).getRewardId());
+              /*  System.out.println("rewards"+nominationPojo.get(i).getRewardId());
                 System.out.println("userid"+nominationPojo.get(i).getUserId());
-                System.out.println("check"+nominationPojo.get(i).getProjectId());
-                nominationsRepository.save(nominations);
+                System.out.println("projetId"+nominationPojo.get(i).getProject_id());
+               */ nominationsRepository.save(nominations);
 
             long nominationID = nominations.getNominationID();
 
@@ -92,7 +92,9 @@ public class NominationsServiceImpl implements NominationsService {
         return nominations;
     }
 
-    @Override
+
+    //used for self-nomination
+/*    @Override
     public  List<List<Nominations>> showToManager(String manager_email,Long reward_id) throws Exception {
 
         try {
@@ -112,7 +114,7 @@ public class NominationsServiceImpl implements NominationsService {
             throw new InvalidUserException("you are not a manager");
 
         }
-    }
+    }*/
 
     @Override
     public void awardeeSelect(Map<String, Long[]> nomination1_id) throws IOException, MessagingException, TemplateException {
@@ -154,7 +156,8 @@ public class NominationsServiceImpl implements NominationsService {
         return nominationsRepository.getAwarded();
     }
 
-    @Override
+    //used for self-nominaiton
+  /*  @Override
     public List<List<Nominations>> showAllToManager(String email) throws Exception {
         try {
             Long manager_id = managerRepository.findByEmail(email);
@@ -170,7 +173,7 @@ public class NominationsServiceImpl implements NominationsService {
             throw new InvalidUserException("you are not a manager");
 
         }
-    }
+    }*/
 
    @Override
     public List<Nominations> getAllNominations() {

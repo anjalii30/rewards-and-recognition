@@ -77,11 +77,15 @@ public class ManagerController {
         return managerService.findById(id);
     }
 
-    /**
+    //not used
+/*
+    */
+/**
      *
      * @param token jwt token
      * @return list of employees details under this manager
-     */
+     *//*
+
     @ApiOperation(value = "Get the list of employees under this manager")
     @GetMapping("/listEmp")
     public List listEmployees(@RequestHeader(value = "Authorization") String token){
@@ -89,17 +93,18 @@ public class ManagerController {
         Long manager_id=managerRepository.findByEmail(email);
         return managerService.getEmployees(manager_id);
     }
+*/
 
     /**
      *
      * @param token jwt token
+     * @param id project_id
      * @return list of employee id and names under this manager
      */
-    @GetMapping("/getMembers")
-    public List<Map<String,String>> getMembers(@RequestHeader(value = "Authorization") String token){
+    @GetMapping("/getMembers/{id}")
+    public List<Map<String,String>> getMembers(@RequestHeader(value = "Authorization") String token,@ApiParam(value = " Id to get project object", required = true) @PathVariable Long id){
         String email=validity.check(token);
-        Long manager_id=managerRepository.findByEmail(email);
-        return managerService.getAllMembers(manager_id);
+        return managerService.getAllMembers(id);
 
     }
 

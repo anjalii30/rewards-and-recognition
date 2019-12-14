@@ -73,19 +73,6 @@ public class RewardsController {
     }
 
 
-/*    *//**
-     * @param token jwt token
-     * @param id reward id
-     * @param createReward CreateReward object
-     * @return the object of reward which is discontinued.
-     *//*
-    @ApiOperation(value = "Update award status to discontinue by reward id")
-    @PutMapping("/discontinuing/{id}")
-    public ResponseEntity<Rewards> discontinuing(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Reward Id to update discontinuing reward object", required = true)@PathVariable Long id,
-                                                                 @ApiParam(value = "Reward object ", required = true) @Valid @RequestBody Rewards createReward){
-        String email=validity.check(token);
-        return new ResponseEntity(rewardsService.discontinuing(id, createReward),HttpStatus.OK);
-    }*/
 
     /**
      * @param token jwt token
@@ -114,7 +101,7 @@ public class RewardsController {
      * @param token jwt token
      * @return list of rewards which are rolled-out.
      */
-    @ApiOperation(value = "Get the list of rolled out  rewards")
+    @ApiOperation(value = "Get the list of rolled out rewards")
     @GetMapping("/listRolledOut")
     public List<Rewards> listRolledOut(@RequestHeader(value = "Authorization") String token){
         String email=validity.check(token);

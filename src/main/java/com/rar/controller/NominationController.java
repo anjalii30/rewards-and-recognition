@@ -92,13 +92,14 @@ public class NominationController {
         return nominationsService.nominated_rewards();
     }
 
-    /**
+    //used for self-nomination
+   /* *//**
      *
      * @param token jwt token
      * @param id reward id
      * @return list of all the nominations for that manager for the particular reward
      * @throws Exception no nominations
-     */
+     *//*
     @ApiOperation(value = "Get the list of nominations for manager by reward id")
     @GetMapping("/showToManager/{id}")
     public List<List<Nominations>> showToManager(@RequestHeader(value = "Authorization") String token, @PathVariable Long id) throws Exception {
@@ -107,17 +108,17 @@ public class NominationController {
 
     }
 
-    /**
+    *//**
      * @param token jwt token
      * @return list of list of nominations.
      * @throws Exception that displays "You are not a manager" when a normal user logs in.
-     */
+     *//*
     @ApiOperation(value = "Get the list of all the nominations for manager")
     @GetMapping("/showToManager")
     public List<List<Nominations>> showAllToManager(@RequestHeader(value = "Authorization") String token) throws Exception {
         String email = validity.check(token);
         return nominationsService.showAllToManager(email);
-    }
+    }*/
 
     /**
      * @param token jwt token

@@ -29,7 +29,7 @@ public interface ProjectService {
 
     Object[] unAssigned();
 
-    List<Projects> findProjects(Long manager_id);
+    List<Projects> findProjects(Long manager_id,Long reward_id);
 
     Long getCount();
 }

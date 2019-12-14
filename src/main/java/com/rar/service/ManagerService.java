@@ -15,9 +15,9 @@ public interface ManagerService {
 
     void deleteById(long id);
 
-    List getEmployees(Long manager_id);
+   // List getEmployees(Long manager_id);
 
-    List<Map<String,String>> getAllMembers(Long manager_id);
+    List<Map<String,String>> getAllMembers(Long project_id);
 
     void assignValues(long manager_id,long project_id);
 }

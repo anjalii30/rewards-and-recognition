@@ -33,14 +33,15 @@ public class ManagerServiceImpl implements ManagerService {
         managerRepository.deleteById(id);
     }
 
-    @Override
+    //not used
+   /* @Override
     public List getEmployees(Long manager_id) {
         return managerRepository.getEmployees(manager_id);
-    }
+    }*/
 
     @Override
-    public List<Map<String,String>> getAllMembers(Long manager_id) {
-        return managerRepository.getAllMembers(manager_id);
+    public List<Map<String,String>> getAllMembers(Long project_id) {
+        return managerRepository.getAllMembers(project_id);
     }
 
     @Override

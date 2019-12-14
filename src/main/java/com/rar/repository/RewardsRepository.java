@@ -14,8 +14,8 @@ import java.util.List;
 @Repository
 public interface RewardsRepository extends CrudRepository<Rewards, Long> {
 
-    @Query(value = "select * from rewards where award_status=1 and reward_id not in(select reward_id from nominations where user_id=?1) ", nativeQuery = true)
-    List<Rewards> findByRolled(Long user_id);
+    @Query(value = "select * from rewards where award_status=1 and reward_id not in(select reward_id from nominations where project_id=?1) ", nativeQuery = true)
+    List<Rewards> findByRolled(Long project_id);
 
     @Query(value = "select * from rewards where award_status=1 and self_nominate=true and reward_id not in(select reward_id from nominations where user_id=?1) ", nativeQuery = true)
     List<Rewards> findByRolledForEmp(Long user_id);
