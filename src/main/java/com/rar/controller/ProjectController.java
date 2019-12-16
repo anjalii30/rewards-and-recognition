@@ -76,7 +76,7 @@ public class ProjectController {
         return projectService.findById(project_id);
     }
 
-    @PostMapping("/AssignedManager")
+    @PostMapping("/assignedManager")
     public Object [] ManagerForProject(@RequestBody Projects project_name) throws Exception {
         Long project_id = projectService.getIdByProject(project_name.getProject_name());
         return projectService.findManagerById(project_id);
