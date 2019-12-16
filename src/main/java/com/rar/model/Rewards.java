@@ -27,6 +27,9 @@ public class Rewards implements Serializable {
     @ApiModelProperty(notes = "The name of the reward")
     private String reward_name;
 
+    @Column(name = "coins")
+    private Long coins;
+
     @Column
     @Enumerated(EnumType.STRING)
     @ApiModelProperty(notes = "The frequency of the reward")
@@ -230,6 +233,14 @@ public class Rewards implements Serializable {
 
     public void setRollOutId(long rollOutId) {
         this.rollOutId = rollOutId;
+    }
+
+    public Long getCoins() {
+        return coins;
+    }
+
+    public void setCoins(Long coins) {
+        this.coins = coins;
     }
 
     @Override

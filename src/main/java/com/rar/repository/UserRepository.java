@@ -114,6 +114,14 @@ public interface UserRepository extends CrudRepository< UserInfo,Long> {
     @Query(value="select email from users where user_id in(select user_id from user_roles where role_id=1)",nativeQuery = true)
     String[] getAllEmails();
 
+    @Query(value = "select wallet from users where user_id=?1",nativeQuery = true)
+    Long getWalletBalance(Long user_id);
+
+    @Modifying
+    @Transactional
+    @Query(value = "update users set wallet=?2 where user_id=?1",nativeQuery = true)
+    void updateWalletBalance(Long user_id, Long wallet);
+
 }
 
 

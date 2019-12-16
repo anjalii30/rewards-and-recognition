@@ -38,4 +38,6 @@ List<Nominations> GetData(Long rewardID) throws Exception;
     List<Rewards> nominated_rewards() ;
 
     List getTopAwardee();
+
+  void rewardCoins(Long[] nomination_id);
 }

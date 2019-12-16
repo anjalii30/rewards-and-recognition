@@ -38,6 +38,8 @@ public class NominationsServiceImpl implements NominationsService {
     private ManagerRepository managerRepository;
     @Autowired
     private SendEmail sendEmail;
+    @Autowired
+    private NominationsService nominationsService;
 
 
     @Override
@@ -128,10 +130,10 @@ public class NominationsServiceImpl implements NominationsService {
 
             nominationsRepository.awardeeSelect(nomination_id[i]);
 
+
             for (int j = 0; j < emails.length; j++) {
 
                 String name=userRepository.getName(emails[j]);
-//                Long user=userRepository.getIdByEmail(emails[i]);
                 String reward_name=nominationsRepository.getRewardName(nomination_id[i]);
                 String user_name=nominationsRepository.getUserName(nomination_id[i]);
                 String image =userRepository.getImage(nominationsRepository.userId(nomination_id[i]));
@@ -148,7 +150,7 @@ public class NominationsServiceImpl implements NominationsService {
 
             }
         }
-
+        nominationsService.rewardCoins(nomination_id);
     }
 
     @Override
@@ -207,4 +209,18 @@ public class NominationsServiceImpl implements NominationsService {
         return nominationsRepository.getTopAwardee();
     }
 
+    @Override
+    public void rewardCoins(Long[] nomination_id) {
+
+       int count = nomination_id.length;
+       String reward_name = nominationsRepository.getRewardName(nomination_id[0]);
+       Long rewardCoinValue = rewardsRepository.getCoinValue(reward_name);
+       Long wonCoinValue = rewardCoinValue/count;
+       for(int i=0; i<nomination_id.length;i++){
+           Long user_id = nominationsRepository.userId(nomination_id[i]);
+           Long currentWalletBalance = userRepository.getWalletBalance(user_id);
+           Long newWalletBalance = currentWalletBalance + wonCoinValue;
+           userRepository.updateWalletBalance(user_id,newWalletBalance);
+       }
+    }
 }
