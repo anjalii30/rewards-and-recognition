@@ -180,8 +180,6 @@ public class RewardsController {
     public Rewards RollOutUpdate(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Reward Id to update reward object", required = true)@PathVariable Long id, @ApiParam(value = "Reward object ", required = true) @Valid @RequestBody Rewards rewards){
 
         String email=validity.check(token);
-
-
         return rewardsService.rollOutUpdate(id, rewards);
     }
 }
