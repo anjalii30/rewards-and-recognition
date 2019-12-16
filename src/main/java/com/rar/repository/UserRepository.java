@@ -82,7 +82,7 @@ public interface UserRepository extends CrudRepository< UserInfo,Long> {
     @Query(value="insert into user_manager (user_id,manager_id) values (:user_id,:manager_id)",nativeQuery = true)
     void insertUserManager(Long user_id,Long manager_id);
 
-    @Query(value="select * from users",nativeQuery = true)
+    @Query(value="select * from users where user_id not in(select user_id from user_roles where role_id=2)",nativeQuery = true)
     List<UserInfo> getAll();
 
     @Query(value="select designation_id from user_designation where user_id=?1",nativeQuery = true)

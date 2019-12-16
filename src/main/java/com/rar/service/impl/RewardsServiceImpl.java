@@ -43,9 +43,9 @@ public class RewardsServiceImpl implements RewardsService {
             "December"};
 
     private Calendar cal = Calendar.getInstance();
-//    private String month = monthName[cal.get(Calendar.MONTH)];
+    private String month = monthName[cal.get(Calendar.MONTH)];
 
-   // private String year = String.valueOf(cal.get(Calendar.YEAR));
+    private String year = String.valueOf(cal.get(Calendar.YEAR));
 
     @Override
     public Rewards save(Rewards rewards) {
@@ -222,9 +222,10 @@ public class RewardsServiceImpl implements RewardsService {
     public ResponseEntity rewardsSave(Rewards rewards) {
 
 
-        String month = monthName[cal.get(rewards.getStart_date().getMonthValue())];
+      /*  String month = monthName[cal.get(rewards.getStart_date().getMonthValue())];
+        System.out.println(month);
          String year = String.valueOf(cal.get(rewards.getStart_date().getYear()));
-         System.out.println(year+month);
+         System.out.println(year+month);*/
 
             if (rewards.getFrequency() == FrequencyEnum.Annually)
 
