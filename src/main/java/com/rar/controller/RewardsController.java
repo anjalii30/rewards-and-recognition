@@ -65,7 +65,6 @@ public class RewardsController {
     @PutMapping("/updateAwardStatus/{id}")
     public ResponseEntity<Rewards> updateAwardStatus(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Award status Id to update award status", required = true)@PathVariable Long id,
                                      @ApiParam(value = "Reward object ", required = true) @Valid @RequestBody Rewards createReward) throws IOException, MessagingException, com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException, javax.mail.MessagingException {
-
         String email=validity.check(token);
         ResponseEntity<Rewards> rewards=rewardsService.updateAwardStatus(id, createReward);
 
@@ -164,7 +163,6 @@ public class RewardsController {
     @ApiOperation(value = "Get the user details for editing by user id")
     @GetMapping("/listRolledOutRewardEdit/{id}")
     public Optional<Rewards> rollOutListReward(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Reward Id to get reward object", required = true)@PathVariable Long id){
-
         String email=validity.check(token);
         return rewardsService.rollOutListReward(id);
     }
@@ -178,10 +176,7 @@ public class RewardsController {
     @ApiOperation(value = "Update the reward by id")
     @PutMapping("/updateRollOutReward/{id}")
     public Rewards RollOutUpdate(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Reward Id to update reward object", required = true)@PathVariable Long id, @ApiParam(value = "Reward object ", required = true) @Valid @RequestBody Rewards rewards){
-
         String email=validity.check(token);
-
-
         return rewardsService.rollOutUpdate(id, rewards);
     }
 }
