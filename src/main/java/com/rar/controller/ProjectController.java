@@ -102,7 +102,7 @@ public class ProjectController {
      */
     @ApiOperation(value = "Assign project to users")
     @PostMapping("/assignProjects")
-    public ResponseEntity assignProjects(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Project name and employee emails ", required = true) @Valid @RequestBody UserProjectsPojo userProjectsPojo) throws Exception {
+    public ResponseEntity<?> assignProjects(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Project name and employee emails ", required = true) @Valid @RequestBody UserProjectsPojo userProjectsPojo) throws Exception {
         String email=validity.check(token);
         projectService.assign(userProjectsPojo);
         Long project_id = projectService.getIdByProject(userProjectsPojo.getProject_name());
