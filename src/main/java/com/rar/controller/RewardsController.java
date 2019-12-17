@@ -175,8 +175,8 @@ public class RewardsController {
     @ApiOperation(value = "Update the reward by id")
     @PutMapping("/updateRollOutReward/{id}")
     public Rewards RollOutUpdate(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Reward Id to update reward object", required = true)@PathVariable Long id, @ApiParam(value = "Reward object ", required = true) @Valid @RequestBody Rewards rewards){
-
        validity.check(token);
        return rewardsService.rollOutUpdate(id, rewards);
+
     }
 }

@@ -2,6 +2,7 @@ package com.rar.service.impl;
 
 import com.rar.entity.*;
 import com.rar.pojo.NominationPojo;
+
 import com.rar.repository.*;
 import com.rar.service.NominationsService;
 import freemarker.template.TemplateException;
@@ -35,6 +36,8 @@ public class NominationsServiceImpl implements NominationsService {
     private ManagerRepository managerRepository;
     @Autowired
     private SendEmail sendEmail;
+    @Autowired
+    private NominationsService nominationsService;
 
 
     @Override
@@ -121,32 +124,31 @@ public class NominationsServiceImpl implements NominationsService {
 
         String[] emails=userRepository.getAllEmails();
 
-        for (int i = 0; i < emails.length; i++) {
+        for (int i = 0; i < nomination_id.length; i++) {
 
-            String name=userRepository.getName(emails[i]);
-            Long user=userRepository.getIdByEmail(emails[i]);
+            nominationsRepository.awardeeSelect(nomination_id[i]);
 
-            for (int j = 0; j < nomination_id.length; j++) {
 
-                nominationsRepository.awardeeSelect(nomination_id[j]);
+            for (int j = 0; j < emails.length; j++) {
 
-                String reward_name=nominationsRepository.getRewardName(nomination_id[j]);
-                String user_name=nominationsRepository.getUserName(nomination_id[j]);
-                String image =userRepository.getImage(nominationsRepository.userId(nomination_id[j]));
+                String name=userRepository.getName(emails[j]);
+                String reward_name=nominationsRepository.getRewardName(nomination_id[i]);
+                String user_name=nominationsRepository.getUserName(nomination_id[i]);
+                String image =userRepository.getImage(nominationsRepository.userId(nomination_id[i]));
 
                 Map<String,Object> root = new HashMap();
                 root.put("name",name );
                 root.put("user_name", user_name);
                 root.put("reward_name",reward_name);
                 root.put("image",image);
-                if(nominationsRepository.userId(nomination_id[j])==userRepository.getIdByEmail(emails[i]))
-                    sendEmail.sendEmailToWinner(root,emails[i],"You have been awarded");
+                if(nominationsRepository.userId(nomination_id[i])==userRepository.getIdByEmail(emails[j]))
+                    sendEmail.sendEmailToWinner(root,emails[j],"You have been awarded");
                 else
-                sendEmail.sendEmailWithAttachment(root,emails[i], "Employee awarded for the reward");
+                sendEmail.sendEmailWithAttachment(root,emails[j], "Employee awarded for the reward");
 
             }
         }
-
+        nominationsService.rewardCoins(nomination_id);
     }
 
     @Override
@@ -205,4 +207,18 @@ public class NominationsServiceImpl implements NominationsService {
         return nominationsRepository.getTopAwardee();
     }
 
+    @Override
+    public void rewardCoins(Long[] nomination_id) {
+
+       int count = nomination_id.length;
+       String reward_name = nominationsRepository.getRewardName(nomination_id[0]);
+       Long rewardCoinValue = rewardsRepository.getCoinValue(reward_name);
+       Long wonCoinValue = rewardCoinValue/count;
+       for(int i=0; i<nomination_id.length;i++){
+           Long user_id = nominationsRepository.userId(nomination_id[i]);
+           Long currentWalletBalance = userRepository.getWalletBalance(user_id);
+           Long newWalletBalance = currentWalletBalance + wonCoinValue;
+           userRepository.updateWalletBalance(user_id,newWalletBalance);
+       }
+    }
 }

@@ -29,6 +29,9 @@ public class UserInfo implements Serializable {
     @ApiModelProperty(notes = "The email ID of the User")
     private String email;
 
+    @Column(name = "wallet")
+    private Long wallet;
+
     @Column(nullable = false)
     @ApiModelProperty(notes = "The name of the User")
     private String name;
@@ -185,6 +188,14 @@ public class UserInfo implements Serializable {
 
     public void setProjects(Set<Projects> projects) {
         this.projects = projects;
+    }
+
+    public Long getWallet() {
+        return wallet;
+    }
+
+    public void setWallet(Long wallet) {
+        this.wallet = wallet;
     }
 
     @Override
