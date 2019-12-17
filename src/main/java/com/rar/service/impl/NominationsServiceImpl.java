@@ -1,7 +1,7 @@
 package com.rar.service.impl;
 
 import com.rar.entity.*;
-import com.rar.pojo.NominationPojo;
+import com.rar.DTO.NominationPojo;
 
 import com.rar.repository.*;
 import com.rar.service.NominationsService;

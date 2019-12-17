@@ -1,8 +1,8 @@
 package com.rar.controller;
 
-import com.rar.pojo.CreateProjectPojo;
+import com.rar.DTO.CreateProjectPojo;
 import com.rar.entity.Projects;
-import com.rar.pojo.UserProjectsPojo;
+import com.rar.DTO.UserProjectsPojo;
 import com.rar.repository.ManagerRepository;
 import com.rar.service.ProjectService;
 import com.rar.service.impl.CheckValidity;

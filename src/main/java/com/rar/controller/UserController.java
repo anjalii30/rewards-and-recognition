@@ -1,7 +1,7 @@
 package com.rar.controller;
 
 
-import com.rar.pojo.EditUserDetails;
+import com.rar.DTO.EditUserDetails;
 import com.rar.repository.UserRepository;
 import com.rar.service.UserService;
 import com.rar.service.impl.CheckValidity;

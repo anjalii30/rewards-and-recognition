@@ -5,7 +5,7 @@ import com.rar.enums.RoleEnum;
 import com.rar.exception.InvalidTokenException;
 import com.rar.exception.InvalidUserException;
 import com.rar.entity.*;
-import com.rar.pojo.LoginUserDetails;
+import com.rar.DTO.LoginUserDetails;
 import com.rar.repository.UserRepository;
 import com.rar.service.LoginService;
 import org.apache.http.HttpEntity;
@@ -18,6 +18,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -129,13 +131,13 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public UserInfo saveLogin(UserInfo userInfo) {
-        return userRepository.save(userInfo);
+    public ResponseEntity<UserInfo> saveLogin(UserInfo userInfo) {
+        return new ResponseEntity<>(userRepository.save(userInfo),HttpStatus.OK);
     }
 
 
     @Override
-    public List<LoginUserDetails> findAll() {
+    public ResponseEntity<List<LoginUserDetails>> findAll() {
 
         List<UserInfo> userInfos = userRepository.getAll();
         List<LoginUserDetails> userInfoList=new ArrayList<>();
@@ -143,7 +145,7 @@ public class LoginServiceImpl implements LoginService {
         for(int i =0;i<userInfos.size();i++){
             userInfoList.add(i, new LoginUserDetails(userInfos.get(i).getEmail(), userInfos.get(i).getName(), userInfos.get(i).getImageUrl(), userInfos.get(i).getId()));
         }
-        return userInfoList;
+        return new ResponseEntity<>(userInfoList,HttpStatus.OK);
 
     }
 
@@ -154,8 +156,8 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public Optional<UserInfo> findById(Long uid) {
-        return userRepository.findById(uid);
+    public ResponseEntity<UserInfo> findById(Long uid) {
+        return new ResponseEntity( userRepository.findById(uid), HttpStatus.OK);
     }
 
     @Override
@@ -170,8 +172,8 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public Optional<UserInfo> findByEmail(String email) {
-        return userRepository.findByEmail(email);
+    public ResponseEntity<UserInfo> findByEmail(String email) {
+        return new ResponseEntity(userRepository.findByEmail(email),HttpStatus.OK);
     }
     
 }

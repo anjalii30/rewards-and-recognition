@@ -1,4 +1,4 @@
-package com.rar.pojo;
+package com.rar.DTO;
 
 import com.rar.enums.DesignationEnum;
 import com.rar.enums.RoleEnum;

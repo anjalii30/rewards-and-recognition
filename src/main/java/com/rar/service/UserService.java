@@ -1,6 +1,6 @@
 package com.rar.service;
 
-import com.rar.pojo.EditUserDetails;
+import com.rar.DTO.EditUserDetails;
 import com.rar.entity.UserInfo;
 import org.springframework.http.ResponseEntity;
 

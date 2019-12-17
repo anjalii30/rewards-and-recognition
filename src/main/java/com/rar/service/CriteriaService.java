@@ -8,11 +8,11 @@ import java.util.Optional;
 
 public interface CriteriaService {
 
-    Optional<Criteria> findById(Long id);
+    ResponseEntity<Criteria> findById(Long id);
 
     ResponseEntity<Criteria> saveCriteria(Criteria criteria);
 
-    List<Criteria>findAll();
+    ResponseEntity<List<Criteria>>findAll();
 
     ResponseEntity<String> deleteById(long id);
 }

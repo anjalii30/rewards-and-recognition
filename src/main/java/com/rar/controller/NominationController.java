@@ -1,6 +1,6 @@
 package com.rar.controller;
 
-import com.rar.pojo.NominationPojo;
+import com.rar.DTO.NominationPojo;
 import com.rar.entity.Nominations;
 import com.rar.entity.Rewards;
 import com.rar.repository.ManagerRepository;

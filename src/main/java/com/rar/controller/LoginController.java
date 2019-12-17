@@ -1,6 +1,6 @@
 package com.rar.controller;
 
-import com.rar.pojo.LoginUserDetails;
+import com.rar.DTO.LoginUserDetails;
 import com.rar.entity.UserInfo;
 import com.rar.service.LoginService;
 import com.rar.service.impl.CheckValidity;
@@ -8,7 +8,10 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.reactive.ReactiveCrudRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
@@ -33,8 +36,12 @@ public class LoginController {
      */
     @ApiOperation(value = "Login by gmail Id")
     @PostMapping(value = "/login")
-    public Object getToken(@RequestHeader(value = "Authorization") String token) throws Exception {
-        return loginService.login(token);
+    public ResponseEntity<LoginUserDetails> getToken(@RequestHeader(value = "Authorization") String token) throws Exception {
+        try {
+            return new ResponseEntity(loginService.login(token), HttpStatus.OK);
+        }catch(Exception e){
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
     }
 
     /**
@@ -44,9 +51,13 @@ public class LoginController {
      */
     @ApiOperation(value = "Save the user")
     @PostMapping("/saveLoginUsers")
-    public UserInfo saveLogin(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "User object store in database table", required = true) @Valid @RequestBody UserInfo users){
-        validity.check(token);
-        return loginService.saveLogin(users);
+    public ResponseEntity<UserInfo> saveLogin(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "User object store in database table", required = true) @Valid @RequestBody UserInfo users){
+       try {
+           validity.check(token);
+           return new ResponseEntity(loginService.saveLogin(users),HttpStatus.OK);
+       }catch(Exception e){
+           return ResponseEntity.status(HttpStatus.CONFLICT).build();
+       }
     }
 
     /**
@@ -55,12 +66,10 @@ public class LoginController {
      */
     @ApiOperation(value = "Get the list of users")
     @GetMapping(value = "/listUsers", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<LoginUserDetails> listUser(@RequestHeader(value = "Authorization") String token){
+    public ResponseEntity<List<LoginUserDetails>> listUser(@RequestHeader(value = "Authorization") String token){
         validity.check(token);
-        return loginService.findAll();
+        return new ResponseEntity(loginService.findAll(),HttpStatus.OK);
     }
-
-
 
     /**
      * @param token jwt token
@@ -69,9 +78,13 @@ public class LoginController {
      */
     @ApiOperation(value = "Get the user by email id")
     @GetMapping("/listUsersByEmail/{email}")
-    public Optional<UserInfo> findByEmail(@RequestHeader(value = "Authorization") String token , @ApiParam(value = "User email to get user object", required = true) String email) {
+    public ResponseEntity<UserInfo> findByEmail(@RequestHeader(value = "Authorization") String token , @ApiParam(value = "User email to get user object", required = true) String email) {
+        try{
         validity.check(token);
-        return loginService.findByEmail(email);
+        return new ResponseEntity(loginService.findByEmail(email),HttpStatus.OK);
+        }catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     /**
@@ -81,9 +94,13 @@ public class LoginController {
      */
     @ApiOperation(value = "Delete the user by user id")
     @DeleteMapping("/deleteUsers/{id}")
-    public String delete(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "User Id to delete user object", required = true) @PathVariable long id){
-        validity.check(token);
-        loginService.deleteById(id);
-        return "Deleted Successfully";
+    public ResponseEntity<String> delete(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "User Id to delete user object", required = true) @PathVariable long id){
+        try {
+            validity.check(token);
+            loginService.deleteById(id);
+            return new ResponseEntity<>("Deleted Successfully",HttpStatus.OK);
+        }catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 }
