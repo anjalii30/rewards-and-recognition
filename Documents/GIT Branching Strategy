@@ -1,0 +1,40 @@
+
+Branches:
+   * master
+   * staging
+   * dev
+​
+master is the default branch of the project, dev is the offset branch of the master branch and staging is the offset
+branch of dev.
+​
+Note: The following git conventions are to be followed for push and pull requests in the branches.
+​
+master:
+  - should be the default branch of the project.
+  - code should be merged to master from dev.
+  - no direct commits should be made in this branch.
+​
+staging:
+  - should be the offset of master branch.
+  - code is merged to dev from staging.
+  - merge can be done only after QA and testing are performed.
+  - once merge is done, no changes should be made until feedback is received from the client.
+​
+dev:
+  - should be the offset of dev branch.
+  - staging will have ongoing sprint work and may have unstable code.
+  - sonar analysis will be configured with staging.
+​
+Other branching strategy to be followed:
+  * use feature branches for all new features and bug fixes
+  * merge feature branch into the staging branch using pull request
+  * keep the staging branch up-to-date
+​
+Naming conventions to be followed for feature branches:
+   
+Use a consistent naming convention for your feature branches to identify the work done in the branch. You can also
+include other information in the branch name such as who created the branch. Some suggestions are: 
+     
+ * users/username/description
+ * bugfix/description
+ * features/featurename
