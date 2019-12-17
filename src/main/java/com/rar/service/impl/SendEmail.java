@@ -1,4 +1,4 @@
-package com.rar.utils;
+package com.rar.service.impl;
 
 import freemarker.template.*;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,16 +1,13 @@
 package com.rar.service.impl;
 
-import com.rar.exception.InvalidUserException;
 import com.rar.model.*;
 import com.rar.repository.*;
 import com.rar.service.NominationsService;
-import com.rar.utils.SendEmail;
 import freemarker.template.TemplateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ws.server.endpoint.interceptor.DelegatingSmartEndpointInterceptor;
 
 import javax.mail.MessagingException;
 import java.io.IOException;

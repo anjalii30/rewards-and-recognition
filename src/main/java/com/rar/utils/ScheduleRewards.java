@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -28,15 +31,20 @@ public class ScheduleRewards {
 
     private Rewards rewards;
 
+  /*  @Autowired
+    private UtcDate utcDate;
+*/
     String[] monthName = {"January", "February",
             "March", "April", "May", "June", "July",
             "August", "September", "October", "November",
             "December"};
 
+    SimpleDateFormat df=new SimpleDateFormat("yyy-mm-dd ");
+
 
     //Checking for regeneration of  monthly reward whose end date has passed daily at 12 a.m.
     @Scheduled(cron = "0 0 0 1/1 * ? ")
-    public void scheduleMonthly(){
+    public void scheduleMonthly() throws ParseException {
 
         ArrayList<Rewards> list = (ArrayList<Rewards>) rewardsRepository.findAll();
 
@@ -45,9 +53,14 @@ public class ScheduleRewards {
         while(i<list.size()){
             Rewards old_reward = list.get(i);
 
+
             // Get the two dates to be compared
+            //Date d1 =utcDate.dateToday(old_reward.getEnd_date());
             LocalDate d1 =old_reward.getEnd_date();
+
+
             LocalDate d2 = LocalDate.now();
+
 
             Calendar cal = Calendar.getInstance();
             String month = monthName[cal.get(Calendar.MONTH)];

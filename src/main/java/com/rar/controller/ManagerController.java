@@ -3,7 +3,7 @@ package com.rar.controller;
 import com.rar.model.Manager;
 import com.rar.repository.ManagerRepository;
 import com.rar.service.ManagerService;
-import com.rar.utils.CheckValidity;
+import com.rar.service.impl.CheckValidity;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

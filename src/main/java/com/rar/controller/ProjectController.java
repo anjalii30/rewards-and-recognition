@@ -5,7 +5,7 @@ import com.rar.model.Projects;
 import com.rar.model.UserProjectsPojo;
 import com.rar.repository.ManagerRepository;
 import com.rar.service.ProjectService;
-import com.rar.utils.CheckValidity;
+import com.rar.service.impl.CheckValidity;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

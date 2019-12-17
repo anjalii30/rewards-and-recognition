@@ -3,7 +3,7 @@ package com.rar.controller;
 import com.rar.model.LoginUserDetails;
 import com.rar.model.UserInfo;
 import com.rar.service.LoginService;
-import com.rar.utils.CheckValidity;
+import com.rar.service.impl.CheckValidity;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

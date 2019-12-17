@@ -31,6 +31,9 @@ public class LoginServiceImpl implements LoginService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private GenerateJWT generateJWT;
+
     @Value("${jwt.secret}")
     private String secret;
 
@@ -104,21 +107,11 @@ public class LoginServiceImpl implements LoginService {
 
                     userRepository.save(userInfo1);
 
-                    String generatedToken = Jwts.builder()
-                            .setSubject(String.valueOf(email))
-                            .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY * 1000))
-                            .signWith(SignatureAlgorithm.HS512, secret)
-                            .compact();
-
+                    String generatedToken=generateJWT.generateToken(email);
                     return new LoginUserDetails(userInfo1.getEmail()+"",userInfo1.getName()+"",userInfo1.getImageUrl()+"",""+generatedToken,roleEnum,designationEnum,userInfo1.getId(),isManager);
 
                 } else {
-
-                    String generatedToken = Jwts.builder()
-                            .setSubject(String.valueOf(email))
-                            .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY * 1000))
-                            .signWith(SignatureAlgorithm.HS512, secret)
-                            .compact();
+                    String generatedToken=generateJWT.generateToken(email);
                     return new LoginUserDetails(userInfo1.getEmail()+"",userInfo1.getName()+"",userInfo1.getImageUrl()+"",""+generatedToken,roleEnum,designationEnum,userInfo1.getId(),isManager);
 
 

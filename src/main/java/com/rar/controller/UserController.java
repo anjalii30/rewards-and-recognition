@@ -4,7 +4,7 @@ package com.rar.controller;
 import com.rar.model.EditUserDetails;
 import com.rar.repository.UserRepository;
 import com.rar.service.UserService;
-import com.rar.utils.CheckValidity;
+import com.rar.service.impl.CheckValidity;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;

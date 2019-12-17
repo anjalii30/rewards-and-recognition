@@ -5,14 +5,15 @@ import com.rar.model.Rewards;
 import com.rar.model.RewardsCriteria;
 import com.rar.repository.*;
 import com.rar.service.RewardsService;
-import com.rar.utils.SendEmail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.mail.MessagingException;
 import java.io.IOException;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -37,7 +38,8 @@ public class RewardsServiceImpl implements RewardsService {
     @Autowired
     private SendEmail sendEmail;
 
-    private String[] monthName = {"January", "February",
+
+    static String[] monthName = {"January", "February",
             "March", "April", "May", "June", "July",
             "August", "September", "October", "November",
             "December"};
@@ -114,6 +116,9 @@ public class RewardsServiceImpl implements RewardsService {
     public ResponseEntity<Rewards> updateAwardStatus(Long id, Rewards createReward) throws IOException, MessagingException, com.sun.xml.messaging.saaj.packaging.mime.MessagingException {
 
         LocalDate today = LocalDate.now();
+      // ResponseEntity t= utcDate.dateToday(today);
+       // Instant today = Instant.now();
+
 
         Rewards CreateReward1 = rewardsRepository.findById(id).get();
         CreateReward1.setReward_name(CreateReward1.getReward_name());
@@ -278,6 +283,8 @@ public class RewardsServiceImpl implements RewardsService {
         }
         return null;
     }
+
+
 }
 
 

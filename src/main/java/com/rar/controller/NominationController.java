@@ -6,7 +6,8 @@ import com.rar.model.Rewards;
 import com.rar.repository.ManagerRepository;
 import com.rar.repository.UserRepository;
 import com.rar.service.NominationsService;
-import com.rar.utils.CheckValidity;
+import com.rar.service.impl.CheckValidity;
+//import com.rar.utils.UtcDate;
 import freemarker.template.TemplateException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -28,7 +29,7 @@ import java.util.Map;
 @EnableAutoConfiguration
 @Api(value="Nomination Management System")
 public class NominationController {
-
+    //UtcDate utcDate;
     @Autowired
     private NominationsService nominationsService;
 
@@ -38,9 +39,10 @@ public class NominationController {
     @Autowired
     private UserRepository userRepository;
 
-
     @Autowired
     private ManagerRepository managerRepository;
+
+
 
 
     /**
@@ -167,4 +169,17 @@ public class NominationController {
         String manager_name=userRepository.getName(email);
         nominationsService.managerSelect(nominations,manager_id,manager_name);
     }
+
+/* @GetMapping("/")
+ public void abc() throws ParseException {
+     LocalDate d2 = LocalDate.now();
+     System.out.println(d2+" localdate");
+
+     Date d1 =utcDate.dateToday(LocalDate.now());
+     Instant today = Instant.now();
+     System.out.println(today);
+     SimpleDateFormat df=new SimpleDateFormat("yyy-mm-dd ");
+     df.format(today);
+     System.out.println(today);
+ }*/
 }
