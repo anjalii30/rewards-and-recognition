@@ -1,7 +1,7 @@
 package com.rar.repository;
 
-import com.rar.model.Criteria;
-import com.rar.model.Rewards;
+import com.rar.entity.Criteria;
+import com.rar.entity.Rewards;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

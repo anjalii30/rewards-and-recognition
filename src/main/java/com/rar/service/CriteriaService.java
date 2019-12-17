@@ -1,6 +1,6 @@
 package com.rar.service;
 
-import com.rar.model.Criteria;
+import com.rar.entity.Criteria;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;

@@ -1,6 +1,6 @@
 package com.rar.controller;
 
-import com.rar.model.Manager;
+import com.rar.entity.Manager;
 import com.rar.repository.ManagerRepository;
 import com.rar.service.ManagerService;
 import com.rar.service.impl.CheckValidity;
@@ -36,7 +36,7 @@ public class ManagerController {
     @ApiOperation(value = "Save the  manager")
     @PostMapping("/saveEmp")
     public Manager save(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Manager object stored in database table", required = true) @Valid @RequestBody Manager manager){
-        String email=validity.check(token);
+        validity.check(token);
         return managerService.save(manager);
     }
 
@@ -47,7 +47,7 @@ public class ManagerController {
     @ApiOperation(value = "Get the list of managers")
     @GetMapping("/listManagers")
     public List<Manager> list(@RequestHeader(value = "Authorization") String token){
-        String email=validity.check(token);
+        validity.check(token);
         return managerService.findAll();
     }
 
@@ -59,7 +59,7 @@ public class ManagerController {
     @ApiOperation(value = "Delete the manager detail by id")
     @DeleteMapping("/deleteEmp/{id}")
     public String delete(@RequestHeader(value = "Authorization") String token, @ApiParam(value = " Id to delete manager", required = true) @PathVariable long id){
-        String email=validity.check(token);
+        validity.check(token);
         managerService.deleteById(id);
         return "Deleted Successfully";
     }
@@ -71,29 +71,10 @@ public class ManagerController {
      */
     @ApiOperation(value = "Get the manager by id")
     @GetMapping("/listEmp/{id}")
-    public Optional<Manager> getById(@RequestHeader(value = "Authorization") String token, @ApiParam(value = " Id to get manager object", required = true) @PathVariable Long id){
-        String email=validity.check(token);
-
+    public Optional<Manager> getById(@RequestHeader(value = "Authorization") String token, @ApiParam(value = " Id to get manager object", required = true) @PathVariable Long id) {
+        validity.check(token);
         return managerService.findById(id);
     }
-
-    //not used
-/*
-    */
-/**
-     *
-     * @param token jwt token
-     * @return list of employees details under this manager
-     *//*
-
-    @ApiOperation(value = "Get the list of employees under this manager")
-    @GetMapping("/listEmp")
-    public List listEmployees(@RequestHeader(value = "Authorization") String token){
-        String email=validity.check(token);
-        Long manager_id=managerRepository.findByEmail(email);
-        return managerService.getEmployees(manager_id);
-    }
-*/
 
     /**
      *
@@ -101,15 +82,14 @@ public class ManagerController {
      * @param id project_id
      * @return list of employee id and names under this manager
      */
+    @ApiOperation(value = "Get the members working under this project")
     @GetMapping("/getMembers/{id}")
     public List<Map<String,String>> getMembers(@RequestHeader(value = "Authorization") String token,@ApiParam(value = " Id to get project object", required = true) @PathVariable Long id){
-        String email=validity.check(token);
+        validity.check(token);
         return managerService.getAllMembers(id);
-
     }
 
     /**
-     *
      * @param token jwt token
      * @param manager_id manager id
      * @param project_id project id
@@ -119,7 +99,7 @@ public class ManagerController {
     @ApiOperation(value = "Get projects assigned to manager")
     @PostMapping("/listAssignedProjects")
     public String assignValues(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "manager id ", required = true) @Valid @RequestBody long manager_id, @ApiParam(value = "project id ", required = true) @Valid @RequestBody long project_id) throws Exception {
-        String email=validity.check(token);
+        validity.check(token);
         managerService.assignValues(manager_id,project_id);
         return "Assigned";
     }

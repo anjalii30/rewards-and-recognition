@@ -1,6 +1,6 @@
 package com.rar.controller;
 
-import com.rar.model.Criteria;
+import com.rar.entity.Criteria;
 import com.rar.service.CriteriaService;
 import com.rar.service.impl.CheckValidity;
 import io.swagger.annotations.Api;
@@ -36,7 +36,7 @@ public class CriteriaController {
     @PostMapping("/saveCriteria")
     public ResponseEntity<Criteria> save(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Criteria object store in database table", required = true) @Valid @RequestBody Criteria criteria){
        try {
-           String email = validity.check(token);
+          validity.check(token);
            return new ResponseEntity(criteriaService.saveCriteria(criteria), HttpStatus.CREATED);
        }catch (Exception e){
            return  ResponseEntity.status(HttpStatus.CONFLICT).build();
@@ -52,7 +52,7 @@ public class CriteriaController {
     @ApiOperation(value = "Get list of criterion")
     @GetMapping("/listCriteria")
     public List<Criteria> list(@RequestHeader(value = "Authorization") String token){
-        String email=validity.check(token);
+        validity.check(token);
         return criteriaService.findAll();
     }
 
@@ -67,7 +67,7 @@ public class CriteriaController {
     public ResponseEntity delete(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Criteria Id to delete criteria object", required = true) @PathVariable long id) {
 
         try {
-            String email = validity.check(token);
+            validity.check(token);
             criteriaService.deleteById(id);
             return new ResponseEntity("Deleted",HttpStatus.OK);
         }catch (Exception e){
@@ -85,7 +85,7 @@ public class CriteriaController {
     @GetMapping("/listCriterion/{id}")
     public Optional<Criteria> getById(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Criteria Id to get criteria object", required = true) @PathVariable Long id){
 
-        String email=validity.check(token);
+        validity.check(token);
         return criteriaService.findById(id);
     }
 }

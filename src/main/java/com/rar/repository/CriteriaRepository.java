@@ -1,6 +1,6 @@
 package com.rar.repository;
 
-import com.rar.model.Criteria;
+import com.rar.entity.Criteria;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,6 +1,6 @@
 package com.rar.repository;
 
-import com.rar.model.Manager;
+import com.rar.entity.Manager;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

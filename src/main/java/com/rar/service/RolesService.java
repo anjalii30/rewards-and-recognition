@@ -1,6 +1,6 @@
 package com.rar.service;
 
-import com.rar.model.Roles;
+import com.rar.entity.Roles;
 import java.util.List;
 import java.util.Optional;
 

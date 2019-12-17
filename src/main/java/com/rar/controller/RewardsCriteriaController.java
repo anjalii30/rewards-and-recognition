@@ -1,19 +1,15 @@
 package com.rar.controller;
 
 
-import com.rar.model.RewardsCriteria;
+import com.rar.entity.RewardsCriteria;
 import com.rar.service.RewardsCriteriaService;
 import com.rar.service.impl.CheckValidity;
-import com.rar.service.impl.SendEmail;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import javax.mail.MessagingException;
 import javax.validation.Valid;
-import java.io.IOException;
 import java.util.List;
 
 @CrossOrigin
@@ -23,8 +19,6 @@ public class RewardsCriteriaController {
 
     @Autowired
     private RewardsCriteriaService rewardsCriteriaService;
-@Autowired
-SendEmail sendEmail;
     @Autowired
     private CheckValidity validity;
 
@@ -36,7 +30,7 @@ SendEmail sendEmail;
     @ApiOperation(value = "Assign criteria to reward")
     @PostMapping("/saveRewardsCriteria")
     public RewardsCriteria save(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Reward Assigned to criteria", required = true) @Valid @RequestBody RewardsCriteria rewardsCriteria){
-        String email=validity.check(token);
+        validity.check(token);
         return rewardsCriteriaService.save(rewardsCriteria);
     }
 
@@ -46,8 +40,8 @@ SendEmail sendEmail;
      */
     @ApiOperation(value = "Get the mapping of criterion with rewards")
     @GetMapping("/listRewardsCriteria")
-    public List<RewardsCriteria> list(@RequestHeader(value = "Authorization") String token) throws IOException, MessagingException {
-        String email=validity.check(token);
+    public List<RewardsCriteria> list(@RequestHeader(value = "Authorization") String token){
+        validity.check(token);
         return rewardsCriteriaService.findAll();
     }
 

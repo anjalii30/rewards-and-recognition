@@ -1,6 +1,6 @@
 package com.rar.service.impl;
 
-import com.rar.model.Manager;
+import com.rar.entity.Manager;
 import com.rar.repository.ManagerRepository;
 import com.rar.service.ManagerService;
 import org.springframework.beans.factory.annotation.Autowired;

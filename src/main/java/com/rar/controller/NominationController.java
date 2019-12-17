@@ -1,13 +1,12 @@
 package com.rar.controller;
 
-import com.rar.model.NominationPojo;
-import com.rar.model.Nominations;
-import com.rar.model.Rewards;
+import com.rar.pojo.NominationPojo;
+import com.rar.entity.Nominations;
+import com.rar.entity.Rewards;
 import com.rar.repository.ManagerRepository;
 import com.rar.repository.UserRepository;
 import com.rar.service.NominationsService;
 import com.rar.service.impl.CheckValidity;
-//import com.rar.utils.UtcDate;
 import freemarker.template.TemplateException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -29,7 +28,7 @@ import java.util.Map;
 @EnableAutoConfiguration
 @Api(value="Nomination Management System")
 public class NominationController {
-    //UtcDate utcDate;
+
     @Autowired
     private NominationsService nominationsService;
 
@@ -41,9 +40,6 @@ public class NominationController {
 
     @Autowired
     private ManagerRepository managerRepository;
-
-
-
 
     /**
      * @param token jwt token
@@ -67,8 +63,8 @@ public class NominationController {
     @ApiOperation(value = "Get the list of nominations for admin by reward id")
     @GetMapping("/showNomination/{id}")
     public List<Nominations> showById(@RequestHeader(value = "Authorization") String token,  @ApiParam(value = "Get nomination object by reward_id", required = true) @PathVariable Long id) throws Exception {
-       String email=validity.check(token);
-        return nominationsService.GetData(id);
+       validity.check(token);
+       return nominationsService.GetData(id);
     }
 
     /**
@@ -78,9 +74,8 @@ public class NominationController {
     @ApiOperation(value = "Get the list of all nominations for admin")
     @GetMapping("/showAllNomination")
     public List<Nominations> show(@RequestHeader(value = "Authorization") String token){
-        String email=validity.check(token);
-         return  nominationsService.getAllNominations();
-
+        validity.check(token);
+        return  nominationsService.getAllNominations();
     }
 
     /**
@@ -90,7 +85,7 @@ public class NominationController {
     @ApiOperation(value = "Get the list of rewards for all the nominations")
     @GetMapping("/showNominatedRewards")
     public  List<Rewards> showNominatedRewards(@RequestHeader(value = "Authorization") String token){
-        String email=validity.check(token);
+        validity.check(token);
         return nominationsService.nominated_rewards();
     }
 
@@ -107,7 +102,6 @@ public class NominationController {
     public List<List<Nominations>> showToManager(@RequestHeader(value = "Authorization") String token, @PathVariable Long id) throws Exception {
         String email=validity.check(token);
         return nominationsService.showToManager(email,id);
-
     }
 
     *//**
@@ -124,13 +118,13 @@ public class NominationController {
 
     /**
      * @param token jwt token
-     * @param n id of the nomination that needs to be updated as awardee.
+     * @param nominationId id of the nomination that needs to be updated as awardee.
      */
    @ApiOperation(value = "awardee selected by admin")
    @PostMapping("/awardee")
-   public void awardeeSelect(@RequestHeader(value = "Authorization") String token , @ApiParam(value = "update Nomination object by id", required = true) @RequestBody Map<String, Long[]> n) throws IOException, MessagingException, TemplateException {
-       String email=validity.check(token);
-       nominationsService.awardeeSelect(n);
+   public void awardeeSelect(@RequestHeader(value = "Authorization") String token , @ApiParam(value = "update Nomination object by id", required = true) @RequestBody Map<String, Long[]> nominationId) throws IOException, MessagingException, TemplateException {
+       validity.check(token);
+       nominationsService.awardeeSelect(nominationId);
    }
 
     /**
@@ -140,8 +134,7 @@ public class NominationController {
     @ApiOperation(value = "show the list of awardee ")
     @GetMapping("/awardedList")
     public List<Map<String,String>> getByAwardedId(@RequestHeader(value = "Authorization") String token){
-        String email=validity.check(token);
-
+        validity.check(token);
         return nominationsService.getAwardedPeople();
     }
 
@@ -152,8 +145,7 @@ public class NominationController {
     @ApiOperation(value = "show top three awardee ")
     @GetMapping("/topAwardee")
     public List getTopAwardee(@RequestHeader(value = "Authorization") String token){
-        String email=validity.check(token);
-
+        validity.check(token);
         return nominationsService.getTopAwardee();
     }
 

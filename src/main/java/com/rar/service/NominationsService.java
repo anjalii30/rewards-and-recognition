@@ -1,8 +1,8 @@
 package com.rar.service;
 
-import com.rar.model.NominationPojo;
-import com.rar.model.Nominations;
-import com.rar.model.Rewards;
+import com.rar.pojo.NominationPojo;
+import com.rar.entity.Nominations;
+import com.rar.entity.Rewards;
 import freemarker.template.TemplateException;
 import org.springframework.http.ResponseEntity;
 

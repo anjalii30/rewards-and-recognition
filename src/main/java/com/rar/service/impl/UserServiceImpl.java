@@ -1,6 +1,9 @@
 package com.rar.service.impl;
 
-import com.rar.model.*;
+import com.rar.entity.*;
+import com.rar.pojo.DesignationSelected;
+import com.rar.pojo.EditUserDetails;
+import com.rar.pojo.ProjectDetailsUser;
 import com.rar.repository.DesignationRepository;
 import com.rar.repository.ProjectRepository;
 import com.rar.repository.UserRepository;

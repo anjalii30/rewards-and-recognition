@@ -1,8 +1,8 @@
 package com.rar.controller;
 
-import com.rar.model.CreateProjectPojo;
-import com.rar.model.Projects;
-import com.rar.model.UserProjectsPojo;
+import com.rar.pojo.CreateProjectPojo;
+import com.rar.entity.Projects;
+import com.rar.pojo.UserProjectsPojo;
 import com.rar.repository.ManagerRepository;
 import com.rar.service.ProjectService;
 import com.rar.service.impl.CheckValidity;
@@ -39,7 +39,7 @@ public class ProjectController {
     @ApiOperation(value = "Save the new project")
     @PostMapping("/ProjectSave")
     public Projects save(@RequestHeader(value = "Authorization") String token ,@ApiParam(value = "Project object store in database table", required = true) @Valid @RequestBody Projects projects){
-        String email=validity.check(token);
+        validity.check(token);
         return projectService.projectSave(projects);
     }
 
@@ -50,10 +50,16 @@ public class ProjectController {
     @ApiOperation(value = "Get the list of projects")
     @GetMapping(value = "/listProjects")
     public ResponseEntity<?> projects(@RequestHeader(value = "Authorization") String token){
-        String email=validity.check(token);
+        validity.check(token);
         return (projectService.findAllData());
     }
 
+    /**
+     *
+     * @param token jwt token
+     * @param id reward id
+     * @return list of projects assigned to this manager
+     */
     @ApiOperation(value = "Get the list of projects that are assigned to this manager")
     @GetMapping(value = "/myProjects/{id}")
     public List<Projects> projectsOfManager(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Reward Id to show projects not been nominated for that reward", required = true)@PathVariable Long id){
@@ -71,14 +77,23 @@ public class ProjectController {
     @ApiOperation(value = "Get users assigned to some project")
     @PostMapping("/listAssignedUsers")
     public Object[] UsersForProject(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Project object ", required = true) @Valid @RequestBody Projects project_name) throws Exception {
-        String email=validity.check(token);
+        validity.check(token);
         Long project_id = projectService.getIdByProject(project_name.getProject_name());
         return projectService.findById(project_id);
     }
 
+    /**
+     *
+     * @param token jwt token
+     * @param project project
+     * @return managers of this project id
+     * @throws Exception
+     */
+    @ApiOperation(value = "Get users assigned to some project")
     @PostMapping("/assignedManager")
-    public Object [] ManagerForProject(@RequestBody Projects project_name) throws Exception {
-        Long project_id = projectService.getIdByProject(project_name.getProject_name());
+    public Object [] ManagerForProject(@RequestHeader(value = "Authorization") String token,@RequestBody Projects project) throws Exception {
+        validity.check(token);
+        Long project_id = projectService.getIdByProject(project.getProject_name());
         return projectService.findManagerById(project_id);
     }
     /**
@@ -90,7 +105,7 @@ public class ProjectController {
     @ApiOperation(value = "Get users not assigned to the project")
     @PostMapping("/listNotAssigned")
     public Object[] UsersNotInProject(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Project object ", required = true) @Valid @RequestBody Projects project_name) throws Exception {
-        String email = validity.check(token);
+        validity.check(token);
         Long project_id = projectService.getIdByProject(project_name.getProject_name());
         return  projectService.findNotInId(project_id);
     }
@@ -103,14 +118,21 @@ public class ProjectController {
     @ApiOperation(value = "Assign project to users")
     @PostMapping("/assignProjects")
     public ResponseEntity<?> assignProjects(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Project name and employee emails ", required = true) @Valid @RequestBody UserProjectsPojo userProjectsPojo) throws Exception {
-        String email=validity.check(token);
+        validity.check(token);
         projectService.assign(userProjectsPojo);
         Long project_id = projectService.getIdByProject(userProjectsPojo.getProject_name());
         return new ResponseEntity(projectService.findById(project_id), HttpStatus.OK);
     }
 
+    /**
+     *
+     * @param token jwt token
+     * @param createProjectPojo createProjectPojo object
+     */
+    @ApiOperation(value = "Create a project")
     @PostMapping("/createProject")
-    public void createProject(@RequestBody CreateProjectPojo createProjectPojo){
+    public void createProject(@RequestHeader(value = "Authorization") String token,@RequestBody CreateProjectPojo createProjectPojo){
+        validity.check(token);
         projectService.createProject(createProjectPojo);
     }
 
@@ -123,8 +145,7 @@ public class ProjectController {
     @ApiOperation(value = "Delete user from  the project")
     @DeleteMapping("/deleteFromProject")
     public Object[] deleteUserFromProject(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Project name and employee emails ", required = true) @Valid @RequestBody UserProjectsPojo userProjectsPojo) throws Exception {
-
-        String email=validity.check(token);
+        validity.check(token);
         projectService.deleteUserFromProject(userProjectsPojo);
         Long project_id = projectService.getIdByProject(userProjectsPojo.getProject_name());
         return projectService.findById(project_id);
@@ -137,6 +158,7 @@ public class ProjectController {
     @ApiOperation(value = "Get the list of users not assigned to any project")
     @GetMapping("/unAssigned")
     public Object[] unAssigned(@RequestHeader(value = "Authorization") String token){
+        validity.check(token);
         return projectService.unAssigned();
     }
 }

@@ -1,6 +1,6 @@
 package com.rar.controller;
 
-import com.rar.model.Rewards;
+import com.rar.entity.Rewards;
 import com.rar.repository.RewardsRepository;
 import com.rar.repository.UserRepository;
 import com.rar.service.RewardsService;
@@ -49,7 +49,7 @@ public class RewardsController {
     @ApiOperation(value = "Save the rewards")
     @PostMapping("/save")
     public ResponseEntity save(@RequestHeader(value = "Authorization") String token ,@ApiParam(value = "Reward object store in database table", required = true) @Valid @RequestBody Rewards rewards){
-           String email=validity.check(token);
+           validity.check(token);
            return new ResponseEntity<>(rewardsService.rewardsSave(rewards),HttpStatus.OK) ;
 
     }
@@ -66,13 +66,11 @@ public class RewardsController {
     public ResponseEntity<Rewards> updateAwardStatus(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Award status Id to update award status", required = true)@PathVariable Long id,
                                      @ApiParam(value = "Reward object ", required = true) @Valid @RequestBody Rewards createReward) throws IOException, MessagingException, com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException, javax.mail.MessagingException {
 
-        String email=validity.check(token);
+        validity.check(token);
         ResponseEntity<Rewards> rewards=rewardsService.updateAwardStatus(id, createReward);
 
         return new ResponseEntity(rewards,HttpStatus.OK);
     }
-
-
 
     /**
      * @param token jwt token
@@ -80,9 +78,8 @@ public class RewardsController {
      */
     @ApiOperation(value = "Get the list of rewards")
     @GetMapping("/listRewards")
-    public List<Rewards> list(@RequestHeader(value = "Authorization") String token) throws IOException, MessagingException {
-        String email=validity.check(token);
-       // sendEmail.sendEmailWithAttachment("anjali.garg@nineleaps.com","Testing from Spring Boot");
+    public List<Rewards> list(@RequestHeader(value = "Authorization") String token) {
+        validity.check(token);
         return  rewardsService.findAll();
     }
 
@@ -127,7 +124,7 @@ public class RewardsController {
     @ApiOperation(value = "Get the list of rewards by id")
     @GetMapping("/listRewards/{id}")
     public Optional<Rewards> getById(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Reward Id to get reward object", required = true) @PathVariable Long id){
-        String email=validity.check(token);
+        validity.check(token);
         return rewardsService.findById(id);
     }
 
@@ -140,6 +137,7 @@ public class RewardsController {
     @ApiOperation(value = "Update the reward by id")
     @PutMapping("/updateReward/{id}")
     public Rewards Update(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Reward Id to update reward object", required = true)@PathVariable Long id, @ApiParam(value = "Reward object ", required = true) @Valid @RequestBody Rewards rewards){
+        validity.check(token);
         return rewardsService.Update(id, rewards);
     }
 
@@ -151,21 +149,20 @@ public class RewardsController {
     @ApiOperation(value = "Delete the reward by id")
     @DeleteMapping("/deleteRewards/{id}")
     public String delete(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Reward Id to delete reward object", required = true) @PathVariable long id){
-        String email=validity.check(token);
+        validity.check(token);
         rewardsService.deleteById(id);
         return "Deleted Successfully";
     }
 
     /**
-     * @param token
-     * @param id
+     * @param token jwt token
+     * @param id reward id
      * @return object of reward based on id.
      */
-    @ApiOperation(value = "Get the user details for editing by user id")
+    @ApiOperation(value = "Get the reward details for editing by reward id")
     @GetMapping("/listRolledOutRewardEdit/{id}")
     public Optional<Rewards> rollOutListReward(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Reward Id to get reward object", required = true)@PathVariable Long id){
-
-        String email=validity.check(token);
+        validity.check(token);
         return rewardsService.rollOutListReward(id);
     }
 
@@ -179,9 +176,7 @@ public class RewardsController {
     @PutMapping("/updateRollOutReward/{id}")
     public Rewards RollOutUpdate(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Reward Id to update reward object", required = true)@PathVariable Long id, @ApiParam(value = "Reward object ", required = true) @Valid @RequestBody Rewards rewards){
 
-        String email=validity.check(token);
-
-
-        return rewardsService.rollOutUpdate(id, rewards);
+       validity.check(token);
+       return rewardsService.rollOutUpdate(id, rewards);
     }
 }

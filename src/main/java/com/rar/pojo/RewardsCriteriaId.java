@@ -1,4 +1,4 @@
-package com.rar.model;
+package com.rar.pojo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

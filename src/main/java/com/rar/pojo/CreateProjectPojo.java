@@ -1,4 +1,4 @@
-package com.rar.model;
+package com.rar.pojo;
 
 public class CreateProjectPojo {
 

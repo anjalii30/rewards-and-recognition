@@ -1,7 +1,7 @@
 package com.rar.service;
 
-import com.rar.model.EditUserDetails;
-import com.rar.model.UserInfo;
+import com.rar.pojo.EditUserDetails;
+import com.rar.entity.UserInfo;
 import org.springframework.http.ResponseEntity;
 
 public interface UserService {

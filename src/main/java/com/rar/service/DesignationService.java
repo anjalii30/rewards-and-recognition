@@ -1,6 +1,6 @@
 package com.rar.service;
 
-import com.rar.model.Designation;
+import com.rar.entity.Designation;
 
 import java.util.List;
 import java.util.Optional;

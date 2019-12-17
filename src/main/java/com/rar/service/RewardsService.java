@@ -1,6 +1,6 @@
 package com.rar.service;
 
-import com.rar.model.Rewards;
+import com.rar.entity.Rewards;
 import com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException;
 import org.springframework.http.ResponseEntity;
 

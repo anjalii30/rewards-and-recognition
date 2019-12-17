@@ -1,4 +1,4 @@
-package com.rar.model;
+package com.rar.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;

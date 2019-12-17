@@ -1,4 +1,4 @@
-package com.rar.model;
+package com.rar.pojo;
 
 import java.io.Serializable;
 import java.util.List;

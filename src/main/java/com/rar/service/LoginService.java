@@ -1,7 +1,7 @@
 package com.rar.service;
 
-import com.rar.model.LoginUserDetails;
-import com.rar.model.UserInfo;
+import com.rar.pojo.LoginUserDetails;
+import com.rar.entity.UserInfo;
 
 import java.util.List;
 import java.util.Optional;

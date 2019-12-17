@@ -1,6 +1,7 @@
 package com.rar.service.impl;
 
-import com.rar.model.*;
+import com.rar.entity.*;
+import com.rar.pojo.NominationPojo;
 import com.rar.repository.*;
 import com.rar.service.NominationsService;
 import freemarker.template.TemplateException;

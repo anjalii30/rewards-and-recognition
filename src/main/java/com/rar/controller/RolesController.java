@@ -1,7 +1,7 @@
 package com.rar.controller;
 
 
-import com.rar.model.Roles;
+import com.rar.entity.Roles;
 import com.rar.service.RolesService;
 import com.rar.service.impl.CheckValidity;
 import io.swagger.annotations.Api;
@@ -32,7 +32,7 @@ public class RolesController {
     @ApiOperation(value = "Save the roles")
     @PostMapping("/saveRoles")
     public Roles save(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Role object store in database table", required = true) @Valid @RequestBody Roles roles){
-        String email=validity.check(token);
+        validity.check(token);
         return rolesService.save(roles);
     }
 
@@ -43,7 +43,7 @@ public class RolesController {
     @ApiOperation(value = "Get the list of roles")
     @GetMapping("/listRoles")
     public List<Roles> list(@RequestHeader(value = "Authorization") String token){
-        String email=validity.check(token);
+        validity.check(token);
         return rolesService.findAll();
     }
 
@@ -55,7 +55,7 @@ public class RolesController {
     @ApiOperation(value = "Delete the role by id")
     @DeleteMapping("/deleteRoles/{id}")
     public String delete(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Role Id to delete role object", required = true) @PathVariable long id){
-        String email=validity.check(token);
+        validity.check(token);
         rolesService.deleteById(id);
         return "Deleted Successfully";
     }
@@ -68,7 +68,7 @@ public class RolesController {
     @ApiOperation(value = "Get the role by id")
     @GetMapping("/listRole/{id}")
     public Optional<Roles> getById(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Role Id to get role object", required = true) @PathVariable Long id){
-        String email=validity.check(token);
+        validity.check(token);
         return rolesService.findById(id);
     }
 }

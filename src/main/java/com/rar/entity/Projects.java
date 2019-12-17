@@ -1,4 +1,4 @@
-package com.rar.model;
+package com.rar.entity;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
