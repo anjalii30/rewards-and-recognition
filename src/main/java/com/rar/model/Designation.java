@@ -16,7 +16,7 @@ public class Designation implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Designation_Id",unique = true,nullable = false)
+    @Column(name = "Designation_id",unique = true,nullable = false)
     @ApiModelProperty(notes = "The database generated designation ID")
     private long designationId;
 

@@ -24,7 +24,7 @@ public interface RewardsCriteriaRepository extends CrudRepository<RewardsCriteri
 
     @Modifying
     @Transactional
-    @Query(value="insert into rewards_criteria (criteria_id,reward_id,is_compulsory) values (:criteria_id, :reward_id, :compulsory)",nativeQuery = true)
-    void insertById( Long criteria_id, Long reward_id, Boolean compulsory);
+    @Query(value="insert into rewards_criteria (criteria_id,reward_id,is_compulsory) values (:criteriaId, :rewardId, :compulsory)",nativeQuery = true)
+    void insertById( Long criteriaId, Long rewardId, Boolean compulsory);
 
 }

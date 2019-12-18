@@ -93,7 +93,7 @@ public class NominationController {
     @GetMapping("/showNominatedRewards")
     public  ResponseEntity<List<Rewards>> showNominatedRewards(@RequestHeader(value = "Authorization") String token){
         validity.check(token);
-        return new ResponseEntity(nominationsService.nominated_rewards(),HttpStatus.OK);
+        return new ResponseEntity(nominationsService.nominatedRewards(),HttpStatus.OK);
     }
 
     //used for self-nomination

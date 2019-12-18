@@ -45,12 +45,12 @@ public class AskToNominate {
 
             for(int j=0;j<rewards.length;j++) {
 
-                String reward_name=rewardsRepository.getRewardName(rewards[j]);
+                String rewardName=rewardsRepository.getRewardName(rewards[j]);
                 System.out.println(rewards[j]);
-                LocalDate end_date = rewardsRepository.getEndDate(rewards[j]);
-                System.out.println(end_date);
+                LocalDate endDate = rewardsRepository.getEndDate(rewards[j]);
+                System.out.println(endDate);
 
-                if (end_date.minusDays(5).isBefore(today) && end_date.isAfter(today)) {
+                if (endDate.minusDays(5).isBefore(today) && endDate.isAfter(today)) {
 
                     for (int i = 0; i < managers.length; i++) {
 
@@ -62,13 +62,13 @@ public class AskToNominate {
                         Long[] projects = managerRepository.getProjectsOfManager(managers[i]);
 
                         for(int k=0;k<projects.length;k++){
-                            String project_name=projectRepository.getProjectName(projects[k]);
+                            String projectName=projectRepository.getProjectName(projects[k]);
 
                             Long nomination=nominationsRepository.checkIfExists(projects[k],managers[i],rewards[j]);
                           if(nomination==0){
                               sendEmail.sendEmailWithoutAttachment(email,"Please nominate",
-                                      "Hello, "+name.toUpperCase() +"You have not nominated any person from your team for project "+project_name+"for the reward "+reward_name+
-                                      ". Kindly, nominate, as last date to nominate for this reward is "+end_date);
+                                      "Hello, "+name.toUpperCase() +"You have not nominated any person from your team for project "+projectName+"for the reward "+rewardName+
+                                      ". Kindly, nominate, as last date to nominate for this reward is "+endDate);
                           }
                         }
 

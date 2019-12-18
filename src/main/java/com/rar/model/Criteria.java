@@ -16,14 +16,14 @@ public class Criteria implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "criteria_Id")
+    @Column(name = "criteria_id")
     @ApiModelProperty(notes = "The database generated criteria ID")
     private long criteriaId;
 
     @Column(name="criteria_desc",nullable = false)
     @NotEmpty
     @ApiModelProperty(notes = "The description of specific criteria")
-    private String criteria_desc;
+    private String criteriaDesc;
 
     @OneToMany(
             mappedBy = "criteria",cascade = CascadeType.REFRESH)
@@ -32,8 +32,8 @@ public class Criteria implements Serializable{
     public Criteria() {
     }
 
-    public Criteria(String criteria_desc) {
-        this.criteria_desc = criteria_desc;
+    public Criteria(String criteriaDesc) {
+        this.criteriaDesc = criteriaDesc;
     }
 
     public long getCriteriaId() {
@@ -44,19 +44,19 @@ public class Criteria implements Serializable{
         this.criteriaId = criteriaId;
     }
 
-    public String getCriteria_desc() {
-        return criteria_desc;
+    public String getCriteriaDesc() {
+        return criteriaDesc;
     }
 
-    public void setCriteria_desc(String criteria_desc) {
-        this.criteria_desc = criteria_desc;
+    public void setCriteriaDesc(String criteriaDesc) {
+        this.criteriaDesc = criteriaDesc;
     }
 
     @Override
     public String toString() {
         return "Criteria{" +
                 "criteriaId=" + criteriaId +
-                ", criteria_desc='" + criteria_desc + '\'' +
+                ", criteria_desc='" + criteriaDesc + '\'' +
                 '}';
     }
 }

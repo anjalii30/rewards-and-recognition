@@ -37,7 +37,7 @@ public class ProjectController {
      * @return saved object of projects
      */
     @ApiOperation(value = "Save the new project")
-    @PostMapping("/ProjectSave")
+    @PostMapping("/projectSave")
     public Projects save(@RequestHeader(value = "Authorization") String token ,@ApiParam(value = "Project object store in database table", required = true) @Valid @RequestBody Projects projects){
         validity.check(token);
         return projectService.projectSave(projects);
@@ -78,7 +78,7 @@ public class ProjectController {
     @PostMapping("/listAssignedUsers")
     public Object[] UsersForProject(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Project object ", required = true) @Valid @RequestBody Projects project_name) throws Exception {
         validity.check(token);
-        Long project_id = projectService.getIdByProject(project_name.getProject_name());
+        Long project_id = projectService.getIdByProject(project_name.getProjectName());
         return projectService.findById(project_id);
     }
 
@@ -93,7 +93,7 @@ public class ProjectController {
     @PostMapping("/assignedManager")
     public Object [] ManagerForProject(@RequestHeader(value = "Authorization") String token,@RequestBody Projects project) throws Exception {
         validity.check(token);
-        Long project_id = projectService.getIdByProject(project.getProject_name());
+        Long project_id = projectService.getIdByProject(project.getProjectName());
         return projectService.findManagerById(project_id);
     }
     /**
@@ -106,7 +106,7 @@ public class ProjectController {
     @PostMapping("/listNotAssigned")
     public Object[] UsersNotInProject(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Project object ", required = true) @Valid @RequestBody Projects project_name) throws Exception {
         validity.check(token);
-        Long project_id = projectService.getIdByProject(project_name.getProject_name());
+        Long project_id = projectService.getIdByProject(project_name.getProjectName());
         return  projectService.findNotInId(project_id);
     }
 
@@ -120,7 +120,7 @@ public class ProjectController {
     public ResponseEntity<?> assignProjects(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Project name and employee emails ", required = true) @Valid @RequestBody UserProjectsPojo userProjectsPojo) throws Exception {
         validity.check(token);
         projectService.assign(userProjectsPojo);
-        Long project_id = projectService.getIdByProject(userProjectsPojo.getProject_name());
+        Long project_id = projectService.getIdByProject(userProjectsPojo.getProjectName());
         return new ResponseEntity(projectService.findById(project_id), HttpStatus.OK);
     }
 
@@ -147,7 +147,7 @@ public class ProjectController {
     public Object[] deleteUserFromProject(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Project name and employee emails ", required = true) @Valid @RequestBody UserProjectsPojo userProjectsPojo) throws Exception {
         validity.check(token);
         projectService.deleteUserFromProject(userProjectsPojo);
-        Long project_id = projectService.getIdByProject(userProjectsPojo.getProject_name());
+        Long project_id = projectService.getIdByProject(userProjectsPojo.getProjectName());
         return projectService.findById(project_id);
     }
 

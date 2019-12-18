@@ -32,7 +32,7 @@ public class LoginController {
      * @return object that contains user details
      * @throws Exception that displays that the user who tries to login is not a valid user.
      */
-    @ApiOperation(value = "Login by gmail Id")
+    @ApiOperation(value = "Login by google Id")
     @PostMapping(value = "/login")
     public ResponseEntity<LoginUserDetails> getToken(@RequestHeader(value = "Authorization") String token) throws Exception {
         try {

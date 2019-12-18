@@ -43,8 +43,8 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public ResponseEntity assign(UserProjectsPojo userProjectsPojo) throws Exception {
 
-            String[] employees = userProjectsPojo.getUser_email();
-             Long project_id = projectService.getIdByProject(userProjectsPojo.getProject_name());
+            String[] employees = userProjectsPojo.getUserEmail();
+             Long project_id = projectService.getIdByProject(userProjectsPojo.getProjectName());
 
             for(int i=0; i<employees.length;i++) {
 
@@ -64,15 +64,15 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public void createProject(CreateProjectPojo createProjectPojo) {
 
-        String manager = createProjectPojo.getManager_email();
+        String manager = createProjectPojo.getManagerEmail();
         Projects data = new Projects();
-        data.setProject_name(createProjectPojo.getProject_name());
+        data.setProjectName(createProjectPojo.getProjectName());
         projectRepository.save(data);
 
-        long project_id = projectRepository.getIdByName(createProjectPojo.getProject_name());
+        long project_id = projectRepository.getIdByName(createProjectPojo.getProjectName());
 
 
-        String[] employees = createProjectPojo.getUser_email();
+        String[] employees = createProjectPojo.getUserEmail();
 
         for (int i = 0; i < employees.length; i++) {
 
@@ -107,7 +107,7 @@ public class ProjectServiceImpl implements ProjectService {
 
         try {
 
-            String[] employees = userProjectsPojo.getUser_email();
+            String[] employees = userProjectsPojo.getUserEmail();
 
             for (int i = 0; i < employees.length; i++) {
 
@@ -115,7 +115,7 @@ public class ProjectServiceImpl implements ProjectService {
 
                 Long user_id = loginService.getIdByName(user_name);
 
-                Long project_id = projectService.getIdByProject(userProjectsPojo.getProject_name());
+                Long project_id = projectService.getIdByProject(userProjectsPojo.getProjectName());
 
                 projectRepository.deleteUser(user_id, project_id);
             }
@@ -155,9 +155,9 @@ public class ProjectServiceImpl implements ProjectService {
 
             Map map = new HashMap();
 
-            map.put("project_id", project.getProject_id());
-            map.put("project_name", project.getProject_name());
-            map.put("count", projectRepository.getCount(project.getProject_id()));
+            map.put("project_id", project.getProjectId());
+            map.put("project_name", project.getProjectName());
+            map.put("count", projectRepository.getCount(project.getProjectId()));
 
             parent.add(map);
         }

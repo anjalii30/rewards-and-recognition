@@ -13,7 +13,7 @@ import java.util.Map;
 
 public interface NominationsService {
 
-    ResponseEntity<?> nominationSave(List<NominationPojo> nominationPojo, Long manager_id);
+    ResponseEntity<?> nominationSave(List<NominationPojo> nominationPojo, Long managerId);
 /*
     ResponseEntity<?> GetData(Long rewardID) throws Exception;
 */
@@ -32,11 +32,11 @@ ResponseEntity<List<Nominations>> GetData(Long rewardID) throws Exception;
 
     ResponseEntity<List<Nominations>> getAllNominations();
 
-    void managerSelect(Nominations[] nominations,Long manager_id, String manager_name);
+    void managerSelect(Nominations[] nominations,Long managerId, String managerName);
 
-    ResponseEntity<List<Rewards>> nominated_rewards() ;
+    ResponseEntity<List<Rewards>> nominatedRewards() ;
 
     ResponseEntity<List> getTopAwardee();
 
-  void rewardCoins(Long[] nomination_id);
+  void rewardCoins(Long[] nominationId);
 }

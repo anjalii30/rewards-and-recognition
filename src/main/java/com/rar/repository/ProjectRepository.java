@@ -14,35 +14,35 @@ public interface ProjectRepository  extends CrudRepository<Projects,Long> {
 
     @Modifying
     @Transactional
-    @Query(value="insert into user_projects (user_id, project_id) values (:user_id, :project_id)",nativeQuery = true)
-    void assign( Long user_id, Long project_id);
+    @Query(value="insert into user_projects (user_id, project_id) values (:userId, :projectId)",nativeQuery = true)
+    void assign( Long userId, Long projectId);
 
     @Query(value="select project_id from projects where project_name=?1", nativeQuery = true)
-    Long getIdByName(String project_name);
+    Long getIdByName(String projectName);
 
     @Query(value="select project_name from projects where project_id=?1",nativeQuery = true)
-    String getProjectName(Long project_id);
+    String getProjectName(Long projectId);
 
     @Modifying
     @Transactional
     @Query(value="delete from user_projects where user_id=?1 and project_id=?2",nativeQuery = true)
-    void deleteUser(Long user_id, Long project_id);
+    void deleteUser(Long userId, Long projectId);
 
 
     @Query(value="select email,name,image_url from users where user_id in (select user_id from user_projects where project_id=?1) and user_id in(select user_id from user_roles where role_id=1) ",nativeQuery = true)
-    Object[] getUsersById(Long project_id);
+    Object[] getUsersById(Long projectId);
 
     @Query(value ="select manager_id from manager_projects where project_id=?1",nativeQuery = true)
-    Long getManagerId(Long project_id);
+    Long getManagerId(Long projectId);
 
     @Query(value="select manager_email from managers where manager_id=?1",nativeQuery = true)
-    String getManagerEmail(Long manager_id);
+    String getManagerEmail(Long managerId);
 
     @Query(value = "select email,name,image_url from users where email=?1",nativeQuery = true)
-    Object[] getManagerDetails(String manager_email);
+    Object[] getManagerDetails(String managerEmail);
 
     @Query(value="select user_id,email, name from users where user_id not in (select user_id from user_projects where project_id=?1) and user_id in(select user_id from user_roles where role_id=1)",nativeQuery = true)
-    Object[] findNotInId(Long project_id);
+    Object[] findNotInId(Long projectId);
 
     @Query(value="select * from projects",nativeQuery = true)
     List<Projects> findAllData();
@@ -52,19 +52,19 @@ public interface ProjectRepository  extends CrudRepository<Projects,Long> {
 
 
     @Query(value = "select count(project_id) from manager_projects where manager_id= ?1 and project_id= ?2",nativeQuery =true )
-    long managerProjectPresent(long manager_id, long project_id);
+    long managerProjectPresent(long managerId, long projectId);
 
     @Query(value = "select count(user_id) from user_projects where user_id=?1 and project_id= ?2",nativeQuery =true)
-    int userProjectPresent(long user_id, long project_id);
+    int userProjectPresent(long userId, long projectId);
 
     @Modifying
     @Transactional
-    @Query(value="insert into projects (project_name) values(:project_name)",nativeQuery = true)
-    void saveProject(String project_name);
+    @Query(value="insert into projects (project_name) values(:projectName)",nativeQuery = true)
+    void saveProject(String projectName);
 
     @Query(value="select * from projects where project_id in(select project_id from manager_projects where manager_id=?1) and project_id not in (select project_id from nominations where reward_id=?2)",nativeQuery = true)
-    List<Projects> findProject(Long manager_id,Long reward_id);
+    List<Projects> findProject(Long managerId,Long rewardId);
 
     @Query(value="select count(user_id) from user_projects where project_id=?1",nativeQuery = true)
-    Long getCount(Long project_id);
+    Long getCount(Long projectId);
 }

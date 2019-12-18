@@ -7,24 +7,24 @@ import io.swagger.annotations.ApiModelProperty;
 public class UserProjectsPojo  {
 
     @ApiModelProperty(notes = "The email of the User")
-    private String[] user_email;
+    private String[] userEmail;
 
     @ApiModelProperty(notes = "The name of the Project")
-    private String project_name;
+    private String projectName;
 
-    public String[] getUser_email() {
-        return user_email;
+    public String[] getUserEmail() {
+        return userEmail;
     }
 
-    public void setUser_email(String[] user_email) {
-        this.user_email = user_email;
+    public void setUserEmail(String[] userEmail) {
+        this.userEmail = userEmail;
     }
 
-    public String getProject_name() {
-        return project_name;
+    public String getProjectName() {
+        return projectName;
     }
 
-    public void setProject_name(String project_name) {
-        this.project_name = project_name;
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
     }
 }

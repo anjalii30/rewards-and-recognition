@@ -9,21 +9,21 @@ public class NominationPojo {
     @ApiModelProperty(notes = "The ID of a particular reward")
     private Long rewardId;
     @ApiModelProperty(notes = "The name of the reward")
-    private String  reward_name;
+    private String  rewardName;
     @ApiModelProperty(notes = "The name of the project")
-    private String project_name;
+    private String projectName;
     @ApiModelProperty(notes = "The ID of the particular user")
     private long userId;
     @ApiModelProperty(notes = "The name of the employee")
-    private String user_name;
+    private String userName;
     @ApiModelProperty(notes = "Used in self nominated rewards when a manager approves it")
     private boolean selected=false;
     @ApiModelProperty(notes = "Used for selecting awardee by HR")
-    private boolean hr_selected=false;
+    private boolean hrSelected=false;
     @ApiModelProperty(notes = "The reason for nomination")
     private String reason;
     @ApiModelProperty(notes = "The ID of a particular project")
-    private Long project_id;
+    private Long projectId;
     @ApiModelProperty(notes = "The ID of a the manager")
     private Long managerId;
     @ApiModelProperty(notes = "The list of evidences for a particular nomination")
@@ -61,13 +61,6 @@ public class NominationPojo {
         this.selected = selected;
     }
 
-    public boolean isHr_selected() {
-        return hr_selected;
-    }
-
-    public void setHr_selected(boolean hr_selected) {
-        this.hr_selected = hr_selected;
-    }
 
     public String getReason() {
         return reason;
@@ -77,36 +70,44 @@ public class NominationPojo {
         this.reason = reason;
     }
 
-    public String getReward_name() {
-        return reward_name;
+    public String getRewardName() {
+        return rewardName;
     }
 
-    public void setReward_name(String reward_name) {
-        this.reward_name = reward_name;
+    public void setRewardName(String rewardName) {
+        this.rewardName = rewardName;
     }
 
-    public String getProject_name() {
-        return project_name;
+    public String getProjectName() {
+        return projectName;
     }
 
-    public void setProject_name(String project_name) {
-        this.project_name = project_name;
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
     }
 
-    public String getUser_name() {
-        return user_name;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUser_name(String user_name) {
-        this.user_name = user_name;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public Long getProject_id() {
-        return project_id;
+    public boolean isHrSelected() {
+        return hrSelected;
     }
 
-    public void setProject_id(Long project_id) {
-        this.project_id = project_id;
+    public void setHrSelected(boolean hrSelected) {
+        this.hrSelected = hrSelected;
+    }
+
+    public Long getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(Long projectId) {
+        this.projectId = projectId;
     }
 
     public Long getManagerId() {
