@@ -43,6 +43,7 @@ public class UserServiceImpl implements UserService {
         long id = userRepository.getUserId(editUserDetails.getEmail());
         System.out.println(id);
 
+        userRepository.changeFirstSign(id);
         userRepository.insertUserRoles(id, (long) 1);
         for(int i=0;i<editUserDetails.getDesignationSelected().size();i++){
             userRepository.insertUserDesignation(id, editUserDetails.getDesignationSelected().get(i).getDid());
