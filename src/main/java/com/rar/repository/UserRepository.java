@@ -122,6 +122,11 @@ public interface UserRepository extends CrudRepository< UserInfo,Long> {
     @Query(value = "update users set wallet=?2 where user_id=?1",nativeQuery = true)
     void updateWalletBalance(Long user_id, Long wallet);
 
+    @Modifying
+    @Transactional
+    @Query(value = " update users set first_sign= false where user_id=?1",nativeQuery = true)
+    void changeFirstSign(long id);
+
 }
 
 
