@@ -1,6 +1,7 @@
 package com.rar.repository;
 
 import com.rar.model.Projects;
+import com.rar.model.UserInfo;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -33,13 +34,13 @@ public interface ProjectRepository  extends CrudRepository<Projects,Long> {
     Object[] getUsersById(Long project_id);
 
     @Query(value ="select manager_id from manager_projects where project_id=?1",nativeQuery = true)
-    Long getManagerId(Long project_id);
+    Long[] getManagerId(Long project_id);
 
     @Query(value="select manager_email from managers where manager_id=?1",nativeQuery = true)
     String getManagerEmail(Long manager_id);
 
-    @Query(value = "select email,name,image_url from users where email=?1",nativeQuery = true)
-    Object[] getManagerDetails(String manager_email);
+    @Query(value = "select email,name,image_url from users where email in (select manager_email from managers where manager_id=?1)",nativeQuery = true)
+    Object getManagerDetails(Long manager_id);
 
     @Query(value="select user_id,email, name from users where user_id not in (select user_id from user_projects where project_id=?1) and user_id in(select user_id from user_roles where role_id=1)",nativeQuery = true)
     Object[] findNotInId(Long project_id);
