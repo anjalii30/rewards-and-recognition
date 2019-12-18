@@ -1,8 +1,8 @@
 package com.rar.utils;
 
 import com.rar.enums.FrequencyEnum;
-import com.rar.entity.Rewards;
-import com.rar.entity.RewardsCriteria;
+import com.rar.model.Rewards;
+import com.rar.model.RewardsCriteria;
 import com.rar.repository.RewardsCriteriaRepository;
 import com.rar.repository.RewardsRepository;
 import com.rar.service.RewardsService;
@@ -44,6 +44,7 @@ public class ScheduleRewards {
 
     //Checking for regeneration of  monthly reward whose end date has passed daily at 12 a.m.
     @Scheduled(cron = "0 0 0 1/1 * ? ")
+    // @Scheduled(cron="0 * * ? * *")
     public void scheduleMonthly() throws ParseException {
 
         ArrayList<Rewards> list = (ArrayList<Rewards>) rewardsRepository.findAll();
@@ -53,15 +54,24 @@ public class ScheduleRewards {
         while(i<list.size()){
             Rewards old_reward = list.get(i);
 
-
+        /*    SimpleDateFormat sdf=new SimpleDateFormat("yyy-mm-dd ");
+            sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
             // Get the two dates to be compared
             //Date d1 =utcDate.dateToday(old_reward.getEnd_date());
+            LocalDate d01 =old_reward.getEnd_date();
+            String d1=(sdf.format(d01));
+            System.out.println(d1);*/
             LocalDate d1 =old_reward.getEnd_date();
-
-
             LocalDate d2 = LocalDate.now();
+/*
 
+            LocalDate today = LocalDate.now();
 
+            String d2=(sdf.format(today));
+            System.out.println(d2);
+*/
+
+           // Date d222=d.parse(d2);
             Calendar cal = Calendar.getInstance();
             String month = monthName[cal.get(Calendar.MONTH)];
             String month1=monthName[cal.get(Calendar.MONTH)+1];

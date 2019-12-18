@@ -1,8 +1,8 @@
 package com.rar.controller;
 
-import com.rar.pojo.NominationPojo;
-import com.rar.entity.Nominations;
-import com.rar.entity.Rewards;
+import com.rar.DTO.NominationPojo;
+import com.rar.model.Nominations;
+import com.rar.model.Rewards;
 import com.rar.repository.ManagerRepository;
 import com.rar.repository.UserRepository;
 import com.rar.service.NominationsService;
@@ -16,7 +16,6 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import javax.mail.MessagingException;
 import javax.validation.Valid;
 import java.io.IOException;
@@ -49,10 +48,14 @@ public class NominationController {
     @ApiOperation(value = "Save the nomination")
     @PostMapping("/saveNomination")
     public ResponseEntity nominationSave(@RequestHeader(value = "Authorization") String token , @ApiParam(value = "Nomination object store in database table", required = true) @Valid @RequestBody List<NominationPojo> nominationPojo) {
-        String email=validity.check(token);
-        Long manager_id=managerRepository.findByEmail(email);
-        nominationsService.nominationSave(nominationPojo, manager_id);
-        return new ResponseEntity<>(nominationPojo, HttpStatus.OK);
+        try {
+            String email = validity.check(token);
+            Long manager_id = managerRepository.findByEmail(email);
+            nominationsService.nominationSave(nominationPojo, manager_id);
+            return new ResponseEntity<>(nominationPojo, HttpStatus.OK);
+        }catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
     }
 
     /**
@@ -62,9 +65,13 @@ public class NominationController {
      */
     @ApiOperation(value = "Get the list of nominations for admin by reward id")
     @GetMapping("/showNomination/{id}")
-    public List<Nominations> showById(@RequestHeader(value = "Authorization") String token,  @ApiParam(value = "Get nomination object by reward_id", required = true) @PathVariable Long id) throws Exception {
-       validity.check(token);
-       return nominationsService.GetData(id);
+    public ResponseEntity<List<Nominations>> showById(@RequestHeader(value = "Authorization") String token,  @ApiParam(value = "Get nomination object by reward_id", required = true) @PathVariable Long id) throws Exception {
+       try {
+           validity.check(token);
+           return new ResponseEntity(nominationsService.GetData(id),HttpStatus.OK);
+       }catch (Exception e) {
+           return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+       }
     }
 
     /**
@@ -73,9 +80,9 @@ public class NominationController {
      */
     @ApiOperation(value = "Get the list of all nominations for admin")
     @GetMapping("/showAllNomination")
-    public List<Nominations> show(@RequestHeader(value = "Authorization") String token){
+    public ResponseEntity<List<Nominations>> show(@RequestHeader(value = "Authorization") String token){
         validity.check(token);
-        return  nominationsService.getAllNominations();
+        return new ResponseEntity(nominationsService.getAllNominations(),HttpStatus.OK);
     }
 
     /**
@@ -84,9 +91,9 @@ public class NominationController {
      */
     @ApiOperation(value = "Get the list of rewards for all the nominations")
     @GetMapping("/showNominatedRewards")
-    public  List<Rewards> showNominatedRewards(@RequestHeader(value = "Authorization") String token){
+    public  ResponseEntity<List<Rewards>> showNominatedRewards(@RequestHeader(value = "Authorization") String token){
         validity.check(token);
-        return nominationsService.nominated_rewards();
+        return new ResponseEntity(nominationsService.nominated_rewards(),HttpStatus.OK);
     }
 
     //used for self-nomination
@@ -133,9 +140,9 @@ public class NominationController {
      */
     @ApiOperation(value = "show the list of awardee ")
     @GetMapping("/awardedList")
-    public List<Map<String,String>> getByAwardedId(@RequestHeader(value = "Authorization") String token){
+    public ResponseEntity<List<Map<String,String>>> getByAwardedId(@RequestHeader(value = "Authorization") String token){
         validity.check(token);
-        return nominationsService.getAwardedPeople();
+        return new ResponseEntity(nominationsService.getAwardedPeople(),HttpStatus.OK);
     }
 
     /**
@@ -144,9 +151,9 @@ public class NominationController {
      */
     @ApiOperation(value = "show top three awardee ")
     @GetMapping("/topAwardee")
-    public List getTopAwardee(@RequestHeader(value = "Authorization") String token){
+    public ResponseEntity<List> getTopAwardee(@RequestHeader(value = "Authorization") String token){
         validity.check(token);
-        return nominationsService.getTopAwardee();
+        return new ResponseEntity(nominationsService.getTopAwardee(),HttpStatus.OK);
     }
 
     /**
@@ -161,17 +168,4 @@ public class NominationController {
         String manager_name=userRepository.getName(email);
         nominationsService.managerSelect(nominations,manager_id,manager_name);
     }
-
-/* @GetMapping("/")
- public void abc() throws ParseException {
-     LocalDate d2 = LocalDate.now();
-     System.out.println(d2+" localdate");
-
-     Date d1 =utcDate.dateToday(LocalDate.now());
-     Instant today = Instant.now();
-     System.out.println(today);
-     SimpleDateFormat df=new SimpleDateFormat("yyy-mm-dd ");
-     df.format(today);
-     System.out.println(today);
- }*/
 }

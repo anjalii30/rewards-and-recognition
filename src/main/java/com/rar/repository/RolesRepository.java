@@ -1,6 +1,6 @@
 package com.rar.repository;
 
-import com.rar.entity.Roles;
+import com.rar.model.Roles;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

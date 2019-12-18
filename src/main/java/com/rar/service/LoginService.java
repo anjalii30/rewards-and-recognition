@@ -1,22 +1,22 @@
 package com.rar.service;
 
-import com.rar.pojo.LoginUserDetails;
-import com.rar.entity.UserInfo;
+import com.rar.DTO.LoginUserDetails;
+import com.rar.model.UserInfo;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface LoginService {
 
-    public Object login(String token) throws Exception;
+    LoginUserDetails login(String token) throws Exception;
 
-    Optional<UserInfo> findById(Long id);
+    ResponseEntity<UserInfo> findById(Long id);
 
-    Optional<UserInfo> findByEmail(String email);
+    ResponseEntity<UserInfo> findByEmail(String email);
 
-    UserInfo saveLogin(UserInfo userInfo);
+    ResponseEntity<UserInfo> saveLogin(UserInfo userInfo);
 
-    List<LoginUserDetails> findAll();
+    ResponseEntity<List<LoginUserDetails>> findAll();
 
     void deleteById(Long id);
 

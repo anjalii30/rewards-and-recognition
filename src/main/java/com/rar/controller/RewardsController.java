@@ -1,6 +1,6 @@
 package com.rar.controller;
 
-import com.rar.entity.Rewards;
+import com.rar.model.Rewards;
 import com.rar.repository.RewardsRepository;
 import com.rar.repository.UserRepository;
 import com.rar.service.RewardsService;

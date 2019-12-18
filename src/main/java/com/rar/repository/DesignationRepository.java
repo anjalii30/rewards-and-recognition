@@ -1,6 +1,6 @@
 package com.rar.repository;
 
-import com.rar.entity.Designation;
+import com.rar.model.Designation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

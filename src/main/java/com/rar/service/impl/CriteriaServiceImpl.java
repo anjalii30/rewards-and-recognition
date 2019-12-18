@@ -1,14 +1,14 @@
 package com.rar.service.impl;
 
-import com.rar.entity.Criteria;
+import com.rar.model.Criteria;
 import com.rar.repository.CriteriaRepository;
 import com.rar.service.CriteriaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional
@@ -23,8 +23,8 @@ public class CriteriaServiceImpl implements CriteriaService {
     }
 
     @Override
-    public List<Criteria> findAll() {
-        return (List<Criteria>) criteriaRepository.findAll();
+    public ResponseEntity<List<Criteria>> findAll() {
+        return new ResponseEntity<>((List<Criteria>) criteriaRepository.findAll(),HttpStatus.OK);
     }
 
     @Override
@@ -35,8 +35,8 @@ public class CriteriaServiceImpl implements CriteriaService {
     }
 
     @Override
-    public Optional<Criteria> findById(Long id) {
-        return criteriaRepository.findById(id);
+    public ResponseEntity<Criteria> findById(Long id) {
+        return new ResponseEntity(criteriaRepository.findById(id),HttpStatus.OK);
     }
 
 }

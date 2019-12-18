@@ -33,7 +33,7 @@ public class AskToNominate {
     @Autowired
     private UserRepository userRepository;
 
-//Checking everyday if every manager has nominated someone for every reward and every project
+//Checking everyday if every manager has nominated someone for every reward and every project (4 days earlier it starts mailing)
     @Scheduled(cron = "0 0 12 * * ? ")
    // @Scheduled(cron="0 * * ? * *")
     public void SendEmailToManager() throws IOException, MessagingException {
@@ -50,7 +50,7 @@ public class AskToNominate {
                 LocalDate end_date = rewardsRepository.getEndDate(rewards[j]);
                 System.out.println(end_date);
 
-                if (end_date.minusDays(5).isBefore(today)) {
+                if (end_date.minusDays(5).isBefore(today) && end_date.isAfter(today)) {
 
                     for (int i = 0; i < managers.length; i++) {
 

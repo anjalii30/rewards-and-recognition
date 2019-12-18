@@ -1,14 +1,15 @@
 package com.rar.service.impl;
 
-import com.rar.entity.Manager;
+import com.rar.model.Manager;
 import com.rar.repository.ManagerRepository;
 import com.rar.service.ManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @Service
 @Transactional
@@ -18,13 +19,13 @@ public class ManagerServiceImpl implements ManagerService {
     private ManagerRepository managerRepository;
 
     @Override
-    public Manager save(Manager manager) {
-        return managerRepository.save(manager);
+    public ResponseEntity<Manager> save(Manager manager) {
+        return new ResponseEntity<>(managerRepository.save(manager),HttpStatus.OK);
     }
 
     @Override
-    public List<Manager> findAll() {
-        return (List<Manager>) managerRepository.findAll();
+    public ResponseEntity<List<Manager>> findAll() {
+        return new ResponseEntity<>((List<Manager>) managerRepository.findAll(), HttpStatus.OK);
     }
 
     @Override
@@ -33,20 +34,14 @@ public class ManagerServiceImpl implements ManagerService {
         managerRepository.deleteById(id);
     }
 
-    //not used
-   /* @Override
-    public List getEmployees(Long manager_id) {
-        return managerRepository.getEmployees(manager_id);
-    }*/
-
     @Override
-    public List<Map<String,String>> getAllMembers(Long project_id) {
-        return managerRepository.getAllMembers(project_id);
+    public ResponseEntity<List<Map<String,String>>> getAllMembers(Long project_id) {
+        return new ResponseEntity<>(managerRepository.getAllMembers(project_id),HttpStatus.OK);
     }
 
     @Override
-    public Optional<Manager> findById(Long id) {
-        return managerRepository.findById(id);
+    public ResponseEntity<Manager> findById(Long id) {
+        return new ResponseEntity(managerRepository.findById(id),HttpStatus.OK);
     }
 
     @Override
