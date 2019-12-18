@@ -1,6 +1,6 @@
 # Rewards and Recognition tool
 
-Rewards and Recognition tool is a web based application designed specially for making the task of Nineleaps HR team simpler to help them create, monitor, maintain rewards as well as the Nineleaps employess to view who are rewarded.
+Rewards and Recognition tool is a web based application designed specially for making the task of Nineleaps HR team simpler as to help them create, monitor, maintain rewards as well as for the Nineleaps employess to view who all are rewarded.
 
 The main components of this application are the HR team able to create, edit, roll out, discontinue and pubish rewards, the managers able to nominate their subordinates.
 
