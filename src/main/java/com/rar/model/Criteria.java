@@ -3,6 +3,7 @@ package com.rar.model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +21,7 @@ public class Criteria implements Serializable{
     private long criteriaId;
 
     @Column(name="criteria_desc",nullable = false)
+    @NotEmpty
     @ApiModelProperty(notes = "The description of specific criteria")
     private String criteria_desc;
 

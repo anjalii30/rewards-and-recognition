@@ -1,6 +1,6 @@
 package com.rar.controller;
 
-import com.rar.exception.ResourceNotFoundException;
+import com.rar.exception.RecordNotFoundException;
 import com.rar.model.Manager;
 import com.rar.repository.ManagerRepository;
 import com.rar.service.ManagerService;
@@ -104,7 +104,7 @@ public class ManagerController {
         try {
             validity.check(token);
             return new ResponseEntity(managerService.getAllMembers(id),HttpStatus.OK);
-        }catch (ResourceNotFoundException e) {
+        }catch (RecordNotFoundException e) {
             return new ResponseStatusException(HttpStatus.NOT_FOUND,"project id not found",e);
         }
     }
