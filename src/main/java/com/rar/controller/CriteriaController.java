@@ -1,6 +1,8 @@
 package com.rar.controller;
 
+import com.rar.exception.RecordNotFoundException;
 import com.rar.model.Criteria;
+import com.rar.repository.CriteriaRepository;
 import com.rar.service.CriteriaService;
 import com.rar.service.impl.CheckValidity;
 import io.swagger.annotations.Api;
@@ -23,6 +25,9 @@ public class CriteriaController {
 
     @Autowired
     private CheckValidity validity;
+
+    @Autowired
+    private CriteriaRepository criteriaRepository;
 
     /**
      * @param token    jwt token
@@ -63,14 +68,12 @@ public class CriteriaController {
     @DeleteMapping("/deleteCriteria/{id}")
     public ResponseEntity<?> delete(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Criteria Id to delete criteria object", required = true) @PathVariable long id) {
 
-        try {
             validity.check(token);
             criteriaService.deleteById(id);
+            if(criteriaRepository.existsById(id))
             return new ResponseEntity<>("Deleted", HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
+            else
+            throw new RecordNotFoundException("criteria id not found");
     }
 
     /**
@@ -82,12 +85,12 @@ public class CriteriaController {
     @ApiOperation(value = "Get criteria list by id")
     @GetMapping("/listCriterion/{id}")
     public ResponseEntity<Criteria> getById(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Criteria Id to get criteria object", required = true) @PathVariable Long id) {
-        try {
             validity.check(token);
+            if (criteriaRepository.existsById(id))
             return new ResponseEntity(criteriaService.findById(id), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
-        }
+       else
+           throw new RecordNotFoundException("criteria id not found");
+
     }
 }
 

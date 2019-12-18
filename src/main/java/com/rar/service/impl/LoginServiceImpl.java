@@ -91,12 +91,12 @@ public class LoginServiceImpl implements LoginService {
             Designation d=itt.next();
 
             DesignationEnum designationEnum= d.getDesignation();
-
             boolean isManager=true;
             if(userRepository.managerOrEmployee(email) == 0)
                 isManager= false;
-
             if (repoEmail.isPresent()) {
+                System.out.println(""+userInfo1.getName()+" "+userInfo1.getEmail()+" "+designationEnum+" "+roleEnum+" "+userInfo1.getImageUrl()+" "+userInfo1.getId());
+                System.out.println("dsasdasd");
                 if (!userInfo1.getFirstSign()) {
                     userInfo1.setFirstSign(true);
                     userInfo1.setImageUrl(imageUrl);
@@ -105,13 +105,13 @@ public class LoginServiceImpl implements LoginService {
                     userInfo1.setDesignation(userInfo1.getDesignation());
                     userInfo1.setRoles(userInfo1.getRoles());
                     userInfo1.setId(userInfo1.getId());
-
                     userRepository.save(userInfo1);
 
                     String generatedToken=generateJWT.generateToken(email);
                     return new LoginUserDetails(userInfo1.getEmail()+"",userInfo1.getName()+"",userInfo1.getImageUrl()+"",""+generatedToken,roleEnum,designationEnum,userInfo1.getId(),isManager);
 
                 } else {
+                    System.out.println("66");
                     String generatedToken=generateJWT.generateToken(email);
                     return new LoginUserDetails(userInfo1.getEmail()+"",userInfo1.getName()+"",userInfo1.getImageUrl()+"",""+generatedToken,roleEnum,designationEnum,userInfo1.getId(),isManager);
 
@@ -122,7 +122,7 @@ public class LoginServiceImpl implements LoginService {
             }
 
         } catch (Exception e) {
-
+            System.out.println(e);
             throw new InvalidUserException("you are not a user till now");
 
         }
