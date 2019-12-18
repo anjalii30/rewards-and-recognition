@@ -1,6 +1,6 @@
 package com.rar.controller;
 
-import com.rar.entity.Designation;
+import com.rar.model.Designation;
 import com.rar.service.DesignationService;
 import com.rar.service.impl.CheckValidity;
 import io.swagger.annotations.Api;
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 @CrossOrigin
 @RestController

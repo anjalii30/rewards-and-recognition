@@ -1,6 +1,6 @@
 package com.rar.service.impl;
 
-import com.rar.entity.*;
+import com.rar.model.*;
 import com.rar.DTO.DesignationSelected;
 import com.rar.DTO.EditUserDetails;
 import com.rar.DTO.ProjectDetailsUser;

@@ -1,7 +1,7 @@
 package com.rar.controller;
 
 
-import com.rar.entity.Roles;
+import com.rar.model.Roles;
 import com.rar.service.RolesService;
 import com.rar.service.impl.CheckValidity;
 import io.swagger.annotations.Api;

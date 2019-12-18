@@ -1,7 +1,7 @@
 package com.rar.controller;
 
 import com.rar.DTO.CreateProjectPojo;
-import com.rar.entity.Projects;
+import com.rar.model.Projects;
 import com.rar.DTO.UserProjectsPojo;
 import com.rar.repository.ManagerRepository;
 import com.rar.service.ProjectService;

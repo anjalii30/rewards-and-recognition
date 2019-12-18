@@ -2,7 +2,7 @@ package com.rar.service.impl;
 
 import com.rar.exception.InvalidProjectException;
 import com.rar.DTO.CreateProjectPojo;
-import com.rar.entity.Projects;
+import com.rar.model.Projects;
 import com.rar.DTO.UserProjectsPojo;
 import com.rar.repository.ManagerRepository;
 import com.rar.repository.ProjectRepository;

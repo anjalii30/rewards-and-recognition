@@ -1,10 +1,9 @@
 package com.rar.service;
 
-import com.rar.entity.Criteria;
+import com.rar.model.Criteria;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface CriteriaService {
 

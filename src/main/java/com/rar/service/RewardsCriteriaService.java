@@ -1,6 +1,6 @@
 package com.rar.service;
 
-import com.rar.entity.RewardsCriteria;
+import com.rar.model.RewardsCriteria;
 import java.util.List;
 import java.util.Set;
 

@@ -1,6 +1,6 @@
 package com.rar.service.impl;
 
-import com.rar.entity.Roles;
+import com.rar.model.Roles;
 import com.rar.repository.RolesRepository;
 import com.rar.service.RolesService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.rar.entity;
+package com.rar.model;
 
 import com.rar.enums.DesignationEnum;
 import io.swagger.annotations.ApiModel;

@@ -1,8 +1,8 @@
 package com.rar.utils;
 
 import com.rar.enums.FrequencyEnum;
-import com.rar.entity.Rewards;
-import com.rar.entity.RewardsCriteria;
+import com.rar.model.Rewards;
+import com.rar.model.RewardsCriteria;
 import com.rar.repository.RewardsCriteriaRepository;
 import com.rar.repository.RewardsRepository;
 import com.rar.service.RewardsService;

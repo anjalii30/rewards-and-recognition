@@ -1,7 +1,7 @@
 package com.rar.controller;
 
 
-import com.rar.entity.RewardsCriteria;
+import com.rar.model.RewardsCriteria;
 import com.rar.service.RewardsCriteriaService;
 import com.rar.service.impl.CheckValidity;
 import io.swagger.annotations.Api;

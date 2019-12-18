@@ -1,11 +1,10 @@
 package com.rar.service;
 
 import com.rar.DTO.LoginUserDetails;
-import com.rar.entity.UserInfo;
+import com.rar.model.UserInfo;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface LoginService {
 

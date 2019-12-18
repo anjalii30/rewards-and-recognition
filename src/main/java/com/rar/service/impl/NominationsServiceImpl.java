@@ -1,12 +1,13 @@
 package com.rar.service.impl;
 
-import com.rar.entity.*;
+import com.rar.model.*;
 import com.rar.DTO.NominationPojo;
 
 import com.rar.repository.*;
 import com.rar.service.NominationsService;
 import freemarker.template.TemplateException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -84,13 +85,13 @@ public class NominationsServiceImpl implements NominationsService {
 
 
     @Override
-    public List<Nominations> GetData(Long rewardID) throws Exception {
+    public ResponseEntity<List<Nominations>> GetData(Long rewardID) throws Exception {
 
         List<Nominations> nominations = null;
 
         nominations = nominationsRepository.GetData(rewardID);
 
-        return nominations;
+        return new ResponseEntity<>(nominations,HttpStatus.OK);
     }
 
 
@@ -152,8 +153,8 @@ public class NominationsServiceImpl implements NominationsService {
     }
 
     @Override
-    public List<Map<String,String>> getAwardedPeople() {
-        return nominationsRepository.getAwarded();
+    public ResponseEntity<List<Map<String,String>>> getAwardedPeople() {
+        return new ResponseEntity<>(nominationsRepository.getAwarded(),HttpStatus.OK);
     }
 
     //used for self-nominaiton
@@ -176,8 +177,8 @@ public class NominationsServiceImpl implements NominationsService {
     }*/
 
    @Override
-    public List<Nominations> getAllNominations() {
-        return nominationsRepository.getAllNominations();
+    public ResponseEntity<List<Nominations>> getAllNominations() {
+        return new ResponseEntity<>(nominationsRepository.getAllNominations(),HttpStatus.OK);
  }
 
     @Override
@@ -198,13 +199,13 @@ public class NominationsServiceImpl implements NominationsService {
     }
 
     @Override
-    public List<Rewards> nominated_rewards() {
-        return rewardsRepository.nominated_rewards();
+    public ResponseEntity<List<Rewards>> nominated_rewards() {
+        return new ResponseEntity<>(rewardsRepository.nominated_rewards(),HttpStatus.OK);
     }
 
     @Override
-    public List<Map<String, String>> getTopAwardee() {
-        return nominationsRepository.getTopAwardee();
+    public ResponseEntity<List> getTopAwardee() {
+        return new ResponseEntity<>(nominationsRepository.getTopAwardee(), HttpStatus.OK);
     }
 
     @Override

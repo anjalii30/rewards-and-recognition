@@ -1,6 +1,6 @@
 package com.rar.controller;
 
-import com.rar.entity.Criteria;
+import com.rar.model.Criteria;
 import com.rar.service.CriteriaService;
 import com.rar.service.impl.CheckValidity;
 import io.swagger.annotations.Api;
@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 @CrossOrigin
 @RestController

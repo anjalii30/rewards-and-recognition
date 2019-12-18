@@ -1,6 +1,7 @@
 package com.rar.controller;
 
-import com.rar.entity.Manager;
+import com.rar.exception.ResourceNotFoundException;
+import com.rar.model.Manager;
 import com.rar.repository.ManagerRepository;
 import com.rar.service.ManagerService;
 import com.rar.service.impl.CheckValidity;
@@ -8,11 +9,14 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 @CrossOrigin
 @RestController
@@ -34,10 +38,14 @@ public class ManagerController {
      * @return saved manager object.
      */
     @ApiOperation(value = "Save the  manager")
-    @PostMapping("/saveEmp")
-    public Manager save(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Manager object stored in database table", required = true) @Valid @RequestBody Manager manager){
-        validity.check(token);
-        return managerService.save(manager);
+    @PostMapping("/saveManager")
+    public ResponseEntity<Manager> save(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Manager object stored in database table", required = true) @Valid @RequestBody Manager manager){
+        try {
+            validity.check(token);
+            return new ResponseEntity(managerService.save(manager),HttpStatus.OK);
+        }catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
     }
 
     /**
@@ -46,9 +54,9 @@ public class ManagerController {
      */
     @ApiOperation(value = "Get the list of managers")
     @GetMapping("/listManagers")
-    public List<Manager> list(@RequestHeader(value = "Authorization") String token){
+    public ResponseEntity<List<Manager>> list(@RequestHeader(value = "Authorization") String token){
         validity.check(token);
-        return managerService.findAll();
+        return new ResponseEntity(managerService.findAll(),HttpStatus.OK);
     }
 
     /**
@@ -58,10 +66,14 @@ public class ManagerController {
      */
     @ApiOperation(value = "Delete the manager detail by id")
     @DeleteMapping("/deleteEmp/{id}")
-    public String delete(@RequestHeader(value = "Authorization") String token, @ApiParam(value = " Id to delete manager", required = true) @PathVariable long id){
-        validity.check(token);
-        managerService.deleteById(id);
-        return "Deleted Successfully";
+    public ResponseEntity<String> delete(@RequestHeader(value = "Authorization") String token, @ApiParam(value = " Id to delete manager", required = true) @PathVariable long id){
+       try {
+           validity.check(token);
+           managerService.deleteById(id);
+           return new ResponseEntity<>("Deleted Successfully",HttpStatus.OK);
+       }catch (Exception e) {
+           return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+       }
     }
 
     /**
@@ -71,9 +83,13 @@ public class ManagerController {
      */
     @ApiOperation(value = "Get the manager by id")
     @GetMapping("/listEmp/{id}")
-    public Optional<Manager> getById(@RequestHeader(value = "Authorization") String token, @ApiParam(value = " Id to get manager object", required = true) @PathVariable Long id) {
-        validity.check(token);
-        return managerService.findById(id);
+    public ResponseEntity<Manager> getById(@RequestHeader(value = "Authorization") String token, @ApiParam(value = " Id to get manager object", required = true) @PathVariable Long id) {
+        try {
+            validity.check(token);
+            return new ResponseEntity(managerService.findById(id),HttpStatus.OK);
+        }catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     /**
@@ -84,9 +100,13 @@ public class ManagerController {
      */
     @ApiOperation(value = "Get the members working under this project")
     @GetMapping("/getMembers/{id}")
-    public List<Map<String,String>> getMembers(@RequestHeader(value = "Authorization") String token,@ApiParam(value = " Id to get project object", required = true) @PathVariable Long id){
-        validity.check(token);
-        return managerService.getAllMembers(id);
+    public Object getMembers(@RequestHeader(value = "Authorization") String token, @ApiParam(value = " Id to get project object", required = true) @PathVariable Long id, HttpServletResponse response){
+        try {
+            validity.check(token);
+            return new ResponseEntity(managerService.getAllMembers(id),HttpStatus.OK);
+        }catch (ResourceNotFoundException e) {
+            return new ResponseStatusException(HttpStatus.NOT_FOUND,"project id not found",e);
+        }
     }
 
     /**
@@ -96,11 +116,11 @@ public class ManagerController {
      * @return a string "assigned"
      * @throws Exception project not found
      */
-    @ApiOperation(value = "Get projects assigned to manager")
-    @PostMapping("/listAssignedProjects")
-    public String assignValues(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "manager id ", required = true) @Valid @RequestBody long manager_id, @ApiParam(value = "project id ", required = true) @Valid @RequestBody long project_id) throws Exception {
+    @ApiOperation(value = "assign project to manager")
+    @PostMapping("/assignManagerProject")
+    public ResponseEntity<String> assignValues(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "manager id ", required = true) @Valid @RequestBody long manager_id, @Valid @RequestBody long project_id) throws Exception {
         validity.check(token);
         managerService.assignValues(manager_id,project_id);
-        return "Assigned";
+        return new ResponseEntity<>("Assigned",HttpStatus.OK);
     }
 }

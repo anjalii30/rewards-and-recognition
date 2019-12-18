@@ -1,21 +1,19 @@
 package com.rar.controller;
 
 import com.rar.DTO.LoginUserDetails;
-import com.rar.entity.UserInfo;
+import com.rar.model.UserInfo;
 import com.rar.service.LoginService;
 import com.rar.service.impl.CheckValidity;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 @CrossOrigin
 @RestController

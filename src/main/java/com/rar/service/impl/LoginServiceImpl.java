@@ -4,7 +4,7 @@ import com.rar.enums.DesignationEnum;
 import com.rar.enums.RoleEnum;
 import com.rar.exception.InvalidTokenException;
 import com.rar.exception.InvalidUserException;
-import com.rar.entity.*;
+import com.rar.model.*;
 import com.rar.DTO.LoginUserDetails;
 import com.rar.repository.UserRepository;
 import com.rar.service.LoginService;

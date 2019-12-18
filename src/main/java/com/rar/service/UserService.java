@@ -1,7 +1,7 @@
 package com.rar.service;
 
 import com.rar.DTO.EditUserDetails;
-import com.rar.entity.UserInfo;
+import com.rar.model.UserInfo;
 import org.springframework.http.ResponseEntity;
 
 public interface UserService {

@@ -1,6 +1,6 @@
 package com.rar.service.impl;
 
-import com.rar.entity.RewardsCriteria;
+import com.rar.model.RewardsCriteria;
 import com.rar.repository.RewardsCriteriaRepository;
 import com.rar.service.RewardsCriteriaService;
 import org.springframework.beans.factory.annotation.Autowired;

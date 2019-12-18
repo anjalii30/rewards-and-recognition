@@ -1,8 +1,8 @@
 package com.rar.service.impl;
 
 import com.rar.enums.FrequencyEnum;
-import com.rar.entity.Rewards;
-import com.rar.entity.RewardsCriteria;
+import com.rar.model.Rewards;
+import com.rar.model.RewardsCriteria;
 import com.rar.repository.*;
 import com.rar.service.RewardsService;
 import org.springframework.beans.factory.annotation.Autowired;

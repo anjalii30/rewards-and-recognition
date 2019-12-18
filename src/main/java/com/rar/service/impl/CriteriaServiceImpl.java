@@ -1,6 +1,6 @@
 package com.rar.service.impl;
 
-import com.rar.entity.Criteria;
+import com.rar.model.Criteria;
 import com.rar.repository.CriteriaRepository;
 import com.rar.service.CriteriaService;
 import org.springframework.beans.factory.annotation.Autowired;
