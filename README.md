@@ -2,7 +2,7 @@
 
 Rewards and Recognition tool is a web based application designed specially for making the task of Nineleaps HR team simpler as to help them create, monitor, maintain rewards as well as for the Nineleaps employess to view who all are rewarded.
 
-The main components of this application are the HR team able to create, edit, roll out, discontinue and pubish rewards, the managers able to nominate their subordinates.
+The main components of this application are the HR team able to create, edit, roll out, discontinue and publish rewards, the managers able to nominate their subordinates.
 
 ## Technologies Used
 + Front End -> ReactJs
@@ -39,6 +39,7 @@ There are several ways to run a Spring Boot application on your local machine.
 4. A Google email ID that does not use 2 step verification
 
 ## Files and directories
+```
 .
 ├── Documents
 │   └── GIT Branching Strategy
