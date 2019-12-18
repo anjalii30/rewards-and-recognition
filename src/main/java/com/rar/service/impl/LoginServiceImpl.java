@@ -171,9 +171,6 @@ public class LoginServiceImpl implements LoginService {
         return userRepository.getIdByEmail(user_email);
     }
 
-    @Override
-    public ResponseEntity<UserInfo> findByEmail(String email) {
-        return new ResponseEntity(userRepository.findByEmail(email),HttpStatus.OK);
-    }
+
     
 }

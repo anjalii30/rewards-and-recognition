@@ -1,7 +1,10 @@
 package com.rar.controller;
 
 import com.rar.DTO.LoginUserDetails;
+import com.rar.exception.IncorrectFieldException;
+import com.rar.exception.RecordNotFoundException;
 import com.rar.model.UserInfo;
+import com.rar.repository.UserRepository;
 import com.rar.service.LoginService;
 import com.rar.service.impl.CheckValidity;
 import io.swagger.annotations.Api;
@@ -27,18 +30,21 @@ public class LoginController {
     @Autowired
     private CheckValidity validity;
 
+    @Autowired
+    private UserRepository userRepository;
+
     /**
      * @param token (google token)
      * @return object that contains user details
      * @throws Exception that displays that the user who tries to login is not a valid user.
      */
-    @ApiOperation(value = "Login by gmail Id")
+    @ApiOperation(value = "Login by nineleaps gmail Id")
     @PostMapping(value = "/login")
     public ResponseEntity<LoginUserDetails> getToken(@RequestHeader(value = "Authorization") String token) throws Exception {
         try {
             return new ResponseEntity(loginService.login(token), HttpStatus.OK);
-        }catch(Exception e){
-            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }catch (IncorrectFieldException e) {
+            throw new IncorrectFieldException("Incorrect fields given");
         }
     }
 
@@ -53,8 +59,8 @@ public class LoginController {
        try {
            validity.check(token);
            return new ResponseEntity(loginService.saveLogin(users),HttpStatus.OK);
-       }catch(Exception e){
-           return ResponseEntity.status(HttpStatus.CONFLICT).build();
+       }catch (IncorrectFieldException e) {
+           throw new IncorrectFieldException("Incorrect fields given");
        }
     }
 
@@ -71,34 +77,17 @@ public class LoginController {
 
     /**
      * @param token jwt token
-     * @param email employee email
-     * @return object of user based on email id.
-     */
-    @ApiOperation(value = "Get the user by email id")
-    @GetMapping("/listUsersByEmail/{email}")
-    public ResponseEntity<UserInfo> findByEmail(@RequestHeader(value = "Authorization") String token , @ApiParam(value = "User email to get user object", required = true) String email) {
-        try{
-        validity.check(token);
-        return new ResponseEntity(loginService.findByEmail(email),HttpStatus.OK);
-        }catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
-
-    /**
-     * @param token jwt token
      * @param id user id
      * @return String that displays user has been successfully deleted.
      */
     @ApiOperation(value = "Delete the user by user id")
     @DeleteMapping("/deleteUsers/{id}")
     public ResponseEntity<String> delete(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "User Id to delete user object", required = true) @PathVariable long id){
-        try {
             validity.check(token);
-            loginService.deleteById(id);
-            return new ResponseEntity<>("Deleted Successfully",HttpStatus.OK);
-        }catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+            if (userRepository.existsById(id)) {
+                loginService.deleteById(id);
+                return new ResponseEntity<>("Deleted Successfully", HttpStatus.OK);
+            }else
+                throw new RecordNotFoundException("user id not found");
     }
 }

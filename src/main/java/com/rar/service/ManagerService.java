@@ -16,7 +16,6 @@ public interface ManagerService {
 
     void deleteById(long id);
 
-
     ResponseEntity<List<Map<String,String>>> getAllMembers(Long project_id);
 
     void assignValues(long manager_id,long project_id);

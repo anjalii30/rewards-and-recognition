@@ -1,8 +1,10 @@
 package com.rar.controller;
 
+import com.rar.exception.IncorrectFieldException;
 import com.rar.exception.RecordNotFoundException;
 import com.rar.model.Manager;
 import com.rar.repository.ManagerRepository;
+import com.rar.repository.ProjectRepository;
 import com.rar.service.ManagerService;
 import com.rar.service.impl.CheckValidity;
 import io.swagger.annotations.Api;
@@ -32,6 +34,9 @@ public class ManagerController {
     @Autowired
     private ManagerRepository managerRepository;
 
+    @Autowired
+    private ProjectRepository projectRepository;
+
     /**
      * @param token jwt token
      * @param manager Manager object
@@ -43,8 +48,8 @@ public class ManagerController {
         try {
             validity.check(token);
             return new ResponseEntity(managerService.save(manager),HttpStatus.OK);
-        }catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }catch (IncorrectFieldException e) {
+            throw new IncorrectFieldException("Incorrect fields given");
         }
     }
 
@@ -67,13 +72,13 @@ public class ManagerController {
     @ApiOperation(value = "Delete the manager detail by id")
     @DeleteMapping("/deleteEmp/{id}")
     public ResponseEntity<String> delete(@RequestHeader(value = "Authorization") String token, @ApiParam(value = " Id to delete manager", required = true) @PathVariable long id){
-       try {
-           validity.check(token);
-           managerService.deleteById(id);
-           return new ResponseEntity<>("Deleted Successfully",HttpStatus.OK);
-       }catch (Exception e) {
-           return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-       }
+         validity.check(token);
+         if(managerRepository.existsById(id)) {
+             managerService.deleteById(id);
+             return new ResponseEntity<>("Deleted Successfully", HttpStatus.OK);
+         }
+         else
+             throw new RecordNotFoundException("manager id not found");
     }
 
     /**
@@ -84,12 +89,11 @@ public class ManagerController {
     @ApiOperation(value = "Get the manager by id")
     @GetMapping("/listEmp/{id}")
     public ResponseEntity<Manager> getById(@RequestHeader(value = "Authorization") String token, @ApiParam(value = " Id to get manager object", required = true) @PathVariable Long id) {
-        try {
             validity.check(token);
+        if(managerRepository.existsById(id))
             return new ResponseEntity(managerService.findById(id),HttpStatus.OK);
-        }catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        else
+            throw new RecordNotFoundException("manager id not found");
     }
 
     /**
@@ -101,12 +105,11 @@ public class ManagerController {
     @ApiOperation(value = "Get the members working under this project")
     @GetMapping("/getMembers/{id}")
     public Object getMembers(@RequestHeader(value = "Authorization") String token, @ApiParam(value = " Id to get project object", required = true) @PathVariable Long id, HttpServletResponse response){
-        try {
-            validity.check(token);
-            return new ResponseEntity(managerService.getAllMembers(id),HttpStatus.OK);
-        }catch (RecordNotFoundException e) {
-            return new ResponseStatusException(HttpStatus.NOT_FOUND,"project id not found",e);
-        }
+                  validity.check(token);
+        if(projectRepository.existsById(id)) {
+            return new ResponseEntity(managerService.getAllMembers(id), HttpStatus.OK);
+        }else
+            throw new RecordNotFoundException("project id not found");
     }
 
     /**
@@ -119,9 +122,13 @@ public class ManagerController {
     @ApiOperation(value = "assign project to manager")
     @PostMapping("/assignManagerProject")
     public ResponseEntity<String> assignValues(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "manager id ", required = true) @Valid @RequestBody long manager_id, @Valid @RequestBody long project_id) throws Exception {
-        validity.check(token);
-        managerService.assignValues(manager_id,project_id);
-        return new ResponseEntity<>("Assigned",HttpStatus.OK);
+       try {
+           validity.check(token);
+           managerService.assignValues(manager_id, project_id);
+           return new ResponseEntity<>("Assigned", HttpStatus.OK);
+       }catch (IncorrectFieldException e) {
+           throw new IncorrectFieldException("Incorrect fields given");
+       }
     }
 
 }

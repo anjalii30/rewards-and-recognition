@@ -4,6 +4,7 @@ import com.rar.exception.InvalidProjectException;
 import com.rar.DTO.CreateProjectPojo;
 import com.rar.model.Projects;
 import com.rar.DTO.UserProjectsPojo;
+import com.rar.model.UserInfo;
 import com.rar.repository.ManagerRepository;
 import com.rar.repository.ProjectRepository;
 import com.rar.service.LoginService;
@@ -44,7 +45,7 @@ public class ProjectServiceImpl implements ProjectService {
     public ResponseEntity assign(UserProjectsPojo userProjectsPojo) throws Exception {
 
             String[] employees = userProjectsPojo.getUser_email();
-             Long project_id = projectService.getIdByProject(userProjectsPojo.getProject_name());
+             Long project_id = userProjectsPojo.getProject_id();
 
             for(int i=0; i<employees.length;i++) {
 
@@ -62,7 +63,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public void createProject(CreateProjectPojo createProjectPojo) {
+    public ResponseEntity<CreateProjectPojo> createProject(CreateProjectPojo createProjectPojo) {
 
         String manager = createProjectPojo.getManager_email();
         Projects data = new Projects();
@@ -70,7 +71,6 @@ public class ProjectServiceImpl implements ProjectService {
         projectRepository.save(data);
 
         long project_id = projectRepository.getIdByName(createProjectPojo.getProject_name());
-
 
         String[] employees = createProjectPojo.getUser_email();
 
@@ -94,6 +94,7 @@ public class ProjectServiceImpl implements ProjectService {
                managerRepository.assignValues(manager_id, project_id);
            }
 
+            return new ResponseEntity(data,HttpStatus.OK);
     }
 
     @Override
@@ -115,7 +116,7 @@ public class ProjectServiceImpl implements ProjectService {
 
                 Long user_id = loginService.getIdByName(user_name);
 
-                Long project_id = projectService.getIdByProject(userProjectsPojo.getProject_name());
+                Long project_id = userProjectsPojo.getProject_id();
 
                 projectRepository.deleteUser(user_id, project_id);
             }
@@ -128,22 +129,26 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public Object[] findById(Long project_id) {
+    public ResponseEntity<UserInfo[]> findById(Long project_id) {
 
-            return projectRepository.getUsersById(project_id);
+            return new ResponseEntity(projectRepository.getUsersById(project_id),HttpStatus.OK);
     }
 
     @Override
-    public Object[] findManagerById(Long project_id) {
-       Long manager_id = projectRepository.getManagerId(project_id);
-       String manager_email = projectRepository.getManagerEmail(manager_id);
-       return  projectRepository.getManagerDetails(manager_email);
+    public ResponseEntity<Object[]> findManagerById(Long project_id) {
+       Long[] manager_id = projectRepository.getManagerId(project_id);
+       List list=new ArrayList();
+       for(int i=0; i<manager_id.length;i++){
+           list.add(projectRepository.getManagerDetails(manager_id[i]));
+       }
+
+       return new ResponseEntity(list,HttpStatus.OK);
     }
 
     @Override
-    public Object[] findNotInId(Long project_id) {
+    public ResponseEntity<UserInfo[]>findNotInId(Long project_id) {
 
-        return  projectRepository.findNotInId(project_id);
+        return new ResponseEntity(projectRepository.findNotInId(project_id),HttpStatus.OK);
     }
 
     @Override
@@ -167,8 +172,8 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public Object[] unAssigned() {
-        return projectRepository.unAssignedUsers();
+    public ResponseEntity<Object[]> unAssigned() {
+        return new ResponseEntity<>(projectRepository.unAssignedUsers(),HttpStatus.OK);
     }
 
     @Override
