@@ -62,11 +62,11 @@ public class RewardsCriteria {
         this.rewards = rewards;
     }
 
-    public Criteria getCriterias() {
+    public Criteria getCriteria() {
         return criteria;
     }
 
-    public void setCriterias(Criteria criteria) {
+    public void setCriteria(Criteria criteria) {
         this.criteria = criteria;
     }
 

@@ -35,7 +35,7 @@ public class DesignationSelected implements Serializable {
         return designationSelected;
     }
 
-    public void setDesigSelected(Boolean designationSelected) {
+    public void setDesignationSelected(Boolean designationSelected) {
         this.designationSelected = designationSelected;
     }
 }

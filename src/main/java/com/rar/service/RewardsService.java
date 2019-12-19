@@ -10,9 +10,9 @@ import java.util.Optional;
 
 public interface RewardsService {
 
-     Rewards Update(Long id, Rewards createreward);
+     Rewards Update(Long id, Rewards createReward);
 
-    ResponseEntity<Rewards> updateAwardStatus(Long id, Rewards createreward) throws IOException, MessagingException, javax.mail.MessagingException, com.sun.xml.messaging.saaj.packaging.mime.MessagingException;
+    ResponseEntity<Rewards> updateAwardStatus(Long id, Rewards createReward) throws IOException, MessagingException, javax.mail.MessagingException, com.sun.xml.messaging.saaj.packaging.mime.MessagingException;
 
 
     Optional<Rewards> findById(Long id);

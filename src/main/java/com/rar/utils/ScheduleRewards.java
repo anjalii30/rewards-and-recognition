@@ -52,16 +52,16 @@ public class ScheduleRewards {
         int i=0;
 
         while(i<list.size()){
-            Rewards old_reward = list.get(i);
+            Rewards oldReward = list.get(i);
 
         /*    SimpleDateFormat sdf=new SimpleDateFormat("yyy-mm-dd ");
             sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
             // Get the two dates to be compared
-            //Date d1 =utcDate.dateToday(old_reward.getEnd_date());
-            LocalDate d01 =old_reward.getEnd_date();
+            //Date d1 =utcDate.dateToday(oldReward.getEndDate());
+            LocalDate d01 =oldReward.getEndDate();
             String d1=(sdf.format(d01));
             System.out.println(d1);*/
-            LocalDate d1 =old_reward.getEnd_date();
+            LocalDate d1 =oldReward.getEndDate();
             LocalDate d2 = LocalDate.now();
 /*
 
@@ -78,38 +78,38 @@ public class ScheduleRewards {
             String currentYear = String.valueOf(cal.get(Calendar.YEAR));
             String year =String.valueOf(cal.get(Calendar.YEAR)-1);
 
-            if (old_reward.getFrequency() == FrequencyEnum.Monthly && d2.isAfter(d1) && old_reward.isRegenerated()) {
+            if (oldReward.getFrequency() == FrequencyEnum.Monthly && d2.isAfter(d1) && oldReward.isRegenerated()) {
 
-                rewardsRepository.updateToNull(old_reward.getRewardId());
+                rewardsRepository.updateToNull(oldReward.getRewardId());
 
-                Rewards new_reward = new Rewards();
+                Rewards newReward = new Rewards();
 
-                String rName1 = old_reward.getReward_name();
+                String rName1 = oldReward.getRewardName();
 
                 String replaceString = rName1.replaceFirst(month,month1).replaceFirst(year,currentYear);
 
-                new_reward.setReward_name(replaceString);
-                new_reward.setNominations_allowed(old_reward.getNominations_allowed());
-                new_reward.setSelf_nominate(old_reward.isSelf_nominate());
-                new_reward.setFrequency(old_reward.getFrequency());
-                new_reward.setDescription(old_reward.getDescription());
-                new_reward.setCategory(old_reward.getCategory());
-                new_reward.setRegenerated(true);
-                new_reward.setStart_date(old_reward.getEnd_date());
-                LocalDate d3 = new_reward.getStart_date();
+                newReward.setRewardName(replaceString);
+                newReward.setNominationsAllowed(oldReward.getNominationsAllowed());
+                newReward.setSelfNominate(oldReward.isSelfNominate());
+                newReward.setFrequency(oldReward.getFrequency());
+                newReward.setDescription(oldReward.getDescription());
+                newReward.setCategory(oldReward.getCategory());
+                newReward.setRegenerated(true);
+                newReward.setStartDate(oldReward.getEndDate());
+                LocalDate d3 = newReward.getStartDate();
                 LocalDate ed=d3.plusMonths(1);
-                new_reward.setEnd_date(ed);
-                new_reward.setAward_status(0);
+                newReward.setEndDate(ed);
+                newReward.setAwardStatus(0);
 
-                rewardsService.save(new_reward);
+                rewardsService.save(newReward);
 
-                Set<RewardsCriteria> criterias= rewardsCriteriaRepository.findByRewardId(old_reward.getId());
+                Set<RewardsCriteria> criteria= rewardsCriteriaRepository.findByRewardId(oldReward.getId());
 
-                for (Iterator<RewardsCriteria> it = criterias.iterator(); it.hasNext(); ) {
+                for (Iterator<RewardsCriteria> it = criteria.iterator(); it.hasNext(); ) {
                     RewardsCriteria f = it.next();
 
                     RewardsCriteria rewardsCriteria = new RewardsCriteria();
-                    rewardsCriteria.setRewardId(new_reward.getId());
+                    rewardsCriteria.setRewardId(newReward.getId());
                     rewardsCriteria.setCriteriaId(f.getCriteriaId());
                     rewardsCriteria.setCompulsory(f.getCompulsory());
 
@@ -135,10 +135,10 @@ public class ScheduleRewards {
         int i=0;
 
         while(i<list.size()){
-            Rewards old_reward = list.get(i);
+            Rewards oldReward = list.get(i);
 
             // Get the two dates to be compared
-            LocalDate d1 =old_reward.getEnd_date();
+            LocalDate d1 =oldReward.getEndDate();
             LocalDate d2 = LocalDate.now();
 
             Calendar cal = Calendar.getInstance();
@@ -147,38 +147,38 @@ public class ScheduleRewards {
             String currentYear = String.valueOf(cal.get(Calendar.YEAR));
             String year =String.valueOf(cal.get(Calendar.YEAR)-1);
 
-            if (old_reward.getFrequency() == FrequencyEnum.Quarterly && d2.isAfter(d1) && old_reward.isRegenerated()) {
+            if (oldReward.getFrequency() == FrequencyEnum.Quarterly && d2.isAfter(d1) && oldReward.isRegenerated()) {
 
-                rewardsRepository.updateToNull(old_reward.getRewardId());
+                rewardsRepository.updateToNull(oldReward.getRewardId());
 
-                Rewards new_reward = new Rewards();
+                Rewards newReward = new Rewards();
 
-                String rName1 = old_reward.getReward_name();
+                String rName1 = oldReward.getRewardName();
 
                 String replaceString = rName1.replaceFirst(month,month1).replaceFirst(year,currentYear);
 
-                new_reward.setReward_name(replaceString);
-                new_reward.setNominations_allowed(old_reward.getNominations_allowed());
-                new_reward.setSelf_nominate(old_reward.isSelf_nominate());
-                new_reward.setFrequency(old_reward.getFrequency());
-                new_reward.setDescription(old_reward.getDescription());
-                new_reward.setCategory(old_reward.getCategory());
-                new_reward.setRegenerated(true);
-                new_reward.setStart_date(old_reward.getEnd_date());
-                LocalDate d3 = new_reward.getStart_date();
+                newReward.setRewardName(replaceString);
+                newReward.setNominationsAllowed(oldReward.getNominationsAllowed());
+                newReward.setSelfNominate(oldReward.isSelfNominate());
+                newReward.setFrequency(oldReward.getFrequency());
+                newReward.setDescription(oldReward.getDescription());
+                newReward.setCategory(oldReward.getCategory());
+                newReward.setRegenerated(true);
+                newReward.setStartDate(oldReward.getEndDate());
+                LocalDate d3 = newReward.getStartDate();
                 LocalDate ed=d3.plusMonths(4);
-                new_reward.setEnd_date(ed);
-                new_reward.setAward_status(0);
+                newReward.setEndDate(ed);
+                newReward.setAwardStatus(0);
 
-                rewardsService.save(new_reward);
+                rewardsService.save(newReward);
 
-                Set<RewardsCriteria> criterias= rewardsCriteriaRepository.findByRewardId(old_reward.getId());
+                Set<RewardsCriteria> criterias= rewardsCriteriaRepository.findByRewardId(oldReward.getId());
 
                 for (Iterator<RewardsCriteria> it = criterias.iterator(); it.hasNext(); ) {
                     RewardsCriteria f = it.next();
 
                     RewardsCriteria rewardsCriteria = new RewardsCriteria();
-                    rewardsCriteria.setRewardId(new_reward.getId());
+                    rewardsCriteria.setRewardId(newReward.getId());
                     rewardsCriteria.setCriteriaId(f.getCriteriaId());
                     rewardsCriteria.setCompulsory(f.getCompulsory());
 
@@ -203,48 +203,48 @@ public class ScheduleRewards {
         int i=0;
 
         while(i<list.size()){
-            Rewards old_reward = list.get(i);
+            Rewards oldReward = list.get(i);
 
             // Get the two dates to be compared
-            LocalDate d1 =old_reward.getEnd_date();
+            LocalDate d1 =oldReward.getEndDate();
             LocalDate d2 = LocalDate.now();
 
             Calendar cal = Calendar.getInstance();
             String year = String.valueOf(cal.get(Calendar.YEAR));
             String year1=String.valueOf(cal.get(Calendar.YEAR)+1);
 
-            if (old_reward.getFrequency() == FrequencyEnum.Annually && d2.isAfter(d1) && old_reward.isRegenerated()==true) {
+            if (oldReward.getFrequency() == FrequencyEnum.Annually && d2.isAfter(d1) && oldReward.isRegenerated()==true) {
 
-                rewardsRepository.updateToNull(old_reward.getRewardId());
+                rewardsRepository.updateToNull(oldReward.getRewardId());
 
-                Rewards new_reward = new Rewards();
+                Rewards newReward = new Rewards();
 
-                String rName1 = old_reward.getReward_name();
+                String rName1 = oldReward.getRewardName();
 
                 String replaceString=rName1.replace(year,year1);
 
-                new_reward.setReward_name(replaceString);
-                new_reward.setNominations_allowed(old_reward.getNominations_allowed());
-                new_reward.setSelf_nominate(old_reward.isSelf_nominate());
-                new_reward.setFrequency(old_reward.getFrequency());
-                new_reward.setDescription(old_reward.getDescription());
-                new_reward.setCategory(old_reward.getCategory());
-                new_reward.setRegenerated(true);
-                new_reward.setStart_date(old_reward.getEnd_date());
-                LocalDate d3 = new_reward.getStart_date();
+                newReward.setRewardName(replaceString);
+                newReward.setNominationsAllowed(oldReward.getNominationsAllowed());
+                newReward.setSelfNominate(oldReward.isSelfNominate());
+                newReward.setFrequency(oldReward.getFrequency());
+                newReward.setDescription(oldReward.getDescription());
+                newReward.setCategory(oldReward.getCategory());
+                newReward.setRegenerated(true);
+                newReward.setStartDate(oldReward.getEndDate());
+                LocalDate d3 = newReward.getStartDate();
                 LocalDate ed=d3.plusYears(1);
-                new_reward.setEnd_date(ed);
-                new_reward.setAward_status(0);
+                newReward.setEndDate(ed);
+                newReward.setAwardStatus(0);
 
-                rewardsService.save(new_reward);
+                rewardsService.save(newReward);
 
-                Set<RewardsCriteria> criterias= rewardsCriteriaRepository.findByRewardId(old_reward.getId());
+                Set<RewardsCriteria> criteria= rewardsCriteriaRepository.findByRewardId(oldReward.getId());
 
-                for (Iterator<RewardsCriteria> it = criterias.iterator(); it.hasNext(); ) {
+                for (Iterator<RewardsCriteria> it = criteria.iterator(); it.hasNext(); ) {
                     RewardsCriteria f = it.next();
 
                     RewardsCriteria rewardsCriteria = new RewardsCriteria();
-                    rewardsCriteria.setRewardId(new_reward.getId());
+                    rewardsCriteria.setRewardId(newReward.getId());
                     rewardsCriteria.setCriteriaId(f.getCriteriaId());
                     rewardsCriteria.setCompulsory(f.getCompulsory());
 
@@ -268,13 +268,13 @@ public class ScheduleRewards {
         for(int i=0;i<rewards.size();i++){
             Long reward_id=rewards.get(i).getRewardId();
           //  System.out.println("id"+reward_id);
-            int award_status=rewards.get(i).getAward_status();
-        //    System.out.println("award status"+award_status);
-            LocalDate start_date=rewards.get(i).getStart_date();
-        //    System.out.println("start date"+start_date);
+            int AwardStatus=rewards.get(i).getAwardStatus();
+        //    System.out.println("award status"+AwardStatus);
+            LocalDate StartDate=rewards.get(i).getStartDate();
+        //    System.out.println("start date"+StartDate);
          //   System.out.println(rewardsRepository.checkingRewardInRolledOut(reward_id)+"count");
-            if(rewardsRepository.checkingRewardInRolledOut(reward_id)>0 && award_status==5 && start_date.equals(today)){
-                //rewards.get(i).setAward_status(1);
+            if(rewardsRepository.checkingRewardInRolledOut(reward_id)>0 && AwardStatus==5 && StartDate.equals(today)){
+                //rewards.get(i).setAwardStatus(1);
                 rewardsRepository.updateAwardStatus(reward_id);
               //  System.out.println("setting award status 1");
             }

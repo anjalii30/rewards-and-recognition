@@ -19,7 +19,7 @@ public class Nominations implements Serializable {
 
     @Column(name = "project_name")
     @ApiModelProperty(notes = "The name of the project")
-    private String project_name;
+    private String projectName;
 
     @Column(name = "reward_id")
     @ApiModelProperty(notes = "The ID of that particular reward")
@@ -27,7 +27,7 @@ public class Nominations implements Serializable {
 
     @Column(name = "reward_name")
     @ApiModelProperty(notes = "The name of the Reward")
-    private String reward_name;
+    private String rewardName;
 
     @ApiModelProperty(notes ="Stating the reason for nomination")
     @Column(name = "reason", length = 1000000000)
@@ -37,9 +37,9 @@ public class Nominations implements Serializable {
     @ApiModelProperty(notes = "The User Id of the employee")
     private Long userID;
 
-    @Column(name = "UserName")
+    @Column(name = "user_name")
     @ApiModelProperty(notes = "The name of the employee")
-    private String username;
+    private String userName;
 
     @Column(name = "selected")
     @ApiModelProperty(notes = "Used in self nominated rewards when a manager approves it")
@@ -47,7 +47,7 @@ public class Nominations implements Serializable {
 
     @ApiModelProperty(notes = "Used for selecting awardee by HR")
     @Column(name="hr_selected")
-    private boolean hr_selected=false;
+    private boolean hrSelected=false;
 
     @ApiModelProperty(notes = "The ID of a particular project")
     @Column(name = "project_id")
@@ -70,26 +70,26 @@ public class Nominations implements Serializable {
         this.evidencesList = evidencesList;
     }
 
-    public Nominations(Long nominationID, Long rewardID, String reason, Long userID, boolean selected, boolean hr_selected, List<Evidences> evidencesList) {
+    public Nominations(Long nominationID, Long rewardID, String reason, Long userID, boolean selected, boolean hrSelected, List<Evidences> evidencesList) {
         this.nominationID = nominationID;
         this.rewardID = rewardID;
         this.reason = reason;
         this.userID = userID;
         this.selected = selected;
-        this.hr_selected = hr_selected;
+        this.hrSelected = hrSelected;
         this.evidencesList = evidencesList;
     }
 
-    public Nominations(Long nominationID, String project_name, Long rewardID, String reward_name, String reason, Long userID, String username, boolean selected, boolean hr_selected, Long projectId, Long managerId, List<Evidences> evidencesList) {
+    public Nominations(Long nominationID, String projectName, Long rewardID, String rewardName, String reason, Long userID, String userName, boolean selected, boolean hrSelected, Long projectId, Long managerId, List<Evidences> evidencesList) {
         this.nominationID = nominationID;
-        this.project_name = project_name;
+        this.projectName = projectName;
         this.rewardID = rewardID;
-        this.reward_name = reward_name;
+        this.rewardName = rewardName;
         this.reason = reason;
         this.userID = userID;
-        this.username = username;
+        this.userName = userName;
         this.selected = selected;
-        this.hr_selected = hr_selected;
+        this.hrSelected = hrSelected;
         this.projectId = projectId;
         this.managerId = managerId;
         this.evidencesList = evidencesList;
@@ -127,12 +127,12 @@ public class Nominations implements Serializable {
         this.selected = selected;
     }
 
-    public boolean isHr_selected() {
-        return hr_selected;
+    public boolean isHrSelected() {
+        return hrSelected;
     }
 
-    public void setHr_selected(boolean hr_selected) {
-        this.hr_selected = hr_selected;
+    public void setHrSelected(boolean hrSelected) {
+        this.hrSelected = hrSelected;
     }
 
     public String getReason() {
@@ -151,28 +151,28 @@ public class Nominations implements Serializable {
         this.evidencesList = evidencesList;
     }
 
-    public String getProject_name() {
-        return project_name;
+    public String getProjectName() {
+        return projectName;
     }
 
-    public void setProject_name(String project_name) {
-        this.project_name = project_name;
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
     }
 
-    public String getReward_name() {
-        return reward_name;
+    public String getRewardName() {
+        return rewardName;
     }
 
-    public void setReward_name(String reward_name) {
-        this.reward_name = reward_name;
+    public void setRewardName(String rewardName) {
+        this.rewardName = rewardName;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public void setRewardID(Long rewardID) {

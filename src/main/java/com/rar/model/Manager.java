@@ -16,11 +16,11 @@ public class Manager implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "manager_id",unique = true,nullable = false)
     @ApiModelProperty(notes = "The database generated employee_relation ID")
-    private long manager_id;
+    private long managerId;
 
     @Column(name="manager_email",nullable = false)
     @ApiModelProperty(notes = "The email ID of particular manager")
-    private String manager_email;
+    private String managerEmail;
 
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
@@ -45,33 +45,33 @@ public class Manager implements Serializable {
     public Manager() {
     }
 
-    public Manager(long id, String manager_email) {
-        this.manager_id = id;
-        this.manager_email = manager_email;
+    public Manager(long id, String managerEmail) {
+        this.managerId = id;
+        this.managerEmail = managerEmail;
     }
 
     public long getId() {
-        return manager_id;
+        return managerId;
     }
 
     public void setId(long ERid) {
-        this.manager_id = ERid;
+        this.managerId = ERid;
     }
 
-    public String getManager_email() {
-        return manager_email;
+    public String getManagerEmail() {
+        return managerEmail;
     }
 
-    public void setManager_email(String manager_email) {
-        this.manager_email = manager_email;
+    public void setManagerEmail(String managerEmail) {
+        this.managerEmail = managerEmail;
     }
 
-    public long getManager_id() {
-        return manager_id;
+    public long getManagerId() {
+        return managerId;
     }
 
-    public void setManager_id(long manager_id) {
-        this.manager_id = manager_id;
+    public void setManagerId(long managerId) {
+        this.managerId = managerId;
     }
 
 /*    public Set<Projects> getManager_projects() {
@@ -94,8 +94,8 @@ public class Manager implements Serializable {
     @Override
     public String toString() {
         return "Manager{" +
-                "manager_id=" + manager_id +
-                ", manager_email='" + manager_email + '\'' +
+                "manager_id=" + managerId +
+                ", manager_email='" + managerEmail + '\'' +
                 ", manager_projects=" + manager_projects +
                 '}';
     }

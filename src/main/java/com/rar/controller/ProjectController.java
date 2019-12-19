@@ -48,7 +48,7 @@ public class ProjectController {
      * @return saved object of projects
      */
     @ApiOperation(value = "Save the new project")
-    @PostMapping("/ProjectSave")
+    @PostMapping("/projectSave")
     public ResponseEntity<Projects> save(@RequestHeader(value = "Authorization") String token ,@ApiParam(value = "Project object store in database table", required = true) @Valid @RequestBody Projects projects){
        try {
            validity.check(token);
@@ -79,9 +79,9 @@ public class ProjectController {
     @GetMapping(value = "/myProjects/{id}")
     public ResponseEntity<List<Projects>> projectsOfManager(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Reward Id to show projects not been nominated for that reward", required = true)@PathVariable Long id){
         String email=validity.check(token);
-        Long manager_id=managerRepository.findByEmail(email);
+        Long managerId=managerRepository.findByEmail(email);
         if(rewardsRepository.existsById(id))
-        return new ResponseEntity(projectService.findProjects(manager_id,id),HttpStatus.OK);
+        return new ResponseEntity(projectService.findProjects(managerId,id),HttpStatus.OK);
         else
             throw new RecordNotFoundException("reward id not found");
     }
@@ -128,6 +128,7 @@ public class ProjectController {
     @GetMapping("/listNotAssigned/{id}")
     public  ResponseEntity<UserInfo[]>  UsersNotInProject(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Project Id to get managers of the project", required = true) @PathVariable Long id) {
         validity.check(token);
+
         if(projectRepository.existsById(id))
         return new ResponseEntity(projectService.findNotInId(id),HttpStatus.OK);
         else
@@ -142,11 +143,12 @@ public class ProjectController {
     @ApiOperation(value = "Assign project to users")
     @PostMapping("/assignProjects")
     public ResponseEntity<?> assignProjects(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Project name and employee emails ", required = true) @Valid @RequestBody UserProjectsPojo userProjectsPojo) throws Exception {
+
         try {
             validity.check(token);
             projectService.assign(userProjectsPojo);
-            Long project_id = userProjectsPojo.getProject_id();
-            return new ResponseEntity(projectService.findById(project_id), HttpStatus.OK);
+            Long projectId = userProjectsPojo.getProjectId();
+            return new ResponseEntity(projectService.findById(projectId), HttpStatus.OK);
         }catch (IncorrectFieldException e) {
             throw new IncorrectFieldException("Incorrect fields given");
         }
@@ -179,8 +181,8 @@ public class ProjectController {
     public ResponseEntity<UserInfo[]> deleteUserFromProject(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Project name and employee emails ", required = true) @Valid @RequestBody UserProjectsPojo userProjectsPojo) throws Exception {
         validity.check(token);
         projectService.deleteUserFromProject(userProjectsPojo);
-        Long project_id = userProjectsPojo.getProject_id();
-        return new ResponseEntity(projectService.findById(project_id),HttpStatus.OK);
+        Long projectId = userProjectsPojo.getProjectId();
+        return new ResponseEntity(projectService.findById(projectId),HttpStatus.OK);
     }
 
     /**

@@ -18,7 +18,7 @@ public class Evidences {
 
     @Column(name = "criteria_desc", length = 2147483000)
     @ApiModelProperty(notes = "description about a particular criteria")
-    private String criteria_desc;
+    private String criteriaDesc;
 
     @Column(name = "evidence",length = 2147483000)
     @ApiModelProperty(notes = "the documented form of evidence")
@@ -30,7 +30,7 @@ public class Evidences {
 
     @Column(name = "text_evidence", length = 214783000)
     @ApiModelProperty("the textual form of evidence")
-    private String text_evidence;
+    private String textEvidence;
 
     @ManyToOne
     @JoinColumns({
@@ -47,12 +47,12 @@ public class Evidences {
         this.evidenceID = evidenceID;
     }
 
-    public String getCriteria_desc() {
-        return criteria_desc;
+    public String getCriteriaDesc() {
+        return criteriaDesc;
     }
 
-    public void setCriteria_desc(String criteria_desc) {
-        this.criteria_desc = criteria_desc;
+    public void setCriteriaDesc(String criteriaDesc) {
+        this.criteriaDesc = criteriaDesc;
     }
 
     public String getEvidences() {
@@ -79,11 +79,11 @@ public class Evidences {
         this.nominations = nominations;
     }
 
-    public String getText_evidence() {
-        return text_evidence;
+    public String getTextEvidence() {
+        return textEvidence;
     }
 
-    public void setText_evidence(String text_evidence) {
-        this.text_evidence = text_evidence;
+    public void setTextEvidence(String textEvidence) {
+        this.textEvidence = textEvidence;
     }
 }

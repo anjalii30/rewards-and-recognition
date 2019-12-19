@@ -4,32 +4,32 @@ import java.io.Serializable;
 
 public class ProjectDetailsUser implements Serializable {
 
-    private Long project_id;
-    private String project_name;
+    private Long projectId;
+    private String projectName;
     private Boolean working;
     private Boolean managing;
 
-    public ProjectDetailsUser(Long project_id, String project_name, Boolean working, Boolean managing) {
-        this.project_id = project_id;
-        this.project_name = project_name;
+    public ProjectDetailsUser(Long projectId, String projectName, Boolean working, Boolean managing) {
+        this.projectId = projectId;
+        this.projectName = projectName;
         this.working = working;
         this.managing = managing;
     }
 
-    public Long getProject_id() {
-        return project_id;
+    public Long getProjectId() {
+        return projectId;
     }
 
-    public void setProject_id(Long project_id) {
-        this.project_id = project_id;
+    public void setProjectId(Long projectId) {
+        this.projectId = projectId;
     }
 
-    public String getProject_name() {
-        return project_name;
+    public String getProjectName() {
+        return projectName;
     }
 
-    public void setProject_name(String project_name) {
-        this.project_name = project_name;
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
     }
 
     public Boolean getWorking() {

@@ -6,7 +6,6 @@ import com.rar.exception.RecordNotFoundException;
 import com.rar.model.Nominations;
 import com.rar.model.Rewards;
 import com.rar.repository.ManagerRepository;
-import com.rar.repository.NominationsRepository;
 import com.rar.repository.RewardsRepository;
 import com.rar.repository.UserRepository;
 import com.rar.service.NominationsService;
@@ -20,6 +19,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import javax.mail.MessagingException;
 import javax.validation.Valid;
 import java.io.IOException;
@@ -99,7 +99,7 @@ public class NominationController {
     @GetMapping("/showNominatedRewards")
     public  ResponseEntity<List<Rewards>> showNominatedRewards(@RequestHeader(value = "Authorization") String token){
         validity.check(token);
-        return new ResponseEntity(nominationsService.nominated_rewards(),HttpStatus.OK);
+        return new ResponseEntity(nominationsService.nominatedRewards(),HttpStatus.OK);
     }
 
     /**
