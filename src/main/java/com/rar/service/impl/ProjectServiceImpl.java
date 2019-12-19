@@ -1,16 +1,14 @@
 package com.rar.service.impl;
 
-import com.rar.exception.InvalidProjectException;
 import com.rar.DTO.CreateProjectPojo;
-import com.rar.model.Projects;
 import com.rar.DTO.UserProjectsPojo;
+import com.rar.model.Projects;
 import com.rar.model.UserInfo;
 import com.rar.repository.ManagerRepository;
 import com.rar.repository.ProjectRepository;
 import com.rar.repository.UserRepository;
 import com.rar.service.LoginService;
 import com.rar.service.ProjectService;
-import io.swagger.annotations.ApiModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -50,7 +48,7 @@ public class ProjectServiceImpl implements ProjectService {
     public ResponseEntity assign(UserProjectsPojo userProjectsPojo) throws Exception {
 
             String[] employees = userProjectsPojo.getUserEmail();
-             Long project_id = userProjectsPojo.getProject_id();
+             Long project_id = userProjectsPojo.getProjectId();
 
             for(int i=0; i<employees.length;i++) {
 
@@ -120,7 +118,7 @@ public class ProjectServiceImpl implements ProjectService {
                 Long userId = userRepository.getIdByEmail(employees[i]);
                 System.out.println(userId+"userid");
 
-                Long projectId = userProjectsPojo.getProject_id();
+                Long projectId = userProjectsPojo.getProjectId();
                 System.out.println(projectId+"projectid");
 
                 projectRepository.deleteUser(userId, projectId);

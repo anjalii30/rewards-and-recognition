@@ -147,7 +147,7 @@ public class ProjectController {
         try {
             validity.check(token);
             projectService.assign(userProjectsPojo);
-            Long projectId = userProjectsPojo.getProject_id();
+            Long projectId = userProjectsPojo.getProjectId();
             return new ResponseEntity(projectService.findById(projectId), HttpStatus.OK);
         }catch (IncorrectFieldException e) {
             throw new IncorrectFieldException("Incorrect fields given");
@@ -180,9 +180,8 @@ public class ProjectController {
     @DeleteMapping("/deleteFromProject")
     public ResponseEntity<UserInfo[]> deleteUserFromProject(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Project name and employee emails ", required = true) @Valid @RequestBody UserProjectsPojo userProjectsPojo) throws Exception {
         validity.check(token);
-        System.out.println(userProjectsPojo.getProject_id());
         projectService.deleteUserFromProject(userProjectsPojo);
-        Long projectId = userProjectsPojo.getProject_id();
+        Long projectId = userProjectsPojo.getProjectId();
         return new ResponseEntity(projectService.findById(projectId),HttpStatus.OK);
     }
 
