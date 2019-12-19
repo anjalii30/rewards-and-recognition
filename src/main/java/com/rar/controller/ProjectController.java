@@ -62,7 +62,7 @@ public class ProjectController {
      * @param token jwt token
      * @return list of projects
      */
-    @ApiOperation(value = "Get the list of projects")
+    @ApiOperation(value = "Get the list of all projects")
     @GetMapping(value = "/listProjects")
     public ResponseEntity<?> projects(@RequestHeader(value = "Authorization") String token){
         validity.check(token);
