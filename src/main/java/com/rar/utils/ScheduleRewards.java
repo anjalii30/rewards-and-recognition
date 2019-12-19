@@ -264,20 +264,22 @@ public class ScheduleRewards {
     public void editAfterRollOut(){
         ArrayList<Rewards> rewards = (ArrayList<Rewards>) rewardsRepository.findAll();
         LocalDate today = LocalDate.now();
-     //   System.out.println(today+"today");
         for(int i=0;i<rewards.size();i++){
-            Long reward_id=rewards.get(i).getRewardId();
-          //  System.out.println("id"+reward_id);
+            Long rewardId=rewards.get(i).getRewardId();
             int AwardStatus=rewards.get(i).getAwardStatus();
-        //    System.out.println("award status"+AwardStatus);
             LocalDate StartDate=rewards.get(i).getStartDate();
+            if(rewardsRepository.checkingRewardInRolledOut(rewardId)>0 && AwardStatus==5 && StartDate.equals(today)){
+                rewardsRepository.updateAwardStatus(rewardId);
 
-        //    System.out.println("start date"+StartDate);
-         //   System.out.println(rewardsRepository.checkingRewardInRolledOut(reward_id)+"count");
-            if(rewardsRepository.checkingRewardInRolledOut(reward_id)>0 && AwardStatus==5 && StartDate.equals(today)){
-                //rewards.get(i).setAwardStatus(1);
-                rewardsRepository.updateAwardStatus(reward_id);
-              //  System.out.println("setting award status 1");
+                if(rewards.get(i).getFrequency()==FrequencyEnum.Monthly)
+                    rewardsRepository.updateEndDateRolledOutEdit(rewardId,today.plusMonths(1));
+                else
+                if(rewards.get(i).getFrequency()==FrequencyEnum.Quarterly)
+                    rewardsRepository.updateEndDateRolledOutEdit(rewardId,today.plusMonths(4));
+                else
+                if(rewards.get(i).getFrequency()==FrequencyEnum.Annually)
+                    rewardsRepository.updateEndDateRolledOutEdit(rewardId,today.plusYears(1));
+
             }
         }
     }

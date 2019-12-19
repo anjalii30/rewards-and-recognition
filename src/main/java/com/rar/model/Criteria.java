@@ -32,6 +32,11 @@ public class Criteria implements Serializable{
     public Criteria() {
     }
 
+    public Criteria(long criteriaId, @NotEmpty String criteriaDesc) {
+        this.criteriaId = criteriaId;
+        this.criteriaDesc = criteriaDesc;
+    }
+
     public Criteria(String criteriaDesc) {
         this.criteriaDesc = criteriaDesc;
     }
@@ -50,6 +55,14 @@ public class Criteria implements Serializable{
 
     public void setCriteriaDesc(String criteriaDesc) {
         this.criteriaDesc = criteriaDesc;
+    }
+
+    public List<RewardsCriteria> getRewards() {
+        return rewards;
+    }
+
+    public void setRewards(List<RewardsCriteria> rewards) {
+        this.rewards = rewards;
     }
 
     @Override

@@ -1,16 +1,14 @@
 package com.rar.service.impl;
 
-import com.rar.exception.InvalidProjectException;
 import com.rar.DTO.CreateProjectPojo;
-import com.rar.model.Projects;
 import com.rar.DTO.UserProjectsPojo;
+import com.rar.model.Projects;
 import com.rar.model.UserInfo;
 import com.rar.repository.ManagerRepository;
 import com.rar.repository.ProjectRepository;
 import com.rar.repository.UserRepository;
 import com.rar.service.LoginService;
 import com.rar.service.ProjectService;
-import io.swagger.annotations.ApiModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
