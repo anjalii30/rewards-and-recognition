@@ -1,5 +1,6 @@
 package com.rar.service;
 
+import com.rar.DTO.History;
 import com.rar.DTO.NominationPojo;
 import com.rar.model.Nominations;
 import com.rar.model.Rewards;
@@ -38,6 +39,7 @@ ResponseEntity<List<Nominations>> GetData(Long rewardID) throws Exception;
 
     ResponseEntity<List> getTopAwardee();
 
+    public ResponseEntity<List<History>> history(long managerId) throws Exception;
 
      void rewardCoins(Long[] nominationId);
 }
