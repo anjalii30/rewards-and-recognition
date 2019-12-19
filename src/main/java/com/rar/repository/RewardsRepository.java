@@ -34,17 +34,11 @@ public interface RewardsRepository extends CrudRepository<Rewards, Long> {
     @Query(value = "select * from rewards where award_status=1 and self_nominate=true and reward_id not in(select reward_id from nominations where selected=true)", nativeQuery = true)
     List<Rewards> managerApprovalRewards();
 
-    @Query(value = "select * from rewards  where award_status=1 and reward_id not in(select distinct reward_id from nominations where hr_selected=true)  order by end_date asc ", nativeQuery = true)
+    @Query(value = "select * from rewards  where award_status=2 and reward_id not in(select distinct reward_id from nominations where hr_selected=true)  order by end_date asc ", nativeQuery = true)
     List<Rewards> nominatedRewards();
-
-    @Query(value = "select distinct reward_id from nominations where reward_id in(select reward_id from rewards where self_nominate=true)", nativeQuery = true)
-    Long[] rewardIds();
 
     @Query(value = "select * from rewards where self_nominate=true and  reward_id in(select reward_id from nominations where user_id=?1 )", nativeQuery = true)
     List<Rewards> manager(Long userId);
-
-    @Query(value = "select * from rewards where reward_id=?1", nativeQuery = true)
-    List<Rewards> getReward(Long rewardId);
 
     @Query(value = "select * from rewards order by reward_id desc", nativeQuery = true)
     List<Rewards> getAll();
@@ -76,8 +70,8 @@ public interface RewardsRepository extends CrudRepository<Rewards, Long> {
 
     @Transactional
     @Modifying
-    @Query(value = "update rewards set award_status=1 where reward_id=?1", nativeQuery = true)
-    void updateAwardStatus(long rewardId);
+    @Query(value = "update rewards set award_status=?1 where reward_id=?2", nativeQuery = true)
+    void updateAwardStatus(int awardStatus,long rewardId);
 
     @Transactional
     @Modifying
@@ -86,7 +80,7 @@ public interface RewardsRepository extends CrudRepository<Rewards, Long> {
 
     @Query(value = "select coins from rewards where reward_id=?1",nativeQuery = true)
     Long getCoinValue(Long rewardId);
-    
+
     @Transactional
     @Modifying
     @Query(value = "update rewards set end_date =?2 where reward_id=?1", nativeQuery = true)

@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static com.rar.utils.Constants.CREATED;
+
 @Entity
 @Table(name="rewards")
 @ApiModel(description = "All the details of a reward")
@@ -69,7 +71,7 @@ public class Rewards implements Serializable {
 
     @Column(name="award_status")
     @ApiModelProperty(notes = "The status of the reward")
-    private int awardStatus = 0;
+    private int awardStatus =CREATED;
 
     @Column(name="discontinuing_date")
     @ApiModelProperty(notes = "The discontinuing date of reward")
@@ -144,14 +146,6 @@ public class Rewards implements Serializable {
         return startDate;
     }
 
-    public boolean isRegenerated() {
-        return regenerated;
-    }
-
-    public void setRegenerated(boolean regenerated) {
-        this.regenerated = regenerated;
-    }
-
     public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
@@ -164,8 +158,15 @@ public class Rewards implements Serializable {
         this.endDate = endDate;
     }
 
+    public boolean isRegenerated() {
+        return regenerated;
+    }
 
-    public boolean isSelfNominate() {
+    public void setRegenerated(boolean regenerated) {
+        this.regenerated = regenerated;
+    }
+
+  public boolean isSelfNominate() {
         return selfNominate;
     }
 

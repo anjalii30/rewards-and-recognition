@@ -14,7 +14,15 @@ import org.springframework.stereotype.Service;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.*;
+
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Iterator;
+import java.util.Set;
+
+import static com.rar.utils.Constants.*;
+
 
 @Component
 @Service
@@ -31,9 +39,6 @@ public class ScheduleRewards {
 
     private Rewards rewards;
 
-  /*  @Autowired
-    private UtcDate utcDate;
-*/
     String[] monthName = {"January", "February",
             "March", "April", "May", "June", "July",
             "August", "September", "October", "November",
@@ -99,7 +104,7 @@ public class ScheduleRewards {
                 LocalDate d3 = newReward.getStartDate();
                 LocalDate ed=d3.plusMonths(1);
                 newReward.setEndDate(ed);
-                newReward.setAwardStatus(0);
+                newReward.setAwardStatus(CREATED);
 
                 rewardsService.save(newReward);
 
@@ -168,7 +173,7 @@ public class ScheduleRewards {
                 LocalDate d3 = newReward.getStartDate();
                 LocalDate ed=d3.plusMonths(4);
                 newReward.setEndDate(ed);
-                newReward.setAwardStatus(0);
+                newReward.setAwardStatus(CREATED);
 
                 rewardsService.save(newReward);
 
@@ -193,7 +198,7 @@ public class ScheduleRewards {
 
 
     //Regenerating yearly rewards starting from the 1st of every year 12 a.m.
-    //Checking for regenration of  monthly reward whose end date has passed every 1st of month at 12 a.m.
+    //Checking for regeneration of  monthly reward whose end date has passed every 1st of month at 12 a.m.
     @Scheduled(cron = "0 0 12 1 1/1 ? ")
 
     public void scheduleYearly(){
@@ -234,7 +239,7 @@ public class ScheduleRewards {
                 LocalDate d3 = newReward.getStartDate();
                 LocalDate ed=d3.plusYears(1);
                 newReward.setEndDate(ed);
-                newReward.setAwardStatus(0);
+                newReward.setAwardStatus(CREATED);
 
                 rewardsService.save(newReward);
 
@@ -268,8 +273,9 @@ public class ScheduleRewards {
             Long rewardId=rewards.get(i).getRewardId();
             int AwardStatus=rewards.get(i).getAwardStatus();
             LocalDate StartDate=rewards.get(i).getStartDate();
-            if(rewardsRepository.checkingRewardInRolledOut(rewardId)>0 && AwardStatus==5 && StartDate.equals(today)){
-                rewardsRepository.updateAwardStatus(rewardId);
+            if(rewardsRepository.checkingRewardInRolledOut(rewardId)>0 && AwardStatus==EDITED_AFTER_ROLLOUT
+                    && StartDate.equals(today)){
+                rewardsRepository.updateAwardStatus(ROLLED_OUT,rewardId);
 
                 if(rewards.get(i).getFrequency()==FrequencyEnum.Monthly)
                     rewardsRepository.updateEndDateRolledOutEdit(rewardId,today.plusMonths(1));
@@ -283,7 +289,30 @@ public class ScheduleRewards {
             }
         }
     }
-
+//set award status 2 where end date is passed
+   @Scheduled(cron = "0 0 9 1/1 * ?  ")
+      //@Scheduled(cron = "* * * ? * *  ")
+    public void endDatePassed(){
+        System.out.println("function run");
+        ArrayList<Rewards> rewards = (ArrayList<Rewards>) rewardsRepository.findAll();
+        LocalDate today = LocalDate.now();
+        System.out.println(today);
+        for(int i=0;i<rewards.size();i++) {
+            Long rewardId = rewards.get(i).getRewardId();
+            System.out.println(rewardId+"id");
+            LocalDate endDate=rewards.get(i).getEndDate();
+            System.out.println(endDate+"end date");
+          //  int diff=endDate.compareTo(today);
+           //int b = endDate.compareTo(today);
+            long b = ChronoUnit.DAYS.between(endDate, today);
+            System.out.println("true");
+            System.out.println(rewards.get(i).getAwardStatus()+"award status");
+            if( b==0 && rewards.get(i).getAwardStatus()==ROLLED_OUT){
+                System.out.println("if true");
+                rewardsRepository.updateAwardStatus(END_DATE_PASSED,rewardId);}
+            System.out.println("award status updated");
+        }
+        }
 }
 
 

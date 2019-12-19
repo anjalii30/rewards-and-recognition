@@ -1,5 +1,7 @@
 package com.rar.service.impl;
 
+import com.rar.DTO.History;
+import com.rar.DTO.UserNominationDetails;
 import com.rar.model.*;
 import com.rar.DTO.NominationPojo;
 
@@ -11,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import static com.rar.utils.Constants.*;
 
 import javax.mail.MessagingException;
 import java.io.IOException;
@@ -94,15 +97,16 @@ public class NominationsServiceImpl implements NominationsService {
     }
 
     @Override
-    public void awardeeSelect(Map<String, Long[]> nomination1_id) throws IOException, MessagingException, TemplateException {
+    public void awardeeSelect(Map<String, Long[]> n1_id) throws IOException, MessagingException, TemplateException {
 
-        Long[] nomination_id= nomination1_id.get("nomination_id");
+        Long[] nomination_id= n1_id.get("nomination_id");
 
         String[] emails=userRepository.getAllEmails();
 
         for (int i = 0; i < nomination_id.length; i++) {
 
             nominationsRepository.awardeeSelect(nomination_id[i]);
+            rewardsRepository.updateAwardStatus(PUBLISHED,nominationsRepository.getRewardId(nomination_id[i]));
 
 
             for (int j = 0; j < emails.length; j++) {
@@ -161,15 +165,33 @@ public class NominationsServiceImpl implements NominationsService {
     public void rewardCoins(Long[] nomination_id) {
 
        int count = nomination_id.length;
-       String rewardName = nominationsRepository.getRewardName(nomination_id[0]);
-       Long rewardId = rewardsRepository.getRewardIdByName(rewardName);
+      // String rewardName = nominationsRepository.getRewardName(nomination_id[0]);
+       //Long rewardId = rewardsRepository.getRewardIdByName(rewardName);
+       Long rewardId=nominationsRepository.getRewardId(nomination_id[0]);
        Long rewardCoinValue = rewardsRepository.getCoinValue(rewardId);
        Long wonCoinValue = rewardCoinValue/count;
        for(int i=0; i<nomination_id.length;i++){
            Long user_id = nominationsRepository.userId(nomination_id[i]);
            Long currentWalletBalance = userRepository.getWalletBalance(user_id);
            Long newWalletBalance = currentWalletBalance + wonCoinValue;
-           userRepository.updateWalletBalance(user_id,newWalletBalance);
+           userRepository.updateWalletBalance(newWalletBalance,user_id);
        }
+    }
+
+    @Override
+    public ResponseEntity<List<History>> history(long managerId) throws Exception{
+        List<History> histories= new ArrayList<>();
+        String[] rewardNames= nominationsRepository.rewardNames(managerId);
+
+        for(int i=0; i< rewardNames.length; i++){
+            List<UserNominationDetails> userNominationDetailsList = new ArrayList<>();
+                long[] userIds= nominationsRepository.userIds(managerId, rewardNames[i]);
+                for(int j=0; j< userIds.length; j++){
+                    userNominationDetailsList.add(j, new UserNominationDetails(userIds[j],nominationsRepository.gettingReason(managerId,rewardNames[i],userIds[j])));
+                }
+                histories.add(i,new History(rewardNames[i],userNominationDetailsList));
+        }
+
+        return new ResponseEntity<>(histories,HttpStatus.OK);
     }
 }

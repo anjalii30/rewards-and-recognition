@@ -120,7 +120,7 @@ public interface UserRepository extends CrudRepository< UserInfo,Long> {
     @Modifying
     @Transactional
     @Query(value = "update users set wallet=?2 where user_id=?1",nativeQuery = true)
-    void updateWalletBalance(Long userId, Long wallet);
+    void updateWalletBalance(Long wallet,Long userId);
 
     @Modifying
     @Transactional
