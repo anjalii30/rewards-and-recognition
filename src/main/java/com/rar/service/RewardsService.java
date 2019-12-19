@@ -12,22 +12,22 @@ public interface RewardsService {
 
      Rewards Update(Long id, Rewards createreward);
 
-    ResponseEntity<Rewards> updateAwardStatus(Long id, Rewards createreward) throws IOException, MessagingException, javax.mail.MessagingException, com.sun.xml.messaging.saaj.packaging.mime.MessagingException;
+    ResponseEntity<Rewards> updateAwardStatus(Long id, Rewards createReward) throws IOException, MessagingException, javax.mail.MessagingException, com.sun.xml.messaging.saaj.packaging.mime.MessagingException;
 
 
     Optional<Rewards> findById(Long id);
 
     Rewards save(Rewards rewards);
 
-    List<Rewards> findAll();
+    ResponseEntity<List<Rewards>> findAll();
 
     void deleteById(long id);
 
-    List<Rewards> findByRolled(String email);
+    ResponseEntity<List<Rewards>> findByRolled(String email);
 
-    public ResponseEntity rewardsSave(Rewards rewards);
+    ResponseEntity<Rewards> rewardsSave(Rewards rewards);
 
-    List<Rewards> latest(String email);
+    ResponseEntity<List<Rewards>> latest(String email);
 
     List<Rewards> managerApprovalRewards(String email);
 

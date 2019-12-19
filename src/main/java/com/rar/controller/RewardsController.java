@@ -1,5 +1,7 @@
 package com.rar.controller;
 
+import com.rar.exception.IncorrectFieldException;
+import com.rar.exception.RecordNotFoundException;
 import com.rar.model.Rewards;
 import com.rar.repository.RewardsRepository;
 import com.rar.repository.UserRepository;
@@ -48,10 +50,13 @@ public class RewardsController {
      */
     @ApiOperation(value = "Save the rewards")
     @PostMapping("/save")
-    public ResponseEntity save(@RequestHeader(value = "Authorization") String token ,@ApiParam(value = "Reward object store in database table", required = true) @Valid @RequestBody Rewards rewards){
-           validity.check(token);
-           return new ResponseEntity<>(rewardsService.rewardsSave(rewards),HttpStatus.OK) ;
-
+    public ResponseEntity<Rewards> save(@RequestHeader(value = "Authorization") String token ,@ApiParam(value = "Reward object store in database table", required = true) @Valid @RequestBody Rewards rewards) throws IncorrectFieldException{
+          try {
+              validity.check(token);
+              return new ResponseEntity(rewardsService.rewardsSave(rewards), HttpStatus.OK);
+          }catch (IncorrectFieldException e) {
+              throw new IncorrectFieldException("Incorrect fields given");
+          }
     }
 
     /**
@@ -64,12 +69,18 @@ public class RewardsController {
     @ApiOperation(value = "Update award status by id")
     @PutMapping("/updateAwardStatus/{id}")
     public ResponseEntity<Rewards> updateAwardStatus(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Award status Id to update award status", required = true)@PathVariable Long id,
-                                     @ApiParam(value = "Reward object ", required = true) @Valid @RequestBody Rewards createReward) throws IOException, MessagingException, com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException, javax.mail.MessagingException {
 
-        validity.check(token);
-        ResponseEntity<Rewards> rewards=rewardsService.updateAwardStatus(id, createReward);
-
-        return new ResponseEntity(rewards,HttpStatus.OK);
+                                    @ApiParam(value = "Reward object ", required = true) @Valid @RequestBody Rewards createReward) throws IOException, MessagingException, com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException, javax.mail.MessagingException{
+        try{
+            validity.check(token);
+            if (rewardsRepository.existsById(id)) {
+                ResponseEntity<Rewards> rewards = rewardsService.updateAwardStatus(id, createReward);
+                return new ResponseEntity(rewards, HttpStatus.OK);
+            } else
+                throw new RecordNotFoundException("reward id not found");
+        }catch (IncorrectFieldException e) {
+            throw new IncorrectFieldException("Incorrect fields given");
+        }
     }
 
     /**
@@ -78,9 +89,9 @@ public class RewardsController {
      */
     @ApiOperation(value = "Get the list of rewards")
     @GetMapping("/listRewards")
-    public List<Rewards> list(@RequestHeader(value = "Authorization") String token) {
+    public ResponseEntity<List<Rewards>> list(@RequestHeader(value = "Authorization") String token) {
         validity.check(token);
-        return  rewardsService.findAll();
+        return new ResponseEntity(rewardsService.findAll(),HttpStatus.OK);
     }
 
     /**
@@ -89,9 +100,9 @@ public class RewardsController {
      */
     @ApiOperation(value = "Get the latest list of rewards")
     @GetMapping("/listLatestRewards")
-    public List<Rewards> latest(@RequestHeader(value = "Authorization") String token){
+    public ResponseEntity<List<Rewards>> latest(@RequestHeader(value = "Authorization") String token){
         String email=validity.check(token);
-        return rewardsService.latest(email);
+        return new ResponseEntity(rewardsService.latest(email),HttpStatus.OK);
     }
 
     /**
@@ -100,9 +111,9 @@ public class RewardsController {
      */
     @ApiOperation(value = "Get the list of rolled out rewards")
     @GetMapping("/listRolledOut")
-    public List<Rewards> listRolledOut(@RequestHeader(value = "Authorization") String token){
+    public ResponseEntity<List<Rewards>> listRolledOut(@RequestHeader(value = "Authorization") String token){
         String email=validity.check(token);
-        return rewardsService.findByRolled(email);
+        return new ResponseEntity(rewardsService.findByRolled(email),HttpStatus.OK);
     }
 
     /**

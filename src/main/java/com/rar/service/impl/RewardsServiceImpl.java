@@ -53,9 +53,9 @@ public class RewardsServiceImpl implements RewardsService {
     }
 
     @Override
-    public List<Rewards> findAll() {
+    public ResponseEntity<List<Rewards>> findAll() {
 
-        return (List<Rewards>) rewardsRepository.getAll();
+        return new ResponseEntity<>(rewardsRepository.getAll(),HttpStatus.OK);
     }
 
     @Override
@@ -111,12 +111,11 @@ public class RewardsServiceImpl implements RewardsService {
     }
 
     @Override
-    public ResponseEntity<Rewards> updateAwardStatus(Long id, Rewards createReward) throws IOException, MessagingException, com.sun.xml.messaging.saaj.packaging.mime.MessagingException {
+    public ResponseEntity<Rewards> updateAwardStatus(Long id, Rewards createReward) throws IOException, MessagingException {
 
         LocalDate today = LocalDate.now();
       // ResponseEntity t= utcDate.dateToday(today);
        // Instant today = Instant.now();
-
 
         Rewards CreateReward1 = rewardsRepository.findById(id).get();
         CreateReward1.setReward_name(CreateReward1.getReward_name());
@@ -173,10 +172,15 @@ public class RewardsServiceImpl implements RewardsService {
     }
 
 
-    public List<Rewards> latest(String email){
+    public ResponseEntity<List<Rewards>> latest(String email){
 
-        Long user_id = userRepository.getIdByEmail(email);
-        return rewardsRepository.latest(user_id);
+        List<List<Rewards>> list=new ArrayList<>();
+        Long manager_id=managerRepository.findByEmail(email);
+//        Long[] projectId=managerRepository.getProjectsOfManager(manager_id);
+//        for(int i=0; i<projectId.length;i++) {
+            list.add(rewardsRepository.latest(manager_id));
+
+        return new ResponseEntity(list, HttpStatus.OK);
     }
 
     @Override
@@ -199,7 +203,7 @@ public class RewardsServiceImpl implements RewardsService {
 
 
     @Override
-    public List<Rewards> findByRolled(String email) {
+    public ResponseEntity<List<Rewards>> findByRolled(String email) {
 
         List<Rewards> rewards = null;
         Long manager_id = managerRepository.findByEmail(email);
@@ -217,11 +221,11 @@ public class RewardsServiceImpl implements RewardsService {
         else{
             rewards= rewardsRepository.findByRolledForEmp(user_id);
         }
-        return rewards;
+        return new ResponseEntity<>(rewards,HttpStatus.OK);
 
     }
 
-    public ResponseEntity rewardsSave(Rewards rewards) {
+    public ResponseEntity<Rewards> rewardsSave(Rewards rewards) {
 
 
       /*  String month = monthName[cal.get(rewards.getStart_date().getMonthValue())];
@@ -255,7 +259,7 @@ public class RewardsServiceImpl implements RewardsService {
             HashMap<String, Object> s = new HashMap<>();
             s.put("criteria", rewardsCriteria);
             s.put("rewards", rewards);
-            return new ResponseEntity<>(s,HttpStatus.OK);
+            return new ResponseEntity(s,HttpStatus.OK);
     }
 
     public Optional<Rewards> rollOutListReward(long id){
