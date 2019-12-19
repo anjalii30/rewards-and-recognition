@@ -4,6 +4,7 @@ import com.rar.enums.CategoryEnum;
 import com.rar.enums.FrequencyEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import static com.rar.utils.Constants.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -69,7 +70,7 @@ public class Rewards implements Serializable {
 
     @Column(name="award_status")
     @ApiModelProperty(notes = "The status of the reward")
-    private int awardStatus = 0;
+    private int awardStatus =CREATED;
 
     @Column(name="discontinuing_date")
     @ApiModelProperty(notes = "The discontinuing date of reward")
@@ -144,14 +145,6 @@ public class Rewards implements Serializable {
         return startDate;
     }
 
-    public boolean isRegenerated() {
-        return regenerated;
-    }
-
-    public void setRegenerated(boolean regenerated) {
-        this.regenerated = regenerated;
-    }
-
     public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
@@ -164,8 +157,15 @@ public class Rewards implements Serializable {
         this.endDate = endDate;
     }
 
+    public boolean isRegenerated() {
+        return regenerated;
+    }
 
-    public boolean isSelfNominate() {
+    public void setRegenerated(boolean regenerated) {
+        this.regenerated = regenerated;
+    }
+
+  public boolean isSelfNominate() {
         return selfNominate;
     }
 

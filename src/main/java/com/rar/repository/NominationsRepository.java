@@ -61,6 +61,9 @@ public interface NominationsRepository extends CrudRepository<Nominations, Strin
     @Query(value="select reward_name from rewards where reward_id in(select reward_id from nominations where nomination_id=?1)",nativeQuery = true)
     String getRewardName(Long nominationId);
 
+    @Query(value="select reward_id from nominations where nomination_id=?1",nativeQuery = true)
+    Long getRewardId(Long nominationId);
+
     @Query(value="select name from users where user_id in(select user_id from nominations where nomination_id=?1)",nativeQuery = true)
     String getUserName(Long nominationId);
 
