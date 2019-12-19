@@ -50,7 +50,7 @@ public class ProjectServiceImpl implements ProjectService {
     public ResponseEntity assign(UserProjectsPojo userProjectsPojo) throws Exception {
 
             String[] employees = userProjectsPojo.getUserEmail();
-             Long project_id = userProjectsPojo.getProjectId();
+             Long project_id = userProjectsPojo.getProject_id();
 
             for(int i=0; i<employees.length;i++) {
 
@@ -120,7 +120,7 @@ public class ProjectServiceImpl implements ProjectService {
                 Long userId = userRepository.getIdByEmail(employees[i]);
                 System.out.println(userId+"userid");
 
-                Long projectId = userProjectsPojo.getProjectId();
+                Long projectId = userProjectsPojo.getProject_id();
                 System.out.println(projectId+"projectid");
 
                 projectRepository.deleteUser(userId, projectId);
