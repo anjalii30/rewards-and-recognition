@@ -14,12 +14,15 @@ import org.springframework.stereotype.Service;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.Set;
 
 import static com.rar.utils.Constants.*;
+
 
 @Component
 @Service
@@ -287,16 +290,27 @@ public class ScheduleRewards {
         }
     }
 //set award status 2 where end date is passed
-   // @Scheduled(cron = "0 0 9 1/1 * ?  ")
-      @Scheduled(cron = "0 * * ? * * ")
+   @Scheduled(cron = "0 0 9 1/1 * ?  ")
+      //@Scheduled(cron = "* * * ? * *  ")
     public void endDatePassed(){
+        System.out.println("function run");
         ArrayList<Rewards> rewards = (ArrayList<Rewards>) rewardsRepository.findAll();
         LocalDate today = LocalDate.now();
+        System.out.println(today);
         for(int i=0;i<rewards.size();i++) {
             Long rewardId = rewards.get(i).getRewardId();
+            System.out.println(rewardId+"id");
             LocalDate endDate=rewards.get(i).getEndDate();
-            if(endDate==today && rewards.get(i).getAwardStatus()==ROLLED_OUT)
-                rewardsRepository.updateAwardStatus(END_DATE_PASSED,rewardId);
+            System.out.println(endDate+"end date");
+          //  int diff=endDate.compareTo(today);
+           //int b = endDate.compareTo(today);
+            long b = ChronoUnit.DAYS.between(endDate, today);
+            System.out.println("true");
+            System.out.println(rewards.get(i).getAwardStatus()+"award status");
+            if( b==0 && rewards.get(i).getAwardStatus()==ROLLED_OUT){
+                System.out.println("if true");
+                rewardsRepository.updateAwardStatus(END_DATE_PASSED,rewardId);}
+            System.out.println("award status updated");
         }
         }
 }
