@@ -180,7 +180,6 @@ public class ProjectController {
     @DeleteMapping("/deleteFromProject")
     public ResponseEntity<UserInfo[]> deleteUserFromProject(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Project name and employee emails ", required = true) @Valid @RequestBody UserProjectsPojo userProjectsPojo) throws Exception {
         validity.check(token);
-        System.out.println(userProjectsPojo.getProjectId());
         projectService.deleteUserFromProject(userProjectsPojo);
         Long projectId = userProjectsPojo.getProjectId();
         return new ResponseEntity(projectService.findById(projectId),HttpStatus.OK);

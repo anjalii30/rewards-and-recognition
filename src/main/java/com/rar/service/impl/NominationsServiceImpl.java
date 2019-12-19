@@ -163,8 +163,9 @@ public class NominationsServiceImpl implements NominationsService {
     public void rewardCoins(Long[] nomination_id) {
 
        int count = nomination_id.length;
-       String reward_name = nominationsRepository.getRewardName(nomination_id[0]);
-       Long rewardCoinValue = rewardsRepository.getCoinValue(reward_name);
+       String rewardName = nominationsRepository.getRewardName(nomination_id[0]);
+       Long rewardId = rewardsRepository.getRewardIdByName(rewardName);
+       Long rewardCoinValue = rewardsRepository.getCoinValue(rewardId);
        Long wonCoinValue = rewardCoinValue/count;
        for(int i=0; i<nomination_id.length;i++){
            Long user_id = nominationsRepository.userId(nomination_id[i]);

@@ -128,7 +128,7 @@ public class NominationController {
      * @param token jwt token
      * @return list of top three awardee
      */
-    @ApiOperation(value = "show top three awardee ")
+    @ApiOperation(value = "show top six awardee ")
     @GetMapping("/topAwardee")
     public ResponseEntity<List> getTopAwardee(@RequestHeader(value = "Authorization") String token){
         validity.check(token);
