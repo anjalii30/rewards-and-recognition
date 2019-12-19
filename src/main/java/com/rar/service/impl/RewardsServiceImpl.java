@@ -1,5 +1,6 @@
 package com.rar.service.impl;
 
+import com.rar.DTO.RewardPojo;
 import com.rar.enums.FrequencyEnum;
 import com.rar.model.Rewards;
 import com.rar.model.RewardsCriteria;
@@ -53,24 +54,13 @@ public class RewardsServiceImpl implements RewardsService {
     }
 
     @Override
-    public List<Rewards> findAll() {
+    public ResponseEntity<List<Rewards>> findAll() {
 
-        return (List<Rewards>) rewardsRepository.getAll();
+        return new ResponseEntity<>(rewardsRepository.getAll(),HttpStatus.OK);
     }
 
     @Override
-    public void deleteById(long id) {
-
-        rewardsRepository.deleteById(id);
-    }
-
-    @Override
-    public Optional<Rewards> findById(Long id) {
-        return rewardsRepository.findById(id);
-    }
-
-    @Override
-    public Rewards Update(Long id, Rewards createReward) {
+    public ResponseEntity<Rewards> Update(Long id, Rewards createReward) {
         Rewards CreateReward1 = rewardsRepository.findById(id).get();
         CreateReward1.setRewardName(createReward.getRewardName());
         CreateReward1.setFrequency(createReward.getFrequency());
@@ -107,17 +97,15 @@ public class RewardsServiceImpl implements RewardsService {
 
         }
 
-        return rewardData1;
+        return new ResponseEntity<>(rewardData1,HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<Rewards> updateAwardStatus(Long id, Rewards createReward) throws IOException, MessagingException, com.sun.xml.messaging.saaj.packaging.mime.MessagingException {
+    public ResponseEntity<Rewards> updateAwardStatus(Long id, RewardPojo createReward) throws IOException, MessagingException {
 
         LocalDate today = LocalDate.now();
       // ResponseEntity t= utcDate.dateToday(today);
        // Instant today = Instant.now();
-
-
         Rewards CreateReward1 = rewardsRepository.findById(id).get();
         CreateReward1.setRewardName(CreateReward1.getRewardName());
         CreateReward1.setFrequency(CreateReward1.getFrequency());
@@ -145,8 +133,7 @@ public class RewardsServiceImpl implements RewardsService {
 
             String reward_name = rewardsRepository.getRewardName(id);
             String[] emails=managerRepository.getAllEmails();
-            System.out.println(id);
-            System.out.println(reward_name);
+
             for (int i = 0; i < emails.length; i++) {
                 String name=userRepository.getName(emails[i]);
                 System.out.println(emails[i]);
@@ -172,16 +159,18 @@ public class RewardsServiceImpl implements RewardsService {
         return ResponseEntity.ok(update);
 
     }
+    @Override
+    public ResponseEntity<Rewards> findById(Long id) {
+        return new ResponseEntity(rewardsRepository.findById(id),HttpStatus.OK);
+    }
 
-
-    public List<Rewards> latest(String email){
-
-        Long user_id = userRepository.getIdByEmail(email);
-        return rewardsRepository.latest(user_id);
+    public ResponseEntity<List<Rewards>> latest(String email){
+        Long manager_id=managerRepository.findByEmail(email);
+        return new ResponseEntity(rewardsRepository.latest(manager_id), HttpStatus.OK);
     }
 
     @Override
-    public List<Rewards> managerApprovalRewards(String email) {
+    public ResponseEntity<List<Rewards>> managerApprovalRewards(String email) {
 
         List<Rewards> rewards= null;
         Long manager_id = managerRepository.findByEmail(email);
@@ -192,7 +181,7 @@ public class RewardsServiceImpl implements RewardsService {
         {
             rewards= new ArrayList<Rewards>();
         }
-        return rewards;
+        return new ResponseEntity<>(rewards,HttpStatus.OK);
 
 
         }
@@ -200,29 +189,26 @@ public class RewardsServiceImpl implements RewardsService {
 
 
     @Override
-    public List<Rewards> findByRolled(String email) {
+    public ResponseEntity<List<Rewards>> findByRolled(String email) {
 
         List<Rewards> rewards = null;
         Long manager_id = managerRepository.findByEmail(email);
         Long user_id = userRepository.getIdByEmail(email);
         if(manager_id!=null) {
-          //  Long[] members = managerRepository.getMembers(manager_id);
             Long[] projects=managerRepository.getProjectsOfManager(manager_id);
 
             for (int i = 0; i < projects.length; i++) {
-                rewards=rewardsRepository.findByRolled(projects[i]);
-              //  rewards = rewardsRepository.findByRolled(members[i]);
-
+                rewards=rewardsRepository.findByRolled(projects[i],manager_id);
             }
         }
         else{
             rewards= rewardsRepository.findByRolledForEmp(user_id);
         }
-        return rewards;
+        return new ResponseEntity<>(rewards,HttpStatus.OK);
 
     }
 
-    public ResponseEntity rewardsSave(Rewards rewards) {
+    public ResponseEntity<Rewards> rewardsSave(Rewards rewards) {
 
 
       /*  String month = monthName[cal.get(rewards.getStart_date().getMonthValue())];
@@ -256,25 +242,24 @@ public class RewardsServiceImpl implements RewardsService {
             HashMap<String, Object> s = new HashMap<>();
             s.put("criteria", rewardsCriteria);
             s.put("rewards", rewards);
-            return new ResponseEntity<>(s,HttpStatus.OK);
+            return new ResponseEntity(s,HttpStatus.OK);
     }
 
-    public Optional<Rewards> rollOutListReward(long id){
+    public ResponseEntity<Rewards> rollOutListReward(long id){
         if(rewardsRepository.findEditRollOutId(id)!= 0)
-           return rewardsRepository.findById(rewardsRepository.findEditRollOutId(id));
+           return new ResponseEntity(rewardsRepository.findById(rewardsRepository.findEditRollOutId(id)),HttpStatus.OK);
         else
-           return rewardsRepository.findById(id);
+           return new ResponseEntity(rewardsRepository.findById(id),HttpStatus.OK);
     }
 
-    public Rewards rollOutUpdate(Long id, Rewards reward){
+    public ResponseEntity<Rewards> rollOutUpdate(Long id, Rewards reward){
         if(rewardsRepository.findEditRollOutId(id)==0 && rewardsRepository.checkingRewardInRolledOut(id)==0)
         {
             rewardsSave(reward);
-            System.out.print(reward.getId());
             rewardsRepository.regenerationCancel(id);
             rewardsRepository.updateRolledOutColumn(id,reward.getId());
             rewardsRepository.updateRolledOutEditAwardStatus(reward.getId());
-            return reward;
+            return new ResponseEntity<>(reward,HttpStatus.OK);
         }
         else if(rewardsRepository.findEditRollOutId(id)==0 && rewardsRepository.checkingRewardInRolledOut(id)>0){
             return Update(id,reward);

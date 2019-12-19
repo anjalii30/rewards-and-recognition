@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -23,60 +24,63 @@ public class Rewards implements Serializable {
     @ApiModelProperty(notes = "The database generated rewardID")
     private long rewardId;
 
-    @Column
+    @Column(name="reward_name")
     @ApiModelProperty(notes = "The name of the reward")
+    @NotEmpty
     private String rewardName;
 
     @Column(name = "coins")
     private Long coins;
 
-    @Column
+    @Column(name="frequency")
     @Enumerated(EnumType.STRING)
     @ApiModelProperty(notes = "The frequency of the reward")
+    @NotEmpty
     private FrequencyEnum frequency;
 
-    @Column
+    @Column(name="description")
     @ApiModelProperty(notes = "The description of that particular reward")
+    @NotEmpty
     private String description;
 
-    @Column
+    @Column(name="regenerated")
     @ApiModelProperty(notes = "Used for regenerated rewards")
     private boolean regenerated=true;
 
-    @Column
+    @Column(name="category")
     @Enumerated(EnumType.STRING)
     @ApiModelProperty(notes = "Category of a particular reward")
     private CategoryEnum category;
 
-    @Column
+    @Column(name="start_date")
     @ApiModelProperty(notes = "The start date of the project")
     private LocalDate startDate;
 
-    @Column
+    @Column(name="end_date")
     @ApiModelProperty(notes = "The end date of the project")
     private LocalDate endDate;
 
-    @Column
+    @Column(name="self_nominate")
     @ApiModelProperty(notes = "Used for self nominating rewards")
     private boolean selfNominate;
 
-    @Column
+    @Column(name="nominations_allowed")
     @ApiModelProperty(notes = "The number of nominations allowed for reward")
     private int nominationsAllowed;
 
-    @Column
+    @Column(name="award_status")
     @ApiModelProperty(notes = "The status of the reward")
     private int awardStatus = 0;
 
-    @Column
+    @Column(name="discontinuing_date")
     @ApiModelProperty(notes = "The discontinuing date of reward")
     private Date discontinuingDate;
 
-    @Column
+    @Column(name="discontinuing_reason")
     @ApiModelProperty(notes = "The reason for discontinuing a reward")
     private String discontinuingReason;
 
-    @Column
+    @Column(name="roll_out_id")
     @ApiModelProperty(notes = "storing the reward id if the reward is edited in the rollout checking")
     private long rollOutId=0;
 

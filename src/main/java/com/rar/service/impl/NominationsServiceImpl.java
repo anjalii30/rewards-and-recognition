@@ -94,30 +94,6 @@ public class NominationsServiceImpl implements NominationsService {
         return new ResponseEntity<>(nominations,HttpStatus.OK);
     }
 
-
-    //used for self-nomination
-/*    @Override
-    public  List<List<Nominations>> showToManager(String manager_email,Long reward_id) throws Exception {
-
-        try {
-            Long manager_id = managerRepository.findByEmail(manager_email);
-            Long[] members = managerRepository.getMembers(manager_id);
-
-            List<List<Nominations>> getNominations = new ArrayList<>();
-
-            for (int i = 0; i < members.length; i++) {
-                if(nominationsRepository.getNominations((members[i]),reward_id).isEmpty())
-                    continue;
-                getNominations.add (nominationsRepository.getNominations(members[i],reward_id));
-            }
-            return getNominations;
-        }catch (Exception e) {
-
-            throw new InvalidUserException("you are not a manager");
-
-        }
-    }*/
-
     @Override
     public void awardeeSelect(Map<String, Long[]> nomination1_id) throws IOException, MessagingException, TemplateException {
 
@@ -146,7 +122,6 @@ public class NominationsServiceImpl implements NominationsService {
                     sendEmail.sendEmailToWinner(root,emails[j],"You have been awarded");
                 else
                 sendEmail.sendEmailWithAttachment(root,emails[j], "Employee awarded for the reward");
-
             }
         }
         nominationsService.rewardCoins(nomination_id);
@@ -157,25 +132,6 @@ public class NominationsServiceImpl implements NominationsService {
         return new ResponseEntity<>(nominationsRepository.getAwarded(),HttpStatus.OK);
     }
 
-    //used for self-nominaiton
-  /*  @Override
-    public List<List<Nominations>> showAllToManager(String email) throws Exception {
-        try {
-            Long manager_id = managerRepository.findByEmail(email);
-            Long[] members = managerRepository.getMembers(manager_id);
-            List<List<Nominations>> getNominations = new ArrayList<>();
-            for (int i = 0; i < members.length; i++) {
-           if(nominationsRepository.getAllNominations(members[i]).isEmpty())
-                    continue;
-                getNominations.add(nominationsRepository.getAllNominations(members[i]));
-            }
-            return getNominations;
-        }catch (Exception e) {
-            throw new InvalidUserException("you are not a manager");
-
-        }
-    }*/
-
    @Override
     public ResponseEntity<List<Nominations>> getAllNominations() {
         return new ResponseEntity<>(nominationsRepository.getAllNominations(),HttpStatus.OK);
@@ -185,17 +141,11 @@ public class NominationsServiceImpl implements NominationsService {
     public void managerSelect(Nominations[] nominations,Long manager_id,String manager_name)  {
 
         for(int i=0;i<nominations.length;i++){
-
             Long nomination_id =nominations[i].getNominationID();
-
             String reason=nominations[i].getReason();
-
             boolean selected=nominations[i].isSelected();
-
             nominationsRepository.updateSelected(selected,reason,nomination_id,manager_id,manager_name);
-
         }
-
     }
 
     @Override

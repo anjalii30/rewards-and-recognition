@@ -38,6 +38,7 @@ public class RewardsCriteria {
     @Column(name = "isCompulsory")
     private Boolean isCompulsory;
 
+
     public long getRewardId() {
         return rewardId;
     }

@@ -1,5 +1,6 @@
 package com.rar.controller;
 
+import com.rar.exception.IncorrectFieldException;
 import com.rar.exception.RecordNotFoundException;
 import com.rar.model.Criteria;
 import com.rar.repository.CriteriaRepository;
@@ -37,12 +38,12 @@ public class CriteriaController {
 
     @ApiOperation(value = "save the criterion")
     @PostMapping("/saveCriteria")
-    public ResponseEntity<Criteria> save(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Criteria object store in database table", required = true) @Valid @RequestBody Criteria criteria) {
+    public ResponseEntity<Criteria> save(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Criteria object store in database table", required = true) @Valid @RequestBody Criteria criteria) throws IncorrectFieldException {
         try {
             validity.check(token);
             return new ResponseEntity(criteriaService.saveCriteria(criteria), HttpStatus.OK);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        } catch (IncorrectFieldException e) {
+            throw new IncorrectFieldException("Incorrect fields given");
         }
     }
 
@@ -60,19 +61,18 @@ public class CriteriaController {
 
     /**
      * @param token jwt token
-     * @param id    criteria id
+     * @param id criteria id
      * @return String that displays that criteria is deleted successfully.
      */
 
     @ApiOperation(value = "Delete criteria by id")
     @DeleteMapping("/deleteCriteria/{id}")
     public ResponseEntity<?> delete(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Criteria Id to delete criteria object", required = true) @PathVariable long id) {
-
             validity.check(token);
+        if(criteriaRepository.existsById(id)) {
             criteriaService.deleteById(id);
-            if(criteriaRepository.existsById(id))
             return new ResponseEntity<>("Deleted", HttpStatus.OK);
-            else
+        }else
             throw new RecordNotFoundException("criteria id not found");
     }
 

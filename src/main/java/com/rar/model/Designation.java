@@ -16,11 +16,11 @@ public class Designation implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Designation_id",unique = true,nullable = false)
+    @Column(name = "designation_id",unique = true,nullable = false)
     @ApiModelProperty(notes = "The database generated designation ID")
     private long designationId;
 
-    @Column(name="Designation",nullable = false)
+    @Column(name="designation",nullable = false)
     @Enumerated(EnumType.STRING)
     @ApiModelProperty(notes = "Designation name")
     private DesignationEnum designation;

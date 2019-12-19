@@ -1,6 +1,9 @@
 package com.rar.controller;
 
+import com.rar.exception.IncorrectFieldException;
+import com.rar.exception.RecordNotFoundException;
 import com.rar.model.Designation;
+import com.rar.repository.DesignationRepository;
 import com.rar.service.DesignationService;
 import com.rar.service.impl.CheckValidity;
 import io.swagger.annotations.Api;
@@ -23,6 +26,9 @@ public class DesignationController {
     private DesignationService designationService;
 
     @Autowired
+    private DesignationRepository designationRepository;
+
+    @Autowired
     private CheckValidity validity;
 
     /**
@@ -36,8 +42,8 @@ public class DesignationController {
        try {
            validity.check(token);
            return new ResponseEntity<>(designationService.save(designation), HttpStatus.OK);
-       }catch (Exception e) {
-           return ResponseEntity.status(HttpStatus.CONFLICT).build();
+       }catch (IncorrectFieldException e) {
+           throw new IncorrectFieldException("Incorrect fields given");
        }
     }
 
@@ -60,14 +66,12 @@ public class DesignationController {
     @ApiOperation(value = "Delete the designation by id")
     @DeleteMapping("/deleteDesignation/{id}")
     public ResponseEntity<String> delete(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Designation Id to delete designation object", required = true) @PathVariable long id){
-       try {
            validity.check(token);
-           designationService.deleteById(id);
-           return new ResponseEntity<>("Deleted Successfully",HttpStatus.OK);
-       }catch (Exception e) {
-           return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-       }
-
+           if(designationRepository.existsById(id)) {
+               designationService.deleteById(id);
+               return new ResponseEntity<>("Deleted Successfully", HttpStatus.OK);
+           }else
+               throw new RecordNotFoundException("designation id not found");
     }
 
     /**
@@ -78,12 +82,11 @@ public class DesignationController {
     @ApiOperation(value = "Get the designation by id")
     @GetMapping("/listDesignation/{id}")
     public ResponseEntity<Designation> getById(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Designation Id to get designation object", required = true) @PathVariable Long id){
-        try {
             validity.check(token);
+        if(designationRepository.existsById(id))
             return new ResponseEntity(designationService.findById(id),HttpStatus.OK);
-        }catch (Exception e) {
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
-        }
-    }
+        else
+            throw new RecordNotFoundException("designation id not found");
+           }
 
 }

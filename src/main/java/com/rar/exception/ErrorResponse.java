@@ -6,11 +6,11 @@ import org.springframework.http.HttpStatus;
 import java.util.List;
 
 public class ErrorResponse {
-    public ErrorResponse(String message, List<String> details, HttpStatus status) {
+    public ErrorResponse(String message, List<String> details) {
         super();
         this.message = message;
         this.details = details;
-        this.status=status;
+      //  this.status=status;
     }
 
     //General error message about nature of error
@@ -19,10 +19,7 @@ public class ErrorResponse {
     //Specific errors in API request processing
     private List<String> details;
 
-    private HttpStatus status;
-
-
-    //Getter and setters
+    //private HttpStatus status;
 
     public String getMessage() {
         return message;
@@ -40,12 +37,14 @@ public class ErrorResponse {
         this.details = details;
     }
 
-    public HttpStatus getStatus() {
+   */
+/* public HttpStatus getStatus() {
         return status;
     }
 
     public void setStatus(HttpStatus status) {
         this.status = status;
-    }
+    }*//*
+
 }
 */
