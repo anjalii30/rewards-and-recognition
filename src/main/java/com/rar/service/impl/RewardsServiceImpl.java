@@ -72,16 +72,16 @@ public class RewardsServiceImpl implements RewardsService {
     @Override
     public Rewards Update(Long id, Rewards createReward) {
         Rewards CreateReward1 = rewardsRepository.findById(id).get();
-        CreateReward1.setReward_name(createReward.getReward_name());
+        CreateReward1.setRewardName(createReward.getRewardName());
         CreateReward1.setFrequency(createReward.getFrequency());
         CreateReward1.setDescription(createReward.getDescription());
-        CreateReward1.setStart_date(createReward.getStart_date());
-        CreateReward1.setEnd_date(createReward.getEnd_date());
-        CreateReward1.setAward_status(createReward.getAward_status());
+        CreateReward1.setStartDate(createReward.getStartDate());
+        CreateReward1.setEndDate(createReward.getEndDate());
+        CreateReward1.setAwardStatus(createReward.getAwardStatus());
         CreateReward1.setDiscontinuingDate(createReward.getDiscontinuingDate());
         CreateReward1.setDiscontinuingReason(createReward.getDiscontinuingReason());
-        CreateReward1.setSelf_nominate(createReward.isSelf_nominate());
-        CreateReward1.setNominations_allowed(createReward.getNominations_allowed());
+        CreateReward1.setSelfNominate(createReward.isSelfNominate());
+        CreateReward1.setNominationsAllowed(createReward.getNominationsAllowed());
         CreateReward1.setCategory(createReward.getCategory());
         CreateReward1.setRegenerated(CreateReward1.isRegenerated());
 
@@ -118,29 +118,29 @@ public class RewardsServiceImpl implements RewardsService {
        // Instant today = Instant.now();
 
         Rewards CreateReward1 = rewardsRepository.findById(id).get();
-        CreateReward1.setReward_name(CreateReward1.getReward_name());
+        CreateReward1.setRewardName(CreateReward1.getRewardName());
         CreateReward1.setFrequency(CreateReward1.getFrequency());
         CreateReward1.setDescription(CreateReward1.getDescription());
         CreateReward1.setDiscontinuingDate(createReward.getDiscontinuingDate());
         CreateReward1.setDiscontinuingReason(createReward.getDiscontinuingReason());
-        CreateReward1.setSelf_nominate(CreateReward1.isSelf_nominate());
-        CreateReward1.setNominations_allowed(CreateReward1.getNominations_allowed());
-        CreateReward1.setAward_status(createReward.getAward_status());
-        CreateReward1.setStart_date(today);
+        CreateReward1.setSelfNominate(CreateReward1.isSelfNominate());
+        CreateReward1.setNominationsAllowed(CreateReward1.getNominationsAllowed());
+        CreateReward1.setAwardStatus(createReward.getAwardStatus());
+        CreateReward1.setStartDate(today);
         FrequencyEnum frequency =CreateReward1.getFrequency();
 
         if(frequency==FrequencyEnum.Monthly)
-            CreateReward1.setEnd_date(today.plusMonths(1));
+            CreateReward1.setEndDate(today.plusMonths(1));
         else
             if(frequency==FrequencyEnum.Quarterly)
-                CreateReward1.setEnd_date(today.plusMonths(4));
+                CreateReward1.setEndDate(today.plusMonths(4));
         else
             if(frequency==FrequencyEnum.Annually)
-                CreateReward1.setEnd_date(today.plusYears(1));
+                CreateReward1.setEndDate(today.plusYears(1));
 
         Rewards update = rewardsRepository.save(CreateReward1);
 
-        if(createReward.getAward_status()==1) {
+        if(createReward.getAwardStatus()==1) {
 
             String reward_name = rewardsRepository.getRewardName(id);
             String[] emails=managerRepository.getAllEmails();
@@ -153,7 +153,7 @@ public class RewardsServiceImpl implements RewardsService {
             }
         }
         else
-            if(createReward.getAward_status()==3){
+            if(createReward.getAwardStatus()==3){
 
                 String reward_name = rewardsRepository.getRewardName(id);
                 String reason=createReward.getDiscontinuingReason();
@@ -235,10 +235,10 @@ public class RewardsServiceImpl implements RewardsService {
 
             if (rewards.getFrequency() == FrequencyEnum.Annually)
 
-                rewards.setReward_name(rewards.getReward_name() + " for " + year);
+                rewards.setRewardName(rewards.getRewardName() + " for " + year);
 
             else
-                rewards.setReward_name(rewards.getReward_name() + " for " + month + " " + year);
+                rewards.setRewardName(rewards.getRewardName() + " for " + month + " " + year);
 
             Rewards rewardData = save(rewards);
 

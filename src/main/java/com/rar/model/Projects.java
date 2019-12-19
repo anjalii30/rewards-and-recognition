@@ -15,11 +15,11 @@ public class Projects {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @ApiModelProperty(notes = "The database generated project ID")
-    private Long project_id;
+    private Long projectId;
 
     @Column(name = "project_name",unique = true,nullable = false)
     @ApiModelProperty(notes = "The name of the Project")
-    private String project_name;
+    private String projectName;
 
     /*private Boolean working; private Boolean managing;*/
 
@@ -46,30 +46,29 @@ public class Projects {
     public Projects() {
     }
 
-    public Projects(Long project_id, String project_name, Set<UserInfo> userInfo) {
-        this.project_id = project_id;
-        this.project_name = project_name;
+    public Projects(Long projectId, String projectName, Set<UserInfo> userInfo) {
+        this.projectId = projectId;
+        this.projectName = projectName;
         this.userInfo = userInfo;
     }
 
-    public Long getProject_id() {
-        return project_id;
+    public Long getProjectId() {
+        return projectId;
     }
 
-    public void setProject_id(Long project_id) {
-        this.project_id = project_id;
+    public void setProjectId(Long projectId) {
+        this.projectId = projectId;
     }
 
-    public String getProject_name() {
-        return project_name;
+    public String getProjectName() {
+        return projectName;
     }
 
-    public void setProject_name(String project_name) {
-        this.project_name = project_name;
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
     }
 
-
-/*
+ /*
     public Projects(Long project_id, String project_name, Boolean working, Boolean managing) {
         this.project_id = project_id;
         this.project_name = project_name;
@@ -93,11 +92,10 @@ public class Projects {
     @Override
     public String toString() {
         return "Projects{" +
-                "project_id=" + project_id +
-                ", project_name='" + project_name + '\'' +
+                "projectId=" + projectId +
+                ", projectName='" + projectName + '\'' +
                 '}';
     }
-
 /*    public void setWorking(Boolean working) {
         this.working = working;
     }*/

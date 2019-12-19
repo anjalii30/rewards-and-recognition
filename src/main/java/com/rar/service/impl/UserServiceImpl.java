@@ -61,12 +61,12 @@ public class UserServiceImpl implements UserService {
                     count++;
                 }
                 long mid = userRepository.findManagerId(editUserDetails.getEmail());
-                userRepository.insertManagerProjects(mid, projects.getProject_id());
+                userRepository.insertManagerProjects(mid, projects.getProjectId());
             }
             if(!projects.getManaging() && projects.getWorking()){
-                userRepository.insertUserProjects(id,projects.getProject_id());
-                for(int k=0;k< userRepository.getManagerIdFromProjectId(projects.getProject_id()).size();k++){
-                    userRepository.insertUserManager(id, userRepository.getManagerIdFromProjectId(projects.getProject_id()).get(k));
+                userRepository.insertUserProjects(id,projects.getProjectId());
+                for(int k=0;k< userRepository.getManagerIdFromProjectId(projects.getProjectId()).size();k++){
+                    userRepository.insertUserManager(id, userRepository.getManagerIdFromProjectId(projects.getProjectId()).get(k));
                 }
 
             }
@@ -153,20 +153,20 @@ public class UserServiceImpl implements UserService {
 
         boolean managing, working;long mid=0;
         for(int i =0;i<projects.size();i++){
-           projectRepository.userProjectPresent(id, projects.get(i).getProject_id());
+           projectRepository.userProjectPresent(id, projects.get(i).getProjectId());
 
            if(userRepository.isManager(userInfo.get().getEmail())>0)
                mid = userRepository.findManagerId(userInfo.get().getEmail());
 
-            if(projectRepository.userProjectPresent(id, projects.get(i).getProject_id())>0){
+            if(projectRepository.userProjectPresent(id, projects.get(i).getProjectId())>0){
                 working= true;
-                if(projectRepository.managerProjectPresent(mid, projects.get(i).getProject_id())>0)
+                if(projectRepository.managerProjectPresent(mid, projects.get(i).getProjectId())>0)
                     managing=true;
                 else
                     managing=false;
             }
             else{
-                if(projectRepository.managerProjectPresent(mid, projects.get(i).getProject_id())>0){
+                if(projectRepository.managerProjectPresent(mid, projects.get(i).getProjectId())>0){
                     managing=true;
                     working=true;}
                 else{
@@ -174,7 +174,7 @@ public class UserServiceImpl implements UserService {
                     working=false;
                 }
             }
-            projectsList.add(i, new ProjectDetailsUser(projects.get(i).getProject_id(),projects.get(i).getProject_name(),working,managing));
+            projectsList.add(i, new ProjectDetailsUser(projects.get(i).getProjectId(),projects.get(i).getProjectName(),working,managing));
         }
 
         return new EditUserDetails(id,userInfo.get().getEmail(),userInfo.get().getName(),designationSelected,projectsList);
@@ -198,12 +198,12 @@ public class UserServiceImpl implements UserService {
             if(editUserDetails.getProjectsList().get(j).getManaging()){
 
                  mid = userRepository.findManagerId(editUserDetails.getEmail());
-                userRepository.insertManagerProjects(mid, editUserDetails.getProjectsList().get(j).getProject_id());
+                userRepository.insertManagerProjects(mid, editUserDetails.getProjectsList().get(j).getProjectId());
             }
             if(!editUserDetails.getProjectsList().get(j).getManaging() && editUserDetails.getProjectsList().get(j).getWorking()){
-                userRepository.insertUserProjects(id,editUserDetails.getProjectsList().get(j).getProject_id());
-                for(int k=0;k< userRepository.getManagerIdFromProjectId(editUserDetails.getProjectsList().get(j).getProject_id()).size();k++){
-                    userRepository.insertUserManager(id, userRepository.getManagerIdFromProjectId(editUserDetails.getProjectsList().get(j).getProject_id()).get(k));
+                userRepository.insertUserProjects(id,editUserDetails.getProjectsList().get(j).getProjectId());
+                for(int k=0;k< userRepository.getManagerIdFromProjectId(editUserDetails.getProjectsList().get(j).getProjectId()).size();k++){
+                    userRepository.insertUserManager(id, userRepository.getManagerIdFromProjectId(editUserDetails.getProjectsList().get(j).getProjectId()).get(k));
                 }
             }
 

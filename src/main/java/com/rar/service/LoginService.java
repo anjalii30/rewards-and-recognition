@@ -20,5 +20,5 @@ public interface LoginService {
 
     void deleteByEmail(String email);
 
-    Long getIdByName(String user_email);
+    Long getIdByName(String userEmail);
 }

@@ -20,7 +20,7 @@ public class UserInfo implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id",unique = true,nullable = false)
     @ApiModelProperty(notes = "The database generated User ID")
-    private Long user_id;
+    private Long userId;
 
     @NotNull
     @Email
@@ -105,8 +105,8 @@ public class UserInfo implements Serializable {
 
     }
 
-    public UserInfo(Long user_id, @NotNull @Email @Size(max = 100) String email, String name, Boolean firstSign, String imageUrl, Set<Manager> manager, Set<Designation> designation, Set<Roles> roles, Set<Projects> projects) {
-        this.user_id = user_id;
+    public UserInfo(Long userId, @NotNull @Email @Size(max = 100) String email, String name, Boolean firstSign, String imageUrl, Set<Manager> manager, Set<Designation> designation, Set<Roles> roles, Set<Projects> projects) {
+        this.userId = userId;
         this.email = email;
         this.name = name;
         this.firstSign = firstSign;
@@ -118,11 +118,11 @@ public class UserInfo implements Serializable {
     }
 
     public Long getId() {
-        return user_id;
+        return userId;
     }
 
     public void setId(Long uid) {
-        this.user_id = uid;
+        this.userId = uid;
     }
 
     public String getEmail() {
@@ -201,7 +201,7 @@ public class UserInfo implements Serializable {
     @Override
     public String toString() {
         return "UserInfo{" +
-                "uid=" + user_id +
+                "uid=" + userId +
                 ", email='" + email + '\'' +
                 ", name='" + name + '\'' +
                 ", firstSign=" + firstSign +

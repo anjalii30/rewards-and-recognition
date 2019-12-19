@@ -4,13 +4,13 @@ import com.rar.enums.CategoryEnum;
 import com.rar.enums.FrequencyEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name="rewards")
@@ -25,7 +25,7 @@ public class Rewards implements Serializable {
 
     @Column
     @ApiModelProperty(notes = "The name of the reward")
-    private String reward_name;
+    private String rewardName;
 
     @Column(name = "coins")
     private Long coins;
@@ -50,23 +50,23 @@ public class Rewards implements Serializable {
 
     @Column
     @ApiModelProperty(notes = "The start date of the project")
-    private LocalDate start_date;
+    private LocalDate startDate;
 
     @Column
     @ApiModelProperty(notes = "The end date of the project")
-    private LocalDate end_date;
+    private LocalDate endDate;
 
     @Column
     @ApiModelProperty(notes = "Used for self nominating rewards")
-    private boolean self_nominate;
+    private boolean selfNominate;
 
     @Column
     @ApiModelProperty(notes = "The number of nominations allowed for reward")
-    private int nominations_allowed;
+    private int nominationsAllowed;
 
     @Column
     @ApiModelProperty(notes = "The status of the reward")
-    private int award_status = 0;
+    private int awardStatus = 0;
 
     @Column
     @ApiModelProperty(notes = "The discontinuing date of reward")
@@ -88,18 +88,18 @@ public class Rewards implements Serializable {
     public Rewards() {
     }
 
-    public Rewards(long rewardId, String reward_name, FrequencyEnum frequency, String description, boolean regenerated, CategoryEnum category, LocalDate start_date, LocalDate end_date, boolean self_nominate, int nominations_allowed, int award_status, Date discontinuingDate, String discontinuingReason, List<RewardsCriteria> criteria, Set<UserInfo> userInfo4) {
+    public Rewards(long rewardId, String rewardName, FrequencyEnum frequency, String description, boolean regenerated, CategoryEnum category, LocalDate startDate, LocalDate endDate, boolean selfNominate, int nominationsAllowed, int awardStatus, Date discontinuingDate, String discontinuingReason, List<RewardsCriteria> criteria) {
         this.rewardId = rewardId;
-        this.reward_name = reward_name;
+        this.rewardName = rewardName;
         this.frequency = frequency;
         this.description = description;
         this.regenerated = regenerated;
         this.category = category;
-        this.start_date = start_date;
-        this.end_date = end_date;
-        this.self_nominate = self_nominate;
-        this.nominations_allowed = nominations_allowed;
-        this.award_status = award_status;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.selfNominate = selfNominate;
+        this.nominationsAllowed = nominationsAllowed;
+        this.awardStatus = awardStatus;
         this.discontinuingDate = discontinuingDate;
         this.discontinuingReason = discontinuingReason;
         this.criteria = criteria;
@@ -113,12 +113,12 @@ public class Rewards implements Serializable {
         this.rewardId = id;
     }
 
-    public String getReward_name() {
-        return reward_name;
+    public String getRewardName() {
+        return rewardName;
     }
 
-    public void setReward_name(String reward_name) {
-        this.reward_name = reward_name;
+    public void setRewardName(String rewardName) {
+        this.rewardName = rewardName;
     }
 
     public FrequencyEnum getFrequency() {
@@ -137,8 +137,8 @@ public class Rewards implements Serializable {
         this.description = description;
     }
 
-    public LocalDate getStart_date() {
-        return start_date;
+    public LocalDate getStartDate() {
+        return startDate;
     }
 
     public boolean isRegenerated() {
@@ -149,41 +149,41 @@ public class Rewards implements Serializable {
         this.regenerated = regenerated;
     }
 
-    public void setStart_date(LocalDate start_date) {
-        this.start_date = start_date;
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
     }
 
-    public LocalDate getEnd_date() {
-        return end_date;
+    public LocalDate getEndDate() {
+        return endDate;
     }
 
-    public void setEnd_date(LocalDate end_date) {
-        this.end_date = end_date;
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
     }
 
 
-    public boolean isSelf_nominate() {
-        return self_nominate;
+    public boolean isSelfNominate() {
+        return selfNominate;
     }
 
-    public void setSelf_nominate(boolean self_nominate) {
-        this.self_nominate = self_nominate;
+    public void setSelfNominate(boolean selfNominate) {
+        this.selfNominate = selfNominate;
     }
 
-    public int getNominations_allowed() {
-        return nominations_allowed;
+    public int getNominationsAllowed() {
+        return nominationsAllowed;
     }
 
-    public void setNominations_allowed(int nominations_allowed) {
-        this.nominations_allowed = nominations_allowed;
+    public void setNominationsAllowed(int nominationsAllowed) {
+        this.nominationsAllowed = nominationsAllowed;
     }
 
-    public int getAward_status() {
-        return award_status;
+    public int getAwardStatus() {
+        return awardStatus;
     }
 
-    public void setAward_status(int award_status) {
-        this.award_status = award_status;
+    public void setAwardStatus(int awardStatus) {
+        this.awardStatus = awardStatus;
     }
 
     public Date getDiscontinuingDate() {
@@ -247,15 +247,15 @@ public class Rewards implements Serializable {
     public String toString() {
         return "Rewards{" +
                 "rewardId=" + rewardId +
-                ", reward_name='" + reward_name + '\'' +
+                ", reward_name='" + rewardName + '\'' +
                 ", frequency=" + frequency +
                 ", description='" + description + '\'' +
                 ", category=" + category +
-                ", start_date=" + start_date +
-                ", end_date=" + end_date +
-                ", self_nominate=" + self_nominate +
-                ", nominations_allowed=" + nominations_allowed +
-                ", award_status=" + award_status +
+                ", start_date=" + startDate +
+                ", end_date=" + endDate +
+                ", self_nominate=" + selfNominate +
+                ", nominations_allowed=" + nominationsAllowed +
+                ", award_status=" + awardStatus +
                 ", discontinuingDate=" + discontinuingDate +
                 ", discontinuingReason='" + discontinuingReason + '\'' +
                 ", criteria=" + criteria +

@@ -52,13 +52,13 @@ public class NominationsServiceImpl implements NominationsService {
                 nominations.setUserID(nominationPojo.get(i).getUserId());
                 nominations.setRewardID(nominationPojo.get(i).getRewardId());
                 nominations.setSelected(nominationPojo.get(i).isSelected());
-                nominations.setHr_selected(nominationPojo.get(i).isHr_selected());
+                nominations.setHrSelected(nominationPojo.get(i).isHrSelected());
                 nominations.setReason(nominationPojo.get(i).getReason());
-                nominations.setProject_name(projectRepository.getProjectName(nominationPojo.get(i).getProject_id()));
-                nominations.setReward_name(nominationPojo.get(i).getReward_name());
-                nominations.setUsername(userRepository.getNameById(nominationPojo.get(i).getUserId()));
+                nominations.setProjectName(projectRepository.getProjectName(nominationPojo.get(i).getProjectId()));
+                nominations.setRewardName(nominationPojo.get(i).getRewardName());
+                nominations.setUserName(userRepository.getNameById(nominationPojo.get(i).getUserId()));
                 nominations.setManagerId(manager_id);
-                nominations.setProjectId(nominationPojo.get(i).getProject_id());
+                nominations.setProjectId(nominationPojo.get(i).getProjectId());
 
               /*  System.out.println("rewards"+nominationPojo.get(i).getRewardId());
                 System.out.println("userid"+nominationPojo.get(i).getUserId());
@@ -71,9 +71,9 @@ public class NominationsServiceImpl implements NominationsService {
                Evidences evidences = new Evidences();
 
                 evidences.setNominationID(nominationID);
-                evidences.setCriteria_desc(nominationPojo.get(i).getEvidencesPojoList().get(j).getCriteria_desc());
+                evidences.setCriteriaDesc(nominationPojo.get(i).getEvidencesPojoList().get(j).getCriteriaDesc());
                 evidences.setEvidences(nominationPojo.get(i).getEvidencesPojoList().get(j).getEvidences());
-                evidences.setText_evidence(nominationPojo.get(i).getEvidencesPojoList().get(j).getText_evidence());
+                evidences.setTextEvidence(nominationPojo.get(i).getEvidencesPojoList().get(j).getTextEvidence());
 
                 evidencesRepository.save(evidences);
             }
@@ -149,8 +149,8 @@ public class NominationsServiceImpl implements NominationsService {
     }
 
     @Override
-    public ResponseEntity<List<Rewards>> nominated_rewards() {
-        return new ResponseEntity<>(rewardsRepository.nominated_rewards(),HttpStatus.OK);
+    public ResponseEntity<List<Rewards>> nominatedRewards() {
+        return new ResponseEntity<>(rewardsRepository.nominatedRewards(),HttpStatus.OK);
     }
 
     @Override

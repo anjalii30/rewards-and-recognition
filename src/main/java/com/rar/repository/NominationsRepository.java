@@ -16,27 +16,27 @@ import java.util.Optional;
 public interface NominationsRepository extends CrudRepository<Nominations, String> {
 
     @Query(value = "select nomination_id from nominations where user_id=?1, reward_id=?2", nativeQuery = true)
-    public long getNominationId(String user_id, long reward_id);
+    public long getNominationId(String userId, long rewardId);
 
     @Query(value = "update nominations set disable=true where user_id=?1 ",nativeQuery = true)
-    void setDisable(Long user_id);
+    void setDisable(Long userId);
 
     @Query(value = "select * from nominations where reward_id=?1",nativeQuery = true)
     List<Nominations> GetData(Long rewardID);
 
     @Query(value="select * from nominations where user_id=?1 and reward_id=?2",nativeQuery = true)
-    List<Nominations> getNominations(Long user_id,Long reward_id);
+    List<Nominations> getNominations(Long userId,Long rewardId);
 
     @Transactional
     @Modifying
     @Query(value="update nominations set hr_selected=true where nomination_id=?1",nativeQuery = true)
-    void awardeeSelect(Long nomination_id);
+    void awardeeSelect(Long nominationId);
 
     @Query(value="select nominations.user_name,nominations.project_name,nominations.reward_name, users.image_url from nominations,users where nominations.user_id=users.user_id and hr_selected=true ",nativeQuery = true)
     List<Map<String,String>> getAwarded();
 
     @Query(value="select * from nominations where user_id=?1",nativeQuery = true)
-    List<Nominations> getAllNominations(Long user_id);
+    List<Nominations> getAllNominations(Long userId);
 
     @Query(value="select * from nominations where reward_id=?1 ",nativeQuery = true)
     Optional<Nominations> findByRewardId(Long rewardID);
@@ -44,7 +44,7 @@ public interface NominationsRepository extends CrudRepository<Nominations, Strin
     @Transactional
     @Modifying
     @Query(value="update nominations set selected=?1 , reason=?2 , manager_id=?4 , approved_by=?5 where nomination_id=?3",nativeQuery = true)
-    void updateSelected(boolean selected,String reason,Long nomination_id,Long manager_id,String manager_name );
+    void updateSelected(boolean selected,String reason,Long nominationId,Long managerId,String managerName );
 
    @Query(value="select * from nominations where selected=true",nativeQuery = true)
    List<Nominations> getAllNominations();
@@ -53,20 +53,20 @@ public interface NominationsRepository extends CrudRepository<Nominations, Strin
     List<Map<String, String>> getTopAwardee();
 
     @Query(value="select * from nominations where user_id=?1",nativeQuery = true)
-    List<Nominations> exist(Long user_id);
+    List<Nominations> exist(Long userId);
 
     @Query(value="select * from users where user_id in(select user_id from nominations where nomination_id=?1)",nativeQuery = true)
-    UserInfo getUserDetails(Long nomination_id);
+    UserInfo getUserDetails(Long nominationId);
 
     @Query(value="select reward_name from rewards where reward_id in(select reward_id from nominations where nomination_id=?1)",nativeQuery = true)
-    String getRewardName(Long nomination_id);
+    String getRewardName(Long nominationId);
 
     @Query(value="select name from users where user_id in(select user_id from nominations where nomination_id=?1)",nativeQuery = true)
-    String getUserName(Long nomination_id);
+    String getUserName(Long nominationId);
 
     @Query(value="select user_id from nominations where nomination_id=?1",nativeQuery = true)
-    Long userId(Long nomination_id);
+    Long userId(Long nominationId);
 
     @Query(value="select count(nomination_id) from nominations where project_id=?1 and manager_id=?2 and reward_id=?3",nativeQuery = true)
-    Long checkIfExists(Long project_id, Long manager_id, Long reward_id);
+    Long checkIfExists(Long projectId, Long managerId, Long rewardId);
 }
