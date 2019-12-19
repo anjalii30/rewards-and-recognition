@@ -6,6 +6,7 @@ import com.rar.model.Rewards;
 import com.rar.model.RewardsCriteria;
 import com.rar.repository.*;
 import com.rar.service.RewardsService;
+import static com.rar.utils.Constants.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,6 +38,7 @@ public class RewardsServiceImpl implements RewardsService {
     @Autowired
     private SendEmail sendEmail;
 
+    //private Constants constants;
 
     static String[] monthName = {"January", "February",
             "March", "April", "May", "June", "July",
@@ -101,21 +103,21 @@ public class RewardsServiceImpl implements RewardsService {
     }
 
     @Override
-    public ResponseEntity<Rewards> updateAwardStatus(Long id, RewardPojo createReward) throws IOException, MessagingException {
+    public ResponseEntity<Rewards> updateAwardStatus(Long id, RewardPojo rewardPojo) throws IOException, MessagingException {
 
-        LocalDate today = LocalDate.now();
-      // ResponseEntity t= utcDate.dateToday(today);
-       // Instant today = Instant.now();
+      LocalDate today = LocalDate.now();
+
         Rewards CreateReward1 = rewardsRepository.findById(id).get();
         CreateReward1.setRewardName(CreateReward1.getRewardName());
         CreateReward1.setFrequency(CreateReward1.getFrequency());
         CreateReward1.setDescription(CreateReward1.getDescription());
-        CreateReward1.setDiscontinuingDate(createReward.getDiscontinuingDate());
-        CreateReward1.setDiscontinuingReason(createReward.getDiscontinuingReason());
+        CreateReward1.setDiscontinuingDate(rewardPojo.getDiscontinuingDate());
+        CreateReward1.setDiscontinuingReason(rewardPojo.getDiscontinuingReason());
         CreateReward1.setSelfNominate(CreateReward1.isSelfNominate());
         CreateReward1.setNominationsAllowed(CreateReward1.getNominationsAllowed());
-        CreateReward1.setAwardStatus(createReward.getAwardStatus());
+        CreateReward1.setAwardStatus(rewardPojo.getAwardStatus());
         CreateReward1.setStartDate(today);
+
         FrequencyEnum frequency =CreateReward1.getFrequency();
 
         if(frequency==FrequencyEnum.Monthly)
@@ -129,7 +131,7 @@ public class RewardsServiceImpl implements RewardsService {
 
         Rewards update = rewardsRepository.save(CreateReward1);
 
-        if(createReward.getAwardStatus()==1) {
+        if(rewardPojo.getAwardStatus()==ROLLED_OUT) {
 
             String reward_name = rewardsRepository.getRewardName(id);
             String[] emails=managerRepository.getAllEmails();
@@ -142,10 +144,10 @@ public class RewardsServiceImpl implements RewardsService {
             }
         }
         else
-            if(createReward.getAwardStatus()==3){
+            if(rewardPojo.getAwardStatus()==DISCONTINUED){
 
                 String reward_name = rewardsRepository.getRewardName(id);
-                String reason=createReward.getDiscontinuingReason();
+                String reason=rewardPojo.getDiscontinuingReason();
                 String[] emails=managerRepository.getAllEmails();
                 System.out.println(id);
                 System.out.println(reward_name);

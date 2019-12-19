@@ -37,9 +37,6 @@ public class UserServiceImpl implements UserService {
     public ResponseEntity userSave(EditUserDetails editUserDetails) {
 
         userRepository.insertUser(editUserDetails.getEmail(),editUserDetails.getName());
-
-
-
         long id = userRepository.getUserId(editUserDetails.getEmail());
         System.out.println(id);
 

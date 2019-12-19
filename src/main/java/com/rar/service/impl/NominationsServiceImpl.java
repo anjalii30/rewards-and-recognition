@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import static com.rar.utils.Constants.*;
 
 import javax.mail.MessagingException;
 import java.io.IOException;
@@ -50,14 +51,13 @@ public class NominationsServiceImpl implements NominationsService {
         for(int i=0;i<nominationPojo.size();i++) {
             Nominations nominations = new Nominations();
 
-
                 nominations.setUserID(nominationPojo.get(i).getUserId());
                 nominations.setRewardID(nominationPojo.get(i).getRewardId());
                 nominations.setSelected(nominationPojo.get(i).isSelected());
                 nominations.setHrSelected(nominationPojo.get(i).isHrSelected());
                 nominations.setReason(nominationPojo.get(i).getReason());
                 nominations.setProjectName(projectRepository.getProjectName(nominationPojo.get(i).getProjectId()));
-                nominations.setRewardName(nominationPojo.get(i).getRewardName());
+                nominations.setRewardName(rewardsRepository.getRewardName(nominationPojo.get(i).getRewardId()));
                 nominations.setUserName(userRepository.getNameById(nominationPojo.get(i).getUserId()));
                 nominations.setManagerId(manager_id);
                 nominations.setProjectId(nominationPojo.get(i).getProjectId());
@@ -97,15 +97,16 @@ public class NominationsServiceImpl implements NominationsService {
     }
 
     @Override
-    public void awardeeSelect(Map<String, Long[]> nomination1_id) throws IOException, MessagingException, TemplateException {
+    public void awardeeSelect(Map<String, Long[]> n1_id) throws IOException, MessagingException, TemplateException {
 
-        Long[] nomination_id= nomination1_id.get("nomination_id");
+        Long[] nomination_id= n1_id.get("nomination_id");
 
         String[] emails=userRepository.getAllEmails();
 
         for (int i = 0; i < nomination_id.length; i++) {
 
             nominationsRepository.awardeeSelect(nomination_id[i]);
+            rewardsRepository.updateAwardStatus(PUBLISHED,nominationsRepository.getRewardId(nomination_id[i]));
 
 
             for (int j = 0; j < emails.length; j++) {
@@ -164,14 +165,15 @@ public class NominationsServiceImpl implements NominationsService {
     public void rewardCoins(Long[] nomination_id) {
 
        int count = nomination_id.length;
-       String reward_name = nominationsRepository.getRewardName(nomination_id[0]);
-       Long rewardCoinValue = rewardsRepository.getCoinValue(reward_name);
+       String rewardName = nominationsRepository.getRewardName(nomination_id[0]);
+       Long rewardId = rewardsRepository.getRewardIdByName(rewardName);
+       Long rewardCoinValue = rewardsRepository.getCoinValue(rewardId);
        Long wonCoinValue = rewardCoinValue/count;
        for(int i=0; i<nomination_id.length;i++){
            Long user_id = nominationsRepository.userId(nomination_id[i]);
            Long currentWalletBalance = userRepository.getWalletBalance(user_id);
            Long newWalletBalance = currentWalletBalance + wonCoinValue;
-           userRepository.updateWalletBalance(user_id,newWalletBalance);
+           userRepository.updateWalletBalance(newWalletBalance,user_id);
        }
     }
 

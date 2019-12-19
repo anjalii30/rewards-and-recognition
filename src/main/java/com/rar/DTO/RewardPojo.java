@@ -12,7 +12,7 @@ public class RewardPojo {
 
     @Column
     @ApiModelProperty(notes = "The status of the reward")
-    private int awardStatus = 0;
+    private int awardStatus;
 
     @Column
     @ApiModelProperty(notes = "The discontinuing date of reward")
