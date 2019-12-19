@@ -56,7 +56,8 @@ public class Criteria implements Serializable{
     public String toString() {
         return "Criteria{" +
                 "criteriaId=" + criteriaId +
-                ", criteria_desc='" + criteriaDesc + '\'' +
+                ", criteriaDesc='" + criteriaDesc + '\'' +
+                ", rewards=" + rewards +
                 '}';
     }
 }

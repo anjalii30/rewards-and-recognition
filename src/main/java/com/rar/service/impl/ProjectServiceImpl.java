@@ -7,8 +7,10 @@ import com.rar.DTO.UserProjectsPojo;
 import com.rar.model.UserInfo;
 import com.rar.repository.ManagerRepository;
 import com.rar.repository.ProjectRepository;
+import com.rar.repository.UserRepository;
 import com.rar.service.LoginService;
 import com.rar.service.ProjectService;
+import io.swagger.annotations.ApiModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,6 +38,9 @@ public class ProjectServiceImpl implements ProjectService {
     @Autowired
     private ManagerRepository managerRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @Override
     public Projects projectSave(Projects projects) {
         return projectRepository.save(projects);
@@ -45,7 +50,7 @@ public class ProjectServiceImpl implements ProjectService {
     public ResponseEntity assign(UserProjectsPojo userProjectsPojo) throws Exception {
 
             String[] employees = userProjectsPojo.getUserEmail();
-             Long project_id = userProjectsPojo.getProjectId();
+             Long project_id = userProjectsPojo.getProject_id();
 
             for(int i=0; i<employees.length;i++) {
 
@@ -106,26 +111,26 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public void deleteUserFromProject(UserProjectsPojo userProjectsPojo) {
 
-        try {
-
+      //  try {
             String[] employees = userProjectsPojo.getUserEmail();
+            System.out.println(employees+"emails");
 
             for (int i = 0; i < employees.length; i++) {
 
-                String userName = employees[i];
+                Long userId = userRepository.getIdByEmail(employees[i]);
+                System.out.println(userId+"userid");
 
-                Long userId = loginService.getIdByName(userName);
-
-
-                Long projectId = userProjectsPojo.getProjectId();
+                Long projectId = userProjectsPojo.getProject_id();
+                System.out.println(projectId+"projectid");
 
                 projectRepository.deleteUser(userId, projectId);
+                System.out.println("deleted");
             }
-        } catch (Exception e) {
+      /*  } catch (Exception e) {
 
             throw new InvalidProjectException("Either employee or project is invalid...!!");
 
-        }
+        }*/
 
     }
 

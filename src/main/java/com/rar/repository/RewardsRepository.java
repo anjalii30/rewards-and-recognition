@@ -14,8 +14,8 @@ import java.util.List;
 @Repository
 public interface RewardsRepository extends CrudRepository<Rewards, Long> {
 
-    @Query(value = "select * from rewards where award_status=1 and reward_id not in(select reward_id from nominations where project_id=?1) ", nativeQuery = true)
-    List<Rewards> findByRolled(Long projectId);
+    @Query(value = "select * from rewards where award_status=1 and reward_id not in(select reward_id from nominations where project_id=?1 and manager_id=?2) ", nativeQuery = true)
+    List<Rewards> findByRolled(Long projectId,Long managerId);
 
     @Query(value = "select * from rewards where award_status=1 and self_nominate=true and reward_id not in(select reward_id from nominations where user_id=?1) ", nativeQuery = true)
     List<Rewards> findByRolledForEmp(Long userId);
@@ -28,8 +28,8 @@ public interface RewardsRepository extends CrudRepository<Rewards, Long> {
     @Query(value = "Update rewards set regenerated=false where reward_id=?1", nativeQuery = true)
     void updateToNull(long id);
 
-    @Query(value = " Select * from rewards where award_status=1 and self_nominate=1  and reward_id not in(select reward_id from nominations where user_id=?1) Order by start_date DESC limit 6", nativeQuery = true)
-    List<Rewards> latest(Long userId);
+    @Query(value = " Select * from rewards where award_status=1 and reward_id not in(select distinct reward_id from nominations where manager_id=?1) Order by start_date DESC limit 3", nativeQuery = true)
+    List<Rewards> latest(Long managerId);
 
     @Query(value = "select * from rewards where award_status=1 and self_nominate=true and reward_id not in(select reward_id from nominations where selected=true)", nativeQuery = true)
     List<Rewards> managerApprovalRewards();

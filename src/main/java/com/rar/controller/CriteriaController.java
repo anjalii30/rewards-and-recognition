@@ -38,7 +38,7 @@ public class CriteriaController {
 
     @ApiOperation(value = "save the criterion")
     @PostMapping("/saveCriteria")
-    public ResponseEntity<Criteria> save(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Criteria object store in database table", required = true) @Valid @RequestBody Criteria criteria) throws Exception {
+    public ResponseEntity<Criteria> save(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Criteria object store in database table", required = true) @Valid @RequestBody Criteria criteria) throws IncorrectFieldException {
         try {
             validity.check(token);
             return new ResponseEntity(criteriaService.saveCriteria(criteria), HttpStatus.OK);
