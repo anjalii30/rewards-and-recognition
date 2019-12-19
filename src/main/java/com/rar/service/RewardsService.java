@@ -1,5 +1,6 @@
 package com.rar.service;
 
+import com.rar.DTO.RewardPojo;
 import com.rar.model.Rewards;
 import com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException;
 import org.springframework.http.ResponseEntity;
@@ -10,18 +11,15 @@ import java.util.Optional;
 
 public interface RewardsService {
 
-     Rewards Update(Long id, Rewards createReward);
+    ResponseEntity<Rewards> Update(Long id, Rewards createReward);
 
-    ResponseEntity<Rewards> updateAwardStatus(Long id, Rewards createReward) throws IOException, MessagingException, javax.mail.MessagingException, com.sun.xml.messaging.saaj.packaging.mime.MessagingException;
+    ResponseEntity<Rewards> findById(Long id);
 
-
-    Optional<Rewards> findById(Long id);
+    ResponseEntity<Rewards> updateAwardStatus(Long id, RewardPojo createReward) throws IOException, MessagingException, javax.mail.MessagingException, com.sun.xml.messaging.saaj.packaging.mime.MessagingException;
 
     Rewards save(Rewards rewards);
 
     ResponseEntity<List<Rewards>> findAll();
-
-    void deleteById(long id);
 
     ResponseEntity<List<Rewards>> findByRolled(String email);
 
@@ -29,9 +27,9 @@ public interface RewardsService {
 
     ResponseEntity<List<Rewards>> latest(String email);
 
-    List<Rewards> managerApprovalRewards(String email);
+    ResponseEntity<List<Rewards>>  managerApprovalRewards(String email);
 
-    Optional<Rewards> rollOutListReward(long id);
+    ResponseEntity<Rewards> rollOutListReward(long id);
 
-    Rewards rollOutUpdate(Long id, Rewards reward);
+    ResponseEntity<Rewards> rollOutUpdate(Long id, Rewards reward);
 }

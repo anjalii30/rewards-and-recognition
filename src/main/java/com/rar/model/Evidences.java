@@ -12,7 +12,7 @@ public class Evidences {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "evidenceID")
+    @Column(name = "evidence_id")
     @ApiModelProperty(notes = "The database generated evidenceID")
     private Long evidenceID;
 

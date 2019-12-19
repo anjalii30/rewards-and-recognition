@@ -15,6 +15,7 @@ public class Projects {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @ApiModelProperty(notes = "The database generated project ID")
+    @Column(name="project_id")
     private Long projectId;
 
     @Column(name = "project_name",unique = true,nullable = false)

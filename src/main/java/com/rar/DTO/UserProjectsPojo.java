@@ -10,7 +10,6 @@ public class UserProjectsPojo  {
     private String[] userEmail;
 
     @ApiModelProperty(notes = "The ID of the Project")
-
     private Long projectId;
 
     public String[] getUserEmail() {

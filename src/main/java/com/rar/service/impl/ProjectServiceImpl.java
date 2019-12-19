@@ -7,8 +7,10 @@ import com.rar.DTO.UserProjectsPojo;
 import com.rar.model.UserInfo;
 import com.rar.repository.ManagerRepository;
 import com.rar.repository.ProjectRepository;
+import com.rar.repository.UserRepository;
 import com.rar.service.LoginService;
 import com.rar.service.ProjectService;
+import io.swagger.annotations.ApiModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +37,9 @@ public class ProjectServiceImpl implements ProjectService {
 //@Autowired Projects projects;
     @Autowired
     private ManagerRepository managerRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public Projects projectSave(Projects projects) {
@@ -106,26 +111,26 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public void deleteUserFromProject(UserProjectsPojo userProjectsPojo) {
 
-        try {
-
+      //  try {
             String[] employees = userProjectsPojo.getUserEmail();
+            System.out.println(employees+"emails");
 
             for (int i = 0; i < employees.length; i++) {
 
-                String userName = employees[i];
-
-                Long userId = loginService.getIdByName(userName);
-
+                Long userId = userRepository.getIdByEmail(employees[i]);
+                System.out.println(userId+"userid");
 
                 Long projectId = userProjectsPojo.getProjectId();
+                System.out.println(projectId+"projectid");
 
                 projectRepository.deleteUser(userId, projectId);
+                System.out.println("deleted");
             }
-        } catch (Exception e) {
+      /*  } catch (Exception e) {
 
             throw new InvalidProjectException("Either employee or project is invalid...!!");
 
-        }
+        }*/
 
     }
 
