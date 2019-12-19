@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -86,4 +87,9 @@ public interface RewardsRepository extends CrudRepository<Rewards, Long> {
 
     @Query(value = "select coins from rewards where reward_name=?1",nativeQuery = true)
     Long getCoinValue(String rewardName);
+    
+    @Transactional
+    @Modifying
+    @Query(value = "update rewards set end_date =?2 where reward_id=?1", nativeQuery = true)
+    void updateEndDateRolledOutEdit(long rewardId, LocalDate endDate);
 }

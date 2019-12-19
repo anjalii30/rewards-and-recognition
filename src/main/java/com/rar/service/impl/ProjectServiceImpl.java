@@ -32,7 +32,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Autowired
     private ProjectService projectService;
-//@Autowired Projects projects;
+
     @Autowired
     private ManagerRepository managerRepository;
 
@@ -52,14 +52,9 @@ public class ProjectServiceImpl implements ProjectService {
 
             for(int i=0; i<employees.length;i++) {
 
-
-
                 String user_name=employees[i];
-
                 Long user_id = loginService.getIdByName(user_name);
-
                 projectRepository.assign(user_id, project_id);
-
        }
             return new ResponseEntity(projectService.findById(project_id), HttpStatus.OK);
 

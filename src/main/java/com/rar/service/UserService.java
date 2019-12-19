@@ -8,10 +8,9 @@ public interface UserService {
 
     UserInfo save(UserInfo userInfo);
 
+    ResponseEntity userSave(EditUserDetails editUserDetails);
 
-    public ResponseEntity userSave(EditUserDetails editUserDetails);
-
-    public EditUserDetails listById(long id);
+    EditUserDetails listById(long id);
 
     EditUserDetails update(long id, EditUserDetails editUserDetails);
 }

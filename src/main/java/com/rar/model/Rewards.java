@@ -35,7 +35,6 @@ public class Rewards implements Serializable {
     @Column(name="frequency")
     @Enumerated(EnumType.STRING)
     @ApiModelProperty(notes = "The frequency of the reward")
-    @NotEmpty
     private FrequencyEnum frequency;
 
     @Column(name="description")

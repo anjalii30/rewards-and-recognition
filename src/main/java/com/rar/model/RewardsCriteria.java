@@ -78,4 +78,15 @@ public class RewardsCriteria {
     public void setCompulsory(Boolean compulsory) {
         isCompulsory = compulsory;
     }
+
+    @Override
+    public String toString() {
+        return "RewardsCriteria{" +
+                "rewardId=" + rewardId +
+                ", criteriaId=" + criteriaId +
+                ", rewards=" + rewards +
+                ", criteria=" + criteria +
+                ", isCompulsory=" + isCompulsory +
+                '}';
+    }
 }

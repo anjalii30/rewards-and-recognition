@@ -3,6 +3,7 @@ package com.rar.model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.List;
 
@@ -23,6 +24,7 @@ public class Nominations implements Serializable {
 
     @Column(name = "reward_id")
     @ApiModelProperty(notes = "The ID of that particular reward")
+    @NotEmpty
     private Long rewardID;
 
     @Column(name = "reward_name")
@@ -35,6 +37,7 @@ public class Nominations implements Serializable {
 
     @Column(name = "user_id")
     @ApiModelProperty(notes = "The User Id of the employee")
+    @NotEmpty
     private Long userID;
 
     @Column(name = "user_name")
@@ -50,11 +53,13 @@ public class Nominations implements Serializable {
     private boolean hrSelected=false;
 
     @ApiModelProperty(notes = "The ID of a particular project")
+    @NotEmpty
     @Column(name = "project_id")
     private Long projectId;
 
     @ApiModelProperty(notes = "The ID of a the manager")
     @Column(name = "manager_id")
+    @NotEmpty
     private Long managerId;
 
     @OneToMany(mappedBy = "nominations", cascade = CascadeType.ALL)
