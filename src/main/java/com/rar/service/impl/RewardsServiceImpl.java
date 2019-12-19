@@ -101,7 +101,7 @@ public class RewardsServiceImpl implements RewardsService {
     }
 
     @Override
-    public ResponseEntity<Rewards> updateAwardStatus(Long id, RewardPojo createReward) throws IOException, MessagingException {
+    public ResponseEntity<Rewards> updateAwardStatus(Long id, RewardPojo rewardPojo) throws IOException, MessagingException {
 
         LocalDate today = LocalDate.now();
       // ResponseEntity t= utcDate.dateToday(today);
@@ -110,12 +110,13 @@ public class RewardsServiceImpl implements RewardsService {
         CreateReward1.setRewardName(CreateReward1.getRewardName());
         CreateReward1.setFrequency(CreateReward1.getFrequency());
         CreateReward1.setDescription(CreateReward1.getDescription());
-        CreateReward1.setDiscontinuingDate(createReward.getDiscontinuingDate());
-        CreateReward1.setDiscontinuingReason(createReward.getDiscontinuingReason());
+        CreateReward1.setDiscontinuingDate(rewardPojo.getDiscontinuingDate());
+        CreateReward1.setDiscontinuingReason(rewardPojo.getDiscontinuingReason());
         CreateReward1.setSelfNominate(CreateReward1.isSelfNominate());
         CreateReward1.setNominationsAllowed(CreateReward1.getNominationsAllowed());
-        CreateReward1.setAwardStatus(createReward.getAwardStatus());
+        CreateReward1.setAwardStatus(rewardPojo.getAwardStatus());
         CreateReward1.setStartDate(today);
+
         FrequencyEnum frequency =CreateReward1.getFrequency();
 
         if(frequency==FrequencyEnum.Monthly)
@@ -129,7 +130,7 @@ public class RewardsServiceImpl implements RewardsService {
 
         Rewards update = rewardsRepository.save(CreateReward1);
 
-        if(createReward.getAwardStatus()==1) {
+        if(rewardPojo.getAwardStatus()==1) {
 
             String reward_name = rewardsRepository.getRewardName(id);
             String[] emails=managerRepository.getAllEmails();
@@ -142,10 +143,10 @@ public class RewardsServiceImpl implements RewardsService {
             }
         }
         else
-            if(createReward.getAwardStatus()==3){
+            if(rewardPojo.getAwardStatus()==3){
 
                 String reward_name = rewardsRepository.getRewardName(id);
-                String reason=createReward.getDiscontinuingReason();
+                String reason=rewardPojo.getDiscontinuingReason();
                 String[] emails=managerRepository.getAllEmails();
                 System.out.println(id);
                 System.out.println(reward_name);

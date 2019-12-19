@@ -4,6 +4,8 @@ import com.rar.model.RewardsCriteria;
 import com.rar.repository.RewardsCriteriaRepository;
 import com.rar.service.RewardsCriteriaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
@@ -17,13 +19,13 @@ public class RewardsCriteriaServiceImpl implements RewardsCriteriaService {
     private RewardsCriteriaRepository rewardsCriteriaRepository;
 
     @Override
-    public RewardsCriteria save(RewardsCriteria rewardsCriteria) {
-        return rewardsCriteriaRepository.save(rewardsCriteria);
+    public ResponseEntity<RewardsCriteria> save(RewardsCriteria rewardsCriteria) {
+        return new ResponseEntity<>(rewardsCriteriaRepository.save(rewardsCriteria), HttpStatus.OK);
     }
 
     @Override
-    public List<RewardsCriteria> findAll() {
-        return (List<RewardsCriteria>) rewardsCriteriaRepository.findAll();
+    public ResponseEntity<List<RewardsCriteria>> findAll() {
+        return new ResponseEntity((List<RewardsCriteria>) rewardsCriteriaRepository.findAll(),HttpStatus.OK);
     }
 
     public void deleteById(Long rid, Long cid) {

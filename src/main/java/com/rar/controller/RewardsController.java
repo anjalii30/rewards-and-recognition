@@ -61,7 +61,7 @@ public class RewardsController {
     /**
      * @param token jwt token
      * @param id reward id
-     * @param createReward reward object
+     * @param rewardPojo rewardPojo object
      * @return the object of reward for which the award status has been changed.
      */
 
@@ -69,11 +69,11 @@ public class RewardsController {
     @PutMapping("/updateAwardStatus/{id}")
     public ResponseEntity<Rewards> updateAwardStatus(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Award status Id to update award status", required = true)@PathVariable Long id,
 
-                                    @ApiParam(value = "Reward object ", required = true) @Valid @RequestBody RewardPojo createReward) throws IOException, MessagingException, com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException, javax.mail.MessagingException {
+                                    @ApiParam(value = "Reward object ", required = true) @Valid @RequestBody RewardPojo rewardPojo) throws IOException, MessagingException, com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException, javax.mail.MessagingException {
         try{
             validity.check(token);
             if (rewardsRepository.existsById(id)) {
-                ResponseEntity<Rewards> rewards = rewardsService.updateAwardStatus(id, createReward);
+                ResponseEntity<Rewards> rewards = rewardsService.updateAwardStatus(id, rewardPojo);
                 return new ResponseEntity(rewards, HttpStatus.OK);
             } else
                 throw new RecordNotFoundException("reward id not found");

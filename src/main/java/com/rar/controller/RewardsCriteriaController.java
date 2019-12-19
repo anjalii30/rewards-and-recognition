@@ -1,6 +1,7 @@
 package com.rar.controller;
 
 
+import com.rar.exception.IncorrectFieldException;
 import com.rar.model.RewardsCriteria;
 import com.rar.service.RewardsCriteriaService;
 import com.rar.service.impl.CheckValidity;
@@ -8,6 +9,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
@@ -29,9 +32,13 @@ public class RewardsCriteriaController {
      */
     @ApiOperation(value = "Assign criteria to reward")
     @PostMapping("/saveRewardsCriteria")
-    public RewardsCriteria save(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Reward Assigned to criteria", required = true) @Valid @RequestBody RewardsCriteria rewardsCriteria){
-        validity.check(token);
-        return rewardsCriteriaService.save(rewardsCriteria);
+    public ResponseEntity<RewardsCriteria> save(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Reward Assigned to criteria", required = true) @Valid @RequestBody RewardsCriteria rewardsCriteria){
+        try {
+            validity.check(token);
+            return new ResponseEntity(rewardsCriteriaService.save(rewardsCriteria), HttpStatus.OK);
+        } catch (IncorrectFieldException e) {
+            throw new IncorrectFieldException("Incorrect fields given");
+        }
     }
 
     /**
@@ -40,9 +47,9 @@ public class RewardsCriteriaController {
      */
     @ApiOperation(value = "Get the mapping of criterion with rewards")
     @GetMapping("/listRewardsCriteria")
-    public List<RewardsCriteria> list(@RequestHeader(value = "Authorization") String token){
+    public ResponseEntity<List<RewardsCriteria>> list(@RequestHeader(value = "Authorization") String token){
         validity.check(token);
-        return rewardsCriteriaService.findAll();
+        return new ResponseEntity(rewardsCriteriaService.findAll(),HttpStatus.OK);
     }
 
 }

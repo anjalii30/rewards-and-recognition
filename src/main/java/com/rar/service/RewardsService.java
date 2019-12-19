@@ -15,7 +15,7 @@ public interface RewardsService {
 
     ResponseEntity<Rewards> findById(Long id);
 
-    ResponseEntity<Rewards> updateAwardStatus(Long id, RewardPojo createReward) throws IOException, MessagingException, javax.mail.MessagingException, com.sun.xml.messaging.saaj.packaging.mime.MessagingException;
+    ResponseEntity<Rewards> updateAwardStatus(Long id, RewardPojo rewardPojo) throws IOException, MessagingException, javax.mail.MessagingException, com.sun.xml.messaging.saaj.packaging.mime.MessagingException;
 
     Rewards save(Rewards rewards);
 
