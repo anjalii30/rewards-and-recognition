@@ -1,10 +1,11 @@
 package com.rar.service.impl;
 
 import com.rar.DTO.History;
-import com.rar.DTO.UserNominationDetails;
-import com.rar.model.*;
 import com.rar.DTO.NominationPojo;
-
+import com.rar.DTO.UserNominationDetails;
+import com.rar.model.Evidences;
+import com.rar.model.Nominations;
+import com.rar.model.Rewards;
 import com.rar.repository.*;
 import com.rar.service.NominationsService;
 import freemarker.template.TemplateException;
@@ -13,7 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import static com.rar.utils.Constants.*;
 
 import javax.mail.MessagingException;
 import java.io.IOException;
@@ -21,6 +21,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static com.rar.utils.Constants.PUBLISHED;
 
 @Service
 @Transactional
@@ -178,7 +180,8 @@ public class NominationsServiceImpl implements NominationsService {
     }
 
     @Override
-    public ResponseEntity<List<History>> history(long managerId) throws Exception{
+    public ResponseEntity<List<History>> history(long userId) throws Exception{
+        long managerId=managerRepository.findByEmail(userRepository.getUserEmail(userId));
         List<History> histories= new ArrayList<>();
         String[] rewardNames= nominationsRepository.rewardNames(managerId);
 

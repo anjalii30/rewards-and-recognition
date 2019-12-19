@@ -127,6 +127,8 @@ public interface UserRepository extends CrudRepository< UserInfo,Long> {
     @Query(value = " update users set first_sign= false where user_id=?1",nativeQuery = true)
     void changeFirstSign(long id);
 
+    @Query(value = "select email from users where user_id=?1",nativeQuery = true)
+    String getUserEmail(long id);
 }
 
 
