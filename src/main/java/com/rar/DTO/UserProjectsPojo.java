@@ -9,8 +9,9 @@ public class UserProjectsPojo  {
     @ApiModelProperty(notes = "The email of the User")
     private String[] userEmail;
 
-    @ApiModelProperty(notes = "The name of the Project")
-    private String projectName;
+    @ApiModelProperty(notes = "The ID of the Project")
+
+    private Long projectId;
 
     public String[] getUserEmail() {
         return userEmail;
@@ -20,11 +21,11 @@ public class UserProjectsPojo  {
         this.userEmail = userEmail;
     }
 
-    public String getProjectName() {
-        return projectName;
+    public Long getProjectId() {
+        return projectId;
     }
 
-    public void setProjectName(String projectName) {
-        this.projectName = projectName;
+    public void setProjectId(Long projectId) {
+        this.projectId = projectId;
     }
 }

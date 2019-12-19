@@ -1,9 +1,12 @@
 package com.rar.controller;
 
 import com.rar.DTO.NominationPojo;
+import com.rar.exception.IncorrectFieldException;
+import com.rar.exception.RecordNotFoundException;
 import com.rar.model.Nominations;
 import com.rar.model.Rewards;
 import com.rar.repository.ManagerRepository;
+import com.rar.repository.RewardsRepository;
 import com.rar.repository.UserRepository;
 import com.rar.service.NominationsService;
 import com.rar.service.impl.CheckValidity;
@@ -16,6 +19,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import javax.mail.MessagingException;
 import javax.validation.Valid;
 import java.io.IOException;
@@ -38,6 +42,9 @@ public class NominationController {
     private UserRepository userRepository;
 
     @Autowired
+    private RewardsRepository rewardsRepository;
+
+    @Autowired
     private ManagerRepository managerRepository;
 
     /**
@@ -53,8 +60,8 @@ public class NominationController {
             Long manager_id = managerRepository.findByEmail(email);
             nominationsService.nominationSave(nominationPojo, manager_id);
             return new ResponseEntity<>(nominationPojo, HttpStatus.OK);
-        }catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }catch (IncorrectFieldException e) {
+            throw new IncorrectFieldException("Incorrect fields given");
         }
     }
 
@@ -66,12 +73,11 @@ public class NominationController {
     @ApiOperation(value = "Get the list of nominations for admin by reward id")
     @GetMapping("/showNomination/{id}")
     public ResponseEntity<List<Nominations>> showById(@RequestHeader(value = "Authorization") String token,  @ApiParam(value = "Get nomination object by reward_id", required = true) @PathVariable Long id) throws Exception {
-       try {
            validity.check(token);
+           if(rewardsRepository.existsById(id))
            return new ResponseEntity(nominationsService.GetData(id),HttpStatus.OK);
-       }catch (Exception e) {
-           return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-       }
+           else
+               throw new RecordNotFoundException("reward id not found");
     }
 
     /**
@@ -95,33 +101,6 @@ public class NominationController {
         validity.check(token);
         return new ResponseEntity(nominationsService.nominatedRewards(),HttpStatus.OK);
     }
-
-    //used for self-nomination
-   /* *//**
-     *
-     * @param token jwt token
-     * @param id reward id
-     * @return list of all the nominations for that manager for the particular reward
-     * @throws Exception no nominations
-     *//*
-    @ApiOperation(value = "Get the list of nominations for manager by reward id")
-    @GetMapping("/showToManager/{id}")
-    public List<List<Nominations>> showToManager(@RequestHeader(value = "Authorization") String token, @PathVariable Long id) throws Exception {
-        String email=validity.check(token);
-        return nominationsService.showToManager(email,id);
-    }
-
-    *//**
-     * @param token jwt token
-     * @return list of list of nominations.
-     * @throws Exception that displays "You are not a manager" when a normal user logs in.
-     *//*
-    @ApiOperation(value = "Get the list of all the nominations for manager")
-    @GetMapping("/showToManager")
-    public List<List<Nominations>> showAllToManager(@RequestHeader(value = "Authorization") String token) throws Exception {
-        String email = validity.check(token);
-        return nominationsService.showAllToManager(email);
-    }*/
 
     /**
      * @param token jwt token

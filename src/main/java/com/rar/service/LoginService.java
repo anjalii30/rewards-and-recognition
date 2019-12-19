@@ -12,8 +12,6 @@ public interface LoginService {
 
     ResponseEntity<UserInfo> findById(Long id);
 
-    ResponseEntity<UserInfo> findByEmail(String email);
-
     ResponseEntity<UserInfo> saveLogin(UserInfo userInfo);
 
     ResponseEntity<List<LoginUserDetails>> findAll();

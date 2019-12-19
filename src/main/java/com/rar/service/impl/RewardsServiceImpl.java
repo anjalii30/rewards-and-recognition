@@ -145,8 +145,7 @@ public class RewardsServiceImpl implements RewardsService {
 
             String reward_name = rewardsRepository.getRewardName(id);
             String[] emails=managerRepository.getAllEmails();
-            System.out.println(id);
-            System.out.println(reward_name);
+
             for (int i = 0; i < emails.length; i++) {
                 String name=userRepository.getName(emails[i]);
                 System.out.println(emails[i]);

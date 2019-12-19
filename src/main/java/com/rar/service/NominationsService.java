@@ -38,5 +38,6 @@ ResponseEntity<List<Nominations>> GetData(Long rewardID) throws Exception;
 
     ResponseEntity<List> getTopAwardee();
 
-  void rewardCoins(Long[] nominationId);
+
+     void rewardCoins(Long[] nominationId);
 }
