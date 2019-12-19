@@ -1,5 +1,6 @@
 package com.rar.controller;
 
+import com.rar.DTO.History;
 import com.rar.DTO.NominationPojo;
 import com.rar.exception.IncorrectFieldException;
 import com.rar.exception.RecordNotFoundException;
@@ -147,4 +148,16 @@ public class NominationController {
         String manager_name=userRepository.getName(email);
         nominationsService.managerSelect(nominations,manager_id,manager_name);
     }
+
+    /**
+     * @param token jwt token
+     * @return list of rewards with employees which the manager has nominated.
+     */
+    @ApiOperation(value = "Get the list of rewards and their nominees")
+    @GetMapping("/history/{id}")
+    public ResponseEntity<List<History>> showHistory(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Get history of nominations object by manager_id", required = true) @PathVariable Long id) throws Exception{
+        validity.check(token);
+        return new ResponseEntity(nominationsService.history(id),HttpStatus.OK);
+    }
+
 }

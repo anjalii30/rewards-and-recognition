@@ -1,5 +1,7 @@
 package com.rar.service.impl;
 
+import com.rar.DTO.History;
+import com.rar.DTO.UserNominationDetails;
 import com.rar.model.*;
 import com.rar.DTO.NominationPojo;
 
@@ -171,5 +173,22 @@ public class NominationsServiceImpl implements NominationsService {
            Long newWalletBalance = currentWalletBalance + wonCoinValue;
            userRepository.updateWalletBalance(user_id,newWalletBalance);
        }
+    }
+
+    @Override
+    public ResponseEntity<List<History>> history(long managerId) throws Exception{
+        List<History> histories= new ArrayList<>();
+        String[] rewardNames= nominationsRepository.rewardNames(managerId);
+
+        for(int i=0; i< rewardNames.length; i++){
+            List<UserNominationDetails> userNominationDetailsList = new ArrayList<>();
+                long[] userIds= nominationsRepository.userIds(managerId, rewardNames[i]);
+                for(int j=0; j< userIds.length; j++){
+                    userNominationDetailsList.add(j, new UserNominationDetails(userIds[j],nominationsRepository.gettingReason(managerId,rewardNames[i],userIds[j])));
+                }
+                histories.add(i,new History(rewardNames[i],userNominationDetailsList));
+        }
+
+        return new ResponseEntity<>(histories,HttpStatus.OK);
     }
 }

@@ -69,4 +69,13 @@ public interface NominationsRepository extends CrudRepository<Nominations, Strin
 
     @Query(value="select count(nomination_id) from nominations where project_id=?1 and manager_id=?2 and reward_id=?3",nativeQuery = true)
     Long checkIfExists(Long projectId, Long managerId, Long rewardId);
+
+    @Query(value = "select distinct reward_name from nominations where manager_id=?1", nativeQuery = true)
+    String[] rewardNames(long managerId);
+
+    @Query(value = "select user_id from nominations where manager_id=?1 and reward_name=?2", nativeQuery = true)
+    long[] userIds(long managerId, String rewardName);
+
+    @Query(value = "select reason from nominations where manager_id =?1 and reward_name =?2 and user_id=?3", nativeQuery = true)
+    String gettingReason(long managerId, String rewardName, long userId);
 }
