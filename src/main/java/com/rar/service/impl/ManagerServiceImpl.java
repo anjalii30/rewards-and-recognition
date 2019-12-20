@@ -35,8 +35,8 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
     @Override
-    public ResponseEntity<List<Map<String,String>>> getAllMembers(Long project_id) {
-        return new ResponseEntity<>(managerRepository.getAllMembers(project_id),HttpStatus.OK);
+    public ResponseEntity<List<Map<String,String>>> getAllMembers(Long projectId) {
+        return new ResponseEntity<>(managerRepository.getAllMembers(projectId),HttpStatus.OK);
     }
 
     @Override
@@ -45,8 +45,8 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
     @Override
-    public void assignValues(long manager_id,long project_id){
-        managerRepository.assignValues(manager_id,project_id);
+    public void assignValues(long managerId,long projectId){
+        managerRepository.assignValues(managerId,projectId);
     }
 
 }

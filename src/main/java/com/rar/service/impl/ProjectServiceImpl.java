@@ -68,37 +68,37 @@ public class ProjectServiceImpl implements ProjectService {
         data.setProjectName(createProjectPojo.getProjectName());
         projectRepository.save(data);
 
-        long project_id = projectRepository.getIdByName(createProjectPojo.getProjectName());
+        long projectId = projectRepository.getIdByName(createProjectPojo.getProjectName());
 
         String[] employees = createProjectPojo.getUserEmail();
 
         for (int i = 0; i < employees.length; i++) {
 
-            String user_name = employees[i];
-            if(!user_name.equals(manager)) {
-                Long user_id = loginService.getIdByName(user_name);
-                projectRepository.assign(user_id, project_id);
+            String userName = employees[i];
+            if(!userName.equals(manager)) {
+                Long userId = loginService.getIdByName(userName);
+                projectRepository.assign(userId, projectId);
             }
         }
 
-           Long manager_id = managerRepository.findByEmail(manager);
+           Long managerId = managerRepository.findByEmail(manager);
 
-           if(manager_id == null){
+           if(managerId == null){
                managerRepository.managerInsert(manager);
-               manager_id =managerRepository.findByEmail(manager);
-               managerRepository.assignValues(manager_id,project_id);
+               managerId =managerRepository.findByEmail(manager);
+               managerRepository.assignValues(managerId,projectId);
            }
             else {
-               managerRepository.assignValues(manager_id, project_id);
+               managerRepository.assignValues(managerId, projectId);
            }
 
             return new ResponseEntity(data,HttpStatus.OK);
     }
 
     @Override
-    public Long getIdByProject(String project_name) throws Exception {
+    public Long getIdByProject(String projectName) throws Exception {
 
-        return projectRepository.getIdByName(project_name);
+        return projectRepository.getIdByName(projectName);
     }
 
     @Override
@@ -128,26 +128,26 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public ResponseEntity<UserInfo[]> findById(Long project_id) {
+    public ResponseEntity<UserInfo[]> findById(Long projectId) {
 
-            return new ResponseEntity(projectRepository.getUsersById(project_id),HttpStatus.OK);
+            return new ResponseEntity(projectRepository.getUsersById(projectId),HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<Object[]> findManagerById(Long project_id) {
-       Long[] manager_id = projectRepository.getManagerId(project_id);
+    public ResponseEntity<Object[]> findManagerById(Long projectId) {
+       Long[] managerId = projectRepository.getManagerId(projectId);
        List list=new ArrayList();
-       for(int i=0; i<manager_id.length;i++){
-           list.add(projectRepository.getManagerDetails(manager_id[i]));
+       for(int i=0; i<managerId.length;i++){
+           list.add(projectRepository.getManagerDetails(managerId[i]));
        }
 
        return new ResponseEntity(list,HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<UserInfo[]>findNotInId(Long project_id) {
+    public ResponseEntity<UserInfo[]>findNotInId(Long projectId) {
 
-        return new ResponseEntity(projectRepository.findNotInId(project_id),HttpStatus.OK);
+        return new ResponseEntity(projectRepository.findNotInId(projectId),HttpStatus.OK);
     }
 
     @Override
@@ -176,8 +176,8 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public List<Projects> findProjects(Long manager_id,Long reward_id) {
-        return projectRepository.findProject(manager_id,reward_id);
+    public List<Projects> findProjects(Long managerId,Long rewardId) {
+        return projectRepository.findProject(managerId,rewardId);
     }
 
     @Override

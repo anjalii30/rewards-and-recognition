@@ -47,7 +47,7 @@ public class NominationsServiceImpl implements NominationsService {
 
 
     @Override
-    public ResponseEntity<?> nominationSave(List<NominationPojo> nominationPojo, Long manager_id) {
+    public ResponseEntity<?> nominationSave(List<NominationPojo> nominationPojo, Long managerId) {
 
         List<HashMap<String, Object>> s = new ArrayList<>();
         for(int i=0;i<nominationPojo.size();i++) {
@@ -61,13 +61,9 @@ public class NominationsServiceImpl implements NominationsService {
                 nominations.setProjectName(projectRepository.getProjectName(nominationPojo.get(i).getProjectId()));
                 nominations.setRewardName(rewardsRepository.getRewardName(nominationPojo.get(i).getRewardId()));
                 nominations.setUserName(userRepository.getNameById(nominationPojo.get(i).getUserId()));
-                nominations.setManagerId(manager_id);
+                nominations.setManagerId(managerId);
                 nominations.setProjectId(nominationPojo.get(i).getProjectId());
-
-              /*  System.out.println("rewards"+nominationPojo.get(i).getRewardId());
-                System.out.println("userid"+nominationPojo.get(i).getUserId());
-                System.out.println("projetId"+nominationPojo.get(i).getProject_id());
-               */ nominationsRepository.save(nominations);
+                nominationsRepository.save(nominations);
 
             long nominationID = nominations.getNominationID();
 
@@ -99,35 +95,35 @@ public class NominationsServiceImpl implements NominationsService {
     }
 
     @Override
-    public void awardeeSelect(Map<String, Long[]> n1_id) throws IOException, MessagingException, TemplateException {
+    public void awardeeSelect(Map<String, Long[]> n1Id) throws IOException, MessagingException, TemplateException {
 
-        Long[] nomination_id= n1_id.get("nomination_id");
+        Long[] nominationID= n1Id.get("nomination_id");
 
         String[] emails=userRepository.getAllEmails();
 
-        for (int i = 0; i < nomination_id.length; i++) {
+        for (int i = 0; i < nominationID.length; i++) {
 
-            nominationsRepository.awardeeSelect(nomination_id[i]);
-            rewardsRepository.updateAwardStatus(PUBLISHED,nominationsRepository.getRewardId(nomination_id[i]));
+            nominationsRepository.awardeeSelect(nominationID[i]);
+            rewardsRepository.updateAwardStatus(PUBLISHED,nominationsRepository.getRewardId(nominationID[i]));
 
             for (int j = 0; j < emails.length; j++) {
                 String name=userRepository.getName(emails[j]);
-                String reward_name=nominationsRepository.getRewardName(nomination_id[i]);
-                String user_name=nominationsRepository.getUserName(nomination_id[i]);
-                String image =userRepository.getImage(nominationsRepository.userId(nomination_id[i]));
+                String rewardName=nominationsRepository.getRewardName(nominationID[i]);
+                String userName=nominationsRepository.getUserName(nominationID[i]);
+                String image =userRepository.getImage(nominationsRepository.userId(nominationID[i]));
 
                 Map<String,Object> root = new HashMap();
                 root.put("name",name );
-                root.put("user_name", user_name);
-                root.put("reward_name",reward_name);
+                root.put("user_name", userName);
+                root.put("reward_name",rewardName);
                 root.put("image",image);
-                if(nominationsRepository.userId(nomination_id[i])==userRepository.getIdByEmail(emails[j]))
+                if(nominationsRepository.userId(nominationID[i])==userRepository.getIdByEmail(emails[j]))
                     sendEmail.sendEmailToWinner(root,emails[j],"You have been awarded");
                 else
                 sendEmail.sendEmailWithAttachment(root,emails[j], "Employee awarded for the reward");
             }
         }
-        nominationsService.rewardCoins(nomination_id);
+        nominationsService.rewardCoins(nominationID);
     }
 
     @Override
@@ -141,13 +137,13 @@ public class NominationsServiceImpl implements NominationsService {
  }
 
     @Override
-    public void managerSelect(Nominations[] nominations,Long manager_id,String manager_name)  {
+    public void managerSelect(Nominations[] nominations,Long managerId,String managerName)  {
 
         for(int i=0;i<nominations.length;i++){
-            Long nomination_id =nominations[i].getNominationID();
+            Long nominationId =nominations[i].getNominationID();
             String reason=nominations[i].getReason();
             boolean selected=nominations[i].isSelected();
-            nominationsRepository.updateSelected(selected,reason,nomination_id,manager_id,manager_name);
+            nominationsRepository.updateSelected(selected,reason,nominationId,managerId,managerName);
         }
     }
 
@@ -162,17 +158,18 @@ public class NominationsServiceImpl implements NominationsService {
     }
 
     @Override
-    public void rewardCoins(Long[] nomination_id) {
+    public void rewardCoins(Long[] nominationID) {
 
-       int count = nomination_id.length;
-       Long rewardId=nominationsRepository.getRewardId(nomination_id[0]);
+
+       int count = nominationID.length;
+       Long rewardId=nominationsRepository.getRewardId(nominationID[0]);
        Long rewardCoinValue = rewardsRepository.getCoinValue(rewardId);
        Long wonCoinValue = rewardCoinValue/count;
-       for(int i=0; i<nomination_id.length;i++){
-           Long user_id = nominationsRepository.userId(nomination_id[i]);
-           Long currentWalletBalance = userRepository.getWalletBalance(user_id);
+       for(int i=0; i<nominationID.length;i++){
+           Long userId = nominationsRepository.userId(nominationID[i]);
+           Long currentWalletBalance = userRepository.getWalletBalance(userId);
            Long newWalletBalance = currentWalletBalance + wonCoinValue;
-           userRepository.updateWalletBalance(newWalletBalance,user_id);
+           userRepository.updateWalletBalance(newWalletBalance,userId);
        }
     }
 

@@ -23,7 +23,7 @@ ResponseEntity<List<Nominations>> GetData(Long rewardID) throws Exception;
 
    // List<List<Nominations>> showToManager(String email, Long reward_id) throws Exception;
 
-    void awardeeSelect(Map<String, Long[]> nomination_id) throws IOException, MessagingException, TemplateException;
+    void awardeeSelect(Map<String, Long[]> nominationID) throws IOException, MessagingException, TemplateException;
 
     ResponseEntity<List<Map<String,String>>> getAwardedPeople();
 
@@ -41,5 +41,5 @@ ResponseEntity<List<Nominations>> GetData(Long rewardID) throws Exception;
 
     public ResponseEntity<List<History>> history(String email) throws Exception;
 
-     void rewardCoins(Long[] nominationId);
+     void rewardCoins(Long[] nominationID);
 }

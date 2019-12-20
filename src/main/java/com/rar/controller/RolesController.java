@@ -13,7 +13,6 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin
 @RestController
 @Api(value="Role Management System")
 public class RolesController {

@@ -87,7 +87,4 @@ public interface RewardsRepository extends CrudRepository<Rewards, Long> {
     void updateEndDateRolledOutEdit(long rewardId, LocalDate endDate);
 
 
-
-    @Query(value = "select reward_id from rewards where reward_name=?",nativeQuery = true)
-    Long getRewardIdByName(String reward_name);
 }

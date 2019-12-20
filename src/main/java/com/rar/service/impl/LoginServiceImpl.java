@@ -168,8 +168,8 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public Long getIdByName(String user_email) {
-        return userRepository.getIdByEmail(user_email);
+    public Long getIdByName(String userEmail) {
+        return userRepository.getIdByEmail(userEmail);
     }
 
 

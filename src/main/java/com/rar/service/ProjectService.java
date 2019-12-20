@@ -16,21 +16,21 @@ public interface ProjectService {
 
     ResponseEntity<CreateProjectPojo> createProject(CreateProjectPojo createProjectPojo);
 
-    Long getIdByProject(String project_name) throws Exception;
+    Long getIdByProject(String projectName) throws Exception;
 
     void deleteUserFromProject(UserProjectsPojo userProjectsPojo);
 
-    ResponseEntity<UserInfo[]> findById(Long project_id);
+    ResponseEntity<UserInfo[]> findById(Long projectId);
 
-    ResponseEntity<Object[]>findManagerById(Long project_id);
+    ResponseEntity<Object[]>findManagerById(Long projectId);
 
-    ResponseEntity<UserInfo[]> findNotInId(Long project_id);
+    ResponseEntity<UserInfo[]> findNotInId(Long projectId);
 
     ResponseEntity findAllData();
 
     ResponseEntity<Object[]> unAssigned();
 
-    List<Projects> findProjects(Long manager_id,Long reward_id);
+    List<Projects> findProjects(Long managerId,Long rewardId);
 
     Long getCount();
 }
