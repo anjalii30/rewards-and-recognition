@@ -106,9 +106,7 @@ public class NominationsServiceImpl implements NominationsService {
             nominationsRepository.awardeeSelect(nominationID[i]);
             rewardsRepository.updateAwardStatus(PUBLISHED,nominationsRepository.getRewardId(nominationID[i]));
 
-
             for (int j = 0; j < emails.length; j++) {
-
                 String name=userRepository.getName(emails[j]);
                 String rewardName=nominationsRepository.getRewardName(nominationID[i]);
                 String userName=nominationsRepository.getUserName(nominationID[i]);
@@ -161,6 +159,7 @@ public class NominationsServiceImpl implements NominationsService {
 
     @Override
     public void rewardCoins(Long[] nominationID) {
+
 
        int count = nominationID.length;
        Long rewardId=nominationsRepository.getRewardId(nominationID[0]);

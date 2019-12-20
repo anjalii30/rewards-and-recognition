@@ -10,4 +10,7 @@ public final class Constants {
     public final static Integer EDITED_AFTER_ROLLOUT= 5;
 
 
+    public final static Integer ROLE_EMPLOYEE = 1;
+    public final static Integer ROLE_ADMIN = 2;
+
 }

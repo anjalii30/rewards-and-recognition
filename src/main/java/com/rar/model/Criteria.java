@@ -57,20 +57,11 @@ public class Criteria implements Serializable{
         this.criteriaDesc = criteriaDesc;
     }
 
-    public List<RewardsCriteria> getRewards() {
-        return rewards;
-    }
-
-    public void setRewards(List<RewardsCriteria> rewards) {
-        this.rewards = rewards;
-    }
-
     @Override
     public String toString() {
         return "Criteria{" +
                 "criteriaId=" + criteriaId +
-                ", criteriaDesc='" + criteriaDesc + '\'' +
-                ", rewards=" + rewards +
+                ", criteriaDesc='" + criteriaDesc +
                 '}';
     }
 }
