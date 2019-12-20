@@ -84,4 +84,7 @@ public interface NominationsRepository extends CrudRepository<Nominations, Strin
 
     @Query(value = "select reason from nominations where manager_id =?1 and reward_id =?2 and user_id=?3", nativeQuery = true)
     String gettingReason(long managerId, long rewardId, long userId);
+
+    @Query(value = "select selected from nominations where manager_id =?1 and reward_id =?2 and user_id=?3", nativeQuery = true)
+    Boolean gettingSelected(long managerId, long rewardId, long userId);
 }

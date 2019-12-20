@@ -8,9 +8,15 @@ public class UserNominationDetails implements Serializable {
 
     private String reason;
 
-    public UserNominationDetails(long userId, String reason) {
+    private String userName;
+
+    private Boolean selected;
+
+    public UserNominationDetails(long userId, String reason, String userName, Boolean selected) {
         this.userId = userId;
         this.reason = reason;
+        this.userName = userName;
+        this.selected = selected;
     }
 
     public UserNominationDetails() {
@@ -30,5 +36,21 @@ public class UserNominationDetails implements Serializable {
 
     public void setReason(String reason) {
         this.reason = reason;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public Boolean getSelected() {
+        return selected;
+    }
+
+    public void setSelected(Boolean selected) {
+        this.selected = selected;
     }
 }

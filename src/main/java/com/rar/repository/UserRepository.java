@@ -129,6 +129,9 @@ public interface UserRepository extends CrudRepository< UserInfo,Long> {
 
     @Query(value = "select email from users where user_id=?1",nativeQuery = true)
     String getUserEmail(long id);
+
+    @Query(value = "select name from users where user_id=?1", nativeQuery = true)
+    String getUserName(long userId);
 }
 
 
