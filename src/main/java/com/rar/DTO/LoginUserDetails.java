@@ -14,9 +14,9 @@ public class LoginUserDetails implements Serializable {
     private String email;
     @ApiModelProperty(notes = "Name of the user")
     private String name;
-    @ApiModelProperty(notes = "The Image URL of the User")
+    @ApiModelProperty(notes = "The Image URL of the user")
     private String imageUrl;
-    @ApiModelProperty(notes = "The generated token of the User")
+    @ApiModelProperty(notes = "The generated token of the user")
     private String generatedToken;
     @ApiModelProperty(notes = "The role of the user")
     private RoleEnum roleEnum;
@@ -26,7 +26,7 @@ public class LoginUserDetails implements Serializable {
     private Long uid;
     @ApiModelProperty(notes = "Stores whether the employee is manager or not")
     private Boolean isManager;
-
+    @ApiModelProperty(notes = "The balance in the wallet of user")
     private Long wallet;
 
 

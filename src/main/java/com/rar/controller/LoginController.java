@@ -39,7 +39,7 @@ public class LoginController {
      * @throws Exception that displays that the user who tries to login is not a valid user.
      */
 
-    @ApiOperation(value = "Login by Nineleaps gmail Id")
+    @ApiOperation(value = "Login by nineleaps gmail account")
     @PostMapping(value = "/login")
     public ResponseEntity<LoginUserDetails> getToken(@RequestHeader(value = "Authorization") String token) throws Exception {
         try {

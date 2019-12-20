@@ -97,7 +97,7 @@ public class RewardsController {
      * @param id reward id
      * @return list of rewards based on id.
      */
-    @ApiOperation(value = "Get the list of rewards by id")
+    @ApiOperation(value = "Get the reward details    by id")
     @GetMapping("/listRewards/{id}")
     public ResponseEntity<Rewards> getById(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Reward Id to get reward object", required = true) @PathVariable Long id){
         validity.check(token);
