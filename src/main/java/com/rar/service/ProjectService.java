@@ -24,13 +24,13 @@ public interface ProjectService {
 
     ResponseEntity<Object[]>findManagerById(Long projectId);
 
-    ResponseEntity<UserInfo[]> findNotInId(Long project_id);
+    ResponseEntity<UserInfo[]> findNotInId(Long projectId);
 
     ResponseEntity findAllData();
 
     ResponseEntity<Object[]> unAssigned();
 
-    List<Projects> findProjects(Long manager_id,Long reward_id);
+    List<Projects> findProjects(Long managerId,Long rewardId);
 
     Long getCount();
 }

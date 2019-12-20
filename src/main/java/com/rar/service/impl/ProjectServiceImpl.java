@@ -134,20 +134,20 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public ResponseEntity<Object[]> findManagerById(Long project_id) {
-       Long[] manager_id = projectRepository.getManagerId(project_id);
+    public ResponseEntity<Object[]> findManagerById(Long projectId) {
+       Long[] managerId = projectRepository.getManagerId(projectId);
        List list=new ArrayList();
-       for(int i=0; i<manager_id.length;i++){
-           list.add(projectRepository.getManagerDetails(manager_id[i]));
+       for(int i=0; i<managerId.length;i++){
+           list.add(projectRepository.getManagerDetails(managerId[i]));
        }
 
        return new ResponseEntity(list,HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<UserInfo[]>findNotInId(Long project_id) {
+    public ResponseEntity<UserInfo[]>findNotInId(Long projectId) {
 
-        return new ResponseEntity(projectRepository.findNotInId(project_id),HttpStatus.OK);
+        return new ResponseEntity(projectRepository.findNotInId(projectId),HttpStatus.OK);
     }
 
     @Override
@@ -176,8 +176,8 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public List<Projects> findProjects(Long manager_id,Long reward_id) {
-        return projectRepository.findProject(manager_id,reward_id);
+    public List<Projects> findProjects(Long managerId,Long rewardId) {
+        return projectRepository.findProject(managerId,rewardId);
     }
 
     @Override
