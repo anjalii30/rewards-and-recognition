@@ -12,6 +12,7 @@ import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
@@ -37,13 +38,9 @@ public class CriteriaController {
 
     @ApiOperation(value = "save the criterion")
     @PostMapping("/saveCriteria")
-    public ResponseEntity<Criteria> save(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Criteria object store in database table", required = true) @Valid @RequestBody Criteria criteria) throws IncorrectFieldException {
-        try {
+    public ResponseEntity<Criteria> save(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Criteria object store in database table", required = true) @Valid @RequestBody Criteria criteria) {
             validity.check(token);
             return new ResponseEntity(criteriaService.saveCriteria(criteria), HttpStatus.OK);
-        } catch (IncorrectFieldException e) {
-            throw new IncorrectFieldException("Incorrect fields given");
-        }
     }
 
     /**

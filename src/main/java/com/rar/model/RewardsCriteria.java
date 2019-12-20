@@ -5,6 +5,7 @@ import com.rar.DTO.RewardsCriteriaId;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @IdClass(RewardsCriteriaId.class)
@@ -15,6 +16,7 @@ public class RewardsCriteria {
     @Id
     @Column(name = "reward_id")
     @ApiModelProperty(notes = "The ID of Reward")
+    @NotEmpty
     private long rewardId;
     @Id
     @Column(name = "criteria_id")

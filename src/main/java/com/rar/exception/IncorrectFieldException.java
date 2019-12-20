@@ -9,5 +9,7 @@ public class IncorrectFieldException extends RuntimeException
 {
     public IncorrectFieldException(String exception) {
         super(exception);
+        ErrorResponse errorResponse=new ErrorResponse(400,exception);
+
     }
 }
