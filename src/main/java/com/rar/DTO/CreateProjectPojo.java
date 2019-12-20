@@ -2,7 +2,6 @@ package com.rar.DTO;
 
 public class CreateProjectPojo {
 
-    private Long projectId;
     private String[] userEmail;
     private String projectName;
     private String managerEmail;
@@ -31,11 +30,4 @@ public class CreateProjectPojo {
         this.managerEmail = managerEmail;
     }
 
-    public Long getProjectId() {
-        return projectId;
-    }
-
-    public void setProjectId(Long projectId) {
-        this.projectId = projectId;
-    }
 }
