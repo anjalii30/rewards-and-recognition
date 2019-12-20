@@ -189,7 +189,7 @@ public class NominationsServiceImpl implements NominationsService {
             List<UserNominationDetails> userNominationDetailsList = new ArrayList<>();
                 long[] userIds= nominationsRepository.userIds(managerId, rewardId[i]);
                 for(int j=0; j< userIds.length; j++){
-                    userNominationDetailsList.add(j, new UserNominationDetails(userIds[j],nominationsRepository.gettingReason(managerId,rewardId[i],userIds[j])));
+                    userNominationDetailsList.add(j, new UserNominationDetails(userIds[j],nominationsRepository.gettingReason(managerId,rewardId[i],userIds[j]),userRepository.getUserName(userIds[j]),nominationsRepository.gettingSelected(managerId,rewardId[i],userIds[j])));
                 }
                 histories.add(i,new History(nominationsRepository.rewardName(rewardId[i]),userNominationDetailsList));
         }
