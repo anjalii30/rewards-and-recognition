@@ -16,7 +16,7 @@ public interface ProjectService {
 
     ResponseEntity<CreateProjectPojo> createProject(CreateProjectPojo createProjectPojo);
 
-    Long getIdByProject(String project_name) throws Exception;
+    Long getIdByProject(String projectName) throws Exception;
 
     void deleteUserFromProject(UserProjectsPojo userProjectsPojo);
 
