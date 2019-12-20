@@ -184,15 +184,14 @@ public class NominationsServiceImpl implements NominationsService {
     public ResponseEntity<List<History>> history(String email) throws Exception{
         long managerId=managerRepository.findByEmail(email);
         List<History> histories= new ArrayList<>();
-        String[] rewardNames= nominationsRepository.rewardNames(managerId);
-
-        for(int i=0; i< rewardNames.length; i++){
+          long[] rewardId= nominationsRepository.rewardId(managerId);
+        for(int i=0; i< rewardId.length; i++){
             List<UserNominationDetails> userNominationDetailsList = new ArrayList<>();
-                long[] userIds= nominationsRepository.userIds(managerId, rewardNames[i]);
+                long[] userIds= nominationsRepository.userIds(managerId, rewardId[i]);
                 for(int j=0; j< userIds.length; j++){
-                    userNominationDetailsList.add(j, new UserNominationDetails(userIds[j],nominationsRepository.gettingReason(managerId,rewardNames[i],userIds[j])));
+                    userNominationDetailsList.add(j, new UserNominationDetails(userIds[j],nominationsRepository.gettingReason(managerId,rewardId[i],userIds[j])));
                 }
-                histories.add(i,new History(rewardNames[i],userNominationDetailsList));
+                histories.add(i,new History(nominationsRepository.rewardName(rewardId[i]),userNominationDetailsList));
         }
 
         return new ResponseEntity<>(histories,HttpStatus.OK);
