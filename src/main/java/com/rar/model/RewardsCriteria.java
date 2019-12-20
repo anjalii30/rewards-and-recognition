@@ -63,11 +63,11 @@ public class RewardsCriteria {
         this.rewards = rewards;
     }
 
-    public Criteria getCriteria() {
+    public Criteria getCriteriaDesc() {
         return criteria;
     }
 
-    public void setCriteria(Criteria criteria) {
+    public void setCriteriaDesc(Criteria criteria) {
         this.criteria = criteria;
     }
 
@@ -79,14 +79,5 @@ public class RewardsCriteria {
         isCompulsory = compulsory;
     }
 
-    @Override
-    public String toString() {
-        return "RewardsCriteria{" +
-                "rewardId=" + rewardId +
-                ", criteriaId=" + criteriaId +
-                ", rewards=" + rewards +
-                ", criteria=" + criteria +
-                ", isCompulsory=" + isCompulsory +
-                '}';
-    }
+
 }
