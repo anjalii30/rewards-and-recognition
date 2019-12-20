@@ -264,7 +264,7 @@ public class ScheduleRewards {
     }
 
     //Checking everyday at 9 a.m. to Roll out after reward has been edited after roll out
-  @Scheduled(cron = "0 0 9 1/1 * ?  ")
+  @Scheduled(cron = "0 0 9 * * ?  ")
 //    @Scheduled(cron = "0 * * ? * * ")
     public void editAfterRollOut(){
         ArrayList<Rewards> rewards = (ArrayList<Rewards>) rewardsRepository.findAll();
@@ -289,28 +289,17 @@ public class ScheduleRewards {
             }
         }
     }
-//set award status 2 where end date is passed
-   @Scheduled(cron = "0 0 9 1/1 * ?  ")
-      //@Scheduled(cron = "* * * ? * *  ")
+//set award status 2 where end date is passed everyday at 9 am
+  @Scheduled(cron = "0 0 9 * * ?  ")
     public void endDatePassed(){
-        System.out.println("function run");
+
         ArrayList<Rewards> rewards = (ArrayList<Rewards>) rewardsRepository.findAll();
         LocalDate today = LocalDate.now();
-        System.out.println(today);
         for(int i=0;i<rewards.size();i++) {
             Long rewardId = rewards.get(i).getRewardId();
-            System.out.println(rewardId+"id");
             LocalDate endDate=rewards.get(i).getEndDate();
-            System.out.println(endDate+"end date");
-          //  int diff=endDate.compareTo(today);
-           //int b = endDate.compareTo(today);
-            long b = ChronoUnit.DAYS.between(endDate, today);
-            System.out.println("true");
-            System.out.println(rewards.get(i).getAwardStatus()+"award status");
-            if( b==0 && rewards.get(i).getAwardStatus()==ROLLED_OUT){
-                System.out.println("if true");
-                rewardsRepository.updateAwardStatus(END_DATE_PASSED,rewardId);}
-            System.out.println("award status updated");
+            if( endDate.isEqual(today)&& rewards.get(i).getAwardStatus()==ROLLED_OUT)
+                rewardsRepository.updateAwardStatus(END_DATE_PASSED,rewardId);
         }
         }
 }

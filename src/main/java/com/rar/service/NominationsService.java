@@ -39,7 +39,7 @@ ResponseEntity<List<Nominations>> GetData(Long rewardID) throws Exception;
 
     ResponseEntity<List> getTopAwardee();
 
-    public ResponseEntity<List<History>> history(long managerId) throws Exception;
+    public ResponseEntity<List<History>> history(String email) throws Exception;
 
      void rewardCoins(Long[] nominationId);
 }

@@ -181,8 +181,8 @@ public class NominationsServiceImpl implements NominationsService {
     }
 
     @Override
-    public ResponseEntity<List<History>> history(long userId) throws Exception{
-        long managerId=managerRepository.findByEmail(userRepository.getUserEmail(userId));
+    public ResponseEntity<List<History>> history(String email) throws Exception{
+        long managerId=managerRepository.findByEmail(email);
         List<History> histories= new ArrayList<>();
         String[] rewardNames= nominationsRepository.rewardNames(managerId);
 
