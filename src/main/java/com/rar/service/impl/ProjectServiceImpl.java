@@ -128,9 +128,9 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public ResponseEntity<UserInfo[]> findById(Long project_id) {
+    public ResponseEntity<UserInfo[]> findById(Long projectId) {
 
-            return new ResponseEntity(projectRepository.getUsersById(project_id),HttpStatus.OK);
+            return new ResponseEntity(projectRepository.getUsersById(projectId),HttpStatus.OK);
     }
 
     @Override

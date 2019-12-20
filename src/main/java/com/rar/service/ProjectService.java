@@ -20,9 +20,9 @@ public interface ProjectService {
 
     void deleteUserFromProject(UserProjectsPojo userProjectsPojo);
 
-    ResponseEntity<UserInfo[]> findById(Long project_id);
+    ResponseEntity<UserInfo[]> findById(Long projectId);
 
-    ResponseEntity<Object[]>findManagerById(Long project_id);
+    ResponseEntity<Object[]>findManagerById(Long projectId);
 
     ResponseEntity<UserInfo[]> findNotInId(Long project_id);
 
