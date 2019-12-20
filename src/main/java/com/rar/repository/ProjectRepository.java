@@ -42,7 +42,7 @@ public interface ProjectRepository  extends CrudRepository<Projects,Long> {
     @Query(value = "select email,name,image_url from users where email in (select manager_email from managers where manager_id=?1)",nativeQuery = true)
     Object getManagerDetails(Long managerId);
 
-    @Query(value="select user_id,email, name from users where user_id not in (select user_id from user_projects where project_id=?1) and user_id in(select user_id from user_roles where role_id=1)",nativeQuery = true)
+    @Query(value="select user_id,email,name from users where user_id not in (select user_id from user_projects where project_id=?1) and user_id in(select user_id from user_roles where role_id=1) and email not in(select manager_email from managers where manager_id=(select manager_id from manager_projects where project_id=?1))",nativeQuery = true)
     Object[] findNotInId(Long projectId);
 
     @Query(value="select * from projects",nativeQuery = true)
