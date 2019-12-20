@@ -1,4 +1,4 @@
-package com.rar.utils;
+package com.rar.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
