@@ -14,8 +14,6 @@ import org.springframework.stereotype.Service;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
@@ -271,9 +269,9 @@ public class ScheduleRewards {
         LocalDate today = LocalDate.now();
         for(int i=0;i<rewards.size();i++){
             Long rewardId=rewards.get(i).getRewardId();
-            int AwardStatus=rewards.get(i).getAwardStatus();
+            int awardStatus=rewards.get(i).getAwardStatus();
             LocalDate StartDate=rewards.get(i).getStartDate();
-            if(rewardsRepository.checkingRewardInRolledOut(rewardId)>0 && AwardStatus==EDITED_AFTER_ROLLOUT
+            if(rewardsRepository.checkingRewardInRolledOut(rewardId)>0 && awardStatus==EDITED_AFTER_ROLLOUT
                     && StartDate.equals(today)){
                 rewardsRepository.updateAwardStatus(ROLLED_OUT,rewardId);
 

@@ -148,16 +148,16 @@ public class RewardsServiceImpl implements RewardsService {
         else
             if(rewardPojo.getAwardStatus()==DISCONTINUED){
 
-                String reward_name = rewardsRepository.getRewardName(id);
+                String rewardName = rewardsRepository.getRewardName(id);
                 String reason=rewardPojo.getDiscontinuingReason();
                 String[] emails=managerRepository.getAllEmails();
                 System.out.println(id);
-                System.out.println(reward_name);
+                System.out.println(rewardName);
                 for (int i = 0; i < emails.length; i++) {
                     String name=userRepository.getName(emails[i]);
                     System.out.println(emails[i]);
                     sendEmail.sendEmailWithoutAttachment(emails[i], "Reward discontinued",
-                            "Hello, " + name + ". " +reward_name.toUpperCase() + " has been discontinued because "+reason);
+                            "Hello, " + name + ". " +rewardName.toUpperCase() + " has been discontinued because "+reason);
                 }
             }
         return ResponseEntity.ok(update);
@@ -169,16 +169,16 @@ public class RewardsServiceImpl implements RewardsService {
     }
 
     public ResponseEntity<List<Rewards>> latest(String email){
-        Long manager_id=managerRepository.findByEmail(email);
-        return new ResponseEntity(rewardsRepository.latest(manager_id), HttpStatus.OK);
+        Long managerId=managerRepository.findByEmail(email);
+        return new ResponseEntity(rewardsRepository.latest(managerId), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<List<Rewards>> managerApprovalRewards(String email) {
 
         List<Rewards> rewards= null;
-        Long manager_id = managerRepository.findByEmail(email);
-        if(manager_id!=null) {
+        Long managerId = managerRepository.findByEmail(email);
+        if(managerId!=null) {
             rewards=rewardsRepository.managerApprovalRewards();
         }
         else
