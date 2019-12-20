@@ -80,4 +80,11 @@ public class UserController {
             throw new IncorrectFieldException("Incorrect fields given");
         }
     }
+    @ApiOperation(value = "get details of coins according to rewards")
+    @GetMapping("/getMyCoins")
+    public ResponseEntity getCoinsDetails(@RequestHeader(value = "Authorization") String token){
+        String email=validity.check(token);
+        return new ResponseEntity(userService.getCoinsDetails(email),HttpStatus.OK);
+
+    }
 }

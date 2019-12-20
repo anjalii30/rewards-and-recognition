@@ -4,9 +4,7 @@ import com.rar.model.*;
 import com.rar.DTO.DesignationSelected;
 import com.rar.DTO.EditUserDetails;
 import com.rar.DTO.ProjectDetailsUser;
-import com.rar.repository.DesignationRepository;
-import com.rar.repository.ProjectRepository;
-import com.rar.repository.UserRepository;
+import com.rar.repository.*;
 import com.rar.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,6 +26,12 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private ProjectRepository projectRepository;
+
+    @Autowired
+    private RewardsRepository rewardsRepository;
+
+    @Autowired
+    private NominationsRepository nominationsRepository;
 
 
     public ResponseEntity userSave(EditUserDetails editUserDetails) {
@@ -201,5 +205,26 @@ public class UserServiceImpl implements UserService {
         }
 
         return new ResponseEntity<>(editUserDetails,HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity getCoinsDetails(String email) {
+        Long userId=userRepository.getIdByEmail(email);
+        Long[] rewardId=nominationsRepository.getRewardIdForUser(userId);
+
+        List list=new ArrayList();
+        for(int i=0;i<rewardId.length;i++){
+            Long count=nominationsRepository.getCount(rewardId[i]);
+            Long rewardCoinValue = rewardsRepository.getCoinValue(rewardId[i]);
+            Long wonCoinValue = rewardCoinValue/count;
+
+            Map map=new HashMap();
+            map.put("reward name",rewardsRepository.getRewardName(rewardId[i]));
+            map.put("reward value",rewardCoinValue);
+            map.put("coins earned",wonCoinValue);
+
+            list.add(map);
+        }
+        return new ResponseEntity(list,HttpStatus.OK);
     }
 }

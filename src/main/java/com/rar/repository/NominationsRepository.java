@@ -16,7 +16,7 @@ import java.util.Optional;
 public interface NominationsRepository extends CrudRepository<Nominations, String> {
 
     @Query(value = "select nomination_id from nominations where user_id=?1, reward_id=?2", nativeQuery = true)
-    public long getNominationId(String userId, long rewardId);
+    long getNominationId(String userId, long rewardId);
 
     @Query(value = "update nominations set disable=true where user_id=?1 ",nativeQuery = true)
     void setDisable(Long userId);
@@ -87,4 +87,10 @@ public interface NominationsRepository extends CrudRepository<Nominations, Strin
 
     @Query(value = "select selected from nominations where manager_id =?1 and reward_id =?2 and user_id=?3", nativeQuery = true)
     Boolean gettingSelected(long managerId, long rewardId, long userId);
+
+    @Query(value="select distinct reward_id from nominations where user_id=?1",nativeQuery=true)
+    Long[] getRewardIdForUser(Long userId);
+
+    @Query(value = "select nomination_id from nominations where reward_id=?1 and hr_selected=true",nativeQuery = true)
+    Long getCount(Long rewardId);
 }

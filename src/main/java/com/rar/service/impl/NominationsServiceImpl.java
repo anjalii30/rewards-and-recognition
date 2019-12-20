@@ -110,9 +110,7 @@ public class NominationsServiceImpl implements NominationsService {
             nominationsRepository.awardeeSelect(nomination_id[i]);
             rewardsRepository.updateAwardStatus(PUBLISHED,nominationsRepository.getRewardId(nomination_id[i]));
 
-
             for (int j = 0; j < emails.length; j++) {
-
                 String name=userRepository.getName(emails[j]);
                 String reward_name=nominationsRepository.getRewardName(nomination_id[i]);
                 String user_name=nominationsRepository.getUserName(nomination_id[i]);
@@ -167,8 +165,6 @@ public class NominationsServiceImpl implements NominationsService {
     public void rewardCoins(Long[] nomination_id) {
 
        int count = nomination_id.length;
-      // String rewardName = nominationsRepository.getRewardName(nomination_id[0]);
-       //Long rewardId = rewardsRepository.getRewardIdByName(rewardName);
        Long rewardId=nominationsRepository.getRewardId(nomination_id[0]);
        Long rewardCoinValue = rewardsRepository.getCoinValue(rewardId);
        Long wonCoinValue = rewardCoinValue/count;
