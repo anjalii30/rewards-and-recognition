@@ -19,7 +19,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
 
-@CrossOrigin
 @RestController
 @Api(value="Managers Assigned to Employees")
 public class ManagerController {
