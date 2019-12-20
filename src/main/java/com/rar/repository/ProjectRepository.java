@@ -28,6 +28,10 @@ public interface ProjectRepository  extends CrudRepository<Projects,Long> {
     @Query(value="delete from user_projects where user_id=?1 and project_id=?2",nativeQuery = true)
     void deleteUser(Long userId, Long projectId);
 
+    @Modifying
+    @Transactional
+    @Query(value="delete from manager_projects where manager_id=?1 and project_id=?2",nativeQuery = true)
+    void deleteManager(Long managerId, Long projectId);
 
     @Query(value="select email,name,image_url from users where user_id in (select user_id from user_projects where project_id=?1) and user_id in(select user_id from user_roles where role_id=1) ",nativeQuery = true)
     Object[] getUsersById(Long projectId);

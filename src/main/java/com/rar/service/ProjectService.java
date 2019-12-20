@@ -1,6 +1,7 @@
 package com.rar.service;
 
 import com.rar.DTO.CreateProjectPojo;
+import com.rar.DTO.ManagerProjectsPojo;
 import com.rar.model.Projects;
 import com.rar.DTO.UserProjectsPojo;
 import com.rar.model.UserInfo;
@@ -19,6 +20,8 @@ public interface ProjectService {
     Long getIdByProject(String projectName) throws Exception;
 
     void deleteUserFromProject(UserProjectsPojo userProjectsPojo);
+
+    void deleteManagerFromProject(ManagerProjectsPojo managerProjectsPojo);
 
     ResponseEntity<UserInfo[]> findById(Long projectId);
 
