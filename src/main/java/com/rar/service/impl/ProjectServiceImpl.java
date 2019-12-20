@@ -1,6 +1,7 @@
 package com.rar.service.impl;
 
 import com.rar.DTO.CreateProjectPojo;
+import com.rar.DTO.ManagerProjectsPojo;
 import com.rar.DTO.UserProjectsPojo;
 import com.rar.model.Projects;
 import com.rar.model.UserInfo;
@@ -125,6 +126,15 @@ public class ProjectServiceImpl implements ProjectService {
 
         }*/
 
+    }
+
+    @Override
+    public void deleteManagerFromProject(ManagerProjectsPojo managerProjectsPojo) {
+
+            Long projectId = managerProjectsPojo.getProjectId();
+            String managerEmail = managerProjectsPojo.getManagerEmail();
+            Long managerId = managerRepository.findByEmail(managerEmail);
+            projectRepository.deleteManager(managerId,projectId);
     }
 
     @Override

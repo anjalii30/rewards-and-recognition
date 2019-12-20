@@ -1,6 +1,7 @@
 package com.rar.controller;
 
 import com.rar.DTO.CreateProjectPojo;
+import com.rar.DTO.ManagerProjectsPojo;
 import com.rar.exception.IncorrectFieldException;
 import com.rar.exception.RecordNotFoundException;
 import com.rar.model.Projects;
@@ -185,6 +186,12 @@ public class ProjectController {
         return new ResponseEntity(projectService.findById(projectId),HttpStatus.OK);
     }
 
+    @DeleteMapping("/deleteManagerFromProject")
+    public ResponseEntity<String> deleteManagerFromProject(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Project name and manager email",required = true)@Valid @RequestBody ManagerProjectsPojo managerProjectsPojo) throws Exception{
+        projectService.deleteManagerFromProject(managerProjectsPojo);
+        return new ResponseEntity("Successfully deleted",HttpStatus.OK);
+    }
+    
     /**
      * @param token jwt token
      * @return list of unassigned users.
