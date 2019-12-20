@@ -13,7 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+import static com.rar.utils.Constants.*;
 import java.util.*;
 
 @Service
@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
         System.out.println(id);
 
         userRepository.changeFirstSign(id);
-        userRepository.insertUserRoles(id, (long) 1);
+        userRepository.insertUserRoles(id,ROLE_EMPLOYEE);
         for(int i=0;i<editUserDetails.getDesignationSelected().size();i++){
             userRepository.insertUserDesignation(id, editUserDetails.getDesignationSelected().get(i).getDid());
         }
