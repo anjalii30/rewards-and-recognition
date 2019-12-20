@@ -6,12 +6,12 @@ import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import java.util.Date;
+import static com.rar.utils.Constants.*;
 
 @Service
 public class CheckValidity  {
 
-    @Value("${jwt.secret}")
-    private String secret;
+
 
     public String check(String token) {
 

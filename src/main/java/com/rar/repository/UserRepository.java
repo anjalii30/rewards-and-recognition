@@ -49,7 +49,7 @@ public interface UserRepository extends CrudRepository< UserInfo,Long> {
     @Modifying
     @Transactional
     @Query(value="insert into user_roles (user_id,role_id) values (:userId, :roleId)",nativeQuery = true)
-    void insertUserRoles( Long userId, Long roleId);
+    void insertUserRoles(Long userId, Integer roleId);
 
     @Modifying
     @Transactional

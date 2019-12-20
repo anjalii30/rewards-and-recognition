@@ -26,10 +26,10 @@ public class SimpleCORSFile implements Filter {
         HttpServletResponse response = (HttpServletResponse) res;
         HttpServletRequest request = (HttpServletRequest) req;
         String clientOrigin = request.getHeader("origin");
-        response.setHeader("Access-Control-Allow-Origin",clientOrigin );
+        response.setHeader("Access-Control-Allow-Origin","*" );
         response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE, PUT");
         response.setHeader("Access-Control-Max-Age", "3600");
-        response.setHeader("Access-Control-Allow-Headers", "x-requested-with, authorization,token,role ,content-type");
+        response.setHeader("Access-Control-Allow-Headers", "x-requested-with, access-control-allow-origin,authorization,token,role ,content-type");
         response.setHeader("Access-Control-Allow-Credentials","true");
         //System.out.println("Show"+((HttpServletResponse) res));
         if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
