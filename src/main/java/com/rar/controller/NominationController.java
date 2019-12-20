@@ -155,7 +155,7 @@ public class NominationController {
      */
     @ApiOperation(value = "Get the list of rewards and their nominees")
     @GetMapping("/history/{id}")
-    public ResponseEntity<List<History>> showHistory(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Get history of nominations object by manager_id", required = true) @PathVariable Long id) throws Exception{
+    public ResponseEntity<List<History>> showHistory(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Get history of nominations object by user_id", required = true) @PathVariable Long id) throws Exception{
         validity.check(token);
         return new ResponseEntity(nominationsService.history(id),HttpStatus.OK);
     }
