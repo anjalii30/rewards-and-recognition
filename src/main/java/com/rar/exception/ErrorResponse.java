@@ -1,25 +1,32 @@
-/*
 package com.rar.exception;
 
-import org.springframework.http.HttpStatus;
-
+import java.util.Collections;
 import java.util.List;
 
 public class ErrorResponse {
-    public ErrorResponse(String message, List<String> details) {
-        super();
-        this.message = message;
-        this.details = details;
-      //  this.status=status;
-    }
 
-    //General error message about nature of error
+    private String status="error";
+    private long errorCode;
     private String message;
-
-    //Specific errors in API request processing
     private List<String> details;
 
-    //private HttpStatus status;
+    //for MethodArgumentNotValidException
+    public ErrorResponse(String message, List<String> details) {
+        super();
+        this.status="fail";
+        this.message = message;
+        this.details = details;
+        this.errorCode=400;
+    }
+
+    //for Not found
+    public ErrorResponse( long errorCode, String message) {
+
+        this.errorCode = errorCode;
+        this.message = message;
+    this.details= Collections.singletonList("This id is not there in database..!!");
+
+    }
 
     public String getMessage() {
         return message;
@@ -27,6 +34,22 @@ public class ErrorResponse {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public long getErrorCode() {
+        return errorCode;
+    }
+
+    public void setErrorCode(long errorCode) {
+        this.errorCode = errorCode;
     }
 
     public List<String> getDetails() {
@@ -37,14 +60,5 @@ public class ErrorResponse {
         this.details = details;
     }
 
-   */
-/* public HttpStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(HttpStatus status) {
-        this.status = status;
-    }*//*
 
 }
-*/

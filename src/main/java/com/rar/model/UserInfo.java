@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
@@ -22,7 +23,7 @@ public class UserInfo implements Serializable {
     @ApiModelProperty(notes = "The database generated User ID")
     private Long userId;
 
-    @NotNull
+    @NotEmpty
     @Email
     @Size(max = 100)
     @Column(unique = true)
@@ -34,6 +35,7 @@ public class UserInfo implements Serializable {
 
     @Column(nullable = false)
     @ApiModelProperty(notes = "The name of the User")
+    @NotEmpty
     private String name;
 
     @Column

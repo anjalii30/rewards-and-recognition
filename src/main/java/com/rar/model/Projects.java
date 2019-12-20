@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
@@ -21,7 +22,7 @@ public class Projects {
 
     @Column(name = "project_name",unique = true,nullable = false)
     @ApiModelProperty(notes = "The name of the Project")
-    @NotNull
+    @NotEmpty
     private String projectName;
 
     /*private Boolean working; private Boolean managing;*/

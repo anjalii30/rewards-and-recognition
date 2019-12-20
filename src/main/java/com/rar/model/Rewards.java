@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -32,6 +33,7 @@ public class Rewards implements Serializable {
     private String rewardName;
 
     @Column(name = "coins")
+    //@NotEmpty
     private Long coins;
 
     @Column(name="frequency")
@@ -70,6 +72,7 @@ public class Rewards implements Serializable {
     private int nominationsAllowed;
 
     @Column(name="award_status")
+    @Max(value=5)
     @ApiModelProperty(notes = "The status of the reward")
     private int awardStatus =CREATED;
 

@@ -8,5 +8,7 @@ public class RecordNotFoundException extends RuntimeException
 {
     public RecordNotFoundException(String exception) {
         super(exception);
+        ErrorResponse errorResponse=new ErrorResponse(404,exception);
+
     }
 }

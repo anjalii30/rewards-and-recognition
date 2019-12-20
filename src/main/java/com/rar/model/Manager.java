@@ -3,6 +3,9 @@ package com.rar.model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -19,6 +22,8 @@ public class Manager implements Serializable {
     private long managerId;
 
     @Column(name="manager_email",nullable = false)
+    @Email
+    @NotEmpty
     @ApiModelProperty(notes = "The email ID of particular manager")
     private String managerEmail;
 
