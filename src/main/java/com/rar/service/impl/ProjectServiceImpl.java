@@ -48,15 +48,15 @@ public class ProjectServiceImpl implements ProjectService {
     public ResponseEntity assign(UserProjectsPojo userProjectsPojo) throws Exception {
 
             String[] employees = userProjectsPojo.getUserEmail();
-             Long project_id = userProjectsPojo.getProjectId();
+             Long projectId = userProjectsPojo.getProjectId();
 
             for(int i=0; i<employees.length;i++) {
 
-                String user_name=employees[i];
-                Long user_id = loginService.getIdByName(user_name);
-                projectRepository.assign(user_id, project_id);
+                String userName=employees[i];
+                Long userId = loginService.getIdByName(userName);
+                projectRepository.assign(userId, projectId);
        }
-            return new ResponseEntity(projectService.findById(project_id), HttpStatus.OK);
+            return new ResponseEntity(projectService.findById(projectId), HttpStatus.OK);
 
     }
 

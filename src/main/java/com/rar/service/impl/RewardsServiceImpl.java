@@ -6,7 +6,6 @@ import com.rar.model.Rewards;
 import com.rar.model.RewardsCriteria;
 import com.rar.repository.*;
 import com.rar.service.RewardsService;
-import static com.rar.utils.Constants.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +15,9 @@ import javax.mail.MessagingException;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.*;
+
+import static com.rar.utils.Constants.DISCONTINUED;
+import static com.rar.utils.Constants.ROLLED_OUT;
 
 @Service
 public class RewardsServiceImpl implements RewardsService {
@@ -194,17 +196,17 @@ public class RewardsServiceImpl implements RewardsService {
     public ResponseEntity<List<Rewards>> findByRolled(String email) {
 
         List<Rewards> rewards = null;
-        Long manager_id = managerRepository.findByEmail(email);
-        Long user_id = userRepository.getIdByEmail(email);
-        if(manager_id!=null) {
-            Long[] projects=managerRepository.getProjectsOfManager(manager_id);
+        Long managerId = managerRepository.findByEmail(email);
+        Long userId = userRepository.getIdByEmail(email);
+        if(managerId!=null) {
+            Long[] projects=managerRepository.getProjectsOfManager(managerId);
 
             for (int i = 0; i < projects.length; i++) {
-                rewards=rewardsRepository.findByRolled(projects[i],manager_id);
+                rewards=rewardsRepository.findByRolled(projects[i],managerId);
             }
         }
         else{
-            rewards= rewardsRepository.findByRolledForEmp(user_id);
+            rewards= rewardsRepository.findByRolledForEmp(userId);
         }
         return new ResponseEntity<>(rewards,HttpStatus.OK);
 
