@@ -2,6 +2,8 @@ package com.rar.controller;
 
 
 import com.rar.DTO.EditUserDetails;
+import com.rar.exception.IncorrectFieldException;
+import com.rar.exception.RecordNotFoundException;
 import com.rar.repository.UserRepository;
 import com.rar.service.UserService;
 import com.rar.service.impl.CheckValidity;
@@ -35,8 +37,12 @@ public class UserController {
     @ApiOperation(value = "Save the user")
     @PostMapping("/saveUser")
     public ResponseEntity save(@RequestHeader(value = "Authorization") String token , @ApiParam(value = "user object store in database table", required = true) @Valid @RequestBody EditUserDetails editUserDetails){
+       try{
         validity.check(token);
         return new ResponseEntity<>(userService.userSave(editUserDetails), HttpStatus.OK) ;
+       } catch (IncorrectFieldException e) {
+           throw new IncorrectFieldException("Incorrect fields given");
+       }
     }
 
 
@@ -47,9 +53,12 @@ public class UserController {
      */
     @ApiOperation(value = "Get the user details for editing by user id")
     @GetMapping("/listUser/{id}")
-    public EditUserDetails listById(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "User Id to get user object", required = true)@PathVariable Long id){
+    public ResponseEntity<EditUserDetails> listById(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "User Id to get user object", required = true)@PathVariable Long id){
         validity.check(token);
-        return userService.listById(id);
+        if(userRepository.existsById(id))
+        return new ResponseEntity(userService.listById(id),HttpStatus.OK);
+        else
+            throw new RecordNotFoundException("user id not found");
     }
 
     /**
@@ -60,8 +69,15 @@ public class UserController {
      */
     @ApiOperation(value = "Update the reward by id")
     @PutMapping("/updateUser/{id}")
-    public EditUserDetails update(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "User Id to update user details", required = true)@PathVariable Long id, @ApiParam(value = "User object ", required = true) @Valid @RequestBody EditUserDetails editUserDetails){
-        validity.check(token);
-        return userService.update(id, editUserDetails);
+    public ResponseEntity<EditUserDetails> update(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "User Id to update user details", required = true)@PathVariable Long id, @ApiParam(value = "User object ", required = true) @Valid @RequestBody EditUserDetails editUserDetails) {
+        try {
+            validity.check(token);
+            if (userRepository.existsById(id))
+                return new ResponseEntity(userService.update(id, editUserDetails), HttpStatus.OK);
+            else
+                throw new RecordNotFoundException("user id not found");
+        } catch (IncorrectFieldException e) {
+            throw new IncorrectFieldException("Incorrect fields given");
+        }
     }
 }
