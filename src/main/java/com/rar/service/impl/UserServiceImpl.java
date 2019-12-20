@@ -29,10 +29,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private ProjectRepository projectRepository;
 
-    @Override
-    public UserInfo save(UserInfo userInfo) {
-        return userRepository.save(userInfo);
-    }
 
     public ResponseEntity userSave(EditUserDetails editUserDetails) {
 
@@ -126,21 +122,19 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public EditUserDetails listById(long id) {
-        Optional<UserInfo> userInfo= userRepository.findById(id);
+    public ResponseEntity<EditUserDetails> listById(long id) {
+        Optional<UserInfo> userInfo = userRepository.findById(id);
 
-        List<Designation> designations= (List<Designation>) designationRepository.findAll();
+        List<Designation> designations = (List<Designation>) designationRepository.findAll();
         List<DesignationSelected> designationSelected = new ArrayList<>();
 
-        long designationId= userRepository.findDesignationId(id);
+        long designationId = userRepository.findDesignationId(id);
 
-        for(int i=0;i<designations.size();i++){
-            if(designations.get(i).getDid()==designationId){
-                designationSelected.add(i, new DesignationSelected(designationId,designations.get(i).getDesignation(), true));
-            }
-            else
-            {
-                designationSelected.add(i,new DesignationSelected(designations.get(i).getDid(),designations.get(i).getDesignation(),false));
+        for (int i = 0; i < designations.size(); i++) {
+            if (designations.get(i).getDid() == designationId) {
+                designationSelected.add(i, new DesignationSelected(designationId, designations.get(i).getDesignation(), true));
+            } else {
+                designationSelected.add(i, new DesignationSelected(designations.get(i).getDid(), designations.get(i).getDesignation(), false));
             }
         }
 
@@ -148,37 +142,37 @@ public class UserServiceImpl implements UserService {
 
         List<ProjectDetailsUser> projectsList = new ArrayList<>();
 
-        boolean managing, working;long mid=0;
-        for(int i =0;i<projects.size();i++){
-           projectRepository.userProjectPresent(id, projects.get(i).getProjectId());
+        boolean managing, working;
+        long mid = 0;
+        for (int i = 0; i < projects.size(); i++) {
+            projectRepository.userProjectPresent(id, projects.get(i).getProjectId());
 
-           if(userRepository.isManager(userInfo.get().getEmail())>0)
-               mid = userRepository.findManagerId(userInfo.get().getEmail());
+            if (userRepository.isManager(userInfo.get().getEmail()) > 0)
+                mid = userRepository.findManagerId(userInfo.get().getEmail());
 
-            if(projectRepository.userProjectPresent(id, projects.get(i).getProjectId())>0){
-                working= true;
-                if(projectRepository.managerProjectPresent(mid, projects.get(i).getProjectId())>0)
-                    managing=true;
+            if (projectRepository.userProjectPresent(id, projects.get(i).getProjectId()) > 0) {
+                working = true;
+                if (projectRepository.managerProjectPresent(mid, projects.get(i).getProjectId()) > 0)
+                    managing = true;
                 else
-                    managing=false;
-            }
-            else{
-                if(projectRepository.managerProjectPresent(mid, projects.get(i).getProjectId())>0){
-                    managing=true;
-                    working=true;}
-                else{
-                    managing=false;
-                    working=false;
+                    managing = false;
+            } else {
+                if (projectRepository.managerProjectPresent(mid, projects.get(i).getProjectId()) > 0) {
+                    managing = true;
+                    working = true;
+                } else {
+                    managing = false;
+                    working = false;
                 }
             }
-            projectsList.add(i, new ProjectDetailsUser(projects.get(i).getProjectId(),projects.get(i).getProjectName(),working,managing));
+            projectsList.add(i, new ProjectDetailsUser(projects.get(i).getProjectId(), projects.get(i).getProjectName(), working, managing));
         }
 
-        return new EditUserDetails(id,userInfo.get().getEmail(),userInfo.get().getName(),designationSelected,projectsList);
+        return new ResponseEntity<>(new EditUserDetails(id, userInfo.get().getEmail(), userInfo.get().getName(), designationSelected, projectsList), HttpStatus.OK);
     }
 
     @Override
-    public EditUserDetails update(long id, EditUserDetails editUserDetails) {
+    public ResponseEntity<EditUserDetails> update(long id, EditUserDetails editUserDetails) {
 
         for (int i = 0; i < editUserDetails.getDesignationSelected().size(); i++){
             userRepository.updateDesignation(id, editUserDetails.getDesignationSelected().get(i).getDid());}
@@ -194,7 +188,7 @@ public class UserServiceImpl implements UserService {
         for(int j=0; j < editUserDetails.getProjectsList().size(); j++){
             if(editUserDetails.getProjectsList().get(j).getManaging()){
 
-                 mid = userRepository.findManagerId(editUserDetails.getEmail());
+                mid = userRepository.findManagerId(editUserDetails.getEmail());
                 userRepository.insertManagerProjects(mid, editUserDetails.getProjectsList().get(j).getProjectId());
             }
             if(!editUserDetails.getProjectsList().get(j).getManaging() && editUserDetails.getProjectsList().get(j).getWorking()){
@@ -204,10 +198,8 @@ public class UserServiceImpl implements UserService {
                 }
             }
 
-         }
+        }
 
-        return editUserDetails;
-
+        return new ResponseEntity<>(editUserDetails,HttpStatus.OK);
     }
-
 }

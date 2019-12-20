@@ -6,11 +6,9 @@ import org.springframework.http.ResponseEntity;
 
 public interface UserService {
 
-    UserInfo save(UserInfo userInfo);
-
     ResponseEntity userSave(EditUserDetails editUserDetails);
 
-    EditUserDetails listById(long id);
+    ResponseEntity<EditUserDetails> listById(long id);
 
-    EditUserDetails update(long id, EditUserDetails editUserDetails);
+    ResponseEntity<EditUserDetails> update(long id, EditUserDetails editUserDetails);
 }
