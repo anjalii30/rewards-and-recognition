@@ -1,6 +1,5 @@
 package com.rar.controller;
 
-import com.rar.exception.IncorrectFieldException;
 import com.rar.exception.RecordNotFoundException;
 import com.rar.model.Designation;
 import com.rar.repository.DesignationRepository;
@@ -41,7 +40,6 @@ public class DesignationController {
 
            validity.check(token);
            return new ResponseEntity<>(designationService.save(designation), HttpStatus.OK);
-
     }
 
     /**
@@ -85,5 +83,4 @@ public class DesignationController {
         else
             throw new RecordNotFoundException("designation id not found");
            }
-
 }

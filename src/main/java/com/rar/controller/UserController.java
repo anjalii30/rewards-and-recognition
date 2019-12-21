@@ -1,8 +1,6 @@
 package com.rar.controller;
 
-
 import com.rar.DTO.EditUserDetails;
-import com.rar.exception.IncorrectFieldException;
 import com.rar.exception.RecordNotFoundException;
 import com.rar.repository.UserRepository;
 import com.rar.service.UserService;
@@ -35,12 +33,9 @@ public class UserController {
     @ApiOperation(value = "Save the user")
     @PostMapping("/saveUser")
     public ResponseEntity save(@RequestHeader(value = "Authorization") String token , @ApiParam(value = "user object store in database table", required = true) @Valid @RequestBody EditUserDetails editUserDetails){
-
         validity.check(token);
         return new ResponseEntity<>(userService.userSave(editUserDetails), HttpStatus.OK) ;
-       
     }
-
 
     /**
      * @param token jwt token
@@ -66,19 +61,22 @@ public class UserController {
     @ApiOperation(value = "Update the reward by id")
     @PutMapping("/updateUser/{id}")
     public ResponseEntity<EditUserDetails> update(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "User Id to update user details", required = true)@PathVariable Long id, @ApiParam(value = "User object ", required = true) @Valid @RequestBody EditUserDetails editUserDetails) {
-
             validity.check(token);
             if (userRepository.existsById(id))
                 return new ResponseEntity(userService.update(id, editUserDetails), HttpStatus.OK);
             else
                 throw new RecordNotFoundException("user id not found");
-
     }
+
+    /**
+     *
+     * @param token
+     * @return The details of won coins
+     */
     @ApiOperation(value = "get details of coins according to rewards")
     @GetMapping("/getMyCoins")
     public ResponseEntity getCoinsDetails(@RequestHeader(value = "Authorization") String token){
         String email=validity.check(token);
         return new ResponseEntity(userService.getCoinsDetails(email),HttpStatus.OK);
-
     }
 }

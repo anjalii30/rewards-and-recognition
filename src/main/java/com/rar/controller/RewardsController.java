@@ -21,7 +21,6 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 
-
 @RestController
 @Api(value="Rewards Management System")
 public class RewardsController {
@@ -41,7 +40,6 @@ public class RewardsController {
     @Autowired
     private RewardsRepository rewardsRepository;
 
-
     /**
      * @param token jwt token
      * @param rewards Rewards object
@@ -50,8 +48,8 @@ public class RewardsController {
     @ApiOperation(value = "Save the rewards")
     @PostMapping("/save")
     public ResponseEntity<Rewards> save(@RequestHeader(value = "Authorization") String token ,@ApiParam(value = "Reward object store in database table", required = true) @Valid @RequestBody Rewards rewards) throws IncorrectFieldException{
-              validity.check(token);
-              return new ResponseEntity(rewardsService.rewardsSave(rewards), HttpStatus.OK);
+        validity.check(token);
+        return new ResponseEntity(rewardsService.rewardsSave(rewards), HttpStatus.OK);
     }
 
     /**
@@ -60,18 +58,15 @@ public class RewardsController {
      * @param rewardPojo rewardPojo object
      * @return the object of reward for which the award status has been changed.
      */
-
     @ApiOperation(value = "Update award status by id")
     @PutMapping("/updateAwardStatus/{id}")
-    public ResponseEntity<Rewards> updateAwardStatus(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Award status Id to update award status", required = true)@PathVariable Long id,
-
-                                    @ApiParam(value = "Reward object ", required = true) @Valid @RequestBody RewardPojo rewardPojo) throws IOException, MessagingException, com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException, javax.mail.MessagingException {
-            validity.check(token);
-            if (rewardsRepository.existsById(id)) {
-                ResponseEntity<Rewards> rewards = rewardsService.updateAwardStatus(id, rewardPojo);
-                return new ResponseEntity(rewards, HttpStatus.OK);
-            } else
-                throw new RecordNotFoundException("reward id not found");
+    public ResponseEntity<Rewards> updateAwardStatus(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Award status Id to update award status", required = true)@PathVariable Long id, @ApiParam(value = "Reward object ", required = true) @Valid @RequestBody RewardPojo rewardPojo) throws IOException, MessagingException, com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException, javax.mail.MessagingException {
+        validity.check(token);
+        if (rewardsRepository.existsById(id)) {
+            ResponseEntity<Rewards> rewards = rewardsService.updateAwardStatus(id, rewardPojo);
+            return new ResponseEntity(rewards, HttpStatus.OK);
+        } else
+            throw new RecordNotFoundException("reward id not found");
     }
 
     /**
@@ -84,9 +79,9 @@ public class RewardsController {
         validity.check(token);
         return new ResponseEntity(rewardsService.findAll(),HttpStatus.OK);
     }
+
     /**
-     * @param token jwt token
-     * @param id reward id
+     * @param token jwt token* @param id reward id
      * @return list of rewards based on id.
      */
     @ApiOperation(value = "Get the reward details    by id")
@@ -94,10 +89,9 @@ public class RewardsController {
     public ResponseEntity<Rewards> getById(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Reward Id to get reward object", required = true) @PathVariable Long id){
         validity.check(token);
         if(rewardsRepository.existsById(id))
-        return new ResponseEntity(rewardsService.findById(id),HttpStatus.OK);
+            return new ResponseEntity(rewardsService.findById(id),HttpStatus.OK);
         else
             throw new RecordNotFoundException("reward id not found");
-
     }
 
     /**
@@ -143,12 +137,11 @@ public class RewardsController {
     @ApiOperation(value = "Update the reward by id")
     @PutMapping("/updateReward/{id}")
     public ResponseEntity<Rewards> Update(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Reward Id to update reward object", required = true)@PathVariable Long id, @ApiParam(value = "Reward object ", required = true) @Valid @RequestBody Rewards rewards){
-
-            validity.check(token);
-            if (rewardsRepository.existsById(id))
-                return new ResponseEntity(rewardsService.Update(id, rewards), HttpStatus.OK);
-            else
-                throw new RecordNotFoundException("reward id not found");
+        validity.check(token);
+        if (rewardsRepository.existsById(id))
+            return new ResponseEntity(rewardsService.Update(id, rewards), HttpStatus.OK);
+        else
+            throw new RecordNotFoundException("reward id not found");
     }
 
     /**
@@ -161,7 +154,7 @@ public class RewardsController {
     public ResponseEntity<Rewards> rollOutListReward(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Reward Id to get reward object", required = true)@PathVariable Long id){
         validity.check(token);
         if(rewardsRepository.existsById(id))
-        return new ResponseEntity(rewardsService.rollOutListReward(id),HttpStatus.OK);
+            return new ResponseEntity(rewardsService.rollOutListReward(id),HttpStatus.OK);
         else
             throw new RecordNotFoundException("reward id not found");
     }
@@ -175,12 +168,10 @@ public class RewardsController {
     @ApiOperation(value = "Update the reward by id")
     @PutMapping("/updateRollOutReward/{id}")
     public ResponseEntity<Rewards> RollOutUpdate(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Reward Id to update reward object", required = true)@PathVariable Long id, @ApiParam(value = "Reward object ", required = true) @Valid @RequestBody Rewards rewards) {
-
-            validity.check(token);
-            if (rewardsRepository.existsById(id))
-                return new ResponseEntity(rewardsService.rollOutUpdate(id, rewards), HttpStatus.OK);
-            else
-                throw new RecordNotFoundException("reward id not found");
-
+        validity.check(token);
+        if (rewardsRepository.existsById(id))
+            return new ResponseEntity(rewardsService.rollOutUpdate(id, rewards), HttpStatus.OK);
+        else
+            throw new RecordNotFoundException("reward id not found");
     }
 }

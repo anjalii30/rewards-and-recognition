@@ -1,9 +1,11 @@
 package com.rar.service.impl;
 
-import com.rar.model.*;
 import com.rar.DTO.DesignationSelected;
 import com.rar.DTO.EditUserDetails;
 import com.rar.DTO.ProjectDetailsUser;
+import com.rar.model.Designation;
+import com.rar.model.Projects;
+import com.rar.model.UserInfo;
 import com.rar.repository.*;
 import com.rar.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +13,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import static com.rar.utils.Constants.*;
+
 import java.util.*;
+
+import static com.rar.utils.Constants.ROLE_EMPLOYEE;
 
 @Service
 @Transactional
@@ -217,7 +221,6 @@ public class UserServiceImpl implements UserService {
             Long count=nominationsRepository.getCount(rewardId[i]);
             Long rewardCoinValue = rewardsRepository.getCoinValue(rewardId[i]);
             Long wonCoinValue = rewardCoinValue/count;
-            System.out.println(count+" "+rewardCoinValue+" "+wonCoinValue);
 
             Map map=new HashMap();
             map.put("reward name",rewardsRepository.getRewardName(rewardId[i]));

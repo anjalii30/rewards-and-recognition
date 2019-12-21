@@ -1,7 +1,6 @@
 package com.rar.controller;
 
 import com.rar.DTO.LoginUserDetails;
-import com.rar.exception.IncorrectFieldException;
 import com.rar.exception.RecordNotFoundException;
 import com.rar.model.UserInfo;
 import com.rar.repository.UserRepository;
@@ -20,7 +19,6 @@ import java.util.List;
 
 @RestController
 @Api(value="Login Management System")
-
 public class LoginController {
 
     @Autowired
@@ -37,12 +35,10 @@ public class LoginController {
      * @return object that contains user details
      * @throws Exception that displays that the user who tries to login is not a valid user.
      */
-
     @ApiOperation(value = "Login by nineleaps gmail account")
     @PostMapping(value = "/login")
     public ResponseEntity<LoginUserDetails> getToken(@RequestHeader(value = "Authorization") String token) throws Exception {
             return new ResponseEntity(loginService.login(token), HttpStatus.OK);
-
     }
 
     /**
@@ -55,7 +51,6 @@ public class LoginController {
     public ResponseEntity<UserInfo> saveLogin(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "User object store in database table", required = true) @Valid @RequestBody UserInfo users){
            validity.check(token);
            return new ResponseEntity(loginService.saveLogin(users),HttpStatus.OK);
-
     }
 
     /**

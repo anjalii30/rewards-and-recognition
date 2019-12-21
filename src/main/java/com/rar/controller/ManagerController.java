@@ -1,6 +1,5 @@
 package com.rar.controller;
 
-import com.rar.exception.IncorrectFieldException;
 import com.rar.exception.RecordNotFoundException;
 import com.rar.model.Manager;
 import com.rar.repository.ManagerRepository;
@@ -14,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
@@ -120,5 +118,4 @@ public class ManagerController {
            managerService.assignValues(manager_id, project_id);
            return new ResponseEntity<>("Assigned", HttpStatus.OK);
     }
-
 }
