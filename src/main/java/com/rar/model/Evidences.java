@@ -3,8 +3,8 @@ package com.rar.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "evidences")
@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 public class Evidences {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "evidence_id")
     @ApiModelProperty(notes = "The database generated evidenceID")
     private Long evidenceID;
