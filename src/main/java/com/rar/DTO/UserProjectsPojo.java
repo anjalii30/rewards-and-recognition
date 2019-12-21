@@ -3,12 +3,17 @@ package com.rar.DTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 @ApiModel(description = "The mapping of users with projects")
 public class UserProjectsPojo  {
 
+    @NotEmpty
     @ApiModelProperty(notes = "The email of the User")
     private String[] userEmail;
 
+    @NotNull
     @ApiModelProperty(notes = "The ID of the Project")
     private Long projectId;
 

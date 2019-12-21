@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
@@ -56,14 +57,10 @@ public class NominationController {
     @ApiOperation(value = "Save the nomination")
     @PostMapping("/saveNomination")
     public ResponseEntity nominationSave(@RequestHeader(value = "Authorization") String token , @ApiParam(value = "Nomination object store in database table", required = true) @Valid @RequestBody List<NominationPojo> nominationPojo) {
-        try {
-            String email = validity.check(token);
-            Long manager_id = managerRepository.findByEmail(email);
-            nominationsService.nominationSave(nominationPojo, manager_id);
-            return new ResponseEntity<>(nominationPojo, HttpStatus.OK);
-        }catch (IncorrectFieldException e) {
-            throw new IncorrectFieldException("Incorrect fields given");
-        }
+               String email = validity.check(token);
+               Long manager_id = managerRepository.findByEmail(email);
+               nominationsService.nominationSave(nominationPojo, manager_id);
+               return new ResponseEntity<>(nominationPojo, HttpStatus.OK);
     }
 
     /**

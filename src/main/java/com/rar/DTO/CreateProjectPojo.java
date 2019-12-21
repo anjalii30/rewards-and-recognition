@@ -1,9 +1,14 @@
 package com.rar.DTO;
 
+import javax.validation.constraints.NotEmpty;
+
 public class CreateProjectPojo {
 
+    @NotEmpty
     private String[] userEmail;
+    @NotEmpty
     private String projectName;
+    @NotEmpty
     private String managerEmail;
 
     public String[] getUserEmail() {

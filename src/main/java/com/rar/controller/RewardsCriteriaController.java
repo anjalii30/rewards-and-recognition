@@ -32,12 +32,10 @@ public class RewardsCriteriaController {
     @ApiOperation(value = "Assign criteria to reward")
     @PostMapping("/saveRewardsCriteria")
     public ResponseEntity<RewardsCriteria> save(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Reward Assigned to criteria", required = true) @Valid @RequestBody RewardsCriteria rewardsCriteria){
-        try {
+
             validity.check(token);
             return new ResponseEntity(rewardsCriteriaService.save(rewardsCriteria), HttpStatus.OK);
-        } catch (IncorrectFieldException e) {
-            throw new IncorrectFieldException("Incorrect fields given");
-        }
+
     }
 
     /**

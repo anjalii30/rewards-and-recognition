@@ -38,12 +38,10 @@ public class DesignationController {
     @ApiOperation(value = "Save the designation")
     @PostMapping("/saveDesignation")
     public ResponseEntity<Designation> save(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Designation object store in database table", required = true) @Valid @RequestBody Designation designation){
-       try {
+
            validity.check(token);
            return new ResponseEntity<>(designationService.save(designation), HttpStatus.OK);
-       }catch (IncorrectFieldException e) {
-           throw new IncorrectFieldException("Incorrect fields given");
-       }
+
     }
 
     /**

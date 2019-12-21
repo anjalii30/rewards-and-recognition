@@ -31,7 +31,7 @@ public class UserInfo implements Serializable {
     private String email;
 
     @Column(name = "wallet")
-    private Long wallet;
+    private Long wallet= Long.valueOf(0);
 
     @Column(nullable = false)
     @ApiModelProperty(notes = "The name of the User")

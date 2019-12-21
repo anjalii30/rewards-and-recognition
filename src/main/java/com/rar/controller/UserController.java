@@ -35,12 +35,10 @@ public class UserController {
     @ApiOperation(value = "Save the user")
     @PostMapping("/saveUser")
     public ResponseEntity save(@RequestHeader(value = "Authorization") String token , @ApiParam(value = "user object store in database table", required = true) @Valid @RequestBody EditUserDetails editUserDetails){
-       try{
+
         validity.check(token);
         return new ResponseEntity<>(userService.userSave(editUserDetails), HttpStatus.OK) ;
-       } catch (IncorrectFieldException e) {
-           throw new IncorrectFieldException("Incorrect fields given");
-       }
+       
     }
 
 
@@ -68,15 +66,13 @@ public class UserController {
     @ApiOperation(value = "Update the reward by id")
     @PutMapping("/updateUser/{id}")
     public ResponseEntity<EditUserDetails> update(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "User Id to update user details", required = true)@PathVariable Long id, @ApiParam(value = "User object ", required = true) @Valid @RequestBody EditUserDetails editUserDetails) {
-        try {
+
             validity.check(token);
             if (userRepository.existsById(id))
                 return new ResponseEntity(userService.update(id, editUserDetails), HttpStatus.OK);
             else
                 throw new RecordNotFoundException("user id not found");
-        } catch (IncorrectFieldException e) {
-            throw new IncorrectFieldException("Incorrect fields given");
-        }
+
     }
     @ApiOperation(value = "get details of coins according to rewards")
     @GetMapping("/getMyCoins")

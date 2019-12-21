@@ -41,11 +41,8 @@ public class LoginController {
     @ApiOperation(value = "Login by nineleaps gmail account")
     @PostMapping(value = "/login")
     public ResponseEntity<LoginUserDetails> getToken(@RequestHeader(value = "Authorization") String token) throws Exception {
-        try {
             return new ResponseEntity(loginService.login(token), HttpStatus.OK);
-        }catch (IncorrectFieldException e) {
-            throw new IncorrectFieldException("Incorrect fields given");
-        }
+
     }
 
     /**
@@ -56,12 +53,9 @@ public class LoginController {
     @ApiOperation(value = "Save the user")
     @PostMapping("/saveLoginUsers")
     public ResponseEntity<UserInfo> saveLogin(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "User object store in database table", required = true) @Valid @RequestBody UserInfo users){
-       try {
            validity.check(token);
            return new ResponseEntity(loginService.saveLogin(users),HttpStatus.OK);
-       }catch (IncorrectFieldException e) {
-           throw new IncorrectFieldException("Incorrect fields given");
-       }
+
     }
 
     /**
