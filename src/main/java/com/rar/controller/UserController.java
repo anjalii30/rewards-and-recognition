@@ -38,7 +38,7 @@ public class UserController {
 
         validity.check(token);
         return new ResponseEntity<>(userService.userSave(editUserDetails), HttpStatus.OK) ;
-       
+
     }
 
 
