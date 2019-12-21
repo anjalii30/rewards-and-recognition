@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 @ApiModel(description = "The mapping of manager with projects")
 public class ManagerProjectsPojo {
 
-    @NotNull
+    @NotEmpty
     private String managerEmail;
     @NotNull
     private Long projectId;

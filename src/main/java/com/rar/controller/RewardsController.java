@@ -50,12 +50,8 @@ public class RewardsController {
     @ApiOperation(value = "Save the rewards")
     @PostMapping("/save")
     public ResponseEntity<Rewards> save(@RequestHeader(value = "Authorization") String token ,@ApiParam(value = "Reward object store in database table", required = true) @Valid @RequestBody Rewards rewards) throws IncorrectFieldException{
-          try {
               validity.check(token);
               return new ResponseEntity(rewardsService.rewardsSave(rewards), HttpStatus.OK);
-          }catch (IncorrectFieldException e) {
-              throw new IncorrectFieldException("Incorrect fields given");
-          }
     }
 
     /**
@@ -70,16 +66,12 @@ public class RewardsController {
     public ResponseEntity<Rewards> updateAwardStatus(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Award status Id to update award status", required = true)@PathVariable Long id,
 
                                     @ApiParam(value = "Reward object ", required = true) @Valid @RequestBody RewardPojo rewardPojo) throws IOException, MessagingException, com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException, javax.mail.MessagingException {
-        try{
             validity.check(token);
             if (rewardsRepository.existsById(id)) {
                 ResponseEntity<Rewards> rewards = rewardsService.updateAwardStatus(id, rewardPojo);
                 return new ResponseEntity(rewards, HttpStatus.OK);
             } else
                 throw new RecordNotFoundException("reward id not found");
-        }catch (IncorrectFieldException e) {
-            throw new IncorrectFieldException("Incorrect fields given");
-        }
     }
 
     /**
@@ -151,15 +143,12 @@ public class RewardsController {
     @ApiOperation(value = "Update the reward by id")
     @PutMapping("/updateReward/{id}")
     public ResponseEntity<Rewards> Update(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Reward Id to update reward object", required = true)@PathVariable Long id, @ApiParam(value = "Reward object ", required = true) @Valid @RequestBody Rewards rewards){
-        try {
+
             validity.check(token);
             if (rewardsRepository.existsById(id))
                 return new ResponseEntity(rewardsService.Update(id, rewards), HttpStatus.OK);
             else
                 throw new RecordNotFoundException("reward id not found");
-        }catch (IncorrectFieldException e) {
-            throw new IncorrectFieldException("Incorrect fields given");
-        }
     }
 
     /**
@@ -186,15 +175,12 @@ public class RewardsController {
     @ApiOperation(value = "Update the reward by id")
     @PutMapping("/updateRollOutReward/{id}")
     public ResponseEntity<Rewards> RollOutUpdate(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Reward Id to update reward object", required = true)@PathVariable Long id, @ApiParam(value = "Reward object ", required = true) @Valid @RequestBody Rewards rewards) {
-        try {
+
             validity.check(token);
             if (rewardsRepository.existsById(id))
                 return new ResponseEntity(rewardsService.rollOutUpdate(id, rewards), HttpStatus.OK);
             else
                 throw new RecordNotFoundException("reward id not found");
 
-        } catch (IncorrectFieldException e) {
-            throw new IncorrectFieldException("Incorrect fields given");
-        }
     }
 }
