@@ -2,10 +2,10 @@ package com.rar.model;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -26,14 +26,6 @@ public class Manager implements Serializable {
     @NotEmpty
     @ApiModelProperty(notes = "The email ID of particular manager")
     private String managerEmail;
-
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            },
-            mappedBy = "manager")
-    private Set<UserInfo> userInfo = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {

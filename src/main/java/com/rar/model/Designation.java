@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -22,6 +23,7 @@ public class Designation implements Serializable {
 
     @Column(name="designation",nullable = false)
     @Enumerated(EnumType.STRING)
+    @NotEmpty
     @ApiModelProperty(notes = "Designation name")
     private DesignationEnum designation;
 

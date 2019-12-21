@@ -43,12 +43,8 @@ public class ManagerController {
     @ApiOperation(value = "Save the  manager")
     @PostMapping("/saveManager")
     public ResponseEntity<Manager> save(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Manager object stored in database table", required = true) @Valid @RequestBody Manager manager){
-        try {
             validity.check(token);
             return new ResponseEntity(managerService.save(manager),HttpStatus.OK);
-        }catch (IncorrectFieldException e) {
-            throw new IncorrectFieldException("Incorrect fields given");
-        }
     }
 
     /**
@@ -120,13 +116,9 @@ public class ManagerController {
     @ApiOperation(value = "assign project to manager")
     @PostMapping("/assignManagerProject")
     public ResponseEntity<String> assignValues(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "manager id ", required = true) @Valid @RequestBody long manager_id, @Valid @RequestBody long project_id) throws Exception {
-       try {
-           validity.check(token);
+        validity.check(token);
            managerService.assignValues(manager_id, project_id);
            return new ResponseEntity<>("Assigned", HttpStatus.OK);
-       }catch (IncorrectFieldException e) {
-           throw new IncorrectFieldException("Incorrect fields given");
-       }
     }
 
 }

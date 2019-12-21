@@ -2,10 +2,15 @@ package com.rar.DTO;
 
 import io.swagger.annotations.ApiModel;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 @ApiModel(description = "The mapping of manager with projects")
 public class ManagerProjectsPojo {
 
+    @NotNull
     private String managerEmail;
+    @NotNull
     private Long projectId;
 
 

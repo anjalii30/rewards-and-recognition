@@ -19,14 +19,17 @@ public class ErrorResponse {
         this.errorCode=400;
     }
 
-    //for Not found
-    public ErrorResponse( long errorCode, String message) {
 
+    public ErrorResponse(long errorCode, String message, List<String> details) {
+        super();
         this.errorCode = errorCode;
         this.message = message;
-    this.details= Collections.singletonList("This id is not there in database..!!");
-
+        this.details = details;
     }
+
+    public ErrorResponse(int i, String exception) {
+    }
+
 
     public String getMessage() {
         return message;
