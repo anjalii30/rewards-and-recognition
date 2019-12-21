@@ -72,6 +72,7 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler
     }*/
 
     @Override
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         List<String> details = new ArrayList<>();
         List<String> field=new ArrayList<>();
