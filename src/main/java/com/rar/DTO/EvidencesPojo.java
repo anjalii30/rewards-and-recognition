@@ -3,12 +3,15 @@ package com.rar.DTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-@ApiModel(description = "All the evidences stored in another table for nominations")
+@ApiModel(description = "DTO for evidences")
 public class EvidencesPojo {
+
     @ApiModelProperty(notes = "description about a particular criteria")
     private String  criteriaDesc;
+
     @ApiModelProperty(notes = "the documented form of evidence")
     private String evidences;
+
     @ApiModelProperty(notes = "the textual form of evidence")
     private String textEvidence;
 

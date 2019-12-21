@@ -5,7 +5,6 @@ import io.swagger.annotations.ApiModelProperty;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 

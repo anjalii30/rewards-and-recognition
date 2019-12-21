@@ -1,7 +1,5 @@
 package com.rar.controller;
 
-
-import com.rar.exception.IncorrectFieldException;
 import com.rar.model.RewardsCriteria;
 import com.rar.service.RewardsCriteriaService;
 import com.rar.service.impl.CheckValidity;
@@ -21,6 +19,7 @@ public class RewardsCriteriaController {
 
     @Autowired
     private RewardsCriteriaService rewardsCriteriaService;
+
     @Autowired
     private CheckValidity validity;
 
@@ -35,7 +34,6 @@ public class RewardsCriteriaController {
 
             validity.check(token);
             return new ResponseEntity(rewardsCriteriaService.save(rewardsCriteria), HttpStatus.OK);
-
     }
 
     /**
@@ -48,5 +46,4 @@ public class RewardsCriteriaController {
         validity.check(token);
         return new ResponseEntity(rewardsCriteriaService.findAll(),HttpStatus.OK);
     }
-
 }
