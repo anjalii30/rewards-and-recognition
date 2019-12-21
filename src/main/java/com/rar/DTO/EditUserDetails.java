@@ -1,14 +1,26 @@
 package com.rar.DTO;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.util.List;
 
+@ApiModel(description = "DTO for editing a user")
 public class EditUserDetails implements Serializable {
 
+    @ApiModelProperty(value = "The id of user")
     private long uid;
+
+    @ApiModelProperty(value = "Email of user")
     private String email;
+
+    @ApiModelProperty(value = "name of the user")
     private String name;
+
+    @ApiModelProperty(value = "list of designations")
     private List<DesignationSelected> designationSelected;
+
+    @ApiModelProperty(value = "list of projects")
     private List<ProjectDetailsUser> projectsList;
 
     public EditUserDetails(long uid, String email, String name, List<DesignationSelected> designationSelected, List<ProjectDetailsUser> projectsList) {

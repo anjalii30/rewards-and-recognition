@@ -11,6 +11,7 @@ public class RewardsCriteriaId implements Serializable {
 
     @ApiModelProperty(notes = "The ID of reward")
     private long rewardId;
+
     @ApiModelProperty(notes = "The ID of criteria")
     private long criteriaId;
 

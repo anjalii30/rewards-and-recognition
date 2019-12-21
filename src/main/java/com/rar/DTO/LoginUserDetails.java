@@ -12,23 +12,30 @@ public class LoginUserDetails implements Serializable {
 
     @ApiModelProperty(notes = "emailID of the user")
     private String email;
+
     @ApiModelProperty(notes = "Name of the user")
     private String name;
+
     @ApiModelProperty(notes = "The Image URL of the user")
     private String imageUrl;
+
     @ApiModelProperty(notes = "The generated token of the user")
     private String generatedToken;
+
     @ApiModelProperty(notes = "The role of the user")
     private RoleEnum roleEnum;
+
     @ApiModelProperty(notes = "The designation of the User")
     private DesignationEnum designationEnum;
+
     @ApiModelProperty(notes = "The id of the User")
     private Long uid;
+
     @ApiModelProperty(notes = "Stores whether the employee is manager or not")
     private Boolean isManager;
+
     @ApiModelProperty(notes = "The balance in the wallet of user")
     private Long wallet;
-
 
     public LoginUserDetails(String email, String name, String imageUrl, String generatedToken, RoleEnum roleEnum, DesignationEnum designationEnum, Long uid, Boolean isManager, Long wallet) {
         this.email = email;

@@ -1,15 +1,22 @@
 package com.rar.DTO;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 
+@ApiModel(value = "DTO for user nominations")
 public class UserNominationDetails implements Serializable {
 
+    @ApiModelProperty(value = "The id of user")
     private long userId;
 
+    @ApiModelProperty(value = "The reason for nomination")
     private String reason;
 
+    @ApiModelProperty(value = "The name of the user")
     private String userName;
 
+    @ApiModelProperty(value = "boolean for whether the user is selected or not")
     private Boolean selected;
 
     public UserNominationDetails(long userId, String reason, String userName, Boolean selected) {
