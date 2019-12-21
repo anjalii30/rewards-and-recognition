@@ -96,6 +96,21 @@ public class ProjectServiceImpl implements ProjectService {
             return new ResponseEntity(data,HttpStatus.OK);
     }
 
+
+    @Override
+    public void addManager(String employeeEmail, Long projectId) {
+
+        Long managerId = managerRepository.findByEmail(employeeEmail);
+        if(managerId == null){
+            managerRepository.managerInsert(employeeEmail);
+            managerId= managerRepository.findByEmail(employeeEmail);
+            managerRepository.assignValues(managerId,projectId);
+        }
+        else {
+            managerRepository.assignValues(managerId,projectId);
+        }
+    }
+
     @Override
     public Long getIdByProject(String projectName) throws Exception {
 
@@ -138,21 +153,40 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
+    public void editManagerForProject(ManagerProjectsPojo managerProjectsPojo) {
+            Long projectId = managerProjectsPojo.getProjectId();
+            int temp=0;
+            String managerEmail = managerProjectsPojo.getManagerEmail();
+            System.out.println("line 159"+projectId+"line 159"+managerEmail);
+            String currentWorkingEmployees[] =projectRepository.getEmployeesById(projectId);
+                for(int i=0; i<currentWorkingEmployees.length;i++) {
+                    if (managerEmail.equals(currentWorkingEmployees[i])) {
+                        Long userId = userRepository.getUserId(currentWorkingEmployees[i]);
+                        projectRepository.deleteUser(userId, projectId);
+                        projectService.addManager(currentWorkingEmployees[i], projectId);
+                        temp = 1;
+                        break;
+                    }
+                }
+                    if(temp==0) {
+                             projectService.addManager(managerEmail,projectId);
+                    }
+                }
+
+
+
+    @Override
     public ResponseEntity<UserInfo[]> findById(Long projectId) {
 
             return new ResponseEntity(projectRepository.getUsersById(projectId),HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<Object[]> findManagerById(Long projectId) {
-       Long[] managerId = projectRepository.getManagerId(projectId);
-       List list=new ArrayList();
-       for(int i=0; i<managerId.length;i++){
-           list.add(projectRepository.getManagerDetails(managerId[i]));
+    public ResponseEntity<UserInfo[]> findManagerById(Long projectId) {
+        Long managerId = projectRepository.getManagerId(projectId);
+        return new ResponseEntity(projectRepository.getManagerDetails(managerId),HttpStatus.OK);
        }
 
-       return new ResponseEntity(list,HttpStatus.OK);
-    }
 
     @Override
     public ResponseEntity<UserInfo[]>findNotInId(Long projectId) {

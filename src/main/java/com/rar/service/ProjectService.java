@@ -23,9 +23,13 @@ public interface ProjectService {
 
     void deleteManagerFromProject(ManagerProjectsPojo managerProjectsPojo);
 
+    void editManagerForProject(ManagerProjectsPojo managerProjectsPojo);
+
+    void addManager(String employeeEmail,Long projectId);
+
     ResponseEntity<UserInfo[]> findById(Long projectId);
 
-    ResponseEntity<Object[]>findManagerById(Long projectId);
+    ResponseEntity<UserInfo[]>findManagerById(Long projectId);
 
     ResponseEntity<UserInfo[]> findNotInId(Long projectId);
 
