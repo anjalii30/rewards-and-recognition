@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @IdClass(RewardsCriteriaId.class)
@@ -16,7 +17,7 @@ public class RewardsCriteria {
     @Id
     @Column(name = "reward_id")
     @ApiModelProperty(notes = "The ID of Reward")
-    @NotEmpty
+    @NotNull
     private long rewardId;
     @Id
     @Column(name = "criteria_id")
