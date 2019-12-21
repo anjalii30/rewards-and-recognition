@@ -97,7 +97,7 @@ public class NominationsServiceImpl implements NominationsService {
     @Override
     public void awardeeSelect(Map<String, Long[]> n1Id) throws IOException, MessagingException, TemplateException {
 
-        Long[] nominationID= n1Id.get("nomination_id");
+        Long[] nominationID= n1Id.get("nominationId");
 
         String[] emails=userRepository.getAllEmails();
 
