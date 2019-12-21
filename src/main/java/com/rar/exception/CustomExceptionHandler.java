@@ -21,13 +21,13 @@ import java.util.Map;
 @ControllerAdvice
 public class CustomExceptionHandler extends ResponseEntityExceptionHandler
 {
-    /*@ExceptionHandler(Exception.class)
+    @ExceptionHandler(Exception.class)
     public final ResponseEntity<Object> handleAllExceptions(Exception ex, WebRequest request) {
         List<String> details = new ArrayList<>();
         details.add(ex.getLocalizedMessage());
         ErrorResponse error = new ErrorResponse("Server Error", details);
         return new ResponseEntity(error, HttpStatus.INTERNAL_SERVER_ERROR);
-    }*/
+    }
 
 
     @ExceptionHandler(RecordNotFoundException.class)
@@ -72,6 +72,7 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler
     }*/
 
     @Override
+   // @ResponseStatus(HttpStatus.BAD_REQUEST)
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         List<String> details = new ArrayList<>();
         List<String> field=new ArrayList<>();

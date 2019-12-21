@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 
+
 @Entity
 @IdClass(RewardsCriteriaId.class)
 @Table(name = "rewards_criteria")
@@ -16,7 +17,6 @@ public class RewardsCriteria {
     @Id
     @Column(name = "reward_id")
     @ApiModelProperty(notes = "The ID of Reward")
-
     private long rewardId;
     @Id
     @Column(name = "criteria_id")
