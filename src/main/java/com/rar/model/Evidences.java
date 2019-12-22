@@ -11,7 +11,7 @@ import javax.persistence.*;
 public class Evidences {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "evidence_id")
     @ApiModelProperty(notes = "The database generated evidenceID")
     private Long evidenceID;
