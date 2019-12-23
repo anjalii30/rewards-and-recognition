@@ -35,9 +35,9 @@ public class LoginUserDetails implements Serializable {
     private Boolean isManager;
 
     @ApiModelProperty(notes = "The balance in the wallet of user")
-    private Long wallet;
+    private double wallet;
 
-    public LoginUserDetails(String email, String name, String imageUrl, String generatedToken, RoleEnum roleEnum, DesignationEnum designationEnum, Long uid, Boolean isManager, Long wallet) {
+    public LoginUserDetails(String email, String name, String imageUrl, String generatedToken, RoleEnum roleEnum, DesignationEnum designationEnum, Long uid, Boolean isManager, double wallet) {
         this.email = email;
         this.name = name;
         this.imageUrl = imageUrl;
@@ -53,6 +53,9 @@ public class LoginUserDetails implements Serializable {
     }
 
     public LoginUserDetails(String s, String s1, String s2, String s3, RoleEnum roleEnum, Long id) {
+    }
+
+    public LoginUserDetails(String email, String name, String imageUrl, String generatedToken, RoleEnum roleEnum, DesignationEnum designationEnum, Long id, boolean isManager, String wallet) {
     }
 
     public String getEmail() {
@@ -119,11 +122,11 @@ public class LoginUserDetails implements Serializable {
         isManager = manager;
     }
 
-    public Long getWallet() {
+    public double getWallet() {
         return wallet;
     }
 
-    public void setWallet(Long wallet) {
+    public void setWallet(double wallet) {
         this.wallet = wallet;
     }
 
