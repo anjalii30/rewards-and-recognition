@@ -1,5 +1,6 @@
 package com.rar.service.impl;
 
+import com.rar.DTO.ListRollOutEdit;
 import com.rar.DTO.RewardPojo;
 import com.rar.enums.FrequencyEnum;
 import com.rar.model.Rewards;
@@ -110,7 +111,17 @@ public class RewardsServiceImpl implements RewardsService {
       LocalDate today = LocalDate.now();
 
         Rewards CreateReward1 = rewardsRepository.findById(id).get();
-        CreateReward1.setRewardName(CreateReward1.getRewardName());
+        if(rewardPojo.getAwardStatus()==ROLLED_OUT) {
+            if (CreateReward1.getFrequency() == FrequencyEnum.Annually)
+
+                CreateReward1.setRewardName(CreateReward1.getRewardName() + " for " + year);
+
+            else
+                CreateReward1.setRewardName(CreateReward1.getRewardName() + " for " + month + " " + year);
+        }
+        else
+            CreateReward1.setRewardName(CreateReward1.getRewardName());
+      
         CreateReward1.setFrequency(CreateReward1.getFrequency());
         CreateReward1.setDescription(CreateReward1.getDescription());
         CreateReward1.setDiscontinuingDate(rewardPojo.getDiscontinuingDate());
@@ -220,13 +231,6 @@ public class RewardsServiceImpl implements RewardsService {
          String year = String.valueOf(cal.get(rewards.getStart_date().getYear()));
          System.out.println(year+month);*/
 
-            if (rewards.getFrequency() == FrequencyEnum.Annually)
-
-                rewards.setRewardName(rewards.getRewardName() + " for " + year);
-
-            else
-                rewards.setRewardName(rewards.getRewardName() + " for " + month + " " + year);
-
             Rewards rewardData = save(rewards);
 
             long id = rewards.getId();
@@ -248,11 +252,30 @@ public class RewardsServiceImpl implements RewardsService {
             return new ResponseEntity(s,HttpStatus.OK);
     }
 
-    public ResponseEntity<Rewards> rollOutListReward(long id){
-        if(rewardsRepository.findEditRollOutId(id)!= 0)
-           return new ResponseEntity(rewardsRepository.findById(rewardsRepository.findEditRollOutId(id)),HttpStatus.OK);
-        else
-           return new ResponseEntity(rewardsRepository.findById(id),HttpStatus.OK);
+    public ResponseEntity<ListRollOutEdit> rollOutListReward(long id){
+        Optional<Rewards> rewards=rewardsRepository.findById(id);
+        long rewardId = rewards.get().getRewardId();
+        Long coins = rewards.get().getCoins();
+        FrequencyEnum frequency = rewards.get().getFrequency();
+        String description = rewards.get().getDescription();
+        LocalDate endDate = rewards.get().getEndDate();
+        int nominationsAllowed = rewards.get().getNominationsAllowed();
+        List<RewardsCriteria> criteria = rewards.get().getCriteria();
+        if(rewardsRepository.findEditRollOutId(id)== 0){
+            if(rewards.get().getRewardName().contains("for ")) {
+                String rewardName = rewards.get().getRewardName().substring(0, rewards.get().getRewardName().indexOf("for ")-1);
+
+                return new ResponseEntity(new ListRollOutEdit(rewardId,rewardName,coins,frequency,description,endDate,nominationsAllowed, criteria),HttpStatus.OK);
+            }
+            else{
+                String rewardName = rewards.get().getRewardName();
+                return new ResponseEntity(new ListRollOutEdit(rewardId,rewardName,coins,frequency,description,endDate,nominationsAllowed, criteria),HttpStatus.OK);
+            }
+            }
+        else{
+            String rewardName= rewards.get().getRewardName();
+            return new ResponseEntity(new ListRollOutEdit(rewardId,rewardName,coins,frequency,description,endDate,nominationsAllowed, criteria),HttpStatus.OK);
+        }
     }
 
     public ResponseEntity<Rewards> rollOutUpdate(Long id, Rewards reward){

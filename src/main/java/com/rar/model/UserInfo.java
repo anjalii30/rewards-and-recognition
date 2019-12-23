@@ -2,13 +2,12 @@ package com.rar.model;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.text.DecimalFormat;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,7 +15,6 @@ import java.util.Set;
 @Table(name="users")
 @ApiModel(description = "All the details about User")
 public class UserInfo implements Serializable {
-    private static DecimalFormat df2 = new DecimalFormat("#.##");
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +22,7 @@ public class UserInfo implements Serializable {
     @ApiModelProperty(notes = "The database generated User ID")
     private Long userId;
 
-    @NotEmpty
+    @NotNull
     @Email
     @Size(max = 100)
     @Column(unique = true)
@@ -32,11 +30,10 @@ public class UserInfo implements Serializable {
     private String email;
 
     @Column(name = "wallet")
-    private double wallet=0;
+    private Long wallet;
 
     @Column(nullable = false)
     @ApiModelProperty(notes = "The name of the User")
-    @NotEmpty
     private String name;
 
     @Column
@@ -47,6 +44,19 @@ public class UserInfo implements Serializable {
     @ApiModelProperty(notes = "The URL for user's Image")
     private String imageUrl;
 
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            })
+
+    @JoinTable(
+            name = "user_manager",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "manager_id")}
+    )
+
+    private Set<Manager> manager = new HashSet<>();
 
     //DESIGNATION
 
@@ -95,12 +105,13 @@ public class UserInfo implements Serializable {
 
     }
 
-    public UserInfo(Long userId, @NotNull @Email @Size(max = 100) String email, String name, Boolean firstSign, String imageUrl,Set<Designation> designation, Set<Roles> roles, Set<Projects> projects) {
+    public UserInfo(Long userId, @NotNull @Email @Size(max = 100) String email, String name, Boolean firstSign, String imageUrl, Set<Manager> manager, Set<Designation> designation, Set<Roles> roles, Set<Projects> projects) {
         this.userId = userId;
         this.email = email;
         this.name = name;
         this.firstSign = firstSign;
         this.imageUrl = imageUrl;
+        this.manager = manager;
         this.designation = designation;
         this.roles = roles;
         this.projects = projects;
@@ -146,6 +157,14 @@ public class UserInfo implements Serializable {
         this.imageUrl = imageUrl;
     }
 
+    public Set<Manager> getManager() {
+        return manager;
+    }
+
+    public void setManager(Set<Manager> manager) {
+        this.manager = manager;
+    }
+
 
     public Set<Designation> getDesignation() {
         return designation;
@@ -171,11 +190,11 @@ public class UserInfo implements Serializable {
         this.projects = projects;
     }
 
-    public String getWallet() {
-        return df2.format(wallet);
+    public Long getWallet() {
+        return wallet;
     }
 
-    public void setWallet(double wallet) {
+    public void setWallet(Long wallet) {
         this.wallet = wallet;
     }
 
@@ -187,6 +206,7 @@ public class UserInfo implements Serializable {
                 ", name='" + name + '\'' +
                 ", firstSign=" + firstSign +
                 ", imageUrl='" + imageUrl + '\'' +
+                ", manager=" + manager +
                 ", designation=" + designation +
                 ", roles=" + roles +
                 ", projects=" + projects +

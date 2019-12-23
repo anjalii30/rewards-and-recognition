@@ -1,5 +1,6 @@
 package com.rar.service;
 
+import com.rar.DTO.ListRollOutEdit;
 import com.rar.DTO.RewardPojo;
 import com.rar.model.Rewards;
 import com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException;
@@ -28,7 +29,7 @@ public interface RewardsService {
 
     ResponseEntity<List<Rewards>>  managerApprovalRewards(String email);
 
-    ResponseEntity<Rewards> rollOutListReward(long id);
+    ResponseEntity<ListRollOutEdit> rollOutListReward(long id);
 
     ResponseEntity<Rewards> rollOutUpdate(Long id, Rewards reward);
 }
