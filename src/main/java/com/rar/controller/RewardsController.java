@@ -52,7 +52,7 @@ public class RewardsController {
     public ResponseEntity<Rewards> save(@RequestHeader(value = "Authorization") String token ,@ApiParam(value = "Reward object store in database table", required = true) @Valid @RequestBody Rewards rewards) throws IncorrectFieldException{
           try {
               validity.check(token);
-              return new ResponseEntity(rewardsService.rewardsSave(rewards), HttpStatus.OK);
+              return new ResponseEntity(rewardsService.rewardsSave(rewards,false), HttpStatus.OK);
           }catch (IncorrectFieldException e) {
               throw new IncorrectFieldException("Incorrect fields given");
           }

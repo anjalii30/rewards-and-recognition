@@ -146,6 +146,8 @@ public class LoginServiceImpl implements LoginService {
         for(int i =0;i<userInfos.size();i++){
             userInfoList.add(i, new LoginUserDetails(userInfos.get(i).getEmail(), userInfos.get(i).getName(), userInfos.get(i).getImageUrl(), userInfos.get(i).getId()));
         }
+        if (userInfos.size()==0)
+            userInfoList=new ArrayList<>();
         return new ResponseEntity<>(userInfoList,HttpStatus.OK);
 
     }

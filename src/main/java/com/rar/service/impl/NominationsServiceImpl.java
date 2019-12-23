@@ -95,20 +95,25 @@ public class NominationsServiceImpl implements NominationsService {
     }
 
     @Override
-    public void awardeeSelect(Map<String, Long[]> n1Id) throws IOException, MessagingException, TemplateException {
+    public void awardeeSelect(Map<String, Long[]> nominationId) throws IOException, MessagingException, TemplateException {
 
-        Long[] nominationID= n1Id.get("nominationId");
+
+        Long[] nominationID= nominationId.get("nominationId");
 
         String[] emails=userRepository.getAllEmails();
 
         for (int i = 0; i < nominationID.length; i++) {
-
+            System.out.println(nominationID[i]);
             nominationsRepository.awardeeSelect(nominationID[i]);
+            System.out.println("test");
             rewardsRepository.updateAwardStatus(PUBLISHED,nominationsRepository.getRewardId(nominationID[i]));
+            System.out.println("abc");
 
             for (int j = 0; j < emails.length; j++) {
                 String name=userRepository.getName(emails[j]);
+                System.out.println(name);
                 String rewardName=nominationsRepository.getRewardName(nominationID[i]);
+                System.out.println(rewardName);
                 String userName=nominationsRepository.getUserName(nominationID[i]);
                 String image =userRepository.getImage(nominationsRepository.userId(nominationID[i]));
 
@@ -186,6 +191,8 @@ public class NominationsServiceImpl implements NominationsService {
                 }
                 histories.add(i,new History(nominationsRepository.rewardName(rewardId[i]),userNominationDetailsList));
         }
+        if (rewardId.length== 0)
+            histories= new ArrayList<>();
 
         return new ResponseEntity<>(histories,HttpStatus.OK);
     }
