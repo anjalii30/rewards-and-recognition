@@ -203,8 +203,8 @@ public class ProjectServiceImpl implements ProjectService {
 
             Map map = new HashMap();
 
-            map.put("project_id", project.getProjectId());
-            map.put("project_name", project.getProjectName());
+            map.put("projectId", project.getProjectId());
+            map.put("projectName", project.getProjectName());
             map.put("count", projectRepository.getCount(project.getProjectId()));
 
             parent.add(map);

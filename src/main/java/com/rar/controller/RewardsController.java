@@ -48,6 +48,7 @@ public class RewardsController {
     @ApiOperation(value = "Save the rewards")
     @PostMapping("/save")
     public ResponseEntity<Rewards> save(@RequestHeader(value = "Authorization") String token ,@ApiParam(value = "Reward object store in database table", required = true) @Valid @RequestBody Rewards rewards) throws IncorrectFieldException{
+
         validity.check(token);
         return new ResponseEntity(rewardsService.rewardsSave(rewards), HttpStatus.OK);
     }
