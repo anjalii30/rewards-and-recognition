@@ -105,7 +105,7 @@ public class LoginServiceImpl implements LoginService {
                     userInfo1.setDesignation(userInfo1.getDesignation());
                     userInfo1.setRoles(userInfo1.getRoles());
                     userInfo1.setId(userInfo1.getId());
-                    userInfo1.setWallet(Double.valueOf(userInfo1.getWallet()));
+                    userInfo1.setWallet(userInfo1.getWallet());
                     userRepository.save(userInfo1);
 
                     String generatedToken=generateJWT.generateToken(email);
@@ -170,10 +170,10 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public Long getIdByName(String userEmail) {
-        return userRepository.getIdByEmail(userEmail);
+    public Long getIdByName(String user_email) {
+        return userRepository.getIdByEmail(user_email);
     }
 
 
-    
+
 }

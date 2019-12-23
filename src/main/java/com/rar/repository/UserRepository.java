@@ -131,6 +131,11 @@ public interface UserRepository extends CrudRepository< UserInfo,Long> {
 
     @Query(value = "select name from users where user_id=?1", nativeQuery = true)
     String getUserName(long userId);
+
+    @Modifying
+    @Transactional
+    @Query(value="insert into users (wallet) values (0) where user_id=?1",nativeQuery = true)
+    void makeWalletZero(long userId);
 }
 
 
