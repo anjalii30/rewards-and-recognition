@@ -244,7 +244,6 @@ public class RewardsServiceImpl implements RewardsService {
             }
 
             HashMap<String, Object> s = new HashMap<>();
-            s.put("criteria", rewardsCriteria);
             s.put("rewards", rewards);
             return new ResponseEntity(s,HttpStatus.OK);
     }
