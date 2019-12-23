@@ -260,7 +260,6 @@ public class ScheduleRewards {
         }
 
     }
-/*
     //Checking everyday at 9 a.m. to Roll out after reward has been edited after roll out
   @Scheduled(cron = "0 0 9 * * ?  ")
 //    @Scheduled(cron = "0 * * ? * * ")
@@ -281,18 +280,23 @@ public class ScheduleRewards {
 
                 if(rewards.get(i).getFrequency()==FrequencyEnum.Monthly){
                     rewardsRepository.updateEndDateRolledOutEdit(rewardId,today.plusMonths(1));
-                    rewardsRepository.updateRewardName(rewardId,rewards.get(i).getRewardName().replaceFirst(month,month).replaceFirst(year,year););
+                    rewardsRepository.updateRewardName(rewardId,rewards.get(i).getRewardName().replaceFirst(month,month).replaceFirst(year,year));
                 }
                 else
                 if(rewards.get(i).getFrequency()==FrequencyEnum.Quarterly){
-                    rewardsRepository.updateEndDateRolledOutEdit(rewardId,today.plusMonths(4));}
+                    rewardsRepository.updateEndDateRolledOutEdit(rewardId,today.plusMonths(4));
+                    rewardsRepository.updateRewardName(rewardId,rewards.get(i).getRewardName().replaceFirst(month,month).replaceFirst(year,year));
+
+                }
                 else
                 if(rewards.get(i).getFrequency()==FrequencyEnum.Annually){
-                    rewardsRepository.updateEndDateRolledOutEdit(rewardId,today.plusYears(1));}
+                    rewardsRepository.updateEndDateRolledOutEdit(rewardId,today.plusYears(1));
+                    rewardsRepository.updateRewardName(rewardId,rewards.get(i).getRewardName().replaceFirst(year,year));
+                }
 
             }
         }
-    }*/
+    }
 //set award status 2 where end date is passed everyday at 9 am
   @Scheduled(cron = "0 0 9 * * ?  ")
     public void endDatePassed(){
