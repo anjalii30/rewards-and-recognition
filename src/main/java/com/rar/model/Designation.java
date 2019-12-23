@@ -1,6 +1,5 @@
 package com.rar.model;
 
-import com.rar.enums.DesignationEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import javax.persistence.*;
@@ -21,10 +20,9 @@ public class Designation implements Serializable {
     private long designationId;
 
     @Column(name="designation",nullable = false)
-    @Enumerated(EnumType.STRING)
     @NotEmpty
     @ApiModelProperty(notes = "Designation name")
-    private DesignationEnum designation;
+    private String designation;
 
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
@@ -38,7 +36,7 @@ public class Designation implements Serializable {
     public Designation() {
     }
 
-    public Designation(long designationId, DesignationEnum designation) {
+    public Designation(long designationId, String designation) {
         this.designationId = designationId;
         this.designation = designation;
     }
@@ -51,11 +49,11 @@ public class Designation implements Serializable {
             this.designationId = did;
     }
 
-    public DesignationEnum getDesignation() {
+    public String getDesignation() {
         return designation;
     }
 
-    public void setDesignation(DesignationEnum designation) {
+    public void setDesignation(String designation) {
         this.designation = designation;
     }
 

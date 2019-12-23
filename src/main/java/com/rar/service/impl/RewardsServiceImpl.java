@@ -121,7 +121,7 @@ public class RewardsServiceImpl implements RewardsService {
         }
         else
             CreateReward1.setRewardName(CreateReward1.getRewardName());
-      
+
         CreateReward1.setFrequency(CreateReward1.getFrequency());
         CreateReward1.setDescription(CreateReward1.getDescription());
         CreateReward1.setDiscontinuingDate(rewardPojo.getDiscontinuingDate());
@@ -151,24 +151,20 @@ public class RewardsServiceImpl implements RewardsService {
 
             for (int i = 0; i < emails.length; i++) {
                 String name=userRepository.getName(emails[i]);
-                System.out.println(emails[i]);
                 sendEmail.sendEmailWithoutAttachment(emails[i], "New Reward rolled out",
                         "Hello, " + name + ". A new reward " +reward_name.toUpperCase() + " has been rolled out. Go, check it out and nominate..!!");
             }
         }
         else
             if(rewardPojo.getAwardStatus()==DISCONTINUED){
-
-                String rewardName = rewardsRepository.getRewardName(id);
-                String reason=rewardPojo.getDiscontinuingReason();
+                
                 String[] emails=managerRepository.getAllEmails();
-                System.out.println(id);
-                System.out.println(rewardName);
+
                 for (int i = 0; i < emails.length; i++) {
                     String name=userRepository.getName(emails[i]);
                     System.out.println(emails[i]);
                     sendEmail.sendEmailWithoutAttachment(emails[i], "Reward discontinued",
-                            "Hello, " + name + ". " +rewardName.toUpperCase() + " has been discontinued because "+reason);
+                            "Hello, " + name + ". " +rewardsRepository.getRewardName(id).toUpperCase() + " has been discontinued because "+rewardPojo.getDiscontinuingReason());
                 }
             }
         return ResponseEntity.ok(update);
