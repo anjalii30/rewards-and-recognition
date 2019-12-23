@@ -2,10 +2,9 @@ package com.rar.controller;
 
 import com.rar.DTO.CreateProjectPojo;
 import com.rar.DTO.ManagerProjectsPojo;
-import com.rar.exception.IncorrectFieldException;
+import com.rar.DTO.UserProjectsPojo;
 import com.rar.exception.RecordNotFoundException;
 import com.rar.model.Projects;
-import com.rar.DTO.UserProjectsPojo;
 import com.rar.model.UserInfo;
 import com.rar.repository.ManagerRepository;
 import com.rar.repository.ProjectRepository;
@@ -51,12 +50,8 @@ public class ProjectController {
     @ApiOperation(value = "Save the new project")
     @PostMapping("/projectSave")
     public ResponseEntity<Projects> save(@RequestHeader(value = "Authorization") String token ,@ApiParam(value = "Project object store in database table", required = true) @Valid @RequestBody Projects projects){
-       try {
-           validity.check(token);
+            validity.check(token);
            return new ResponseEntity(projectService.projectSave(projects),HttpStatus.OK);
-       } catch (IncorrectFieldException e) {
-           throw new IncorrectFieldException("Incorrect fields given");
-       }
     }
 
     /**
@@ -103,8 +98,12 @@ public class ProjectController {
                 throw new RecordNotFoundException("project id not found");
     }
 
-
-
+    /**
+     *
+     * @param token
+     * @param id
+     * @return assigned manager for a particular project
+     */
     @ApiOperation(value = "Get managers assigned to the project")
     @GetMapping("/assignedManager/{id}")
     public ResponseEntity<UserInfo[]> ManagerForProject(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Project Id to get managers of the project", required = true) @PathVariable Long id) {
@@ -114,6 +113,7 @@ public class ProjectController {
                else
                    throw new RecordNotFoundException("project id not found");
     }
+
     /**
      * @param token jwt token
      * @param id project id
@@ -124,36 +124,42 @@ public class ProjectController {
     @GetMapping("/listNotAssigned/{id}")
     public  ResponseEntity<UserInfo[]>  UsersNotInProject(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Project Id to get managers of the project", required = true) @PathVariable Long id) {
         validity.check(token);
-
         if(projectRepository.existsById(id))
         return new ResponseEntity(projectService.findNotInId(id),HttpStatus.OK);
         else
             throw new RecordNotFoundException("project id not found");
     }
 
+    /**
+     *
+     * @param token
+     * @param managerProjectsPojo
+     * @return details of added manager into project
+     * @throws Exception
+     */
     @PostMapping("editManagerForProject")
     public ResponseEntity<?> editManagerForProject(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Project name and manager email",required = true)@Valid @RequestBody ManagerProjectsPojo managerProjectsPojo) throws Exception{
-        try {
             validity.check(token);
             projectService.editManagerForProject(managerProjectsPojo);
             Long projectId = managerProjectsPojo.getProjectId();
             return new ResponseEntity(projectService.findManagerById(projectId), HttpStatus.OK);
-            }catch (IncorrectFieldException e) {
-            throw new IncorrectFieldException("Incorrect fields given");
-        }
-
     }
+
+    /**
+     *
+     * @param token
+     * @param managerProjectsPojo
+     * @return The details of manager for particular project
+     * @throws Exception
+     */
     @DeleteMapping("/deleteManagerFromProject")
     public ResponseEntity<?> deleteManagerFromProject(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Project name and manager email",required = true)@Valid @RequestBody ManagerProjectsPojo managerProjectsPojo) throws Exception {
-        try {
             validity.check(token);
             Long projectId = managerProjectsPojo.getProjectId();
             projectService.deleteManagerFromProject(managerProjectsPojo);
             return new ResponseEntity(projectService.findManagerById(projectId), HttpStatus.OK);
-        } catch (IncorrectFieldException e) {
-            throw new IncorrectFieldException("Incorrect fields given");
-        }
     }
+
     /**
      * @param token jwt token
      * @param userProjectsPojo object
@@ -162,15 +168,10 @@ public class ProjectController {
     @ApiOperation(value = "Assign project to users")
     @PostMapping("/assignProjects")
     public ResponseEntity<?> assignProjects(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Project name and employee emails ", required = true) @Valid @RequestBody UserProjectsPojo userProjectsPojo) throws Exception {
-
-        try {
             validity.check(token);
             projectService.assign(userProjectsPojo);
             Long projectId = userProjectsPojo.getProjectId();
             return new ResponseEntity(projectService.findById(projectId), HttpStatus.OK);
-        }catch (IncorrectFieldException e) {
-            throw new IncorrectFieldException("Incorrect fields given");
-        }
     }
 
     /**
@@ -181,12 +182,8 @@ public class ProjectController {
     @ApiOperation(value = "Create a project")
     @PostMapping("/createProject")
     public ResponseEntity<CreateProjectPojo>createProject(@RequestHeader(value = "Authorization") String token,@RequestBody CreateProjectPojo createProjectPojo){
-       try {
            validity.check(token);
            return new ResponseEntity(projectService.createProject(createProjectPojo),HttpStatus.OK);
-       }catch (IncorrectFieldException e) {
-           throw new IncorrectFieldException("Incorrect fields given");
-       }
     }
 
     /**
@@ -203,8 +200,6 @@ public class ProjectController {
         Long projectId = userProjectsPojo.getProjectId();
         return new ResponseEntity(projectService.findById(projectId),HttpStatus.OK);
     }
-
-
 
     /**
      * @param token jwt token

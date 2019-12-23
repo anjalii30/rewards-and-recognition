@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 
 @Repository
@@ -59,7 +58,6 @@ public interface ProjectRepository  extends CrudRepository<Projects,Long> {
 
     @Query(value="select email,name from users where user_id not in (select user_id from user_projects) and user_id in(select user_id from user_roles where role_id=1)",nativeQuery =true )
     Object[] unAssignedUsers();
-
 
     @Query(value = "select count(project_id) from manager_projects where manager_id= ?1 and project_id= ?2",nativeQuery =true )
     long managerProjectPresent(long managerId, long projectId);

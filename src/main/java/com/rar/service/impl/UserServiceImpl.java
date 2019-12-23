@@ -1,9 +1,11 @@
 package com.rar.service.impl;
 
-import com.rar.model.*;
 import com.rar.DTO.DesignationSelected;
 import com.rar.DTO.EditUserDetails;
 import com.rar.DTO.ProjectDetailsUser;
+import com.rar.model.Designation;
+import com.rar.model.Projects;
+import com.rar.model.UserInfo;
 import com.rar.repository.*;
 import com.rar.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +13,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import static com.rar.utils.Constants.*;
+
+import java.text.DecimalFormat;
 import java.util.*;
+
+import static com.rar.utils.Constants.ROLE_EMPLOYEE;
 
 @Service
 @Transactional
@@ -33,6 +38,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private NominationsRepository nominationsRepository;
 
+    private static DecimalFormat df2 = new DecimalFormat("#.##");
 
     public ResponseEntity userSave(EditUserDetails editUserDetails) {
 
@@ -210,21 +216,29 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResponseEntity getCoinsDetails(String email) {
         Long userId=userRepository.getIdByEmail(email);
+        System.out.println(email+" "+userId);
         Long[] rewardId=nominationsRepository.getRewardIdForUser(userId);
+
 
         List list=new ArrayList();
         for(int i=0;i<rewardId.length;i++){
+
+            System.out.println(rewardId.length +" length");
+            System.out.println(rewardId[i] + " rewrdid");
+
             Long count=nominationsRepository.getCount(rewardId[i]);
             Long rewardCoinValue = rewardsRepository.getCoinValue(rewardId[i]);
-            Long wonCoinValue = rewardCoinValue/count;
-            System.out.println(count+" "+rewardCoinValue+" "+wonCoinValue);
+            double wonCoinValue = rewardCoinValue/count;
 
+            System.out.println(count+" count "+rewardCoinValue+" reward value "+wonCoinValue+" won value");
             Map map=new HashMap();
             map.put("reward name",rewardsRepository.getRewardName(rewardId[i]));
             map.put("reward value",rewardCoinValue);
-            map.put("coins earned",wonCoinValue);
+            map.put("coins earned",df2.format(wonCoinValue));
+
 
             list.add(map);
+
         }
         return new ResponseEntity(list,HttpStatus.OK);
     }

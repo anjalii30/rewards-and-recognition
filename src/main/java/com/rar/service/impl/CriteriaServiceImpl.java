@@ -38,5 +38,4 @@ public class CriteriaServiceImpl implements CriteriaService {
     public ResponseEntity<Criteria> findById(Long id) {
         return new ResponseEntity(criteriaRepository.findById(id),HttpStatus.OK);
     }
-
 }

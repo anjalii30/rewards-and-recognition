@@ -18,6 +18,7 @@ public class RewardsCriteria {
     @Column(name = "reward_id")
     @ApiModelProperty(notes = "The ID of Reward")
     private long rewardId;
+
     @Id
     @Column(name = "criteria_id")
     @ApiModelProperty(notes = "The ID of Criteria")

@@ -3,15 +3,12 @@ package com.rar.service.impl;
 import com.rar.exception.InvalidTokenException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import java.util.Date;
 import static com.rar.utils.Constants.*;
 
 @Service
 public class CheckValidity  {
-
-
 
     public String check(String token) {
 
@@ -34,5 +31,4 @@ public class CheckValidity  {
                 .getBody();
         return claims;
     }
-
 }

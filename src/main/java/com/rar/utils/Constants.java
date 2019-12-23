@@ -2,6 +2,8 @@ package com.rar.utils;
 
 import org.springframework.beans.factory.annotation.Value;
 
+import java.text.DecimalFormat;
+
 public final class Constants {
 
     public final static Integer CREATED = 0;
@@ -18,4 +20,5 @@ public final class Constants {
     @Value("${jwt.secret}")
     public final static String secret = "xsNxAnioE69S0DZ4YUVUrCzR";
 
+    private static DecimalFormat df2 = new DecimalFormat("#.##");
 }

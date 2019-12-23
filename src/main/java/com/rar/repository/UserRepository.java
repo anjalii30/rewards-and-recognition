@@ -13,7 +13,6 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends CrudRepository< UserInfo,Long> {
 
-
     @Query(value = "DELETE from users where email = ?1", nativeQuery = true)
     void deleteByEmail(String email);
 
@@ -31,7 +30,6 @@ public interface UserRepository extends CrudRepository< UserInfo,Long> {
 
     @Query(value="select * from users",nativeQuery = true)
     List findAllUsers();
-
 
     @Modifying
     @Transactional
@@ -58,6 +56,7 @@ public interface UserRepository extends CrudRepository< UserInfo,Long> {
 
     @Query(value="select manager_id from managers where manager_email=?1",nativeQuery = true)
     Long findManagerId(String email);
+
     @Query(value="select name from users where user_id=?1",nativeQuery = true)
     String getNameById(Long userId);
 
@@ -120,7 +119,7 @@ public interface UserRepository extends CrudRepository< UserInfo,Long> {
     @Modifying
     @Transactional
     @Query(value = "update users set wallet=?1 where user_id=?2",nativeQuery = true)
-    void updateWalletBalance(Long wallet,Long userId);
+    void updateWalletBalance(double wallet,Long userId);
 
     @Modifying
     @Transactional

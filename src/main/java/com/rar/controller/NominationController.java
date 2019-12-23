@@ -2,7 +2,6 @@ package com.rar.controller;
 
 import com.rar.DTO.History;
 import com.rar.DTO.NominationPojo;
-import com.rar.exception.IncorrectFieldException;
 import com.rar.exception.RecordNotFoundException;
 import com.rar.model.Nominations;
 import com.rar.model.Rewards;
@@ -20,13 +19,11 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import javax.mail.MessagingException;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-
 
 @RestController
 @EnableAutoConfiguration
@@ -56,14 +53,10 @@ public class NominationController {
     @ApiOperation(value = "Save the nomination")
     @PostMapping("/saveNomination")
     public ResponseEntity nominationSave(@RequestHeader(value = "Authorization") String token , @ApiParam(value = "Nomination object store in database table", required = true) @Valid @RequestBody List<NominationPojo> nominationPojo) {
-        try {
-            String email = validity.check(token);
-            Long manager_id = managerRepository.findByEmail(email);
-            nominationsService.nominationSave(nominationPojo, manager_id);
-            return new ResponseEntity<>(nominationPojo, HttpStatus.OK);
-        }catch (IncorrectFieldException e) {
-            throw new IncorrectFieldException("Incorrect fields given");
-        }
+               String email = validity.check(token);
+               Long manager_id = managerRepository.findByEmail(email);
+               nominationsService.nominationSave(nominationPojo, manager_id);
+               return new ResponseEntity<>(nominationPojo, HttpStatus.OK);
     }
 
     /**
@@ -159,5 +152,4 @@ public class NominationController {
         String email=validity.check(token);
         return new ResponseEntity(nominationsService.history(email),HttpStatus.OK);
     }
-
 }

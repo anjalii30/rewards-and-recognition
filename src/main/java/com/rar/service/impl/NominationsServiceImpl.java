@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.mail.MessagingException;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -44,7 +45,7 @@ public class NominationsServiceImpl implements NominationsService {
     private SendEmail sendEmail;
     @Autowired
     private NominationsService nominationsService;
-
+    private static DecimalFormat df2 = new DecimalFormat("#.##");
 
     @Override
     public ResponseEntity<?> nominationSave(List<NominationPojo> nominationPojo, Long managerId) {
@@ -99,6 +100,7 @@ public class NominationsServiceImpl implements NominationsService {
 
 
         Long[] nominationID= nominationId.get("nominationId");
+
 
         String[] emails=userRepository.getAllEmails();
 
@@ -169,11 +171,11 @@ public class NominationsServiceImpl implements NominationsService {
        int count = nominationID.length;
        Long rewardId=nominationsRepository.getRewardId(nominationID[0]);
        Long rewardCoinValue = rewardsRepository.getCoinValue(rewardId);
-       Long wonCoinValue = rewardCoinValue/count;
+       double wonCoinValue = (rewardCoinValue/count);
        for(int i=0; i<nominationID.length;i++){
            Long userId = nominationsRepository.userId(nominationID[i]);
-           Long currentWalletBalance = userRepository.getWalletBalance(userId);
-           Long newWalletBalance = currentWalletBalance + wonCoinValue;
+           double currentWalletBalance = userRepository.getWalletBalance(userId);
+           double newWalletBalance = currentWalletBalance + wonCoinValue;
            userRepository.updateWalletBalance(newWalletBalance,userId);
        }
     }

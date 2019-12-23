@@ -2,13 +2,13 @@ package com.rar.model;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,6 +16,7 @@ import java.util.Set;
 @Table(name="users")
 @ApiModel(description = "All the details about User")
 public class UserInfo implements Serializable {
+    private static DecimalFormat df2 = new DecimalFormat("#.##");
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +32,7 @@ public class UserInfo implements Serializable {
     private String email;
 
     @Column(name = "wallet")
-    private Long wallet= Long.valueOf(0);
+    private double wallet=0;
 
     @Column(nullable = false)
     @ApiModelProperty(notes = "The name of the User")
@@ -100,7 +101,6 @@ public class UserInfo implements Serializable {
         this.name = name;
         this.firstSign = firstSign;
         this.imageUrl = imageUrl;
-
         this.designation = designation;
         this.roles = roles;
         this.projects = projects;
@@ -171,11 +171,11 @@ public class UserInfo implements Serializable {
         this.projects = projects;
     }
 
-    public Long getWallet() {
-        return wallet;
+    public String getWallet() {
+        return df2.format(wallet);
     }
 
-    public void setWallet(Long wallet) {
+    public void setWallet(double wallet) {
         this.wallet = wallet;
     }
 

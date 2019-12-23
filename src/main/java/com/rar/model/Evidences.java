@@ -3,7 +3,6 @@ package com.rar.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
 import javax.persistence.*;
 
 @Entity
@@ -12,7 +11,7 @@ import javax.persistence.*;
 public class Evidences {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "evidence_id")
     @ApiModelProperty(notes = "The database generated evidenceID")
     private Long evidenceID;
