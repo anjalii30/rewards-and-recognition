@@ -111,7 +111,17 @@ public class RewardsServiceImpl implements RewardsService {
       LocalDate today = LocalDate.now();
 
         Rewards CreateReward1 = rewardsRepository.findById(id).get();
-        CreateReward1.setRewardName(CreateReward1.getRewardName());
+        if(rewardPojo.getAwardStatus()==ROLLED_OUT) {
+            if (CreateReward1.getFrequency() == FrequencyEnum.Annually)
+
+                CreateReward1.setRewardName(CreateReward1.getRewardName() + " for " + year);
+
+            else
+                CreateReward1.setRewardName(CreateReward1.getRewardName() + " for " + month + " " + year);
+        }
+        else
+            CreateReward1.setRewardName(CreateReward1.getRewardName());
+      
         CreateReward1.setFrequency(CreateReward1.getFrequency());
         CreateReward1.setDescription(CreateReward1.getDescription());
         CreateReward1.setDiscontinuingDate(rewardPojo.getDiscontinuingDate());
@@ -220,13 +230,6 @@ public class RewardsServiceImpl implements RewardsService {
         System.out.println(month);
          String year = String.valueOf(cal.get(rewards.getStart_date().getYear()));
          System.out.println(year+month);*/
-
-            if (rewards.getFrequency() == FrequencyEnum.Annually)
-
-                rewards.setRewardName(rewards.getRewardName() + " for " + year);
-
-            else
-                rewards.setRewardName(rewards.getRewardName() + " for " + month + " " + year);
 
             Rewards rewardData = save(rewards);
 
