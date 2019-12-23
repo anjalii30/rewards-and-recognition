@@ -23,7 +23,7 @@ public interface RewardsService {
 
     ResponseEntity<List<Rewards>> findByRolled(String email);
 
-    ResponseEntity<Rewards> rewardsSave(Rewards rewards, Boolean editReward);
+    ResponseEntity<Rewards> rewardsSave(Rewards rewards);
 
     ResponseEntity<List<Rewards>> latest(String email);
 

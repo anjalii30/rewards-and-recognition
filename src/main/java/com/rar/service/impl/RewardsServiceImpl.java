@@ -213,20 +213,20 @@ public class RewardsServiceImpl implements RewardsService {
 
     }
 
-    public ResponseEntity<Rewards> rewardsSave(Rewards rewards, Boolean editReward) {
+    public ResponseEntity<Rewards> rewardsSave(Rewards rewards) {
 
 
       /*  String month = monthName[cal.get(rewards.getStart_date().getMonthValue())];
         System.out.println(month);
          String year = String.valueOf(cal.get(rewards.getStart_date().getYear()));
          System.out.println(year+month);*/
-            if (editReward==false){
+
             if (rewards.getFrequency() == FrequencyEnum.Annually)
 
                 rewards.setRewardName(rewards.getRewardName() + " for " + year);
 
             else
-                rewards.setRewardName(rewards.getRewardName() + " for " + month + " " + year);}
+                rewards.setRewardName(rewards.getRewardName() + " for " + month + " " + year);
 
             Rewards rewardData = save(rewards);
 
@@ -279,7 +279,7 @@ public class RewardsServiceImpl implements RewardsService {
     public ResponseEntity<Rewards> rollOutUpdate(Long id, Rewards reward){
         if(rewardsRepository.findEditRollOutId(id)==0 && rewardsRepository.checkingRewardInRolledOut(id)==0)
         {
-            rewardsSave(reward,true);
+            rewardsSave(reward);
             rewardsRepository.regenerationCancel(id);
             rewardsRepository.updateRolledOutColumn(id,reward.getId());
             rewardsRepository.updateRolledOutEditAwardStatus(reward.getId());
