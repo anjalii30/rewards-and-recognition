@@ -90,6 +90,9 @@ public interface UserRepository extends CrudRepository< UserInfo,Long> {
     @Query(value = "select count(manager_id) from managers where manager_email=?1", nativeQuery = true)
     int isManager(String email);
 
+    @Query(value = "select count(role_id) from user_roles where user_id=?1 and role_id=2", nativeQuery = true)
+    int isAdmin(Long userId);
+
     @Modifying
     @Transactional
     @Query(value="update user_designation set designation_id= ?2 where user_id=?1",nativeQuery = true)
@@ -136,6 +139,9 @@ public interface UserRepository extends CrudRepository< UserInfo,Long> {
     @Transactional
     @Query(value="insert into users (wallet) values (0) where user_id=?1",nativeQuery = true)
     void makeWalletZero(long userId);
+
+    @Query(value="select user_id from user_roles where role_id=2",nativeQuery = true)
+    Long[] getAdmins();
 }
 
 

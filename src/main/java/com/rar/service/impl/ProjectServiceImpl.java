@@ -10,6 +10,7 @@ import com.rar.repository.ManagerRepository;
 import com.rar.repository.ProjectRepository;
 import com.rar.repository.UserRepository;
 import com.rar.service.LoginService;
+import com.rar.service.NotificationsService;
 import com.rar.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -41,6 +42,9 @@ public class ProjectServiceImpl implements ProjectService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private NotificationsService notificationsService;
+
     @Override
     public Projects projectSave(Projects projects) {
         return projectRepository.save(projects);
@@ -53,10 +57,10 @@ public class ProjectServiceImpl implements ProjectService {
              Long projectId = userProjectsPojo.getProjectId();
 
             for(int i=0; i<employees.length;i++) {
-
                 String userName=employees[i];
                 Long userId = loginService.getIdByName(userName);
                 projectRepository.assign(userId, projectId);
+                notificationsService.newMemberAdded(userId,projectId);
        }
             return new ResponseEntity(projectService.findById(projectId), HttpStatus.OK);
 
@@ -128,13 +132,12 @@ public class ProjectServiceImpl implements ProjectService {
             for (int i = 0; i < employees.length; i++) {
 
                 Long userId = userRepository.getIdByEmail(employees[i]);
-                System.out.println(userId+"userid");
 
                 Long projectId = userProjectsPojo.getProjectId();
-                System.out.println(projectId+"projectid");
 
                 projectRepository.deleteUser(userId, projectId);
-                System.out.println("deleted");
+
+                notificationsService.MemberDeletedFromProject(userId,projectId);
             }
       /*  } catch (Exception e) {
 

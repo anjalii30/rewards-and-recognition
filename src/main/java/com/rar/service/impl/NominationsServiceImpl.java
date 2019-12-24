@@ -5,10 +5,13 @@ import com.rar.DTO.NominationPojo;
 import com.rar.DTO.UserNominationDetails;
 import com.rar.model.Evidences;
 import com.rar.model.Nominations;
+import com.rar.model.Notifications;
 import com.rar.model.Rewards;
 import com.rar.repository.*;
 import com.rar.service.NominationsService;
+import com.rar.service.NotificationsService;
 import freemarker.template.TemplateException;
+import io.swagger.annotations.ApiModelProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,15 +48,21 @@ public class NominationsServiceImpl implements NominationsService {
     private SendEmail sendEmail;
     @Autowired
     private NominationsService nominationsService;
+    @Autowired
+    private NotificationsService notificationsService;
     private static DecimalFormat df2 = new DecimalFormat("#.##");
 
     @Override
     public ResponseEntity<?> nominationSave(List<NominationPojo> nominationPojo, Long managerId) {
 
+        Long rewardId = null;
+                
         List<HashMap<String, Object>> s = new ArrayList<>();
         for(int i=0;i<nominationPojo.size();i++) {
             Nominations nominations = new Nominations();
 
+             rewardId=nominationPojo.get(i).getRewardId();
+            
                 nominations.setUserID(nominationPojo.get(i).getUserId());
                 nominations.setRewardID(nominationPojo.get(i).getRewardId());
                 nominations.setSelected(nominationPojo.get(i).isSelected());
@@ -80,7 +89,12 @@ public class NominationsServiceImpl implements NominationsService {
                 evidencesRepository.save(evidences);
             }
 
+
         }
+
+        //Notifications notifications=new Notifications();
+        notificationsService.newNominationReceived(rewardsRepository.getRewardName(rewardId),
+                managerRepository.getManagerName(managerId) );
 
        return ResponseEntity.ok(s);
     }
@@ -105,11 +119,9 @@ public class NominationsServiceImpl implements NominationsService {
         String[] emails=userRepository.getAllEmails();
 
         for (int i = 0; i < nominationID.length; i++) {
-            System.out.println(nominationID[i]);
             nominationsRepository.awardeeSelect(nominationID[i]);
-            System.out.println("test");
             rewardsRepository.updateAwardStatus(PUBLISHED,nominationsRepository.getRewardId(nominationID[i]));
-            System.out.println("abc");
+            notificationsService.winnerPublished(nominationsRepository.getRewardName(nominationID[i]),nominationsRepository.getUserName(nominationID[i]));
 
             for (int j = 0; j < emails.length; j++) {
 

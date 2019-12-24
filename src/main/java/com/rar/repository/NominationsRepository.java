@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @Repository
-public interface NominationsRepository extends CrudRepository<Nominations, String> {
+public interface NominationsRepository extends CrudRepository<Nominations, Long> {
 
     @Query(value = "select nomination_id from nominations where user_id=?1, reward_id=?2", nativeQuery = true)
     long getNominationId(String userId, long rewardId);
