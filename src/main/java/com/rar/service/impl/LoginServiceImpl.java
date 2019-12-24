@@ -1,6 +1,5 @@
 package com.rar.service.impl;
 
-import com.rar.enums.DesignationEnum;
 import com.rar.enums.RoleEnum;
 import com.rar.exception.InvalidTokenException;
 import com.rar.exception.InvalidUserException;
@@ -90,12 +89,12 @@ public class LoginServiceImpl implements LoginService {
             Iterator<Designation> itt= userInfo1.getDesignation().iterator();
             Designation d=itt.next();
 
-            DesignationEnum designationEnum= d.getDesignation();
+            String designation= d.getDesignation();
             boolean isManager=true;
             if(userRepository.managerOrEmployee(email) == 0)
                 isManager= false;
             if (repoEmail.isPresent()) {
-                System.out.println(""+userInfo1.getName()+" "+userInfo1.getEmail()+" "+designationEnum+" "+roleEnum+" "+userInfo1.getImageUrl()+" "+userInfo1.getId());
+                System.out.println(""+userInfo1.getName()+" "+userInfo1.getEmail()+" "+designation+" "+roleEnum+" "+userInfo1.getImageUrl()+" "+userInfo1.getId());
                 System.out.println("dsasdasd");
                 if (!userInfo1.getFirstSign()) {
                     userInfo1.setFirstSign(true);
@@ -109,12 +108,12 @@ public class LoginServiceImpl implements LoginService {
                     userRepository.save(userInfo1);
 
                     String generatedToken=generateJWT.generateToken(email);
-                    return new LoginUserDetails(userInfo1.getEmail()+"",userInfo1.getName()+"",userInfo1.getImageUrl()+"",""+generatedToken,roleEnum,designationEnum,userInfo1.getId(),isManager, userInfo1.getWallet());
+                    return new LoginUserDetails(userInfo1.getEmail()+"",userInfo1.getName()+"",userInfo1.getImageUrl()+"",""+generatedToken,roleEnum,designation,userInfo1.getId(),isManager, userInfo1.getWallet());
 
                 } else {
                     System.out.println("66");
                     String generatedToken=generateJWT.generateToken(email);
-                    return new LoginUserDetails(userInfo1.getEmail()+"",userInfo1.getName()+"",userInfo1.getImageUrl()+"",""+generatedToken,roleEnum,designationEnum,userInfo1.getId(),isManager,userInfo1.getWallet());
+                    return new LoginUserDetails(userInfo1.getEmail()+"",userInfo1.getName()+"",userInfo1.getImageUrl()+"",""+generatedToken,roleEnum,designation,userInfo1.getId(),isManager,userInfo1.getWallet());
 
 
 

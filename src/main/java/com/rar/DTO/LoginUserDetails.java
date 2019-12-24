@@ -1,6 +1,5 @@
 package com.rar.DTO;
 
-import com.rar.enums.DesignationEnum;
 import com.rar.enums.RoleEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -26,7 +25,7 @@ public class LoginUserDetails implements Serializable {
     private RoleEnum roleEnum;
 
     @ApiModelProperty(notes = "The designation of the User")
-    private DesignationEnum designationEnum;
+    private String designation;
 
     @ApiModelProperty(notes = "The id of the User")
     private Long uid;
@@ -37,13 +36,13 @@ public class LoginUserDetails implements Serializable {
     @ApiModelProperty(notes = "The balance in the wallet of user")
     private double wallet;
 
-    public LoginUserDetails(String email, String name, String imageUrl, String generatedToken, RoleEnum roleEnum, DesignationEnum designationEnum, Long uid, Boolean isManager, double wallet) {
+    public LoginUserDetails(String email, String name, String imageUrl, String generatedToken, RoleEnum roleEnum, String designation, Long uid, Boolean isManager, double wallet) {
         this.email = email;
         this.name = name;
         this.imageUrl = imageUrl;
         this.generatedToken = generatedToken;
         this.roleEnum = roleEnum;
-        this.designationEnum = designationEnum;
+        this.designation = designation;
         this.uid = uid;
         this.isManager = isManager;
         this.wallet = wallet;
@@ -55,7 +54,7 @@ public class LoginUserDetails implements Serializable {
     public LoginUserDetails(String s, String s1, String s2, String s3, RoleEnum roleEnum, Long id) {
     }
 
-    public LoginUserDetails(String email, String name, String imageUrl, String generatedToken, RoleEnum roleEnum, DesignationEnum designationEnum, Long id, boolean isManager, String wallet) {
+    public LoginUserDetails(String email, String name, String imageUrl, String generatedToken, RoleEnum roleEnum, String designation, Long id, boolean isManager, String wallet) {
     }
 
     public String getEmail() {
@@ -98,12 +97,12 @@ public class LoginUserDetails implements Serializable {
         this.roleEnum = roleEnum;
     }
 
-    public DesignationEnum getDesignationEnum() {
-        return designationEnum;
+    public String getDesignation() {
+        return designation;
     }
 
-    public void setDesignationEnum(DesignationEnum designationEnum) {
-        this.designationEnum = designationEnum;
+    public void setDesignation(String designation) {
+        this.designation = designation;
     }
 
     public Long getUid() {

@@ -48,4 +48,7 @@ public interface ManagerRepository extends CrudRepository<Manager, Long> {
 
     @Query(value="select manager_email from managers where manager_id=?1",nativeQuery = true)
     String getEmail(Long manager);
+
+    @Query(value="select name from users where email in(select manager_email from managers where manager_id=?1)",nativeQuery = true)
+    String getManagerName(Long managerId);
 }

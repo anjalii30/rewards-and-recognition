@@ -62,6 +62,10 @@ public class Nominations implements Serializable {
     @NotNull
     private Long managerId;
 
+    @ApiModelProperty(notes="manager name")
+    @Column(name="manager_name")
+    private String managerName;
+
     @OneToMany(mappedBy = "nominations", cascade = CascadeType.ALL)
     private List<Evidences> evidencesList;
 
@@ -198,6 +202,14 @@ public class Nominations implements Serializable {
 
     public void setManagerId(Long managerId) {
         this.managerId = managerId;
+    }
+
+    public String getManagerName() {
+        return managerName;
+    }
+
+    public void setManagerName(String managerName) {
+        this.managerName = managerName;
     }
 }
 
