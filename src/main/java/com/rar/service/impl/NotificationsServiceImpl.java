@@ -141,7 +141,7 @@ public class NotificationsServiceImpl implements NotificationsService {
             System.out.println("viewed updated true for "+notificationId);
         }
         return notifications;
-       
+
     }
 
 
