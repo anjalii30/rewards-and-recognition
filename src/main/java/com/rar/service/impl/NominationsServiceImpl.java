@@ -101,7 +101,6 @@ public class NominationsServiceImpl implements NominationsService {
 
         Long[] nominationID= nominationId.get("nominationId");
 
-
         String[] emails=userRepository.getAllEmails();
 
         for (int i = 0; i < nominationID.length; i++) {
@@ -112,18 +111,12 @@ public class NominationsServiceImpl implements NominationsService {
             System.out.println("abc");
 
             for (int j = 0; j < emails.length; j++) {
-                String name=userRepository.getName(emails[j]);
-                System.out.println(name);
-                String rewardName=nominationsRepository.getRewardName(nominationID[i]);
-                System.out.println(rewardName);
-                String userName=nominationsRepository.getUserName(nominationID[i]);
-                String image =userRepository.getImage(nominationsRepository.userId(nominationID[i]));
 
                 Map<String,Object> root = new HashMap();
-                root.put("name",name );
-                root.put("user_name", userName);
-                root.put("reward_name",rewardName);
-                root.put("image",image);
+                root.put("name",userRepository.getName(emails[j]));
+                root.put("user_name", nominationsRepository.getUserName(nominationID[i]));
+                root.put("reward_name",nominationsRepository.getRewardName(nominationID[i]));
+                root.put("image",userRepository.getImage(nominationsRepository.userId(nominationID[i])));
                 if(nominationsRepository.userId(nominationID[i])==userRepository.getIdByEmail(emails[j]))
                     sendEmail.sendEmailToWinner(root,emails[j],"You have been awarded");
                 else

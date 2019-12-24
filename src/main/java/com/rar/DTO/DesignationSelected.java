@@ -1,6 +1,5 @@
 package com.rar.DTO;
 
-import com.rar.enums.DesignationEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
@@ -11,14 +10,14 @@ public class DesignationSelected implements Serializable {
     private long did;
 
     @ApiModelProperty(value = "The name of the designation")
-    private DesignationEnum Designation;
+    private String designation;
 
     @ApiModelProperty(value = "The boolean for whether the designation id selected or not")
     private Boolean designationSelected;
 
-    public DesignationSelected(long did, DesignationEnum designation, Boolean designationSelected) {
+    public DesignationSelected(long did, String designation, Boolean designationSelected) {
         this.did = did;
-        Designation = designation;
+        this.designation = designation;
         this.designationSelected = designationSelected;
     }
 
@@ -30,12 +29,12 @@ public class DesignationSelected implements Serializable {
         this.did = did;
     }
 
-    public DesignationEnum getDesignation() {
-        return Designation;
+    public String getDesignation() {
+        return designation;
     }
 
-    public void setDesignation(DesignationEnum designation) {
-        Designation = designation;
+    public void setDesignation(String designation) {
+        this.designation = designation;
     }
 
     public Boolean getDesignationSelected() {
