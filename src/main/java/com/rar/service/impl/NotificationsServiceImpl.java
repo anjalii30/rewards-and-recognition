@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import static com.rar.utils.Constants.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -150,7 +151,14 @@ public class NotificationsServiceImpl implements NotificationsService {
 
     @Override
     public ResponseEntity<List<Notifications>> getNAllNotifications(String email) {
-        List<Notifications> notifications=notificationsRepository.getAllNotifications(userRepository.getIdByEmail(email));
-        return new ResponseEntity<>(notifications,HttpStatus.OK);
+        if(notificationsRepository.getAllNotifications(userRepository.getIdByEmail(email)).isEmpty()) {
+            List<Notifications> notifications=new ArrayList<>();
+            return new ResponseEntity<>(notifications,HttpStatus.OK);
+        }
+        else {
+            List<Notifications> notifications=notificationsRepository.getAllNotifications(userRepository.getIdByEmail(email));
+            return new ResponseEntity<>(notifications,HttpStatus.OK);
+        }
+
     }
 }

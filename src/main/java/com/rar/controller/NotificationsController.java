@@ -1,7 +1,6 @@
 package com.rar.controller;
 
 import com.rar.model.Notifications;
-import com.rar.model.Roles;
 import com.rar.service.NotificationsService;
 import com.rar.service.impl.CheckValidity;
 import io.swagger.annotations.Api;
@@ -37,6 +36,11 @@ public class NotificationsController {
         return new ResponseEntity(notificationsService.getNewNotifications(email), HttpStatus.OK);
     }
 
+    /**
+     *
+     * @param token jwt token
+     * @return list of all notifications
+     */
     @ApiOperation(value = "Get the list of all notifications")
     @GetMapping("/getAllNotifications")
     public ResponseEntity<List<Notifications>> getAllNotifications(@RequestHeader(value = "Authorization") String token){
