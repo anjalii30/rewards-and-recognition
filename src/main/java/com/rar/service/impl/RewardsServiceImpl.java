@@ -6,6 +6,7 @@ import com.rar.enums.FrequencyEnum;
 import com.rar.model.Rewards;
 import com.rar.model.RewardsCriteria;
 import com.rar.repository.*;
+import com.rar.service.NotificationsService;
 import com.rar.service.RewardsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -40,6 +41,9 @@ public class RewardsServiceImpl implements RewardsService {
 
     @Autowired
     private SendEmail sendEmail;
+
+    @Autowired
+    private NotificationsService notificationsService;
 
     //private Constants constants;
 
@@ -79,6 +83,7 @@ public class RewardsServiceImpl implements RewardsService {
         CreateReward1.setNominationsAllowed(createReward.getNominationsAllowed());
         CreateReward1.setCategory(createReward.getCategory());
         CreateReward1.setRegenerated(CreateReward1.isRegenerated());
+        CreateReward1.setCoins(createReward.getCoins());
 
         Rewards rewardData1 =  rewardsRepository.save(CreateReward1);
 
@@ -143,6 +148,7 @@ public class RewardsServiceImpl implements RewardsService {
                 CreateReward1.setEndDate(today.plusYears(1));
 
         Rewards update = rewardsRepository.save(CreateReward1);
+        notificationsService.awardStatusChanged(id,rewardPojo.getAwardStatus(),rewardPojo.getDiscontinuingReason());
 
         if(rewardPojo.getAwardStatus()==ROLLED_OUT) {
 

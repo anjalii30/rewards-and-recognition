@@ -5,6 +5,7 @@ import com.rar.model.Rewards;
 import com.rar.model.RewardsCriteria;
 import com.rar.repository.RewardsCriteriaRepository;
 import com.rar.repository.RewardsRepository;
+import com.rar.service.NotificationsService;
 import com.rar.service.RewardsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -34,6 +35,9 @@ public class ScheduleRewards {
 
     @Autowired
     private RewardsService rewardsService;
+
+    @Autowired
+    private NotificationsService notificationsService;
 
     private Rewards rewards;
 
@@ -300,6 +304,7 @@ public class ScheduleRewards {
     }
 //set award status 2 where end date is passed everyday at 9 am
   @Scheduled(cron = "0 0 9 * * ?  ")
+ //   @Scheduled(cron="0 * * ? * *")
     public void endDatePassed(){
 
         ArrayList<Rewards> rewards = (ArrayList<Rewards>) rewardsRepository.findAll();
@@ -307,8 +312,10 @@ public class ScheduleRewards {
         for(int i=0;i<rewards.size();i++) {
             Long rewardId = rewards.get(i).getRewardId();
             LocalDate endDate=rewards.get(i).getEndDate();
-            if( endDate.isEqual(today)&& rewards.get(i).getAwardStatus()==ROLLED_OUT)
-                rewardsRepository.updateAwardStatus(END_DATE_PASSED,rewardId);
+            if( endDate.isEqual(today)&& rewards.get(i).getAwardStatus()==ROLLED_OUT) {
+                rewardsRepository.updateAwardStatus(END_DATE_PASSED, rewardId);
+                notificationsService.endDatePassed(rewardId);
+            }
         }
         }
 }

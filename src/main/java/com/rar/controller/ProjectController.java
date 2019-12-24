@@ -100,8 +100,8 @@ public class ProjectController {
 
     /**
      *
-     * @param token
-     * @param id
+     * @param token jwt token
+     * @param id project id
      * @return assigned manager for a particular project
      */
     @ApiOperation(value = "Get managers assigned to the project")
@@ -132,8 +132,8 @@ public class ProjectController {
 
     /**
      *
-     * @param token
-     * @param managerProjectsPojo
+     * @param token jwt token
+     * @param managerProjectsPojo manager project pojo object
      * @return details of added manager into project
      * @throws Exception
      */
@@ -148,8 +148,8 @@ public class ProjectController {
 
     /**
      *
-     * @param token
-     * @param managerProjectsPojo
+     * @param token jwt token
+     * @param managerProjectsPojo manager project pojo object
      * @return The details of manager for particular project
      * @throws Exception
      */

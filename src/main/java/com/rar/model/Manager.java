@@ -17,7 +17,7 @@ public class Manager implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "manager_id",unique = true,nullable = false)
-    @ApiModelProperty(notes = "The database generated employee_relation ID")
+    @ApiModelProperty(notes = "The database generated manager ID")
     private long managerId;
 
     @Column(name="manager_email",nullable = false)

@@ -88,4 +88,7 @@ public interface ProjectRepository  extends CrudRepository<Projects,Long> {
     @Query(value="select count(manager_id) from manager_projects where project_id=?1",nativeQuery = true)
     Long getManagerCount(Long projectId);
 
+    @Query(value="select user_projects.user_id, manager_projects.manager_id from user_projects,manager_projects where user_projects.project_id=?1 and manager_projects.project_id=?1",nativeQuery = true)
+    Long[] getEveryoneInProject(Long projectId);
+
 }
