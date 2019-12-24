@@ -97,21 +97,15 @@ public class NominationsServiceImpl implements NominationsService {
 
     @Override
     public void awardeeSelect(Map<String, Long[]> nominationId) throws IOException, MessagingException, TemplateException {
-
-
         Long[] nominationID= nominationId.get("nominationId");
-
         String[] emails=userRepository.getAllEmails();
-
         for (int i = 0; i < nominationID.length; i++) {
             System.out.println(nominationID[i]);
             nominationsRepository.awardeeSelect(nominationID[i]);
             System.out.println("test");
             rewardsRepository.updateAwardStatus(PUBLISHED,nominationsRepository.getRewardId(nominationID[i]));
             System.out.println("abc");
-
             for (int j = 0; j < emails.length; j++) {
-
                 Map<String,Object> root = new HashMap();
                 root.put("name",userRepository.getName(emails[j]));
                 root.put("user_name", nominationsRepository.getUserName(nominationID[i]));
@@ -120,7 +114,7 @@ public class NominationsServiceImpl implements NominationsService {
                 if(nominationsRepository.userId(nominationID[i])==userRepository.getIdByEmail(emails[j]))
                     sendEmail.sendEmailToWinner(root,emails[j],"You have been awarded");
                 else
-                sendEmail.sendEmailWithAttachment(root,emails[j], "Employee awarded for the reward");
+                    sendEmail.sendEmailWithAttachment(root,emails[j], "Employee awarded for the reward");
             }
         }
         nominationsService.rewardCoins(nominationID);
@@ -162,8 +156,11 @@ public class NominationsServiceImpl implements NominationsService {
 
 
        int count = nominationID.length;
+       System.out.println(count);
        Long rewardId=nominationsRepository.getRewardId(nominationID[0]);
+       System.out.println(rewardId);
        Long rewardCoinValue = rewardsRepository.getCoinValue(rewardId);
+       System.out.println(rewardCoinValue)  ;
        double wonCoinValue = (rewardCoinValue/count);
        for(int i=0; i<nominationID.length;i++){
            Long userId = nominationsRepository.userId(nominationID[i]);
