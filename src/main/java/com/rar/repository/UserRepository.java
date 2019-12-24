@@ -134,7 +134,7 @@ public interface UserRepository extends CrudRepository< UserInfo,Long> {
 
     @Modifying
     @Transactional
-    @Query(value="insert into users (wallet) values (0) where user_id=?1",nativeQuery = true)
+    @Query(value="update users set wallet=0 where user_id=?1",nativeQuery = true)
     void makeWalletZero(long userId);
 }
 
