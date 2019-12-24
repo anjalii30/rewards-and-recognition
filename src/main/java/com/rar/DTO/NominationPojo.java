@@ -42,6 +42,8 @@ public class NominationPojo {
     @NotNull
     private Long managerId;
 
+    @ApiModelProperty(notes="manager name")
+    private String managerName;
     @ApiModelProperty(notes = "The list of evidences for a particular nomination")
     private List<EvidencesPojo> evidencesPojoList;
 
@@ -77,6 +79,13 @@ public class NominationPojo {
         this.selected = selected;
     }
 
+    public String getManagerName() {
+        return managerName;
+    }
+
+    public void setManagerName(String managerName) {
+        this.managerName = managerName;
+    }
 
     public String getReason() {
         return reason;
