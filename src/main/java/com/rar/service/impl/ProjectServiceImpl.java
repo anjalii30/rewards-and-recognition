@@ -238,4 +238,13 @@ public class ProjectServiceImpl implements ProjectService {
         return null;
     }
 
+    @Override
+    public ResponseEntity<Projects[]> projectDetails(Long id) {
+        return new ResponseEntity(projectRepository.getProject(id),HttpStatus.OK);
+    }
+
+    @Override
+    public void setProjectStatus(Long id) {
+        projectRepository.setProjectStatus(id);
+    }
 }

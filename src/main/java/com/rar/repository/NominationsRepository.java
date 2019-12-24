@@ -78,18 +78,21 @@ public interface NominationsRepository extends CrudRepository<Nominations, Long>
     @Query(value = "select distinct reward_id from nominations where manager_id=?1", nativeQuery = true)
     long[] rewardId(long managerId);
 
-    @Query(value = "select user_id from nominations where manager_id=?1 and reward_id=?2", nativeQuery = true)
-    long[] userIds(long managerId, long rewardId);
+    @Query(value = "select user_id from nominations where manager_id=?1 and reward_id=?2 and project_id=?3", nativeQuery = true)
+    long[] userIds(long managerId, long rewardId, long projectId);
 
-    @Query(value = "select reason from nominations where manager_id =?1 and reward_id =?2 and user_id=?3", nativeQuery = true)
-    String gettingReason(long managerId, long rewardId, long userId);
+    @Query(value = "select reason from nominations where manager_id =?1 and reward_id =?2 and user_id=?3 and project_id=?4", nativeQuery = true)
+    String gettingReason(long managerId, long rewardId, long userId, long projectId);
 
-    @Query(value = "select selected from nominations where manager_id =?1 and reward_id =?2 and user_id=?3", nativeQuery = true)
-    Boolean gettingSelected(long managerId, long rewardId, long userId);
+    @Query(value = "select selected from nominations where manager_id =?1 and reward_id =?2 and user_id=?3 and project_id=?4", nativeQuery = true)
+    Boolean gettingSelected(long managerId, long rewardId, long userId, long projectId);
 
     @Query(value="select distinct reward_id from nominations where user_id=?1",nativeQuery=true)
     Long[] getRewardIdForUser(Long userId);
 
     @Query(value = "select count(nomination_id) from nominations where reward_id=?1 and hr_selected=true",nativeQuery = true)
     Long getCount(Long rewardId);
+
+    @Query(value = "select distinct project_id from nominations where manager_id=?1 and reward_id=?2",nativeQuery = true)
+    long[] getProjectIds(long manager_id,long reward_id);
 }

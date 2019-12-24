@@ -137,7 +137,8 @@ public class ProjectController {
      * @return details of added manager into project
      * @throws Exception
      */
-    @PostMapping("/editManagerForProject")
+    @ApiOperation(value = "to add manager for project")
+    @PostMapping("addManagerForProject")
     public ResponseEntity<?> editManagerForProject(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Project name and manager email",required = true)@Valid @RequestBody ManagerProjectsPojo managerProjectsPojo) throws Exception{
             validity.check(token);
             projectService.editManagerForProject(managerProjectsPojo);
@@ -152,6 +153,7 @@ public class ProjectController {
      * @return The details of manager for particular project
      * @throws Exception
      */
+    @ApiOperation(value = "to delete a manager from project")
     @DeleteMapping("/deleteManagerFromProject")
     public ResponseEntity<?> deleteManagerFromProject(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Project name and manager email",required = true)@Valid @RequestBody ManagerProjectsPojo managerProjectsPojo) throws Exception {
             validity.check(token);
@@ -210,5 +212,19 @@ public class ProjectController {
     public ResponseEntity<Object[]> unAssigned(@RequestHeader(value = "Authorization") String token){
         validity.check(token);
         return new ResponseEntity(projectService.unAssigned(),HttpStatus.OK);
+    }
+
+    /**
+     *
+     * @param token
+     * @param id
+     * @return updated details of that particular project
+     */
+    @ApiOperation(value = "To set the project status as completed")
+    @PutMapping("/setProjectStatus/{id}")
+    public ResponseEntity<Projects[]> projectStatus(@RequestHeader(value = "Authorization")String token, @ApiParam(value = "Reward Id to update reward object", required = true)@PathVariable Long id){
+        validity.check(token);
+        projectService.setProjectStatus(id);
+        return new ResponseEntity(projectService.projectDetails(id),HttpStatus.OK);
     }
 }

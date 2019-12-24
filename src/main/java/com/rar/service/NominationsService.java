@@ -23,7 +23,7 @@ ResponseEntity<List<Nominations>> GetData(Long rewardID) throws Exception;
 
    // List<List<Nominations>> showToManager(String email, Long reward_id) throws Exception;
 
-    void awardeeSelect(Map<String, Long[]> nominationID) throws IOException, MessagingException, TemplateException;
+    void awardeeSelect(Map<String, Long[]> nominationId) throws IOException, MessagingException, TemplateException;
 
     ResponseEntity<List<Map<String,String>>> getAwardedPeople();
 

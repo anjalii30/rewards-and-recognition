@@ -83,6 +83,7 @@ public class RewardsServiceImpl implements RewardsService {
         CreateReward1.setNominationsAllowed(createReward.getNominationsAllowed());
         CreateReward1.setCategory(createReward.getCategory());
         CreateReward1.setRegenerated(CreateReward1.isRegenerated());
+        CreateReward1.setCoins(createReward.getCoins());
 
         Rewards rewardData1 =  rewardsRepository.save(CreateReward1);
 
@@ -249,7 +250,6 @@ public class RewardsServiceImpl implements RewardsService {
             }
 
             HashMap<String, Object> s = new HashMap<>();
-            s.put("criteria", rewardsCriteria);
             s.put("rewards", rewards);
             return new ResponseEntity(s,HttpStatus.OK);
     }

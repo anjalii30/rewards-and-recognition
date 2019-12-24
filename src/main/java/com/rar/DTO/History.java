@@ -11,16 +11,12 @@ public class History implements Serializable {
     @ApiModelProperty(value = "The name of reward")
     private String rewardName;
 
-    @ApiModelProperty(value = "list of nomination details by manager")
-    private List<UserNominationDetails> userNominationDetailsList;
+    @ApiModelProperty(value = "list of nomination details by manager w.r.t. projects")
+    private List<ProjectNominationHistory> projectNominationHistoryList;
 
-    public History(String rewardName, List<UserNominationDetails> userNominationDetailsList) {
+    public History(String rewardName, List<ProjectNominationHistory> projectNominationHistoryList) {
         this.rewardName = rewardName;
-        this.userNominationDetailsList = userNominationDetailsList;
-    }
-
-    public History() {
-
+        this.projectNominationHistoryList = projectNominationHistoryList;
     }
 
     public String getRewardName() {
@@ -31,11 +27,11 @@ public class History implements Serializable {
         this.rewardName = rewardName;
     }
 
-    public List<UserNominationDetails> getUserNominationDetailsList() {
-        return userNominationDetailsList;
+    public List<ProjectNominationHistory> getProjectNominationHistoryList() {
+        return projectNominationHistoryList;
     }
 
-    public void setUserNominationDetailsList(List<UserNominationDetails> userNominationDetailsList) {
-        this.userNominationDetailsList = userNominationDetailsList;
+    public void setProjectNominationHistoryList(List<ProjectNominationHistory> projectNominationHistoryList) {
+        this.projectNominationHistoryList = projectNominationHistoryList;
     }
 }

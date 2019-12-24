@@ -2,6 +2,7 @@ package com.rar.service.impl;
 
 import com.rar.DTO.History;
 import com.rar.DTO.NominationPojo;
+import com.rar.DTO.ProjectNominationHistory;
 import com.rar.DTO.UserNominationDetails;
 import com.rar.model.Evidences;
 import com.rar.model.Nominations;
@@ -112,19 +113,15 @@ public class NominationsServiceImpl implements NominationsService {
 
     @Override
     public void awardeeSelect(Map<String, Long[]> nominationId) throws IOException, MessagingException, TemplateException {
-
-
         Long[] nominationID= nominationId.get("nominationId");
-
         String[] emails=userRepository.getAllEmails();
-
         for (int i = 0; i < nominationID.length; i++) {
             nominationsRepository.awardeeSelect(nominationID[i]);
             rewardsRepository.updateAwardStatus(PUBLISHED,nominationsRepository.getRewardId(nominationID[i]));
+
             notificationsService.winnerPublished(nominationsRepository.getRewardName(nominationID[i]),nominationsRepository.getUserName(nominationID[i]));
 
             for (int j = 0; j < emails.length; j++) {
-
                 Map<String,Object> root = new HashMap();
                 root.put("name",userRepository.getName(emails[j]));
                 root.put("user_name", nominationsRepository.getUserName(nominationID[i]));
@@ -133,7 +130,7 @@ public class NominationsServiceImpl implements NominationsService {
                 if(nominationsRepository.userId(nominationID[i])==userRepository.getIdByEmail(emails[j]))
                     sendEmail.sendEmailToWinner(root,emails[j],"You have been awarded");
                 else
-                sendEmail.sendEmailWithAttachment(root,emails[j], "Employee awarded for the reward");
+                    sendEmail.sendEmailWithAttachment(root,emails[j], "Employee awarded for the reward");
             }
         }
         nominationsService.rewardCoins(nominationID);
@@ -176,8 +173,11 @@ public class NominationsServiceImpl implements NominationsService {
 
 
        int count = nominationID.length;
+       System.out.println(count);
        Long rewardId=nominationsRepository.getRewardId(nominationID[0]);
+       System.out.println(rewardId);
        Long rewardCoinValue = rewardsRepository.getCoinValue(rewardId);
+       System.out.println(rewardCoinValue)  ;
        double wonCoinValue = (rewardCoinValue/count);
        for(int i=0; i<nominationID.length;i++){
            Long userId = nominationsRepository.userId(nominationID[i]);
@@ -193,12 +193,17 @@ public class NominationsServiceImpl implements NominationsService {
         List<History> histories= new ArrayList<>();
           long[] rewardId= nominationsRepository.rewardId(managerId);
         for(int i=0; i< rewardId.length; i++){
+            List<ProjectNominationHistory> projectNominationHistoryList=new ArrayList<>();
+            long[] projectId = nominationsRepository.getProjectIds(managerId,rewardId[i]);
+            for(int k=0;k<projectId.length;k++){
             List<UserNominationDetails> userNominationDetailsList = new ArrayList<>();
-                long[] userIds= nominationsRepository.userIds(managerId, rewardId[i]);
+                long[] userIds= nominationsRepository.userIds(managerId, rewardId[i], projectId[k]);
                 for(int j=0; j< userIds.length; j++){
-                    userNominationDetailsList.add(j, new UserNominationDetails(userIds[j],nominationsRepository.gettingReason(managerId,rewardId[i],userIds[j]),userRepository.getUserName(userIds[j]),nominationsRepository.gettingSelected(managerId,rewardId[i],userIds[j])));
+                    userNominationDetailsList.add(j, new UserNominationDetails(userIds[j],nominationsRepository.gettingReason(managerId,rewardId[i],userIds[j],projectId[k]),userRepository.getUserName(userIds[j]),nominationsRepository.gettingSelected(managerId,rewardId[i],userIds[j],projectId[k])));
                 }
-                histories.add(i,new History(nominationsRepository.rewardName(rewardId[i]),userNominationDetailsList));
+                projectNominationHistoryList.add(k,new ProjectNominationHistory(projectId[k],projectRepository.getProjectName(projectId[k]),userNominationDetailsList));
+        }
+            histories.add(i,new History(nominationsRepository.rewardName(rewardId[i]),projectNominationHistoryList));
         }
         if (rewardId.length== 0)
             histories= new ArrayList<>();

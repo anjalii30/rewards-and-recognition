@@ -278,7 +278,7 @@ public class ScheduleRewards {
             Long rewardId=rewards.get(i).getRewardId();
             int awardStatus=rewards.get(i).getAwardStatus();
             LocalDate StartDate=rewards.get(i).getStartDate();
-            if(rewardsRepository.checkingRewardInRolledOut(rewardId)>0 && awardStatus==EDITED_AFTER_ROLLOUT
+            if(rewardsRepository.checkingRewardInRolledOut(rewardId)>0 && awardStatus==EDITED_AFTER_ROLL_OUT
                     && StartDate.equals(today)){
                 rewardsRepository.updateAwardStatus(ROLLED_OUT,rewardId);
 
