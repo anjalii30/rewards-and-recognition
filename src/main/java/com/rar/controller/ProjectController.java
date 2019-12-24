@@ -214,6 +214,12 @@ public class ProjectController {
         return new ResponseEntity(projectService.unAssigned(),HttpStatus.OK);
     }
 
+    /**
+     *
+     * @param token
+     * @param id
+     * @return updated details of that particular project
+     */
     @ApiOperation(value = "To set the project status as completed")
     @PutMapping("/setProjectStatus/{id}")
     public ResponseEntity<Projects[]> projectStatus(@RequestHeader(value = "Authorization")String token, @ApiParam(value = "Reward Id to update reward object", required = true)@PathVariable Long id){

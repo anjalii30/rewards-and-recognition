@@ -76,6 +76,7 @@ public interface ProjectRepository  extends CrudRepository<Projects,Long> {
     @Query(value="select count(user_id) from user_projects where project_id=?1",nativeQuery = true)
     Long getCount(Long projectId);
 
+
     @Query(value = "select * from projects where project_id=?1",nativeQuery = true)
     Projects[] getProject(Long projectId);
 
@@ -83,4 +84,8 @@ public interface ProjectRepository  extends CrudRepository<Projects,Long> {
     @Transactional
     @Query(value = "update projects set completed=true where project_id=?1",nativeQuery = true)
     void setProjectStatus(Long projectId);
+
+    @Query(value="select count(manager_id) from manager_projects where project_id=?1",nativeQuery = true)
+    Long getManagerCount(Long projectId);
+
 }
