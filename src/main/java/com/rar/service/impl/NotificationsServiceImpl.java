@@ -5,6 +5,8 @@ import com.rar.model.Roles;
 import com.rar.repository.*;
 import com.rar.service.NotificationsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import static com.rar.utils.Constants.*;
@@ -98,6 +100,8 @@ public class NotificationsServiceImpl implements NotificationsService {
 
     }
 
+
+
     @Override
     public void newMemberAdded(Long userId,Long projectId){
         String project=projectRepository.getProjectName(projectId);
@@ -132,7 +136,7 @@ public class NotificationsServiceImpl implements NotificationsService {
     }
 
     @Override
-    public List<Notifications> getNewNotifications(String email) {
+    public ResponseEntity<List<Notifications>> getNewNotifications(String email) {
 
         List<Notifications> notifications=notificationsRepository.getUnviewedNotifications(userRepository.getIdByEmail(email));
         for(int i=0;i<notifications.size();i++){
@@ -140,9 +144,13 @@ public class NotificationsServiceImpl implements NotificationsService {
             notificationsRepository.updateViewed(notificationId);
             System.out.println("viewed updated true for "+notificationId);
         }
-        return notifications;
+        return new ResponseEntity<>(notifications, HttpStatus.OK);
 
     }
 
-
+    @Override
+    public ResponseEntity<List<Notifications>> getNAllNotifications(String email) {
+        List<Notifications> notifications=notificationsRepository.getAllNotifications(userRepository.getIdByEmail(email));
+        return new ResponseEntity<>(notifications,HttpStatus.OK);
+    }
 }

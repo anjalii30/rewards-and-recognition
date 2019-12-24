@@ -2,6 +2,7 @@ package com.rar.service;
 
 import com.rar.model.Notifications;
 import com.rar.model.Roles;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ public interface NotificationsService {
 
     void newNominationReceived(String rewardName, String managerName);
 
-    List<Notifications> getNewNotifications(String email);
+    ResponseEntity<List<Notifications>> getNewNotifications(String email);
 
     void newMemberAdded(Long userId,Long projectId);
 
@@ -20,4 +21,6 @@ public interface NotificationsService {
     void awardStatusChanged(Long rewardId, int awardStatus,String reason);
 
     void winnerPublished(String rewardName, String winnerName);
+
+    ResponseEntity<List<Notifications>> getNAllNotifications(String email);
 }
