@@ -137,7 +137,7 @@ public class ProjectController {
      * @return details of added manager into project
      * @throws Exception
      */
-    @PostMapping("editManagerForProject")
+    @PostMapping("/editManagerForProject")
     public ResponseEntity<?> editManagerForProject(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Project name and manager email",required = true)@Valid @RequestBody ManagerProjectsPojo managerProjectsPojo) throws Exception{
             validity.check(token);
             projectService.editManagerForProject(managerProjectsPojo);

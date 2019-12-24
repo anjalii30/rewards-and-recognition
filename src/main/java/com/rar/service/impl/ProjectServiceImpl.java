@@ -3,6 +3,7 @@ package com.rar.service.impl;
 import com.rar.DTO.CreateProjectPojo;
 import com.rar.DTO.ManagerProjectsPojo;
 import com.rar.DTO.UserProjectsPojo;
+import com.rar.exception.InvalidProjectException;
 import com.rar.model.Projects;
 import com.rar.model.UserInfo;
 import com.rar.repository.ManagerRepository;
@@ -155,11 +156,14 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public void editManagerForProject(ManagerProjectsPojo managerProjectsPojo) {
             Long projectId = managerProjectsPojo.getProjectId();
-            int temp=0;
-            String managerEmail = managerProjectsPojo.getManagerEmail();
-            System.out.println("line 159"+projectId+"line 159"+managerEmail);
-            String currentWorkingEmployees[] =projectRepository.getEmployeesById(projectId);
-                for(int i=0; i<currentWorkingEmployees.length;i++) {
+            if(projectRepository.getManagerCount(projectId)>0)
+                throw new InvalidProjectException("Manager already exist for this project..");
+            else {
+                int temp = 0;
+                String managerEmail = managerProjectsPojo.getManagerEmail();
+                System.out.println("line 159" + projectId + "line 159" + managerEmail);
+                String currentWorkingEmployees[] = projectRepository.getEmployeesById(projectId);
+                for (int i = 0; i < currentWorkingEmployees.length; i++) {
                     if (managerEmail.equals(currentWorkingEmployees[i])) {
                         Long userId = userRepository.getUserId(currentWorkingEmployees[i]);
                         projectRepository.deleteUser(userId, projectId);
@@ -168,9 +172,10 @@ public class ProjectServiceImpl implements ProjectService {
                         break;
                     }
                 }
-                    if(temp==0) {
-                             projectService.addManager(managerEmail,projectId);
-                    }
+                if (temp == 0) {
+                    projectService.addManager(managerEmail, projectId);
+                }
+            }
                 }
 
 

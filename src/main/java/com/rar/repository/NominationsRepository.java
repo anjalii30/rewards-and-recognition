@@ -31,7 +31,7 @@ public interface NominationsRepository extends CrudRepository<Nominations, Strin
     @Query(value="update nominations set hr_selected=true where nomination_id=?1",nativeQuery = true)
     void awardeeSelect(Long nominationId);
 
-    @Query(value="select nominations.user_name,nominations.project_name,nominations.reward_name, users.image_url from nominations,users where nominations.user_id=users.user_id and hr_selected=true ",nativeQuery = true)
+    @Query(value="select nominations.user_name,nominations.project_name,nominations.reward_name, users.image_url,designation.designation from nominations,users,designation where nominations.user_id=users.user_id and hr_selected=true and designation_id in(select designation_id from user_designation where user_id=nominations.user_id) ",nativeQuery = true)
     List<Map<String,String>> getAwarded();
 
     @Query(value="select * from nominations where user_id=?1",nativeQuery = true)
@@ -48,7 +48,7 @@ public interface NominationsRepository extends CrudRepository<Nominations, Strin
     @Query(value="select * from nominations where selected=true",nativeQuery = true)
     List<Nominations> getAllNominations();
 
-    @Query(value="select nominations.user_name,nominations.reward_name, users.image_url from nominations,users where nominations.user_id=users.user_id and hr_selected=true Order by nomination_id DESC limit 6",nativeQuery = true)
+    @Query(value="select nominations.user_name,nominations.project_name,nominations.reward_name, users.image_url,designation.designation from nominations,users,designation where nominations.user_id=users.user_id and hr_selected=true and designation_id in(select designation_id from user_designation where user_id=nominations.user_id) Order by nomination_id DESC limit 6",nativeQuery = true)
     List<Map<String, String>> getTopAwardee();
 
     @Query(value="select * from nominations where user_id=?1",nativeQuery = true)

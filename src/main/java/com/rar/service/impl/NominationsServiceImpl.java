@@ -155,6 +155,7 @@ public class NominationsServiceImpl implements NominationsService {
 
     @Override
     public ResponseEntity<List> getTopAwardee() {
+
         return new ResponseEntity<>(nominationsRepository.getTopAwardee(), HttpStatus.OK);
     }
 
