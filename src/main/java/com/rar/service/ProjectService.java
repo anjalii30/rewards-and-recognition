@@ -40,4 +40,8 @@ public interface ProjectService {
     List<Projects> findProjects(Long managerId,Long rewardId);
 
     Long getCount();
+
+    void setProjectStatus(Long id);
+
+    ResponseEntity<Projects[]> projectDetails(Long id);
 }

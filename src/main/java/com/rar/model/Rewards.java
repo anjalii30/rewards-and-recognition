@@ -31,6 +31,7 @@ public class Rewards implements Serializable {
     private String rewardName;
 
     @Column(name = "coins")
+    @ApiModelProperty(notes = "number of coins associated to a particular reward")
     private Long coins;
 
     @Column(name="frequency")

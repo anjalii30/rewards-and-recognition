@@ -24,7 +24,10 @@ public class Projects {
     @NotEmpty
     private String projectName;
 
-    /*private Boolean working; private Boolean managing;*/
+    @Column(name = "completed")
+    @ApiModelProperty(notes = "The boolean which used for status of project")
+    private boolean completed;
+
 
     @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY,
@@ -71,35 +74,22 @@ public class Projects {
         this.projectName = projectName;
     }
 
- /*
-    public Projects(Long project_id, String project_name, Boolean working, Boolean managing) {
-        this.project_id = project_id;
-        this.project_name = project_name;
-        this.working = working;
-        this.managing = managing;
-    }
-*/
-
-/*    public void setManaging(Boolean managing) {
-        this.managing = managing;
+    public boolean isCompleted() {
+        return completed;
     }
 
-    public Boolean getWorking() {
-        return working;
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
     }
-
-    public Boolean getManaging() {
-        return managing;
-    }*/
 
     @Override
     public String toString() {
         return "Projects{" +
                 "projectId=" + projectId +
                 ", projectName='" + projectName + '\'' +
+                ", completed=" + completed +
+                ", userInfo=" + userInfo +
+                ", managers=" + managers +
                 '}';
     }
-/*    public void setWorking(Boolean working) {
-        this.working = working;
-    }*/
 }
