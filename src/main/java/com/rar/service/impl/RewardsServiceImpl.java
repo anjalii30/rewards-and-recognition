@@ -157,7 +157,7 @@ public class RewardsServiceImpl implements RewardsService {
         }
         else
             if(rewardPojo.getAwardStatus()==DISCONTINUED){
-                
+
                 String[] emails=managerRepository.getAllEmails();
 
                 for (int i = 0; i < emails.length; i++) {
