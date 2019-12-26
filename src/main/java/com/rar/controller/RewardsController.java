@@ -2,6 +2,7 @@ package com.rar.controller;
 
 import com.rar.dto.RewardPojo;
 import com.rar.config.CheckValidity;
+import com.rar.dto.RewardsDto;
 import com.rar.exception.IncorrectFieldException;
 import com.rar.exception.RecordNotFoundException;
 import com.rar.model.Rewards;
@@ -50,7 +51,7 @@ public class RewardsController {
      */
     @ApiOperation(value = "Save the rewards")
     @PostMapping("/save")
-    public ResponseEntity<Rewards> save(@RequestHeader(value = "Authorization") String token ,@ApiParam(value = "Reward object store in database table", required = true) @Valid @RequestBody Rewards rewards) throws IncorrectFieldException{
+    public ResponseEntity<Rewards> save(@RequestHeader(value = "Authorization") String token ,@ApiParam(value = "Reward object store in database table", required = true) @Valid @RequestBody RewardsDto rewards) throws IncorrectFieldException{
 
         validity.check(token);
         return new ResponseEntity(rewardsService.rewardsSave(rewards), HttpStatus.OK);
@@ -140,7 +141,7 @@ public class RewardsController {
      */
     @ApiOperation(value = "Update the reward by id")
     @PutMapping("/updateReward/{id}")
-    public ResponseEntity<Rewards> update(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Reward Id to update reward object", required = true)@PathVariable Long id, @ApiParam(value = "Reward object ", required = true) @Valid @RequestBody Rewards rewards){
+    public ResponseEntity<Rewards> update(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Reward Id to update reward object", required = true)@PathVariable Long id, @ApiParam(value = "Reward object ", required = true) @Valid @RequestBody RewardsDto rewards){
         validity.check(token);
         if (rewardsRepository.existsById(id))
             return new ResponseEntity(rewardsService.update(id, rewards), HttpStatus.OK);
@@ -171,7 +172,7 @@ public class RewardsController {
      */
     @ApiOperation(value = "Update the reward by id")
     @PutMapping("/updateRollOutReward/{id}")
-    public ResponseEntity<Rewards> rollOutUpdate(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Reward Id to update reward object", required = true)@PathVariable Long id, @ApiParam(value = "Reward object ", required = true) @Valid @RequestBody Rewards rewards) {
+    public ResponseEntity<Rewards> rollOutUpdate(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Reward Id to update reward object", required = true)@PathVariable Long id, @ApiParam(value = "Reward object ", required = true) @Valid @RequestBody RewardsDto rewards) {
         validity.check(token);
         if (rewardsRepository.existsById(id))
             return new ResponseEntity(rewardsService.rollOutUpdate(id, rewards), HttpStatus.OK);
