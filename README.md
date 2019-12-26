@@ -53,12 +53,16 @@ There are several ways to run a Spring Boot application on your local machine.
 │   │   ├── java
 │   │   │   └── com
 │   │   │       └── rar
+│   │   │           ├── config
+│   │   │           │   ├── SpringWebConfig.java
+│   │   │           │   └── Swagger2Config.java
 │   │   │           ├── controller
 │   │   │           │   ├── CriteriaController.java
 │   │   │           │   ├── DesignationController.java
 │   │   │           │   ├── LoginController.java
 │   │   │           │   ├── ManagerController.java
 │   │   │           │   ├── NominationController.java
+│   │   │           │   ├── NotificationsController.java
 │   │   │           │   ├── ProjectController.java
 │   │   │           │   ├── RewardsController.java
 │   │   │           │   ├── RewardsCriteriaController.java
@@ -69,27 +73,36 @@ There are several ways to run a Spring Boot application on your local machine.
 │   │   │           │   ├── DesignationSelected.java
 │   │   │           │   ├── EditUserDetails.java
 │   │   │           │   ├── EvidencesPojo.java
+│   │   │           │   ├── History.java
+│   │   │           │   ├── ListRollOutEdit.java
 │   │   │           │   ├── LoginUserDetails.java
+│   │   │           │   ├── ManagerProjectsPojo.java
 │   │   │           │   ├── NominationPojo.java
 │   │   │           │   ├── ProjectDetailsUser.java
+│   │   │           │   ├── ProjectNominationHistory.java
+│   │   │           │   ├── RewardPojo.java
 │   │   │           │   ├── RewardsCriteriaId.java
+│   │   │           │   ├── UserNominationDetails.java
 │   │   │           │   └── UserProjectsPojo.java
 │   │   │           ├── enums
 │   │   │           │   ├── CategoryEnum.java
-│   │   │           │   ├── DesignationEnum.java
 │   │   │           │   ├── FrequencyEnum.java
 │   │   │           │   └── RoleEnum.java
 │   │   │           ├── exception
+│   │   │           │   ├── CustomExceptionHandler.java
+│   │   │           │   ├── ErrorResponse.java
+│   │   │           │   ├── IncorrectFieldException.java
 │   │   │           │   ├── InvalidProjectException.java
 │   │   │           │   ├── InvalidTokenException.java
 │   │   │           │   ├── InvalidUserException.java
-│   │   │           │   └── ResourceNotFoundException.java
+│   │   │           │   └── RecordNotFoundException.java
 │   │   │           ├── model
 │   │   │           │   ├── Criteria.java
 │   │   │           │   ├── Designation.java
 │   │   │           │   ├── Evidences.java
 │   │   │           │   ├── Manager.java
 │   │   │           │   ├── Nominations.java
+│   │   │           │   ├── Notifications.java
 │   │   │           │   ├── Projects.java
 │   │   │           │   ├── RewardsCriteria.java
 │   │   │           │   ├── Rewards.java
@@ -101,6 +114,7 @@ There are several ways to run a Spring Boot application on your local machine.
 │   │   │           │   ├── EvidencesRepository.java
 │   │   │           │   ├── ManagerRepository.java
 │   │   │           │   ├── NominationsRepository.java
+│   │   │           │   ├── NotificationsRepository.java
 │   │   │           │   ├── ProjectRepository.java
 │   │   │           │   ├── RewardsCriteriaRepository.java
 │   │   │           │   ├── RewardsRepository.java
@@ -118,6 +132,7 @@ There are several ways to run a Spring Boot application on your local machine.
 │   │   │           │   │   ├── LoginServiceImpl.java
 │   │   │           │   │   ├── ManagerServiceImpl.java
 │   │   │           │   │   ├── NominationsServiceImpl.java
+│   │   │           │   │   ├── NotificationsServiceImpl.java
 │   │   │           │   │   ├── ProjectServiceImpl.java
 │   │   │           │   │   ├── RewardsCriteriaServiceImpl.java
 │   │   │           │   │   ├── RewardsServiceImpl.java
@@ -127,16 +142,18 @@ There are several ways to run a Spring Boot application on your local machine.
 │   │   │           │   ├── LoginService.java
 │   │   │           │   ├── ManagerService.java
 │   │   │           │   ├── NominationsService.java
+│   │   │           │   ├── NotificationsService.java
 │   │   │           │   ├── ProjectService.java
 │   │   │           │   ├── RewardsCriteriaService.java
 │   │   │           │   ├── RewardsService.java
 │   │   │           │   ├── RolesService.java
 │   │   │           │   └── UserService.java
 │   │   │           └── utils
+│   │   │               ├── AppContext.java
 │   │   │               ├── AskToNominate.java
+│   │   │               ├── Constants.java
 │   │   │               ├── ScheduleRewards.java
-│   │   │               ├── SpringWebConfig.java
-│   │   │               └── Swagger2Config.java
+│   │   │               └── SimpleCORSFile.java
 │   │   └── resources
 │   │       ├── application.properties
 │   │       ├── gift.jpg
@@ -155,12 +172,16 @@ There are several ways to run a Spring Boot application on your local machine.
     │   ├── application.properties
     │   ├── com
     │   │   └── rar
+    │   │       ├── config
+    │   │       │   ├── SpringWebConfig.class
+    │   │       │   └── Swagger2Config.class
     │   │       ├── controller
     │   │       │   ├── CriteriaController.class
     │   │       │   ├── DesignationController.class
     │   │       │   ├── LoginController.class
     │   │       │   ├── ManagerController.class
     │   │       │   ├── NominationController.class
+    │   │       │   ├── NotificationsController.class
     │   │       │   ├── ProjectController.class
     │   │       │   ├── RewardsController.class
     │   │       │   ├── RewardsCriteriaController.class
@@ -171,27 +192,36 @@ There are several ways to run a Spring Boot application on your local machine.
     │   │       │   ├── DesignationSelected.class
     │   │       │   ├── EditUserDetails.class
     │   │       │   ├── EvidencesPojo.class
+    │   │       │   ├── History.class
+    │   │       │   ├── ListRollOutEdit.class
     │   │       │   ├── LoginUserDetails.class
+    │   │       │   ├── ManagerProjectsPojo.class
     │   │       │   ├── NominationPojo.class
     │   │       │   ├── ProjectDetailsUser.class
+    │   │       │   ├── ProjectNominationHistory.class
+    │   │       │   ├── RewardPojo.class
     │   │       │   ├── RewardsCriteriaId.class
+    │   │       │   ├── UserNominationDetails.class
     │   │       │   └── UserProjectsPojo.class
     │   │       ├── enums
     │   │       │   ├── CategoryEnum.class
-    │   │       │   ├── DesignationEnum.class
     │   │       │   ├── FrequencyEnum.class
     │   │       │   └── RoleEnum.class
     │   │       ├── exception
+    │   │       │   ├── CustomExceptionHandler.class
+    │   │       │   ├── ErrorResponse.class
+    │   │       │   ├── IncorrectFieldException.class
     │   │       │   ├── InvalidProjectException.class
     │   │       │   ├── InvalidTokenException.class
     │   │       │   ├── InvalidUserException.class
-    │   │       │   └── ResourceNotFoundException.class
+    │   │       │   └── RecordNotFoundException.class
     │   │       ├── model
     │   │       │   ├── Criteria.class
     │   │       │   ├── Designation.class
     │   │       │   ├── Evidences.class
     │   │       │   ├── Manager.class
     │   │       │   ├── Nominations.class
+    │   │       │   ├── Notifications.class
     │   │       │   ├── Projects.class
     │   │       │   ├── Rewards.class
     │   │       │   ├── RewardsCriteria.class
@@ -203,6 +233,7 @@ There are several ways to run a Spring Boot application on your local machine.
     │   │       │   ├── EvidencesRepository.class
     │   │       │   ├── ManagerRepository.class
     │   │       │   ├── NominationsRepository.class
+    │   │       │   ├── NotificationsRepository.class
     │   │       │   ├── ProjectRepository.class
     │   │       │   ├── RewardsCriteriaRepository.class
     │   │       │   ├── RewardsRepository.class
@@ -220,6 +251,7 @@ There are several ways to run a Spring Boot application on your local machine.
     │   │       │   │   ├── LoginServiceImpl.class
     │   │       │   │   ├── ManagerServiceImpl.class
     │   │       │   │   ├── NominationsServiceImpl.class
+    │   │       │   │   ├── NotificationsServiceImpl.class
     │   │       │   │   ├── ProjectServiceImpl.class
     │   │       │   │   ├── RewardsCriteriaServiceImpl.class
     │   │       │   │   ├── RewardsServiceImpl.class
@@ -229,6 +261,7 @@ There are several ways to run a Spring Boot application on your local machine.
     │   │       │   ├── LoginService.class
     │   │       │   ├── ManagerService.class
     │   │       │   ├── NominationsService.class
+    │   │       │   ├── NotificationsService.class
     │   │       │   ├── ProjectService.class
     │   │       │   ├── RewardsCriteriaService.class
     │   │       │   ├── RewardsService.class
@@ -236,9 +269,9 @@ There are several ways to run a Spring Boot application on your local machine.
     │   │       │   └── UserService.class
     │   │       └── utils
     │   │           ├── AskToNominate.class
+    │   │           ├── Constants.class
     │   │           ├── ScheduleRewards.class
-    │   │           ├── SpringWebConfig.class
-    │   │           └── Swagger2Config.class
+    │   │           └── SimpleCORSFile.class
     │   ├── gift.jpg
     │   ├── image.jpg
     │   ├── META-INF
@@ -257,7 +290,6 @@ There are several ways to run a Spring Boot application on your local machine.
         └── com
             └── rar
                 └── RewardsAndRecognitionApplicationTests.class
-
 
 ```
 ## Packages
