@@ -7,7 +7,7 @@ public interface UserService {
 
     ResponseEntity userSave(EditUserDetails editUserDetails);
 
-    ResponseEntity<EditUserDetails> listById(long id);
+    ResponseEntity<EditUserDetails> listById(Long id);
 
     ResponseEntity<EditUserDetails> update(long id, EditUserDetails editUserDetails);
 
