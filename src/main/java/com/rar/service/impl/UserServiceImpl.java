@@ -90,9 +90,9 @@ public class UserServiceImpl implements UserService {
 
         for (int i = 0; i < designations.size(); i++) {
             if (designations.get(i).getDesignationId() == designationId) {
-                designationSelected.add(i, new DesignationSelected(designationId, designations.get(i).getDesignation(), true));
+                designationSelected.add(i, new DesignationSelected(designationId, designations.get(i).getDesignationName(), true));
             } else {
-                designationSelected.add(i, new DesignationSelected(designations.get(i).getDesignationId(), designations.get(i).getDesignation(), false));
+                designationSelected.add(i, new DesignationSelected(designations.get(i).getDesignationId(), designations.get(i).getDesignationName(), false));
             }
         }
 
@@ -173,8 +173,8 @@ public class UserServiceImpl implements UserService {
         for(int i=0;i<rewardId.length;i++){
 
 
-            Long count=nominationsRepository.getCount(rewardId[i]);
-            Long rewardCoinValue = rewardsRepository.getCoinValue(rewardId[i]);
+            double count=nominationsRepository.getCount(rewardId[i]);
+            double rewardCoinValue = rewardsRepository.getCoinValue(rewardId[i]);
             double wonCoinValue = rewardCoinValue/count;
 
             Map map=new HashMap();

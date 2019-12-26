@@ -23,7 +23,7 @@ public class Designation implements Serializable {
     @Column(name="designation",nullable = false)
     @NotEmpty
     @ApiModelProperty(notes = "Designation name")
-    private String designation;
+    private String designationName;
 
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
@@ -35,12 +35,9 @@ public class Designation implements Serializable {
     private Set<UserInfo> userInfo = new HashSet<>();
 
     public Designation() {
+        // empty constructor
     }
 
-    public Designation(long designationId, String designation) {
-        this.designationId = designationId;
-        this.designation = designation;
-    }
 
     public long getDesignationId() {
         return designationId;
@@ -50,19 +47,19 @@ public class Designation implements Serializable {
             this.designationId = did;
     }
 
-    public String getDesignation() {
-        return designation;
+    public String getDesignationName() {
+        return designationName;
     }
 
-    public void setDesignation(String designation) {
-        this.designation = designation;
+    public void setDesignationName(String designationName) {
+        this.designationName = designationName;
     }
 
-    @Override
-    public String toString() {
-        return "Designation{" +
-                "did=" + designationId +
-                ", designation='" + designation + '\'' +
-                '}';
+    public Set<UserInfo> getUserInfo() {
+        return userInfo;
+    }
+
+    public void setUserInfo(Set<UserInfo> userInfo) {
+        this.userInfo = userInfo;
     }
 }

@@ -22,7 +22,7 @@ public interface NominationsRepository extends CrudRepository<Nominations, Long>
     void setDisable(Long userId);
 
     @Query(value = "select * from nominations where reward_id=?1",nativeQuery = true)
-    List<Nominations> GetData(Long rewardID);
+    List<Nominations> getData(Long rewardID);
 
     @Query(value="select * from nominations where user_id=?1 and reward_id=?2",nativeQuery = true)
     List<Nominations> getNominations(Long userId,Long rewardId);
@@ -95,5 +95,5 @@ public interface NominationsRepository extends CrudRepository<Nominations, Long>
     Long getCount(Long rewardId);
 
     @Query(value = "select distinct project_id from nominations where manager_id=?1 and reward_id=?2",nativeQuery = true)
-    long[] getProjectIds(long manager_id,long reward_id);
+    long[] getProjectIds(long managerId,long rewardId);
 }

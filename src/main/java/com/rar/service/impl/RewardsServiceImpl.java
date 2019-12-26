@@ -115,7 +115,7 @@ public class RewardsServiceImpl implements RewardsService {
 
         Rewards CreateReward = rewardsRepository.findById(id).get();
         if(rewardPojo.getAwardStatus()==ROLLED_OUT) {
-            if (CreateReward.getFrequency() == FrequencyEnum.Annually)
+            if (CreateReward.getFrequency() == FrequencyEnum.ANNUALLY)
 
                 CreateReward.setRewardName(CreateReward.getRewardName() + " for " + year);
 
@@ -136,13 +136,13 @@ public class RewardsServiceImpl implements RewardsService {
 
         FrequencyEnum frequency =CreateReward.getFrequency();
 
-        if(frequency==FrequencyEnum.Monthly)
+        if(frequency==FrequencyEnum.MONTHLY)
             CreateReward.setEndDate(today.plusMonths(1));
         else
-            if(frequency==FrequencyEnum.Quarterly)
+            if(frequency==FrequencyEnum.QUARTERLY)
                 CreateReward.setEndDate(today.plusMonths(4));
         else
-            if(frequency==FrequencyEnum.Annually)
+            if(frequency==FrequencyEnum.ANNUALLY)
                 CreateReward.setEndDate(today.plusYears(1));
 
         Rewards update = rewardsRepository.save(CreateReward);

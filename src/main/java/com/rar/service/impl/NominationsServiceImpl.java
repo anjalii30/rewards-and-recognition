@@ -81,7 +81,7 @@ public class NominationsServiceImpl implements NominationsService {
 
                 evidences.setNominationID(nominationID);
                 evidences.setCriteriaDesc(nominationPojo.get(i).getEvidencesPojoList().get(j).getCriteriaDesc());
-                evidences.setEvidences(nominationPojo.get(i).getEvidencesPojoList().get(j).getEvidences());
+                evidences.setEvidence(nominationPojo.get(i).getEvidencesPojoList().get(j).getEvidences());
                 evidences.setTextEvidence(nominationPojo.get(i).getEvidencesPojoList().get(j).getTextEvidence());
 
                 evidencesRepository.save(evidences);
@@ -102,7 +102,7 @@ public class NominationsServiceImpl implements NominationsService {
 
         List<Nominations> nominations = null;
 
-        nominations = nominationsRepository.GetData(rewardID);
+        nominations = nominationsRepository.getData(rewardID);
 
         return new ResponseEntity<>(nominations,HttpStatus.OK);
     }

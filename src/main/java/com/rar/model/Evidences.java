@@ -24,7 +24,7 @@ public class Evidences implements Serializable {
 
     @Column(name = "evidence",length = 2147483000)
     @ApiModelProperty(notes = "the documented form of evidence")
-    private String evidences;
+    private String evidence;
 
     @Column(name = "nomination_id")
     @ApiModelProperty(notes = "the nomination_id attached to that particular evidences")
@@ -35,9 +35,9 @@ public class Evidences implements Serializable {
     private String textEvidence;
 
     @ManyToOne
-    @JoinColumns({
+    @JoinColumns(
             @JoinColumn(name = "nomination_id", referencedColumnName = "nomination_id", insertable = false, updatable = false)
-    })
+    )
     @JsonIgnore
     private Nominations nominations;
 
@@ -57,12 +57,16 @@ public class Evidences implements Serializable {
         this.criteriaDesc = criteriaDesc;
     }
 
-    public String getEvidences() {
-        return evidences;
+    public String getEvidence() {
+        return evidence;
     }
 
-    public void setEvidences(String evidences) {
-        this.evidences = evidences;
+    public void setEvidence(String evidence) {
+        this.evidence = evidence;
+    }
+
+    public void setNominationID(Long nominationID) {
+        this.nominationID = nominationID;
     }
 
     public long getNominationID() {

@@ -66,7 +66,7 @@ public class ScheduleRewards {
             String currentYear = String.valueOf(cal.get(Calendar.YEAR));
             String year =String.valueOf(cal.get(Calendar.YEAR)-1);
 
-            if (oldReward.getFrequency() == FrequencyEnum.Monthly && d2.isAfter(d1) && oldReward.isRegenerated()) {
+            if (oldReward.getFrequency() == FrequencyEnum.MONTHLY && d2.isAfter(d1) && oldReward.isRegenerated()) {
 
                 rewardsRepository.updateToNull(oldReward.getRewardId());
 
@@ -135,7 +135,7 @@ public class ScheduleRewards {
             String currentYear = String.valueOf(cal.get(Calendar.YEAR));
             String year =String.valueOf(cal.get(Calendar.YEAR)-1);
 
-            if (oldReward.getFrequency() == FrequencyEnum.Quarterly && d2.isAfter(d1) && oldReward.isRegenerated()) {
+            if (oldReward.getFrequency() == FrequencyEnum.QUARTERLY && d2.isAfter(d1) && oldReward.isRegenerated()) {
 
                 rewardsRepository.updateToNull(oldReward.getRewardId());
 
@@ -201,7 +201,7 @@ public class ScheduleRewards {
             String year = String.valueOf(cal.get(Calendar.YEAR));
             String year1=String.valueOf(cal.get(Calendar.YEAR)+1);
 
-            if (oldReward.getFrequency() == FrequencyEnum.Annually && d2.isAfter(d1) && oldReward.isRegenerated()) {
+            if (oldReward.getFrequency() == FrequencyEnum.ANNUALLY && d2.isAfter(d1) && oldReward.isRegenerated()) {
 
                 rewardsRepository.updateToNull(oldReward.getRewardId());
 
@@ -263,18 +263,18 @@ public class ScheduleRewards {
                     && startDate.equals(today)){
                 rewardsRepository.updateAwardStatus(ROLLED_OUT,rewardId);
 
-                if(rewards.get(i).getFrequency()==FrequencyEnum.Monthly){
+                if(rewards.get(i).getFrequency()==FrequencyEnum.MONTHLY){
                     rewardsRepository.updateEndDateRolledOutEdit(rewardId,today.plusMonths(1));
                     rewardsRepository.updateRewardName(rewards.get(i).getRewardId(),rewards.get(i).getRewardName() + ROF + month + " " + year);
                 }
                 else
-                if(rewards.get(i).getFrequency()==FrequencyEnum.Quarterly){
+                if(rewards.get(i).getFrequency()==FrequencyEnum.QUARTERLY){
                     rewardsRepository.updateEndDateRolledOutEdit(rewardId,today.plusMonths(4));
                     rewardsRepository.updateRewardName(rewards.get(i).getRewardId(),rewards.get(i).getRewardName() + ROF + month + " " + year);
 
                 }
                 else
-                if(rewards.get(i).getFrequency()==FrequencyEnum.Annually){
+                if(rewards.get(i).getFrequency()==FrequencyEnum.ANNUALLY){
                     rewardsRepository.updateEndDateRolledOutEdit(rewardId,today.plusYears(1));
                     rewardsRepository.updateRewardName(rewards.get(i).getRewardId(),rewards.get(i).getRewardName() + ROF + year);
 
