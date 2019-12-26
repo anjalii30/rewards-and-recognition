@@ -64,6 +64,7 @@ public class LoginServiceImpl implements LoginService {
             if(userRepository.managerOrEmployee(email) == 0)
                 isManager= false;
             if (repoEmail.isPresent()) {
+
                 if (!userInfo.getFirstSign()) {
                     userInfo.setFirstSign(true);
                     userInfo.setImageUrl(imageUrl);
@@ -86,7 +87,10 @@ public class LoginServiceImpl implements LoginService {
             throw new InvalidUserException("you are not a user till now");
         }
         LoginUserDetails details1=new LoginUserDetails();
+        client.close();
         return details1;
+
+
     }
     @Override
     public ResponseEntity<UserInfo> saveLogin(UserInfo userInfo) {

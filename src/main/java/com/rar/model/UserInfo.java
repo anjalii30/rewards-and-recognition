@@ -117,6 +117,29 @@ public class UserInfo implements Serializable {
         // empty constructor
     }
 
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public List<Notifications> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(List<Notifications> notifications) {
+        this.notifications = notifications;
+    }
+
+    public List<Nominations> getNominations() {
+        return nominations;
+    }
+
+    public void setNominations(List<Nominations> nominations) {
+        this.nominations = nominations;
+    }
 
     public String getEmail() {
         return email;
@@ -189,14 +212,6 @@ public class UserInfo implements Serializable {
 
     public void setWallet(Long wallet) {
         this.wallet = wallet;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
     }
 
     @Override

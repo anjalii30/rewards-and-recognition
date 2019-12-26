@@ -89,10 +89,10 @@ public class UserServiceImpl implements UserService {
         long designationId = userRepository.findDesignationId(id);
 
         for (int i = 0; i < designations.size(); i++) {
-            if (designations.get(i).getDid() == designationId) {
+            if (designations.get(i).getDesignationId() == designationId) {
                 designationSelected.add(i, new DesignationSelected(designationId, designations.get(i).getDesignation(), true));
             } else {
-                designationSelected.add(i, new DesignationSelected(designations.get(i).getDid(), designations.get(i).getDesignation(), false));
+                designationSelected.add(i, new DesignationSelected(designations.get(i).getDesignationId(), designations.get(i).getDesignation(), false));
             }
         }
 
