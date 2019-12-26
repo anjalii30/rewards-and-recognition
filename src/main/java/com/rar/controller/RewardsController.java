@@ -7,7 +7,7 @@ import com.rar.model.Rewards;
 import com.rar.repository.RewardsRepository;
 import com.rar.repository.UserRepository;
 import com.rar.service.RewardsService;
-import com.rar.service.impl.CheckValidity;
+import com.rar.config.CheckValidity;
 import com.rar.service.impl.SendEmail;
 import com.sun.xml.messaging.saaj.packaging.mime.MessagingException;
 import io.swagger.annotations.Api;

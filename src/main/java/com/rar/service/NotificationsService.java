@@ -21,5 +21,5 @@ public interface NotificationsService {
 
     void winnerPublished(String rewardName, String winnerName);
 
-    ResponseEntity<List<Notifications>> getNAllNotifications(String email);
+    ResponseEntity<List<Notifications>> getAllNotifications(String email);
 }

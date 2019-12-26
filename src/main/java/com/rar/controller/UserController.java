@@ -4,7 +4,7 @@ import com.rar.DTO.EditUserDetails;
 import com.rar.exception.RecordNotFoundException;
 import com.rar.repository.UserRepository;
 import com.rar.service.UserService;
-import com.rar.service.impl.CheckValidity;
+import com.rar.config.CheckValidity;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;

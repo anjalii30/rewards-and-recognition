@@ -4,7 +4,7 @@ import com.rar.exception.RecordNotFoundException;
 import com.rar.model.Criteria;
 import com.rar.repository.CriteriaRepository;
 import com.rar.service.CriteriaService;
-import com.rar.service.impl.CheckValidity;
+import com.rar.config.CheckValidity;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

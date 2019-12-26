@@ -2,7 +2,7 @@ package com.rar.controller;
 
 import com.rar.model.RewardsCriteria;
 import com.rar.service.RewardsCriteriaService;
-import com.rar.service.impl.CheckValidity;
+import com.rar.config.CheckValidity;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

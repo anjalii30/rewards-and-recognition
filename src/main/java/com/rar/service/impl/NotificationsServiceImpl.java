@@ -11,7 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.rar.utils.Constants.DISCONTINUED;
 import static com.rar.utils.Constants.ROLLED_OUT;
@@ -97,9 +99,7 @@ public class NotificationsServiceImpl implements NotificationsService {
             notifications.setViewed(false);
             notifications.setMessage(winnerName+" has been awarded for the reward "+rewardName);
             notificationsRepository.save(notifications);
-
         }
-
     }
 
 
@@ -141,17 +141,21 @@ public class NotificationsServiceImpl implements NotificationsService {
     public ResponseEntity<List<Notifications>> getNewNotifications(String email) {
 
         List<Notifications> notifications=notificationsRepository.getUnviewedNotifications(userRepository.getIdByEmail(email));
+        Long count=notificationsRepository.getCountOfUnviewed(userRepository.getIdByEmail(email));
+        Map map=new HashMap();
         for(int i=0;i<notifications.size();i++){
             Long notificationId=notifications.get(i).getNotificationId();
             notificationsRepository.updateViewed(notificationId);
-            System.out.println("viewed updated true for "+notificationId);
+
         }
-        return new ResponseEntity<>(notifications, HttpStatus.OK);
+        map.put("notifications",notifications);
+        map.put("count",count);
+        return new ResponseEntity(map, HttpStatus.OK);
 
     }
 
     @Override
-    public ResponseEntity<List<Notifications>> getNAllNotifications(String email) {
+    public ResponseEntity<List<Notifications>> getAllNotifications(String email) {
         if(notificationsRepository.getAllNotifications(userRepository.getIdByEmail(email)).isEmpty()) {
             List<Notifications> notifications=new ArrayList<>();
             return new ResponseEntity<>(notifications,HttpStatus.OK);

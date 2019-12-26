@@ -2,7 +2,7 @@ package com.rar.controller;
 
 import com.rar.model.Notifications;
 import com.rar.service.NotificationsService;
-import com.rar.service.impl.CheckValidity;
+import com.rar.config.CheckValidity;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +45,6 @@ public class NotificationsController {
     @GetMapping("/getAllNotifications")
     public ResponseEntity<List<Notifications>> getAllNotifications(@RequestHeader(value = "Authorization") String token){
         String email=validity.check(token);
-        return new ResponseEntity(notificationsService.getNAllNotifications(email),HttpStatus.OK);
+        return new ResponseEntity(notificationsService.getAllNotifications(email),HttpStatus.OK);
     }
 }

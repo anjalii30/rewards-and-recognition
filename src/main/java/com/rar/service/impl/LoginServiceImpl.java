@@ -1,6 +1,7 @@
 package com.rar.service.impl;
 
 import com.rar.DTO.LoginUserDetails;
+import com.rar.config.GenerateJWT;
 import com.rar.enums.RoleEnum;
 import com.rar.exception.InvalidTokenException;
 import com.rar.exception.InvalidUserException;
@@ -39,13 +40,9 @@ public class LoginServiceImpl implements LoginService {
     @Value("${jwt.secret}")
     private String secret;
 
-    private static final long JWT_TOKEN_VALIDITY = (long )7* 24 * 60 * 60;
-
-
     public LoginUserDetails login(String token) throws Exception {
 
         //google token decryption
-        UserInfo userInfo = new UserInfo();
         CloseableHttpClient client = HttpClients.createDefault();
         HttpGet request = new HttpGet("https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=" + token);
         CloseableHttpResponse response = null;
@@ -80,14 +77,14 @@ public class LoginServiceImpl implements LoginService {
 
             Optional<UserInfo> repoEmail = userRepository.findByEmail(email);
 
-            UserInfo userInfo1 = userRepository.findByEmail(email).get();
+            UserInfo userInfo = userRepository.findByEmail(email).get();
 
-            Iterator<Roles> it= userInfo1.getRoles().iterator();
+            Iterator<Roles> it= userInfo.getRoles().iterator();
 
             Roles r=it.next();
             RoleEnum roleEnum=r.getRole();
 
-            Iterator<Designation> itt= userInfo1.getDesignation().iterator();
+            Iterator<Designation> itt= userInfo.getDesignation().iterator();
             Designation d=itt.next();
 
             String designation= d.getDesignation();
@@ -95,26 +92,26 @@ public class LoginServiceImpl implements LoginService {
             if(userRepository.managerOrEmployee(email) == 0)
                 isManager= false;
             if (repoEmail.isPresent()) {
-                System.out.println(""+userInfo1.getName()+" "+userInfo1.getEmail()+" "+designation+" "+roleEnum+" "+userInfo1.getImageUrl()+" "+userInfo1.getId());
+                System.out.println(""+userInfo.getName()+" "+userInfo.getEmail()+" "+designation+" "+roleEnum+" "+userInfo.getImageUrl()+" "+userInfo.getId());
                 System.out.println("dsasdasd");
-                if (!userInfo1.getFirstSign()) {
-                    userInfo1.setFirstSign(true);
-                    userInfo1.setImageUrl(imageUrl);
-                    userInfo1.setEmail(userInfo1.getEmail());
-                    userInfo1.setName(userInfo1.getName());
-                    userInfo1.setDesignation(userInfo1.getDesignation());
-                    userInfo1.setRoles(userInfo1.getRoles());
-                    userInfo1.setId(userInfo1.getId());
-                    userInfo1.setWallet(userInfo1.getWallet());
-                    userRepository.save(userInfo1);
+                if (!userInfo.getFirstSign()) {
+                    userInfo.setFirstSign(true);
+                    userInfo.setImageUrl(imageUrl);
+                    userInfo.setEmail(userInfo.getEmail());
+                    userInfo.setName(userInfo.getName());
+                    userInfo.setDesignation(userInfo.getDesignation());
+                    userInfo.setRoles(userInfo.getRoles());
+                    userInfo.setId(userInfo.getId());
+                    userInfo.setWallet(userInfo.getWallet());
+                    userRepository.save(userInfo);
 
                     String generatedToken=generateJWT.generateToken(email);
-                    return new LoginUserDetails(userInfo1.getEmail()+"",userInfo1.getName()+"",userInfo1.getImageUrl()+"",""+generatedToken,roleEnum,designation,userInfo1.getId(),isManager, userInfo1.getWallet());
+                    return new LoginUserDetails(userInfo.getEmail()+"",userInfo.getName()+"",userInfo.getImageUrl()+"",""+generatedToken,roleEnum,designation,userInfo.getId(),isManager, userInfo.getWallet());
 
                 } else {
                     System.out.println("66");
                     String generatedToken=generateJWT.generateToken(email);
-                    return new LoginUserDetails(userInfo1.getEmail()+"",userInfo1.getName()+"",userInfo1.getImageUrl()+"",""+generatedToken,roleEnum,designation,userInfo1.getId(),isManager,userInfo1.getWallet());
+                    return new LoginUserDetails(userInfo.getEmail()+"",userInfo.getName()+"",userInfo.getImageUrl()+"",""+generatedToken,roleEnum,designation,userInfo.getId(),isManager,userInfo.getWallet());
 
 
 
