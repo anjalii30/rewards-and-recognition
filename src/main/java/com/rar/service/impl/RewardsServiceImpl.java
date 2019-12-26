@@ -2,6 +2,7 @@ package com.rar.service.impl;
 
 import com.rar.dto.ListRollOutEdit;
 import com.rar.dto.RewardPojo;
+import com.rar.dto.RewardsDto;
 import com.rar.enums.FrequencyEnum;
 import com.rar.model.Rewards;
 import com.rar.model.RewardsCriteria;
@@ -69,7 +70,7 @@ public class RewardsServiceImpl implements RewardsService {
     }
 
     @Override
-    public ResponseEntity<Rewards> update(Long id, Rewards createReward) {
+    public ResponseEntity<Rewards> update(Long id, RewardsDto createReward) {
         Rewards CreateReward = rewardsRepository.findById(id).get();
         CreateReward.setRewardName(createReward.getRewardName());
         CreateReward.setFrequency(createReward.getFrequency());
@@ -221,22 +222,35 @@ public class RewardsServiceImpl implements RewardsService {
 
     }
 
-    public ResponseEntity<Rewards> rewardsSave(Rewards rewards) {
+    public ResponseEntity<Rewards> rewardsSave(RewardsDto rewardsDto) {
 
-
+            Rewards rewards= new Rewards();
+            rewards.setRewardName(rewardsDto.getRewardName());
+            rewards.setCoins(rewardsDto.getCoins());
+            rewards.setStartDate(rewardsDto.getStartDate());
+            rewards.setRegenerated(rewardsDto.isRegenerated());
+            rewards.setNominationsAllowed(rewardsDto.getNominationsAllowed());
+            rewards.setDescription(rewardsDto.getDescription());
+            rewards.setEndDate(rewardsDto.getEndDate());
+            rewards.setCategory(rewardsDto.getCategory());
+            rewards.setAwardStatus(rewardsDto.getAwardStatus());
+            rewards.setFrequency(rewardsDto.getFrequency());
+            rewards.setSelfNominate(rewardsDto.isSelfNominate());
+            rewards.setDiscontinuingDate(rewardsDto.getDiscontinuingDate());
+            rewards.setDiscontinuingReason(rewardsDto.getDiscontinuingReason());
+            rewards.setRollOutId(rewardsDto.getRollOutId());
             save(rewards);
 
             long id = rewards.getRewardId();
 
-        new RewardsCriteria();
-        RewardsCriteria rewardsCriteria;
+             RewardsCriteria rewardsCriteria;
 
             for (int i = 0; i < rewards.getCriteria().size(); i++) {
                 rewardsCriteria = new RewardsCriteria();
 
                 rewardsCriteria.setRewardId(id);
-                rewardsCriteria.setCriteriaId(rewards.getCriteria().get(i).getCriteriaId());
-                rewardsCriteria.setCompulsory(rewards.getCriteria().get(i).getCompulsory());
+                rewardsCriteria.setCriteriaId(rewardsDto.getCriteria().get(i).getCriteriaId());
+                rewardsCriteria.setCompulsory(rewardsDto.getCriteria().get(i).getCompulsory());
 
                 rewardsCriteriaRepository.save(rewardsCriteria);
             }
@@ -272,14 +286,14 @@ public class RewardsServiceImpl implements RewardsService {
         }
     }
 
-    public ResponseEntity<Rewards> rollOutUpdate(Long id, Rewards reward){
+    public ResponseEntity<Rewards> rollOutUpdate(Long id, RewardsDto reward){
         if(rewardsRepository.findEditRollOutId(id)==0 && rewardsRepository.checkingRewardInRolledOut(id)==0)
         {
-            rewardsSave(reward);
+            ResponseEntity<Rewards> rewards=rewardsSave(reward);
             rewardsRepository.regenerationCancel(id);
             rewardsRepository.updateRolledOutColumn(id,reward.getRewardId());
             rewardsRepository.updateRolledOutEditAwardStatus(reward.getRewardId());
-            return new ResponseEntity<>(reward,HttpStatus.OK);
+            return rewards;
         }
         else if(rewardsRepository.findEditRollOutId(id)==0 && rewardsRepository.checkingRewardInRolledOut(id)>0){
             return update(id,reward);
