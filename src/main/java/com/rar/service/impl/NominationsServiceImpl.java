@@ -19,7 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.mail.MessagingException;
 import java.io.IOException;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -49,7 +48,7 @@ public class NominationsServiceImpl implements NominationsService {
     private NominationsService nominationsService;
     @Autowired
     private NotificationsService notificationsService;
-    private static DecimalFormat df2 = new DecimalFormat("#.##");
+
 
     @Override
     public ResponseEntity<List<HashMap<String,Object>>> nominationSave(List<NominationPojo> nominationPojo, Long managerId) {
@@ -124,7 +123,7 @@ public class NominationsServiceImpl implements NominationsService {
                 root.put("user_name", nominationsRepository.getUserName(nominationID[i]));
                 root.put("reward_name",nominationsRepository.getRewardName(nominationID[i]));
                 root.put("image",userRepository.getImage(nominationsRepository.userId(nominationID[i])));
-                if(nominationsRepository.userId(nominationID[i])==userRepository.getIdByEmail(emails[j]))
+                if(nominationsRepository.userId(nominationID[i]).equals(userRepository.getIdByEmail(emails[j])))
                     sendEmail.sendEmailToWinner(root,emails[j],"You have been awarded");
                 else
                     sendEmail.sendEmailWithAttachment(root,emails[j], "Employee awarded for the reward");
@@ -146,11 +145,11 @@ public class NominationsServiceImpl implements NominationsService {
     @Override
     public void managerSelect(Nominations[] nominations,Long managerId,String managerName)  {
 
-        for(int i=0;i<nominations.length;i++){
-            Long nominationId =nominations[i].getNominationID();
-            String reason=nominations[i].getReason();
-            boolean selected=nominations[i].isSelected();
-            nominationsRepository.updateSelected(selected,reason,nominationId,managerId,managerName);
+        for (Nominations nomination : nominations) {
+            Long nominationId = nomination.getNominationID();
+            String reason = nomination.getReason();
+            boolean selected = nomination.isSelected();
+            nominationsRepository.updateSelected(selected, reason, nominationId, managerId, managerName);
         }
     }
 
@@ -170,18 +169,15 @@ public class NominationsServiceImpl implements NominationsService {
 
 
        int count = nominationID.length;
-       System.out.println(count);
        Long rewardId=nominationsRepository.getRewardId(nominationID[0]);
-       System.out.println(rewardId);
        Long rewardCoinValue = rewardsRepository.getCoinValue(rewardId);
-       System.out.println(rewardCoinValue)  ;
        double wonCoinValue = (rewardCoinValue/count);
-       for(int i=0; i<nominationID.length;i++){
-           Long userId = nominationsRepository.userId(nominationID[i]);
-           double currentWalletBalance = userRepository.getWalletBalance(userId);
-           double newWalletBalance = currentWalletBalance + wonCoinValue;
-           userRepository.updateWalletBalance(newWalletBalance,userId);
-       }
+        for (Long aLong : nominationID) {
+            Long userId = nominationsRepository.userId(aLong);
+            double currentWalletBalance = userRepository.getWalletBalance(userId);
+            double newWalletBalance = currentWalletBalance + wonCoinValue;
+            userRepository.updateWalletBalance(newWalletBalance, userId);
+        }
     }
 
     @Override

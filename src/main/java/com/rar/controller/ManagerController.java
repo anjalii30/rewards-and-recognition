@@ -107,16 +107,16 @@ public class ManagerController {
 
     /**
      * @param token jwt token
-     * @param manager_id manager id
-     * @param project_id project id
+     * @param managerId manager id
+     * @param projectId project id
      * @return a string "assigned"
      * @throws Exception project not found
      */
     @ApiOperation(value = "assign project to manager")
     @PostMapping("/assignManagerProject")
-    public ResponseEntity<String> assignValues(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "manager id ", required = true) @Valid @RequestBody long manager_id, @Valid @RequestBody long project_id) throws Exception {
+    public ResponseEntity<String> assignValues(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "manager id ", required = true) @Valid @RequestBody long managerId, @Valid @RequestBody long projectId){
         validity.check(token);
-           managerService.assignValues(manager_id, project_id);
+           managerService.assignValues(managerId, projectId);
            return new ResponseEntity<>("Assigned", HttpStatus.OK);
     }
 }

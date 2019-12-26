@@ -52,21 +52,6 @@ public class CriteriaController {
         return new ResponseEntity(criteriaService.findAll(), HttpStatus.OK);
     }
 
-    /**
-     * @param token jwt token
-     * @param id criteria id
-     * @return String that displays that criteria is deleted successfully.
-     */
-    @ApiOperation(value = "Delete criteria by id")
-    @DeleteMapping("/deleteCriteria/{id}")
-    public ResponseEntity<?> delete(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Criteria Id to delete criteria object", required = true) @PathVariable long id) {
-            validity.check(token);
-        if(criteriaRepository.existsById(id)) {
-            criteriaService.deleteById(id);
-            return new ResponseEntity<>("Deleted", HttpStatus.OK);
-        }else
-            throw new RecordNotFoundException("criteria id not found");
-    }
 
     /**
      * @param token jwt token
@@ -77,8 +62,9 @@ public class CriteriaController {
     @GetMapping("/listCriterion/{id}")
     public ResponseEntity<Criteria> getById(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Criteria Id to get criteria object", required = true) @PathVariable Long id) {
             validity.check(token);
-            if (criteriaRepository.existsById(id))
-            return new ResponseEntity(criteriaService.findById(id), HttpStatus.OK);
+            if (criteriaRepository.existsById(id)) {
+                return new ResponseEntity(criteriaService.findById(id), HttpStatus.OK);
+            }
        else
            throw new RecordNotFoundException("criteria id not found");
     }
