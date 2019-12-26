@@ -32,24 +32,27 @@ import java.util.*;
 public class LoginServiceImpl implements LoginService {
     @Autowired
     private UserRepository userRepository;
+
     @Autowired
     private GenerateJWT generateJWT;
+
     @Value("${jwt.secret}")
     private String secret;
     public LoginUserDetails login(String token) throws IOException, ParseException {
 
-        CloseableHttpClient client = HttpClients.createDefault();
-        HttpGet request = new HttpGet("https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=" + token);
-        CloseableHttpResponse response = null;
-        response = client.execute(request);
-        int status = response.getStatusLine().getStatusCode();
-        if (!(status >= 200 && status < 300)) {
+        try(CloseableHttpClient client = HttpClients.createDefault()) {
+            HttpGet request = new HttpGet("https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=" + token);
+            CloseableHttpResponse response = null;
+            response = client.execute(request);
+            int status = response.getStatusLine().getStatusCode();
+            if (!(status >= 200 && status < 300)) {
 
-            throw new InvalidTokenException("The token is invalid");
+                throw new InvalidTokenException("The token is invalid");
 
-        }
-        HttpEntity httpEntity = response.getEntity();
-        String responseString = EntityUtils.toString(httpEntity, "UTF-8");
+            }
+            HttpEntity httpEntity = response.getEntity();
+            String responseString = EntityUtils.toString(httpEntity, "UTF-8");
+
 
         JSONObject json = (JSONObject) new JSONParser().parse(responseString);
         String email = (String) json.get("email");
@@ -68,31 +71,30 @@ public class LoginServiceImpl implements LoginService {
                 isManager= false;
             if (repoEmail.isPresent()) {
 
-                if (!userInfo.getFirstSign()) {
-                    userInfo.setFirstSign(true);
-                    userInfo.setImageUrl(imageUrl);
-                    userInfo.setEmail(userInfo.getEmail());
-                    userInfo.setName(userInfo.getName());
-                    userInfo.setDesignation(userInfo.getDesignation());
-                    userInfo.setRoles(userInfo.getRoles());
-                    userInfo.setUserId(userInfo.getUserId());
-                    userInfo.setWallet(userInfo.getWallet());
-                    userRepository.save(userInfo);
-                    String generatedToken=generateJWT.generateToken(email);
-                    return new LoginUserDetails(userInfo.getEmail()+"",userInfo.getName()+"",userInfo.getImageUrl()+"",""+generatedToken,roleEnum,designation,userInfo.getUserId(),isManager, userInfo.getWallet());
-                } else {
-                    String generatedToken=generateJWT.generateToken(email);
-                    return new LoginUserDetails(userInfo.getEmail()+"",userInfo.getName()+"",userInfo.getImageUrl()+"",""+generatedToken,roleEnum,designation,userInfo.getUserId(),isManager,userInfo.getWallet());
+                    if (!userInfo.getFirstSign()) {
+                        userInfo.setFirstSign(true);
+                        userInfo.setImageUrl(imageUrl);
+                        userInfo.setEmail(userInfo.getEmail());
+                        userInfo.setName(userInfo.getName());
+                        userInfo.setDesignation(userInfo.getDesignation());
+                        userInfo.setRoles(userInfo.getRoles());
+                        userInfo.setUserId(userInfo.getUserId());
+                        userInfo.setWallet(userInfo.getWallet());
+                        userRepository.save(userInfo);
+                        String generatedToken = generateJWT.generateToken(email);
+                        return new LoginUserDetails(userInfo.getEmail() + "", userInfo.getName() + "", userInfo.getImageUrl() + "", "" + generatedToken, roleEnum, designation, userInfo.getUserId(), isManager, userInfo.getWallet());
+                    } else {
+                        String generatedToken = generateJWT.generateToken(email);
+                        return new LoginUserDetails(userInfo.getEmail() + "", userInfo.getName() + "", userInfo.getImageUrl() + "", "" + generatedToken, roleEnum, designation, userInfo.getUserId(), isManager, userInfo.getWallet());
+                    }
+
                 }
-
+            } catch (Exception e) {
+                throw new InvalidUserException("you are not a user till now");
             }
-        } catch (Exception e) {
-            throw new InvalidUserException("you are not a user till now");
+            LoginUserDetails details1 = new LoginUserDetails();
+            return details1;
         }
-        LoginUserDetails details1=new LoginUserDetails();
-        client.close();
-        return details1;
-
 
     }
     @Override

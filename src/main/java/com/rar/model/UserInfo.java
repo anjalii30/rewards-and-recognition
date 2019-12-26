@@ -53,21 +53,6 @@ public class UserInfo implements Serializable {
     @OneToMany(mappedBy = "userInfo",cascade = CascadeType.ALL)
     private List<Nominations> nominations;
 
-
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            })
-
-    @JoinTable(
-            name = "user_manager",
-            joinColumns = {@JoinColumn(name = "user_id")},
-            inverseJoinColumns = {@JoinColumn(name = "manager_id")}
-    )
-
-    private Set<Manager> manager = new HashSet<>();
-
     //DESIGNATION
 
     @ManyToMany(fetch = FetchType.LAZY,
@@ -111,14 +96,23 @@ public class UserInfo implements Serializable {
     private Set<Projects> projects= new HashSet<>();
 
 
-
-
     public UserInfo() {
         // empty constructor
     }
 
     public Long getUserId() {
         return userId;
+    }
+
+    public UserInfo(Long userId, @NotNull @Email @Size(max = 100) String email, String name, Boolean firstSign, String imageUrl,  Set<Designation> designation, Set<Roles> roles, Set<Projects> projects) {
+        this.userId = userId;
+        this.email = email;
+        this.name = name;
+        this.firstSign = firstSign;
+        this.imageUrl = imageUrl;
+        this.designation = designation;
+        this.roles = roles;
+        this.projects = projects;
     }
 
     public void setUserId(Long userId) {
@@ -173,15 +167,6 @@ public class UserInfo implements Serializable {
         this.imageUrl = imageUrl;
     }
 
-    public Set<Manager> getManager() {
-        return manager;
-    }
-
-    public void setManager(Set<Manager> manager) {
-        this.manager = manager;
-    }
-
-
     public Set<Designation> getDesignation() {
         return designation;
     }
@@ -214,6 +199,7 @@ public class UserInfo implements Serializable {
         this.wallet = wallet;
     }
 
+
     @Override
     public String toString() {
         return "UserInfo{" +
@@ -222,7 +208,6 @@ public class UserInfo implements Serializable {
                 ", name='" + name + '\'' +
                 ", firstSign=" + firstSign +
                 ", imageUrl='" + imageUrl + '\'' +
-                ", manager=" + manager +
                 ", designation=" + designation +
                 ", roles=" + roles +
                 ", projects=" + projects +

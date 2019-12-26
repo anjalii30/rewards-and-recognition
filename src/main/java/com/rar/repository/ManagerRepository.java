@@ -21,7 +21,6 @@ public interface ManagerRepository extends CrudRepository<Manager, Long> {
     @Query(value = "insert into managers (manager_email) values(:managerEmail)",nativeQuery = true)
     void managerInsert(String managerEmail);
 
-
     @Query(value="select user_id,name from users where user_id in (select user_id from user_projects where project_id=?1)",nativeQuery = true)
     List<Map<String,String>> getAllMembers(Long projectId);
 

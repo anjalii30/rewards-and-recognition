@@ -15,8 +15,9 @@ public interface NotificationsRepository extends CrudRepository<Notifications, L
     @Query(value="select * from notifications where user_id=?1  and viewed=false",nativeQuery = true)
     List<Notifications> getUnseenNotifications(Long userId);
 
+/*
     @Query(value="select count(notification_id) from notifications where user_id=?1 and viewed=false",nativeQuery = true)
-    Long getCountOfUnseen(Long userId);
+    Long getCountOfUnseen(Long userId);*/
 
     @Query(value="select * from notifications where user_id=?1 ",nativeQuery = true)
     List<Notifications> getAllNotifications(Long userId);

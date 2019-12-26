@@ -76,11 +76,11 @@ public interface UserRepository extends CrudRepository< UserInfo,Long> {
     @Query(value="select manager_id from manager_projects where project_id=?1",nativeQuery = true)
     List<Long> getManagerIdFromProjectId(Long projectId);
 
-    @Modifying
+  /*  @Modifying
     @Transactional
     @Query(value="insert into user_manager (user_id,manager_id) values (:userId,:managerId)",nativeQuery = true)
     void insertUserManager(Long userId,Long managerId);
-
+*/
     @Query(value="select * from users where user_id not in(select user_id from user_roles where role_id=2)",nativeQuery = true)
     List<UserInfo> getAll();
 
@@ -108,11 +108,11 @@ public interface UserRepository extends CrudRepository< UserInfo,Long> {
     @Query(value="delete from user_projects where user_id=?1",nativeQuery = true)
     void deleteUserProjects(Long userId);
 
-    @Modifying
+    /*@Modifying
     @Transactional
     @Query(value="delete from user_manager where user_id=?1",nativeQuery = true)
     void deleteUserManagers(Long userId);
-
+*/
     @Query(value="select email from users where user_id in(select user_id from user_roles where role_id=1)",nativeQuery = true)
     String[] getAllEmails();
 

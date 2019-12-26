@@ -65,7 +65,7 @@ public class Rewards implements Serializable {
 
     @Column(name="self_nominate")
     @ApiModelProperty(notes = "Used for self nominating rewards")
-    private boolean selfNominate;
+    private boolean selfNominate=false;
 
     @Column(name="nominations_allowed")
     @ApiModelProperty(notes = "The number of nominations allowed for reward")

@@ -98,13 +98,6 @@ public class Notifications implements Serializable {
         this.dateCreated = dateCreated;
     }
 
-    public UserInfo getUserInfo() {
-        return userInfo;
-    }
-
-    public void setUserInfo(UserInfo userInfo) {
-        this.userInfo = userInfo;
-    }
 
     @Override
     public String toString() {
