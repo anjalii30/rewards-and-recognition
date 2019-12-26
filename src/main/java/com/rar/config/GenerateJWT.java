@@ -1,4 +1,4 @@
-package com.rar.service.impl;
+package com.rar.config;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

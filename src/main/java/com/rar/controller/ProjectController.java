@@ -10,7 +10,7 @@ import com.rar.repository.ManagerRepository;
 import com.rar.repository.ProjectRepository;
 import com.rar.repository.RewardsRepository;
 import com.rar.service.ProjectService;
-import com.rar.service.impl.CheckValidity;
+import com.rar.config.CheckValidity;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

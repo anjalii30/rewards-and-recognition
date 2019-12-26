@@ -1,4 +1,4 @@
-package com.rar.service.impl;
+package com.rar.config;
 
 import com.rar.exception.InvalidTokenException;
 import io.jsonwebtoken.Claims;
