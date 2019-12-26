@@ -49,14 +49,8 @@ public class LoginServiceImpl implements LoginService {
         String responseString = EntityUtils.toString(httpEntity, "UTF-8");
 
         JSONObject json = (JSONObject) new JSONParser().parse(responseString);
-        Set keys = json.<String>keySet();
-        System.out.println(keys);
         String email = (String) json.get("email");
-        System.out.println("" + email);
-        String name = (String) json.get("name");
-        System.out.println("" + name);
         String imageUrl = (String) json.get("picture");
-        System.out.println(imageUrl);
         try {
             Optional<UserInfo> repoEmail = userRepository.findByEmail(email);
             UserInfo userInfo = userRepository.findByEmail(email).get();
@@ -70,8 +64,6 @@ public class LoginServiceImpl implements LoginService {
             if(userRepository.managerOrEmployee(email) == 0)
                 isManager= false;
             if (repoEmail.isPresent()) {
-                System.out.println(""+userInfo.getName()+" "+userInfo.getEmail()+" "+designation+" "+roleEnum+" "+userInfo.getImageUrl()+" "+userInfo.getId());
-                System.out.println("dsasdasd");
                 if (!userInfo.getFirstSign()) {
                     userInfo.setFirstSign(true);
                     userInfo.setImageUrl(imageUrl);
@@ -85,14 +77,12 @@ public class LoginServiceImpl implements LoginService {
                     String generatedToken=generateJWT.generateToken(email);
                     return new LoginUserDetails(userInfo.getEmail()+"",userInfo.getName()+"",userInfo.getImageUrl()+"",""+generatedToken,roleEnum,designation,userInfo.getId(),isManager, userInfo.getWallet());
                 } else {
-                    System.out.println("66");
                     String generatedToken=generateJWT.generateToken(email);
                     return new LoginUserDetails(userInfo.getEmail()+"",userInfo.getName()+"",userInfo.getImageUrl()+"",""+generatedToken,roleEnum,designation,userInfo.getId(),isManager,userInfo.getWallet());
                 }
-                //user already exists
+
             }
         } catch (Exception e) {
-            System.out.println(e);
             throw new InvalidUserException("you are not a user till now");
         }
         LoginUserDetails details1=new LoginUserDetails();
@@ -109,7 +99,7 @@ public class LoginServiceImpl implements LoginService {
         for(int i =0;i<userInfos.size();i++){
             userInfoList.add(i, new LoginUserDetails(userInfos.get(i).getEmail(), userInfos.get(i).getName(), userInfos.get(i).getImageUrl(), userInfos.get(i).getId()));
         }
-        if (userInfos.size()==0)
+        if (userInfos.isEmpty())
             userInfoList=new ArrayList<>();
         return new ResponseEntity<>(userInfoList,HttpStatus.OK);
     }
@@ -126,7 +116,7 @@ public class LoginServiceImpl implements LoginService {
         userRepository.deleteByEmail(email);
     }
     @Override
-    public Long getIdByName(String user_email) {
-        return userRepository.getIdByEmail(user_email);
+    public Long getIdByName(String userEmail) {
+        return userRepository.getIdByEmail(userEmail);
     }
 }

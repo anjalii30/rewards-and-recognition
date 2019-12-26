@@ -44,7 +44,6 @@ public class UserServiceImpl implements UserService {
 
         userRepository.insertUser(editUserDetails.getEmail(),editUserDetails.getName());
         long id = userRepository.getUserId(editUserDetails.getEmail());
-        System.out.println(id);
 
         userRepository.makeWalletZero(id);
         userRepository.changeFirstSign(id);
@@ -53,10 +52,7 @@ public class UserServiceImpl implements UserService {
         for(int i=0;i<editUserDetails.getDesignationSelected().size();i++){
             userRepository.insertUserDesignation(id, editUserDetails.getDesignationSelected().get(i).getDid());
         }
-       /* for (Iterator<DesignationSelected> designationIterator = editUserDetails.getDesignationSelected().iterator(); designationIterator.hasNext(); ) {
-            DesignationSelected designation = designationIterator.next();
-            userRepository.insertUserDesignation(id, designation.getDid());
-        }*/
+
         int count=0;
         for(int j=0;j<editUserDetails.getProjectsList().size();j++){
             ProjectDetailsUser projects = editUserDetails.getProjectsList().get(j);
@@ -77,56 +73,6 @@ public class UserServiceImpl implements UserService {
             }
         }
 
-         /*  for(int i=0;i<userInfo.getProjectDetailsUsers().size();i++)
-        {
-            if(userInfo.getProjectDetailsUsers().get(i).getManaging()){
-                if (count==0){
-                    userRepository.insertManager(userInfo.getEmail());
-                    count++;
-                }
-                long mid = userRepository.findManagerId(userInfo.getEmail());
-                userRepository.insertManagerProjects(mid, userInfo.getProjectDetailsUsers().get(i).getProject_id());
-            }
-            if(!userInfo.getProjectDetailsUsers().get(i).getManaging() && userInfo.getProjectDetailsUsers().get(i).getWorking()){
-                userRepository.insertUserProjects(id,userInfo.getProjectDetailsUsers().get(i).getProject_id());
-                userRepository.insertUserManager(id, userRepository.getManagerIdFromProjectId(userInfo.getProjectDetailsUsers().get(i).getProject_id()));
-            }
-
-        }*/
-
-//        int count=0;
-//        for(int i=0;i<userInfo.getProjectDetails().size();i++)
-//        {
-//            if(userInfo.getProjectDetails().get(i).getManaging()){
-//                if(count==0){
-//                    userRepository.insertManager(userInfo.getEmail());
-//                    count++;
-//                }
-//                long mid = userRepository.findManagerId(userInfo.getEmail());
-//                userRepository.insertManagerProjects(mid, userInfo.getProjectDetails().get(i).getProject_id());
-//            }
-//            if(!userInfo.getProjectDetails().get(i).getManaging() && userInfo.getProjectDetails().get(i).getWorking()){
-//                userRepository.insertUserProjects(id, userInfo.getProjectDetails().get(i).getProject_id());
-//                userRepository.insertUserManager(id, userRepository.getManagerIdFromProjectId(userInfo.getProjectDetails().get(i).getProject_id()));
-//            }
-//        }
-        /*boolean managingProject = userInfo.getManagingProject();
-        if (managingProject = true) {
-            userRepository.insertManager(userInfo.getEmail());
-            long mid = userRepository.findManagerId(userInfo.getEmail());
-
-            for (int i = 0; i < userInfo.getManagerProjects().size(); i++) {
-                userRepository.insertManagerProjects(mid, userInfo.getManagerProjects().get(i).getProject_id());
-            }
-        }
-        boolean workingOnProject = userInfo.getWorkingOnProject();
-        if (workingOnProject = true) {
-            for (int j = 0; j < userInfo.getUserProjects().size(); j++) {
-                userRepository.insertUserProjects(id, userInfo.getUserProjects().get(j).getProject_id());
-                userRepository.insertUserManager(id, userRepository.getManagerIdFromProjectId(userInfo.getUserProjects().get(j).getProject_id()));
-            }
-        }*/
-
         HashMap<String, Object> s = new HashMap<>();
         s.put("user", editUserDetails);
         return new ResponseEntity<>(s, HttpStatus.OK);
@@ -134,10 +80,10 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public ResponseEntity<EditUserDetails> listById(long id) {
+    public ResponseEntity<EditUserDetails> listById(Long id) {
         Optional<UserInfo> userInfo = userRepository.findById(id);
 
-        List<Designation> designations = (List<Designation>) designationRepository.findAll();
+        List<Designation> designations = designationRepository.findAll();
         List<DesignationSelected> designationSelected = new ArrayList<>();
 
         long designationId = userRepository.findDesignationId(id);
@@ -154,7 +100,9 @@ public class UserServiceImpl implements UserService {
 
         List<ProjectDetailsUser> projectsList = new ArrayList<>();
 
-        boolean managing, working;
+        boolean managing;
+        boolean working;
+
         long mid = 0;
         for (int i = 0; i < projects.size(); i++) {
             projectRepository.userProjectPresent(id, projects.get(i).getProjectId());
@@ -218,21 +166,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResponseEntity getCoinsDetails(String email) {
         Long userId=userRepository.getIdByEmail(email);
-        System.out.println(email+" "+userId);
         Long[] rewardId=nominationsRepository.getRewardIdForUser(userId);
 
 
         List list=new ArrayList();
         for(int i=0;i<rewardId.length;i++){
 
-            System.out.println(rewardId.length +" length");
-            System.out.println(rewardId[i] + " rewrdid");
 
             Long count=nominationsRepository.getCount(rewardId[i]);
             Long rewardCoinValue = rewardsRepository.getCoinValue(rewardId[i]);
             double wonCoinValue = rewardCoinValue/count;
-
-            System.out.println(count+" count "+rewardCoinValue+" reward value "+wonCoinValue+" won value");
+            
             Map map=new HashMap();
             map.put("reward name",rewardsRepository.getRewardName(rewardId[i]));
             map.put("reward value",rewardCoinValue);
