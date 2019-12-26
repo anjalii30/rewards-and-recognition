@@ -308,5 +308,8 @@ The Test cases for the application can be found [here](https://docs.google.com/s
 
 The Swagger UI can be referred [here](http://localhost:8080/swagger-ui.html#/)
 
+## E-R schema
+The E-R schema can be found [here](https://drive.google.com/file/d/0B1UpYR5HWccVS1IxQktFOUJOcUdDSU05S3ZhTlE0T3Vtb204/view?usp=sharing)
+
 ## License
 &copy; Nineleaps | 2019 
