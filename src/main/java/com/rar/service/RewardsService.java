@@ -2,6 +2,7 @@ package com.rar.service;
 
 import com.rar.dto.ListRollOutEdit;
 import com.rar.dto.RewardPojo;
+import com.rar.dto.RewardsDto;
 import com.rar.model.Rewards;
 import com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +12,7 @@ import java.util.List;
 
 public interface RewardsService {
 
-    ResponseEntity<Rewards> update(Long id, Rewards createReward);
+    ResponseEntity<Rewards> update(Long id, RewardsDto createReward);
 
     ResponseEntity<Rewards> findById(Long id);
 
@@ -23,7 +24,7 @@ public interface RewardsService {
 
     ResponseEntity<List<Rewards>> findByRolled(String email);
 
-    ResponseEntity<Rewards> rewardsSave(Rewards rewards);
+    ResponseEntity<Rewards> rewardsSave(RewardsDto rewards);
 
     ResponseEntity<List<Rewards>> latest(String email);
 
@@ -31,5 +32,5 @@ public interface RewardsService {
 
     ResponseEntity<ListRollOutEdit> rollOutListReward(long id);
 
-    ResponseEntity<Rewards> rollOutUpdate(Long id, Rewards reward);
+    ResponseEntity<Rewards> rollOutUpdate(Long id, RewardsDto reward);
 }
