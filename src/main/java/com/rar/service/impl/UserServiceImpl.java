@@ -173,8 +173,8 @@ public class UserServiceImpl implements UserService {
         for(int i=0;i<rewardId.length;i++){
 
 
-            Long count=nominationsRepository.getCount(rewardId[i]);
-            Long rewardCoinValue = rewardsRepository.getCoinValue(rewardId[i]);
+            double count=nominationsRepository.getCount(rewardId[i]);
+            double rewardCoinValue = rewardsRepository.getCoinValue(rewardId[i]);
             double wonCoinValue = rewardCoinValue/count;
 
             Map map=new HashMap();

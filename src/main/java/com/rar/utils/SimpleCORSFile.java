@@ -32,7 +32,6 @@ public class SimpleCORSFile implements Filter {
         response.setHeader("Access-Control-Max-Age", "3600");
         response.setHeader("Access-Control-Allow-Headers", "x-requested-with, access-control-allow-origin,authorization,token,role ,content-type,Access-Control-Request-Methods");
         response.setHeader("Access-Control-Allow-Credentials","true");
-        //System.out.println("Show"+((HttpServletResponse) res));
         if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
             response.setStatus(HttpServletResponse.SC_OK);
         } else {

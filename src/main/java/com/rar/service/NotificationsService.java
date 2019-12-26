@@ -13,7 +13,7 @@ public interface NotificationsService {
 
     void newMemberAdded(Long userId,Long projectId);
 
-    void MemberDeletedFromProject(Long userId,Long projectId);
+    void memberDeletedFromProject(Long userId,Long projectId);
 
     void endDatePassed(Long rewardId);
 

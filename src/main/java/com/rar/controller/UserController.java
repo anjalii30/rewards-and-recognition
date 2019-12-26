@@ -48,8 +48,9 @@ public class UserController {
     @GetMapping("/listUser/{id}")
     public ResponseEntity<EditUserDetails> listById(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "User Id to get user object", required = true)@PathVariable Long id){
         validity.check(token);
-        if(userRepository.existsById(id))
-        return new ResponseEntity(userService.listById(id),HttpStatus.OK);
+        if(userRepository.existsById(id)) {
+            return new ResponseEntity(userService.listById(id), HttpStatus.OK);
+        }
         else
             throw new RecordNotFoundException("user id not found");
     }

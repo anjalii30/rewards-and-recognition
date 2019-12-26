@@ -102,7 +102,7 @@ public class NominationsServiceImpl implements NominationsService {
 
         List<Nominations> nominations = null;
 
-        nominations = nominationsRepository.GetData(rewardID);
+        nominations = nominationsRepository.getData(rewardID);
 
         return new ResponseEntity<>(nominations,HttpStatus.OK);
     }

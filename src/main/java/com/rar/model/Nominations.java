@@ -88,6 +88,7 @@ public class Nominations implements Serializable {
 
 
     public Nominations() {
+        // empty constructor
     }
 
 

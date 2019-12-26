@@ -122,7 +122,7 @@ public class NotificationsServiceImpl implements NotificationsService {
     }
 
     @Override
-    public void MemberDeletedFromProject(Long userId,Long projectId){
+    public void memberDeletedFromProject(Long userId,Long projectId){
         String project=projectRepository.getProjectName(projectId);
         String userName=userRepository.getUserName(userId);
         Long[] all=projectRepository.getEveryoneInProject(projectId);

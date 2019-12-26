@@ -136,7 +136,7 @@ public class ProjectServiceImpl implements ProjectService {
 
             projectRepository.deleteUser(userId, projectId);
 
-            notificationsService.MemberDeletedFromProject(userId, projectId);
+            notificationsService.memberDeletedFromProject(userId, projectId);
         }
     }
 
