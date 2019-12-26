@@ -8,6 +8,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -26,6 +27,9 @@ public class Manager implements Serializable {
     @NotEmpty
     @ApiModelProperty(notes = "The email ID of particular manager")
     private String managerEmail;
+
+    @OneToMany(mappedBy = "manager",cascade = CascadeType.ALL)
+    private List<Nominations> nominations;
 
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
@@ -71,7 +75,8 @@ public class Manager implements Serializable {
         this.managerId = managerId;
     }
 
-/*    public Set<Projects> getManager_projects() {
+
+    /*    public Set<Projects> getManager_projects() {
         return manager_projects;
     }
 
