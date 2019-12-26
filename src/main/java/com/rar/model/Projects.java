@@ -6,6 +6,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -13,7 +14,7 @@ import java.util.Set;
 @Entity
 @Table(name="projects")
 @ApiModel(description = "All the details about projects")
-public class Projects {
+public class Projects implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

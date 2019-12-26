@@ -55,8 +55,8 @@ public class NominationController {
     @PostMapping("/saveNomination")
     public ResponseEntity nominationSave(@RequestHeader(value = "Authorization") String token , @ApiParam(value = "Nomination object store in database table", required = true) @Valid @RequestBody List<NominationPojo> nominationPojo) {
                String email = validity.check(token);
-               Long manager_id = managerRepository.findByEmail(email);
-               nominationsService.nominationSave(nominationPojo, manager_id);
+               Long managerId = managerRepository.findByEmail(email);
+               nominationsService.nominationSave(nominationPojo, managerId);
                return new ResponseEntity<>(nominationPojo, HttpStatus.OK);
     }
 
@@ -67,10 +67,11 @@ public class NominationController {
      */
     @ApiOperation(value = "Get the list of nominations for admin by reward id")
     @GetMapping("/showNomination/{id}")
-    public ResponseEntity<List<Nominations>> showById(@RequestHeader(value = "Authorization") String token,  @ApiParam(value = "Get nomination object by reward_id", required = true) @PathVariable Long id) throws Exception {
+    public ResponseEntity<List<Nominations>> showById(@RequestHeader(value = "Authorization") String token,  @ApiParam(value = "Get nomination object by reward_id", required = true) @PathVariable Long id) {
            validity.check(token);
-           if(rewardsRepository.existsById(id))
-           return new ResponseEntity(nominationsService.getData(id),HttpStatus.OK);
+           if(rewardsRepository.existsById(id)) {
+               return new ResponseEntity(nominationsService.getData(id), HttpStatus.OK);
+           }
            else
                throw new RecordNotFoundException("reward id not found");
     }
@@ -138,9 +139,9 @@ public class NominationController {
     @PutMapping("/managerSelect")
     public void managerSelect(@RequestHeader(value = "Authorization") String token ,@RequestBody Nominations[] nominations) {
         String email=validity.check(token);
-        Long manager_id=managerRepository.findByEmail(email);
-        String manager_name=userRepository.getName(email);
-        nominationsService.managerSelect(nominations,manager_id,manager_name);
+        Long managerId=managerRepository.findByEmail(email);
+        String managerName=userRepository.getName(email);
+        nominationsService.managerSelect(nominations,managerId,managerName);
     }
 
     /**
@@ -149,7 +150,7 @@ public class NominationController {
      */
     @ApiOperation(value = "Get the list of rewards and their nominees")
     @GetMapping("/history")
-    public ResponseEntity<List<History>> showHistory(@RequestHeader(value = "Authorization") String token) throws Exception{
+    public ResponseEntity<List<History>> showHistory(@RequestHeader(value = "Authorization") String token) {
         String email=validity.check(token);
         return new ResponseEntity(nominationsService.history(email),HttpStatus.OK);
     }

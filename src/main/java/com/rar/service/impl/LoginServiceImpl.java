@@ -71,14 +71,14 @@ public class LoginServiceImpl implements LoginService {
                     userInfo.setName(userInfo.getName());
                     userInfo.setDesignation(userInfo.getDesignation());
                     userInfo.setRoles(userInfo.getRoles());
-                    userInfo.setId(userInfo.getId());
+                    userInfo.setUserId(userInfo.getUserId());
                     userInfo.setWallet(userInfo.getWallet());
                     userRepository.save(userInfo);
                     String generatedToken=generateJWT.generateToken(email);
-                    return new LoginUserDetails(userInfo.getEmail()+"",userInfo.getName()+"",userInfo.getImageUrl()+"",""+generatedToken,roleEnum,designation,userInfo.getId(),isManager, userInfo.getWallet());
+                    return new LoginUserDetails(userInfo.getEmail()+"",userInfo.getName()+"",userInfo.getImageUrl()+"",""+generatedToken,roleEnum,designation,userInfo.getUserId(),isManager, userInfo.getWallet());
                 } else {
                     String generatedToken=generateJWT.generateToken(email);
-                    return new LoginUserDetails(userInfo.getEmail()+"",userInfo.getName()+"",userInfo.getImageUrl()+"",""+generatedToken,roleEnum,designation,userInfo.getId(),isManager,userInfo.getWallet());
+                    return new LoginUserDetails(userInfo.getEmail()+"",userInfo.getName()+"",userInfo.getImageUrl()+"",""+generatedToken,roleEnum,designation,userInfo.getUserId(),isManager,userInfo.getWallet());
                 }
 
             }
@@ -97,7 +97,7 @@ public class LoginServiceImpl implements LoginService {
         List<UserInfo> userInfos = userRepository.getAll();
         List<LoginUserDetails> userInfoList=new ArrayList<>();
         for(int i =0;i<userInfos.size();i++){
-            userInfoList.add(i, new LoginUserDetails(userInfos.get(i).getEmail(), userInfos.get(i).getName(), userInfos.get(i).getImageUrl(), userInfos.get(i).getId()));
+            userInfoList.add(i, new LoginUserDetails(userInfos.get(i).getEmail(), userInfos.get(i).getName(), userInfos.get(i).getImageUrl(), userInfos.get(i).getUserId()));
         }
         if (userInfos.isEmpty())
             userInfoList=new ArrayList<>();

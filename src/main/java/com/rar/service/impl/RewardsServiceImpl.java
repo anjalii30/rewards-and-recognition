@@ -70,25 +70,25 @@ public class RewardsServiceImpl implements RewardsService {
 
     @Override
     public ResponseEntity<Rewards> Update(Long id, Rewards createReward) {
-        Rewards CreateReward1 = rewardsRepository.findById(id).get();
-        CreateReward1.setRewardName(createReward.getRewardName());
-        CreateReward1.setFrequency(createReward.getFrequency());
-        CreateReward1.setDescription(createReward.getDescription());
-        CreateReward1.setStartDate(createReward.getStartDate());
-        CreateReward1.setEndDate(createReward.getEndDate());
-        CreateReward1.setAwardStatus(createReward.getAwardStatus());
-        CreateReward1.setDiscontinuingDate(createReward.getDiscontinuingDate());
-        CreateReward1.setDiscontinuingReason(createReward.getDiscontinuingReason());
-        CreateReward1.setSelfNominate(createReward.isSelfNominate());
-        CreateReward1.setNominationsAllowed(createReward.getNominationsAllowed());
-        CreateReward1.setCategory(createReward.getCategory());
-        CreateReward1.setRegenerated(CreateReward1.isRegenerated());
-        CreateReward1.setCoins(createReward.getCoins());
+        Rewards CreateReward = rewardsRepository.findById(id).get();
+        CreateReward.setRewardName(createReward.getRewardName());
+        CreateReward.setFrequency(createReward.getFrequency());
+        CreateReward.setDescription(createReward.getDescription());
+        CreateReward.setStartDate(createReward.getStartDate());
+        CreateReward.setEndDate(createReward.getEndDate());
+        CreateReward.setAwardStatus(createReward.getAwardStatus());
+        CreateReward.setDiscontinuingDate(createReward.getDiscontinuingDate());
+        CreateReward.setDiscontinuingReason(createReward.getDiscontinuingReason());
+        CreateReward.setSelfNominate(createReward.isSelfNominate());
+        CreateReward.setNominationsAllowed(createReward.getNominationsAllowed());
+        CreateReward.setCategory(createReward.getCategory());
+        CreateReward.setRegenerated(CreateReward.isRegenerated());
+        CreateReward.setCoins(createReward.getCoins());
 
-        Rewards rewardData1 =  rewardsRepository.save(CreateReward1);
+        Rewards rewardData1 =  rewardsRepository.save(CreateReward);
 
 
-        for (RewardsCriteria ff : CreateReward1.getCriteria()) {
+        for (RewardsCriteria ff : CreateReward.getCriteria()) {
             rewardsCriteriaRepository.deleteById(ff.getRewardId(), ff.getCriteriaId());
         }
 
@@ -112,50 +112,50 @@ public class RewardsServiceImpl implements RewardsService {
 
       LocalDate today = LocalDate.now();
 
-        Rewards CreateReward1 = rewardsRepository.findById(id).get();
+        Rewards CreateReward = rewardsRepository.findById(id).get();
         if(rewardPojo.getAwardStatus()==ROLLED_OUT) {
-            if (CreateReward1.getFrequency() == FrequencyEnum.Annually)
+            if (CreateReward.getFrequency() == FrequencyEnum.Annually)
 
-                CreateReward1.setRewardName(CreateReward1.getRewardName() + " for " + year);
+                CreateReward.setRewardName(CreateReward.getRewardName() + " for " + year);
 
             else
-                CreateReward1.setRewardName(CreateReward1.getRewardName() + " for " + month + " " + year);
+                CreateReward.setRewardName(CreateReward.getRewardName() + " for " + month + " " + year);
         }
         else
-            CreateReward1.setRewardName(CreateReward1.getRewardName());
+            CreateReward.setRewardName(CreateReward.getRewardName());
 
-        CreateReward1.setFrequency(CreateReward1.getFrequency());
-        CreateReward1.setDescription(CreateReward1.getDescription());
-        CreateReward1.setDiscontinuingDate(rewardPojo.getDiscontinuingDate());
-        CreateReward1.setDiscontinuingReason(rewardPojo.getDiscontinuingReason());
-        CreateReward1.setSelfNominate(CreateReward1.isSelfNominate());
-        CreateReward1.setNominationsAllowed(CreateReward1.getNominationsAllowed());
-        CreateReward1.setAwardStatus(rewardPojo.getAwardStatus());
-        CreateReward1.setStartDate(today);
+        CreateReward.setFrequency(CreateReward.getFrequency());
+        CreateReward.setDescription(CreateReward.getDescription());
+        CreateReward.setDiscontinuingDate(rewardPojo.getDiscontinuingDate());
+        CreateReward.setDiscontinuingReason(rewardPojo.getDiscontinuingReason());
+        CreateReward.setSelfNominate(CreateReward.isSelfNominate());
+        CreateReward.setNominationsAllowed(CreateReward.getNominationsAllowed());
+        CreateReward.setAwardStatus(rewardPojo.getAwardStatus());
+        CreateReward.setStartDate(today);
 
-        FrequencyEnum frequency =CreateReward1.getFrequency();
+        FrequencyEnum frequency =CreateReward.getFrequency();
 
         if(frequency==FrequencyEnum.Monthly)
-            CreateReward1.setEndDate(today.plusMonths(1));
+            CreateReward.setEndDate(today.plusMonths(1));
         else
             if(frequency==FrequencyEnum.Quarterly)
-                CreateReward1.setEndDate(today.plusMonths(4));
+                CreateReward.setEndDate(today.plusMonths(4));
         else
             if(frequency==FrequencyEnum.Annually)
-                CreateReward1.setEndDate(today.plusYears(1));
+                CreateReward.setEndDate(today.plusYears(1));
 
-        Rewards update = rewardsRepository.save(CreateReward1);
+        Rewards update = rewardsRepository.save(CreateReward);
         notificationsService.awardStatusChanged(id,rewardPojo.getAwardStatus(),rewardPojo.getDiscontinuingReason());
 
         if(rewardPojo.getAwardStatus()==ROLLED_OUT) {
 
-            String reward_name = rewardsRepository.getRewardName(id);
+            String rewardName = rewardsRepository.getRewardName(id);
             String[] emails=managerRepository.getAllEmails();
 
             for (int i = 0; i < emails.length; i++) {
                 String name=userRepository.getName(emails[i]);
                 sendEmail.sendEmailWithoutAttachment(emails[i], "New Reward rolled out",
-                        "Hello, " + name + ". A new reward " +reward_name.toUpperCase() + " has been rolled out. Go, check it out and nominate..!!");
+                        "Hello, " + name + ". A new reward " +rewardName.toUpperCase() + " has been rolled out. Go, check it out and nominate..!!");
             }
         }
         else
@@ -165,7 +165,6 @@ public class RewardsServiceImpl implements RewardsService {
 
                 for (int i = 0; i < emails.length; i++) {
                     String name=userRepository.getName(emails[i]);
-                    System.out.println(emails[i]);
                     sendEmail.sendEmailWithoutAttachment(emails[i], "Reward discontinued",
                             "Hello, " + name + ". " +rewardsRepository.getRewardName(id).toUpperCase() + " has been discontinued because "+rewardPojo.getDiscontinuingReason());
                 }
@@ -193,7 +192,7 @@ public class RewardsServiceImpl implements RewardsService {
         }
         else
         {
-            rewards= new ArrayList<Rewards>();
+            rewards= new ArrayList<>();
         }
         return new ResponseEntity<>(rewards,HttpStatus.OK);
 
@@ -225,16 +224,12 @@ public class RewardsServiceImpl implements RewardsService {
     public ResponseEntity<Rewards> rewardsSave(Rewards rewards) {
 
 
-      /*  String month = monthName[cal.get(rewards.getStart_date().getMonthValue())];
-        System.out.println(month);
-         String year = String.valueOf(cal.get(rewards.getStart_date().getYear()));
-         System.out.println(year+month);*/
-
-            Rewards rewardData = save(rewards);
+            save(rewards);
 
             long id = rewards.getRewardId();
 
-            RewardsCriteria rewardsCriteria = new RewardsCriteria();
+        new RewardsCriteria();
+        RewardsCriteria rewardsCriteria;
 
             for (int i = 0; i < rewards.getCriteria().size(); i++) {
                 rewardsCriteria = new RewardsCriteria();

@@ -14,6 +14,7 @@ public final class Constants {
     public final static Integer EDITED_AFTER_ROLL_OUT= 5;
     public final static String projectId = "Project Id not found";
     public final static String rof = "for";
+    public final static String rewardId = "Reward Id not found";
 
 
     public final static Integer ROLE_EMPLOYEE = 1;

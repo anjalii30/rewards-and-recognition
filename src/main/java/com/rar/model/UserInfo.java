@@ -114,29 +114,9 @@ public class UserInfo implements Serializable {
 
 
     public UserInfo() {
-
+        // empty constructor
     }
 
-    public UserInfo(Long userId, @NotNull @Email @Size(max = 100) String email, String name, Boolean firstSign, String imageUrl, Set<Manager> manager, Set<Designation> designation, Set<Roles> roles, Set<Projects> projects) {
-        this.userId = userId;
-        this.email = email;
-        this.name = name;
-        this.firstSign = firstSign;
-        this.imageUrl = imageUrl;
-        this.manager = manager;
-        this.designation = designation;
-        this.roles = roles;
-        this.projects = projects;
-    }
-
-
-    public Long getId() {
-        return userId;
-    }
-
-    public void setId(Long uid) {
-        this.userId = uid;
-    }
 
     public String getEmail() {
         return email;

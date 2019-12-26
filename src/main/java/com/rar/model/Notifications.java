@@ -1,18 +1,18 @@
 package com.rar.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name="notifications")
 @ApiModel(description = "All the details related to in-app notifications")
-public class Notifications {
+public class Notifications implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
