@@ -62,7 +62,7 @@ public class LoginServiceImpl implements LoginService {
             RoleEnum roleEnum=r.getRole();
             Iterator<Designation> itt= userInfo.getDesignation().iterator();
             Designation d=itt.next();
-            String designation= d.getDesignation();
+            String designation= d.getDesignationName();
             boolean isManager=true;
             if(userRepository.managerOrEmployee(email) == 0)
                 isManager= false;

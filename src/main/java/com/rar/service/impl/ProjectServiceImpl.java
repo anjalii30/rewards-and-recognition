@@ -117,7 +117,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public Long getIdByProject(String projectName) throws Exception {
+    public Long getIdByProject(String projectName){
 
         return projectRepository.getIdByName(projectName);
     }
