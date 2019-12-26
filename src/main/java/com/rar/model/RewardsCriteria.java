@@ -6,13 +6,14 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 
 @Entity
 @IdClass(RewardsCriteriaId.class)
 @Table(name = "rewards_criteria")
 @ApiModel(description = "Mapping of rewards with criteria")
-public class RewardsCriteria {
+public class RewardsCriteria implements Serializable {
 
     @Id
     @Column(name = "reward_id")

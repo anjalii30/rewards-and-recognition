@@ -52,7 +52,7 @@ public class NominationsServiceImpl implements NominationsService {
     private static DecimalFormat df2 = new DecimalFormat("#.##");
 
     @Override
-    public ResponseEntity<?> nominationSave(List<NominationPojo> nominationPojo, Long managerId) {
+    public ResponseEntity<List<HashMap<String,Object>>> nominationSave(List<NominationPojo> nominationPojo, Long managerId) {
 
         Long rewardId = null;
                 
@@ -91,7 +91,6 @@ public class NominationsServiceImpl implements NominationsService {
 
         }
 
-        //Notifications notifications=new Notifications();
         notificationsService.newNominationReceived(rewardsRepository.getRewardName(rewardId),
                 managerRepository.getManagerName(managerId) );
 
@@ -100,7 +99,7 @@ public class NominationsServiceImpl implements NominationsService {
 
 
     @Override
-    public ResponseEntity<List<Nominations>> GetData(Long rewardID) throws Exception {
+    public ResponseEntity<List<Nominations>> getData(Long rewardID){
 
         List<Nominations> nominations = null;
 
@@ -186,7 +185,7 @@ public class NominationsServiceImpl implements NominationsService {
     }
 
     @Override
-    public ResponseEntity<List<History>> history(String email) throws Exception{
+    public ResponseEntity<List<History>> history(String email){
         long managerId=managerRepository.findByEmail(email);
         List<History> histories= new ArrayList<>();
           long[] rewardId= nominationsRepository.rewardId(managerId);

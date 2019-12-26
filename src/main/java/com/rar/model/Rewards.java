@@ -85,7 +85,7 @@ public class Rewards implements Serializable {
     private String discontinuingReason;
 
     @Column(name="roll_out_id")
-    @ApiModelProperty(notes = "storing the reward id if the reward is edited in the rollout checking")
+    @ApiModelProperty(notes = "storing the reward id if the reward is edited in the roll-out checking")
     private long rollOutId=0;
 
     @OneToMany(
@@ -93,32 +93,18 @@ public class Rewards implements Serializable {
     )
     private List<RewardsCriteria> criteria = new ArrayList<>();
 
+
     public Rewards() {
+        // empty constructor
     }
 
-    public Rewards(long rewardId, String rewardName, FrequencyEnum frequency, String description, boolean regenerated, CategoryEnum category, LocalDate startDate, LocalDate endDate, boolean selfNominate, int nominationsAllowed, int awardStatus, Date discontinuingDate, String discontinuingReason, List<RewardsCriteria> criteria) {
-        this.rewardId = rewardId;
-        this.rewardName = rewardName;
-        this.frequency = frequency;
-        this.description = description;
-        this.regenerated = regenerated;
-        this.category = category;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.selfNominate = selfNominate;
-        this.nominationsAllowed = nominationsAllowed;
-        this.awardStatus = awardStatus;
-        this.discontinuingDate = discontinuingDate;
-        this.discontinuingReason = discontinuingReason;
-        this.criteria = criteria;
-    }
 
-    public long getId() {
+    public long getRewardId() {
         return rewardId;
     }
 
-    public void setId(long id) {
-        this.rewardId = id;
+    public void setRewardId(long rewardId) {
+        this.rewardId = rewardId;
     }
 
     public String getRewardName() {
@@ -127,6 +113,14 @@ public class Rewards implements Serializable {
 
     public void setRewardName(String rewardName) {
         this.rewardName = rewardName;
+    }
+
+    public Long getCoins() {
+        return coins;
+    }
+
+    public void setCoins(Long coins) {
+        this.coins = coins;
     }
 
     public FrequencyEnum getFrequency() {
@@ -145,6 +139,22 @@ public class Rewards implements Serializable {
         this.description = description;
     }
 
+    public boolean isRegenerated() {
+        return regenerated;
+    }
+
+    public void setRegenerated(boolean regenerated) {
+        this.regenerated = regenerated;
+    }
+
+    public CategoryEnum getCategory() {
+        return category;
+    }
+
+    public void setCategory(CategoryEnum category) {
+        this.category = category;
+    }
+
     public LocalDate getStartDate() {
         return startDate;
     }
@@ -161,15 +171,7 @@ public class Rewards implements Serializable {
         this.endDate = endDate;
     }
 
-    public boolean isRegenerated() {
-        return regenerated;
-    }
-
-    public void setRegenerated(boolean regenerated) {
-        this.regenerated = regenerated;
-    }
-
-  public boolean isSelfNominate() {
+    public boolean isSelfNominate() {
         return selfNominate;
     }
 
@@ -209,31 +211,6 @@ public class Rewards implements Serializable {
         this.discontinuingReason = discontinuingReason;
     }
 
-    public List<RewardsCriteria> getCriteria() {
-        return criteria;
-    }
-
-    public void setCriteria(List<RewardsCriteria> criteria) {
-        this.criteria = criteria;
-    }
-
-    public long getRewardId() {
-        return rewardId;
-    }
-
-    public void setRewardId(long rewardId) {
-        this.rewardId = rewardId;
-    }
-
-
-    public CategoryEnum getCategory() {
-        return category;
-    }
-
-    public void setCategory(CategoryEnum category) {
-        this.category = category;
-    }
-
     public long getRollOutId() {
         return rollOutId;
     }
@@ -242,12 +219,12 @@ public class Rewards implements Serializable {
         this.rollOutId = rollOutId;
     }
 
-    public Long getCoins() {
-        return coins;
+    public List<RewardsCriteria> getCriteria() {
+        return criteria;
     }
 
-    public void setCoins(Long coins) {
-        this.coins = coins;
+    public void setCriteria(List<RewardsCriteria> criteria) {
+        this.criteria = criteria;
     }
 
     @Override

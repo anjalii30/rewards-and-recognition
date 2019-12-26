@@ -232,7 +232,7 @@ public class RewardsServiceImpl implements RewardsService {
 
             Rewards rewardData = save(rewards);
 
-            long id = rewards.getId();
+            long id = rewards.getRewardId();
 
             RewardsCriteria rewardsCriteria = new RewardsCriteria();
 
@@ -282,8 +282,8 @@ public class RewardsServiceImpl implements RewardsService {
         {
             rewardsSave(reward);
             rewardsRepository.regenerationCancel(id);
-            rewardsRepository.updateRolledOutColumn(id,reward.getId());
-            rewardsRepository.updateRolledOutEditAwardStatus(reward.getId());
+            rewardsRepository.updateRolledOutColumn(id,reward.getRewardId());
+            rewardsRepository.updateRolledOutEditAwardStatus(reward.getRewardId());
             return new ResponseEntity<>(reward,HttpStatus.OK);
         }
         else if(rewardsRepository.findEditRollOutId(id)==0 && rewardsRepository.checkingRewardInRolledOut(id)>0){
