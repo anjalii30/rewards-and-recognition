@@ -304,9 +304,9 @@ There are several ways to run a Spring Boot application on your local machine.
 - `dto` - contains all the pojos for getting and setting the values in the repository.
 
 ## API Reference
-The Test cases for the application can be found [here]().
+The Test cases for the application can be found [here](https://docs.google.com/spreadsheets/d/1d9C-gvJPGcaIiWh-ROtiS2Zt1MLhltv0M300_7v-HJA/edit?usp=sharing).
 
-The Swagger UI can be referred [here](/swagger-ui.html)
+The Swagger UI can be referred [here](http://localhost:8080/swagger-ui.html#/)
 
 ## License
 &copy; Nineleaps | 2019 
