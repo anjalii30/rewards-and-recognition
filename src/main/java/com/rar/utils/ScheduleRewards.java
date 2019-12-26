@@ -12,7 +12,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -39,7 +38,6 @@ public class ScheduleRewards {
     @Autowired
     private NotificationsService notificationsService;
 
-    private Rewards rewards;
 
     String[] monthName = {"January", "February",
             "March", "April", "May", "June", "July",
@@ -49,10 +47,9 @@ public class ScheduleRewards {
     SimpleDateFormat df=new SimpleDateFormat("yyy-mm-dd ");
 
 
-    //Checking for regeneration of  monthly reward whose end date has passed daily at 12 a.m.
+
     @Scheduled(cron = "0 0 0 1/1 * ? ")
-    // @Scheduled(cron="0 * * ? * *")
-    public void scheduleMonthly() throws ParseException {
+    public void scheduleMonthly() {
 
         ArrayList<Rewards> list = (ArrayList<Rewards>) rewardsRepository.findAll();
 
@@ -60,25 +57,9 @@ public class ScheduleRewards {
 
         while(i<list.size()){
             Rewards oldReward = list.get(i);
-
-        /*    SimpleDateFormat sdf=new SimpleDateFormat("yyy-mm-dd ");
-            sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
-            // Get the two dates to be compared
-            //Date d1 =utcDate.dateToday(oldReward.getEndDate());
-            LocalDate d01 =oldReward.getEndDate();
-            String d1=(sdf.format(d01));
-            System.out.println(d1);*/
             LocalDate d1 =oldReward.getEndDate();
             LocalDate d2 = LocalDate.now();
-/*
 
-            LocalDate today = LocalDate.now();
-
-            String d2=(sdf.format(today));
-            System.out.println(d2);
-*/
-
-           // Date d222=d.parse(d2);
             Calendar cal = Calendar.getInstance();
             String month = monthName[cal.get(Calendar.MONTH)];
             String month1=monthName[cal.get(Calendar.MONTH)+1];
@@ -110,13 +91,13 @@ public class ScheduleRewards {
 
                 rewardsService.save(newReward);
 
-                Set<RewardsCriteria> criteria= rewardsCriteriaRepository.findByRewardId(oldReward.getId());
+                Set<RewardsCriteria> criteria= rewardsCriteriaRepository.findByRewardId(oldReward.getRewardId());
 
                 for (Iterator<RewardsCriteria> it = criteria.iterator(); it.hasNext(); ) {
                     RewardsCriteria f = it.next();
 
                     RewardsCriteria rewardsCriteria = new RewardsCriteria();
-                    rewardsCriteria.setRewardId(newReward.getId());
+                    rewardsCriteria.setRewardId(newReward.getRewardId());
                     rewardsCriteria.setCriteriaId(f.getCriteriaId());
                     rewardsCriteria.setCompulsory(f.getCompulsory());
 
@@ -179,13 +160,13 @@ public class ScheduleRewards {
 
                 rewardsService.save(newReward);
 
-                Set<RewardsCriteria> criterias= rewardsCriteriaRepository.findByRewardId(oldReward.getId());
+                Set<RewardsCriteria> criterias= rewardsCriteriaRepository.findByRewardId(oldReward.getRewardId());
 
                 for (Iterator<RewardsCriteria> it = criterias.iterator(); it.hasNext(); ) {
                     RewardsCriteria f = it.next();
 
                     RewardsCriteria rewardsCriteria = new RewardsCriteria();
-                    rewardsCriteria.setRewardId(newReward.getId());
+                    rewardsCriteria.setRewardId(newReward.getRewardId());
                     rewardsCriteria.setCriteriaId(f.getCriteriaId());
                     rewardsCriteria.setCompulsory(f.getCompulsory());
 
@@ -220,7 +201,7 @@ public class ScheduleRewards {
             String year = String.valueOf(cal.get(Calendar.YEAR));
             String year1=String.valueOf(cal.get(Calendar.YEAR)+1);
 
-            if (oldReward.getFrequency() == FrequencyEnum.Annually && d2.isAfter(d1) && oldReward.isRegenerated()==true) {
+            if (oldReward.getFrequency() == FrequencyEnum.Annually && d2.isAfter(d1) && oldReward.isRegenerated()) {
 
                 rewardsRepository.updateToNull(oldReward.getRewardId());
 
@@ -245,13 +226,13 @@ public class ScheduleRewards {
 
                 rewardsService.save(newReward);
 
-                Set<RewardsCriteria> criteria= rewardsCriteriaRepository.findByRewardId(oldReward.getId());
+                Set<RewardsCriteria> criteria= rewardsCriteriaRepository.findByRewardId(oldReward.getRewardId());
 
                 for (Iterator<RewardsCriteria> it = criteria.iterator(); it.hasNext(); ) {
                     RewardsCriteria f = it.next();
 
                     RewardsCriteria rewardsCriteria = new RewardsCriteria();
-                    rewardsCriteria.setRewardId(newReward.getId());
+                    rewardsCriteria.setRewardId(newReward.getRewardId());
                     rewardsCriteria.setCriteriaId(f.getCriteriaId());
                     rewardsCriteria.setCompulsory(f.getCompulsory());
 
@@ -277,25 +258,25 @@ public class ScheduleRewards {
         for(int i=0;i<rewards.size();i++){
             Long rewardId=rewards.get(i).getRewardId();
             int awardStatus=rewards.get(i).getAwardStatus();
-            LocalDate StartDate=rewards.get(i).getStartDate();
+            LocalDate startDate=rewards.get(i).getStartDate();
             if(rewardsRepository.checkingRewardInRolledOut(rewardId)>0 && awardStatus==EDITED_AFTER_ROLL_OUT
-                    && StartDate.equals(today)){
+                    && startDate.equals(today)){
                 rewardsRepository.updateAwardStatus(ROLLED_OUT,rewardId);
 
                 if(rewards.get(i).getFrequency()==FrequencyEnum.Monthly){
                     rewardsRepository.updateEndDateRolledOutEdit(rewardId,today.plusMonths(1));
-                    rewardsRepository.updateRewardName(rewards.get(i).getRewardId(),rewards.get(i).getRewardName() + " for " + month + " " + year);
+                    rewardsRepository.updateRewardName(rewards.get(i).getRewardId(),rewards.get(i).getRewardName() + rof + month + " " + year);
                 }
                 else
                 if(rewards.get(i).getFrequency()==FrequencyEnum.Quarterly){
                     rewardsRepository.updateEndDateRolledOutEdit(rewardId,today.plusMonths(4));
-                    rewardsRepository.updateRewardName(rewards.get(i).getRewardId(),rewards.get(i).getRewardName() + " for " + month + " " + year);
+                    rewardsRepository.updateRewardName(rewards.get(i).getRewardId(),rewards.get(i).getRewardName() + rof + month + " " + year);
 
                 }
                 else
                 if(rewards.get(i).getFrequency()==FrequencyEnum.Annually){
                     rewardsRepository.updateEndDateRolledOutEdit(rewardId,today.plusYears(1));
-                    rewardsRepository.updateRewardName(rewards.get(i).getRewardId(),rewards.get(i).getRewardName() + " for "+ year);
+                    rewardsRepository.updateRewardName(rewards.get(i).getRewardId(),rewards.get(i).getRewardName() + rof + year);
 
                 }
 

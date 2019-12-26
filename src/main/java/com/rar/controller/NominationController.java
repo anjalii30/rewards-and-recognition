@@ -70,7 +70,7 @@ public class NominationController {
     public ResponseEntity<List<Nominations>> showById(@RequestHeader(value = "Authorization") String token,  @ApiParam(value = "Get nomination object by reward_id", required = true) @PathVariable Long id) throws Exception {
            validity.check(token);
            if(rewardsRepository.existsById(id))
-           return new ResponseEntity(nominationsService.GetData(id),HttpStatus.OK);
+           return new ResponseEntity(nominationsService.getData(id),HttpStatus.OK);
            else
                throw new RecordNotFoundException("reward id not found");
     }
