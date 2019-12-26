@@ -80,15 +80,15 @@ public class ScheduleRewards {
                 String updatedYear= String.valueOf(newRewardStartDate.getYear());
                 String updatedName = oldRewardName.replaceFirst(previousMonth, updatedMonth).replaceFirst(previousYear, updatedYear);
 
-                if(frequencyEnum==FrequencyEnum.Monthly) {
+                if(frequencyEnum==FrequencyEnum.MONTHLY) {
                     replaceString = updatedName;
                     newRewardEndDate=newRewardStartDate.plusMonths(1);
                 } else
-                if(frequencyEnum==FrequencyEnum.Quarterly){
+                if(frequencyEnum==FrequencyEnum.QUARTERLY){
                     replaceString = updatedName;
                     newRewardEndDate=newRewardStartDate.plusMonths(4);
                 } else
-                if(frequencyEnum==FrequencyEnum.Annually) {
+                if(frequencyEnum==FrequencyEnum.ANNUALLY) {
                     replaceString = oldRewardName.replace(year,updatedYear);
                     newRewardEndDate = newRewardStartDate.plusYears(1);
                 }
@@ -123,7 +123,7 @@ public class ScheduleRewards {
     public void scheduleMonthly() {
 
         String updatedMonth=monthName[(cal.get(Calendar.MONTH)+1)%12];
-        commonCode(updatedMonth,FrequencyEnum.Monthly);
+        commonCode(updatedMonth,FrequencyEnum.MONTHLY);
 
     }
 
@@ -133,8 +133,10 @@ public class ScheduleRewards {
     @Scheduled(cron = "0 0 0 ? * SUN ")
     public void scheduleQuarterly() {
 
+
         String updateMonth=monthName[((cal.get(Calendar.MONTH)+4)%12)];
-        commonCode(updateMonth,FrequencyEnum.Quarterly);
+        commonCode(updateMonth,FrequencyEnum.QUARTERLY);
+
     }
 
 
@@ -144,8 +146,10 @@ public class ScheduleRewards {
 
     public void scheduleYearly(){
 
+
         String updatedYear=String.valueOf(cal.get(Calendar.YEAR)+1);
-        commonCode("month",FrequencyEnum.Annually);
+        commonCode("month",FrequencyEnum.ANNUALLY);
+
 
     }
     //Checking everyday at 9 a.m. to Roll out after reward has been edited after roll out
@@ -162,17 +166,17 @@ public class ScheduleRewards {
                     && startDate.equals(today)){
                 rewardsRepository.updateAwardStatus(ROLLED_OUT,rewardId);
 
-                if(rewards.get(i).getFrequency()==FrequencyEnum.Monthly){
+                if(rewards.get(i).getFrequency()==FrequencyEnum.MONTHLY){
                     rewardsRepository.updateEndDateRolledOutEdit(rewardId,today.plusMonths(1));
                     rewardsRepository.updateRewardName(rewards.get(i).getRewardId(),rewards.get(i).getRewardName() + FOR + month + " " + year);
                 }
                 else
-                if(rewards.get(i).getFrequency()==FrequencyEnum.Quarterly){
+                if(rewards.get(i).getFrequency()==FrequencyEnum.QUARTERLY){
                     rewardsRepository.updateEndDateRolledOutEdit(rewardId,today.plusMonths(4));
                     rewardsRepository.updateRewardName(rewards.get(i).getRewardId(),rewards.get(i).getRewardName() + FOR + month + " " + year);
                 }
                 else
-                if(rewards.get(i).getFrequency()==FrequencyEnum.Annually){
+                if(rewards.get(i).getFrequency()==FrequencyEnum.ANNUALLY){
                     rewardsRepository.updateEndDateRolledOutEdit(rewardId,today.plusYears(1));
                     rewardsRepository.updateRewardName(rewards.get(i).getRewardId(),rewards.get(i).getRewardName() + FOR + year);
                 }

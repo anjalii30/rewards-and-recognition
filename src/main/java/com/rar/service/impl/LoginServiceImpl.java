@@ -53,22 +53,23 @@ public class LoginServiceImpl implements LoginService {
             HttpEntity httpEntity = response.getEntity();
             String responseString = EntityUtils.toString(httpEntity, "UTF-8");
 
-            JSONObject json = (JSONObject) new JSONParser().parse(responseString);
-            String email = (String) json.get("email");
-            String imageUrl = (String) json.get("picture");
-            try {
-                Optional<UserInfo> repoEmail = userRepository.findByEmail(email);
-                UserInfo userInfo = userRepository.findByEmail(email).get();
-                Iterator<Roles> it = userInfo.getRoles().iterator();
-                Roles r = it.next();
-                RoleEnum roleEnum = r.getRole();
-                Iterator<Designation> itt = userInfo.getDesignation().iterator();
-                Designation d = itt.next();
-                String designation = d.getDesignation();
-                boolean isManager = true;
-                if (userRepository.managerOrEmployee(email) == 0)
-                    isManager = false;
-                if (repoEmail.isPresent()) {
+
+        JSONObject json = (JSONObject) new JSONParser().parse(responseString);
+        String email = (String) json.get("email");
+        String imageUrl = (String) json.get("picture");
+        try {
+            Optional<UserInfo> repoEmail = userRepository.findByEmail(email);
+            UserInfo userInfo = userRepository.findByEmail(email).get();
+            Iterator<Roles> it= userInfo.getRoles().iterator();
+            Roles r=it.next();
+            RoleEnum roleEnum=r.getRole();
+            Iterator<Designation> itt= userInfo.getDesignation().iterator();
+            Designation d=itt.next();
+            String designation= d.getDesignationName();
+            boolean isManager=true;
+            if(userRepository.managerOrEmployee(email) == 0)
+                isManager= false;
+            if (repoEmail.isPresent()) {
 
                     if (!userInfo.getFirstSign()) {
                         userInfo.setFirstSign(true);

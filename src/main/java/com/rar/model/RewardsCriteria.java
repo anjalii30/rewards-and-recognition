@@ -26,16 +26,16 @@ public class RewardsCriteria implements Serializable {
     private long criteriaId;
 
     @ManyToOne
-    @JoinColumns({
+    @JoinColumns(
             @JoinColumn(name = "reward_id", referencedColumnName = "reward_id", insertable = false, updatable = false)
-    })
+    )
     @JsonIgnore
     private Rewards rewards;
 
     @ManyToOne
-    @JoinColumns({
+    @JoinColumns(
             @JoinColumn(name = "criteria_id", referencedColumnName = "criteria_id", insertable = false, updatable = false)
-    })
+    )
     @JsonIgnore
     private Criteria criteria;
 

@@ -14,12 +14,13 @@ public class DesignationSelected implements Serializable {
     private String designation;
 
     @ApiModelProperty(value = "The boolean for whether the designation id selected or not")
-    private Boolean designationSelected;
+    private Boolean designationSelect;
 
-    public DesignationSelected(long did, String designation, Boolean designationSelected) {
+    public DesignationSelected(long did, String designation, Boolean designationSelect) {
         this.did = did;
         this.designation = designation;
-        this.designationSelected = designationSelected;
+        this.designationSelect = designationSelect;
+
     }
 
     public long getDid() {
@@ -38,11 +39,13 @@ public class DesignationSelected implements Serializable {
         this.designation = designation;
     }
 
-    public Boolean getDesignationSelected() {
-        return designationSelected;
+    public Boolean getDesignationSelect() {
+        return designationSelect;
     }
 
-    public void setDesignationSelected(Boolean designationSelected) {
-        this.designationSelected = designationSelected;
+    public void setDesignationSelect(Boolean designationSelect) {
+        this.designationSelect = designationSelect;
     }
 }
+
+
