@@ -100,7 +100,6 @@ public class Rewards implements Serializable {
         // empty constructor
     }
 
-
     public long getRewardId() {
         return rewardId;
     }

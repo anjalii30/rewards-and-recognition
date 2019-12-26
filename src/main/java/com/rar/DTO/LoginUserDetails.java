@@ -18,17 +18,17 @@ public class LoginUserDetails implements Serializable {
     @ApiModelProperty(notes = "The Image URL of the user")
     private String imageUrl;
 
-    @ApiModelProperty(notes = "The generated token of the user")
-    private String generatedToken;
+    @ApiModelProperty(notes = "The generated jwt token of the user")
+    private String jwtToken;
 
     @ApiModelProperty(notes = "The role of the user")
-    private RoleEnum roleEnum;
+    private RoleEnum role;
 
     @ApiModelProperty(notes = "The designation of the User")
     private String designation;
 
     @ApiModelProperty(notes = "The id of the User")
-    private Long uid;
+    private Long userId;
 
     @ApiModelProperty(notes = "Stores whether the employee is manager or not")
     private Boolean isManager;
@@ -36,14 +36,14 @@ public class LoginUserDetails implements Serializable {
     @ApiModelProperty(notes = "The balance in the wallet of user")
     private double wallet;
 
-    public LoginUserDetails(String email, String name, String imageUrl, String generatedToken, RoleEnum roleEnum, String designation, Long uid, Boolean isManager, double wallet) {
+    public LoginUserDetails(String email, String name, String imageUrl, String generatedToken, RoleEnum roleEnum, String designation, Long userId, Boolean isManager, double wallet) {
         this.email = email;
         this.name = name;
         this.imageUrl = imageUrl;
-        this.generatedToken = generatedToken;
-        this.roleEnum = roleEnum;
+        this.jwtToken = generatedToken;
+        this.role = roleEnum;
         this.designation = designation;
-        this.uid = uid;
+        this.userId = userId;
         this.isManager = isManager;
         this.wallet = wallet;
     }
@@ -81,20 +81,20 @@ public class LoginUserDetails implements Serializable {
         this.imageUrl = imageUrl;
     }
 
-    public String getGeneratedToken() {
-        return generatedToken;
+    public String getJwtToken() {
+        return jwtToken;
     }
 
-    public void setGeneratedToken(String generatedToken) {
-        this.generatedToken = generatedToken;
+    public void setJwtToken(String jwtToken) {
+        this.jwtToken = jwtToken;
     }
 
-    public RoleEnum getRoleEnum() {
-        return roleEnum;
+    public RoleEnum getRole() {
+        return role;
     }
 
-    public void setRoleEnum(RoleEnum roleEnum) {
-        this.roleEnum = roleEnum;
+    public void setRole(RoleEnum role) {
+        this.role = role;
     }
 
     public String getDesignation() {
@@ -105,12 +105,12 @@ public class LoginUserDetails implements Serializable {
         this.designation = designation;
     }
 
-    public Long getUid() {
-        return uid;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUid(Long uid) {
-        this.uid = uid;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public Boolean getManager() {
@@ -129,10 +129,10 @@ public class LoginUserDetails implements Serializable {
         this.wallet = wallet;
     }
 
-    public LoginUserDetails(String email, String name, String imageUrl, Long uid) {
+    public LoginUserDetails(String email, String name, String imageUrl, Long userId) {
         this.email = email;
         this.name = name;
         this.imageUrl = imageUrl;
-        this.uid = uid;
+        this.userId = userId;
     }
 }

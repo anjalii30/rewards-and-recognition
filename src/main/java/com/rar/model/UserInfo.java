@@ -130,11 +130,11 @@ public class UserInfo implements Serializable {
     }
 
 
-    public Long getId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setId(Long uid) {
+    public void setUserId(Long uid) {
         this.userId = uid;
     }
 
@@ -209,14 +209,6 @@ public class UserInfo implements Serializable {
 
     public void setWallet(Long wallet) {
         this.wallet = wallet;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
     }
 
     @Override

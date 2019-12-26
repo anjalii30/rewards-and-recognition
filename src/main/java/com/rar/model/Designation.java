@@ -42,11 +42,11 @@ public class Designation implements Serializable {
         this.designation = designation;
     }
 
-    public long getDid() {
+    public long getDesignationId() {
         return designationId;
     }
 
-    public void setDid(long did) {
+    public void setDesignationId(long did) {
             this.designationId = did;
     }
 

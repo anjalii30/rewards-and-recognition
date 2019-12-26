@@ -70,7 +70,7 @@ public class LoginServiceImpl implements LoginService {
             if(userRepository.managerOrEmployee(email) == 0)
                 isManager= false;
             if (repoEmail.isPresent()) {
-                System.out.println(""+userInfo.getName()+" "+userInfo.getEmail()+" "+designation+" "+roleEnum+" "+userInfo.getImageUrl()+" "+userInfo.getId());
+                System.out.println(""+userInfo.getName()+" "+userInfo.getEmail()+" "+designation+" "+roleEnum+" "+userInfo.getImageUrl()+" "+userInfo.getUserId());
                 System.out.println("dsasdasd");
                 if (!userInfo.getFirstSign()) {
                     userInfo.setFirstSign(true);
@@ -79,15 +79,15 @@ public class LoginServiceImpl implements LoginService {
                     userInfo.setName(userInfo.getName());
                     userInfo.setDesignation(userInfo.getDesignation());
                     userInfo.setRoles(userInfo.getRoles());
-                    userInfo.setId(userInfo.getId());
+                    userInfo.setUserId(userInfo.getUserId());
                     userInfo.setWallet(userInfo.getWallet());
                     userRepository.save(userInfo);
                     String generatedToken=generateJWT.generateToken(email);
-                    return new LoginUserDetails(userInfo.getEmail()+"",userInfo.getName()+"",userInfo.getImageUrl()+"",""+generatedToken,roleEnum,designation,userInfo.getId(),isManager, userInfo.getWallet());
+                    return new LoginUserDetails(userInfo.getEmail()+"",userInfo.getName()+"",userInfo.getImageUrl()+"",""+generatedToken,roleEnum,designation,userInfo.getUserId(),isManager, userInfo.getWallet());
                 } else {
                     System.out.println("66");
                     String generatedToken=generateJWT.generateToken(email);
-                    return new LoginUserDetails(userInfo.getEmail()+"",userInfo.getName()+"",userInfo.getImageUrl()+"",""+generatedToken,roleEnum,designation,userInfo.getId(),isManager,userInfo.getWallet());
+                    return new LoginUserDetails(userInfo.getEmail()+"",userInfo.getName()+"",userInfo.getImageUrl()+"",""+generatedToken,roleEnum,designation,userInfo.getUserId(),isManager,userInfo.getWallet());
                 }
                 //user already exists
             }
@@ -96,7 +96,10 @@ public class LoginServiceImpl implements LoginService {
             throw new InvalidUserException("you are not a user till now");
         }
         LoginUserDetails details1=new LoginUserDetails();
+        client.close();
         return details1;
+
+
     }
     @Override
     public ResponseEntity<UserInfo> saveLogin(UserInfo userInfo) {
@@ -107,7 +110,7 @@ public class LoginServiceImpl implements LoginService {
         List<UserInfo> userInfos = userRepository.getAll();
         List<LoginUserDetails> userInfoList=new ArrayList<>();
         for(int i =0;i<userInfos.size();i++){
-            userInfoList.add(i, new LoginUserDetails(userInfos.get(i).getEmail(), userInfos.get(i).getName(), userInfos.get(i).getImageUrl(), userInfos.get(i).getId()));
+            userInfoList.add(i, new LoginUserDetails(userInfos.get(i).getEmail(), userInfos.get(i).getName(), userInfos.get(i).getImageUrl(), userInfos.get(i).getUserId()));
         }
         if (userInfos.size()==0)
             userInfoList=new ArrayList<>();

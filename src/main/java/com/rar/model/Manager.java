@@ -51,11 +51,11 @@ public class Manager implements Serializable {
         this.managerEmail = managerEmail;
     }
 
-    public long getId() {
+    public long getManagerId() {
         return managerId;
     }
 
-    public void setId(long ERid) {
+    public void setManagerId(long ERid) {
         this.managerId = ERid;
     }
 
@@ -66,32 +66,6 @@ public class Manager implements Serializable {
     public void setManagerEmail(String managerEmail) {
         this.managerEmail = managerEmail;
     }
-
-    public long getManagerId() {
-        return managerId;
-    }
-
-    public void setManagerId(long managerId) {
-        this.managerId = managerId;
-    }
-
-
-    /*    public Set<Projects> getManager_projects() {
-        return manager_projects;
-    }
-
-    public void setManager_projects(Set<Projects> manager_projects) {
-        this.manager_projects = manager_projects;
-    }*/
-
-   /* @Override
-    public String toString() {
-        return "Manager{" +
-                "id=" + manager_id +
-
-                ", manager_email='" + manager_email + '\'' +
-                '}';
-    }*/
 
     @Override
     public String toString() {
