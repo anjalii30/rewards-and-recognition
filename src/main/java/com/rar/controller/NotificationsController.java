@@ -27,9 +27,9 @@ public class NotificationsController {
     /**
      *
      * @param token jwt token
-     * @return list of unviewed notifications
+     * @return list of unseen notifications
      */
-    @ApiOperation(value = "Get the list of unviewed notifications")
+    @ApiOperation(value = "Get the list of unseen notifications")
     @GetMapping("/getNewNotifications")
     public ResponseEntity<List<Notifications>> getNewNotifications(@RequestHeader(value = "Authorization") String token){
         String email=validity.check(token);

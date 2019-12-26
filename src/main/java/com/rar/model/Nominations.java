@@ -70,6 +70,23 @@ public class Nominations implements Serializable {
     @OneToMany(mappedBy = "nominations", cascade = CascadeType.ALL)
     private List<Evidences> evidencesList;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id", insertable = false, updatable = false)
+    private UserInfo userInfo;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "project_id", referencedColumnName = "project_id", insertable = false, updatable = false)
+    private Projects projects;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "manager_id", referencedColumnName = "manager_id", insertable = false, updatable = false)
+    private Manager manager;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "reward_id", referencedColumnName = "reward_id", insertable = false, updatable = false)
+    private Rewards rewards;
+
+
     public Nominations() {
     }
 

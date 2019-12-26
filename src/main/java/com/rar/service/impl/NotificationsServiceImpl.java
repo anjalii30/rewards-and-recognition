@@ -140,8 +140,8 @@ public class NotificationsServiceImpl implements NotificationsService {
     @Override
     public ResponseEntity<List<Notifications>> getNewNotifications(String email) {
 
-        List<Notifications> notifications=notificationsRepository.getUnviewedNotifications(userRepository.getIdByEmail(email));
-        Long count=notificationsRepository.getCountOfUnviewed(userRepository.getIdByEmail(email));
+        List<Notifications> notifications=notificationsRepository.getUnseenNotifications(userRepository.getIdByEmail(email));
+        Long count=notificationsRepository.getCountOfUnseen(userRepository.getIdByEmail(email));
         Map map=new HashMap();
         for(int i=0;i<notifications.size();i++){
             Long notificationId=notifications.get(i).getNotificationId();

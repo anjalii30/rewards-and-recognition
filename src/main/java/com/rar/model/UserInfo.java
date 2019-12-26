@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -43,6 +44,15 @@ public class UserInfo implements Serializable {
     @Column
     @ApiModelProperty(notes = "The URL for user's Image")
     private String imageUrl;
+
+    //notifications
+    @OneToMany(mappedBy = "userInfo",cascade = CascadeType.ALL)
+    private List<Notifications> notifications;
+
+    //nominations
+    @OneToMany(mappedBy = "userInfo",cascade = CascadeType.ALL)
+    private List<Nominations> nominations;
+
 
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
@@ -101,6 +111,8 @@ public class UserInfo implements Serializable {
     private Set<Projects> projects= new HashSet<>();
 
 
+
+
     public UserInfo() {
 
     }
@@ -116,6 +128,7 @@ public class UserInfo implements Serializable {
         this.roles = roles;
         this.projects = projects;
     }
+
 
     public Long getId() {
         return userId;
@@ -196,6 +209,14 @@ public class UserInfo implements Serializable {
 
     public void setWallet(Long wallet) {
         this.wallet = wallet;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     @Override

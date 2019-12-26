@@ -1,5 +1,6 @@
 package com.rar.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -37,6 +38,13 @@ public class Notifications {
     @NotNull
     @ApiModelProperty(notes = "The date onn which row is created")
     private LocalDateTime dateCreated;
+
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id", insertable = false, updatable = false)
+    private UserInfo userInfo;
+
+
 
     public long getNotificationId() {
         return notificationId;
@@ -88,6 +96,14 @@ public class Notifications {
 
     public void setDateCreated(LocalDateTime dateCreated) {
         this.dateCreated = dateCreated;
+    }
+
+    public UserInfo getUserInfo() {
+        return userInfo;
+    }
+
+    public void setUserInfo(UserInfo userInfo) {
+        this.userInfo = userInfo;
     }
 
     @Override

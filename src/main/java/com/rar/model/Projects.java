@@ -7,6 +7,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -28,6 +29,10 @@ public class Projects {
     @Column(name = "completed")
     @ApiModelProperty(notes = "The boolean which used for status of project")
     private boolean completed;
+
+
+    @OneToMany(mappedBy = "projects",cascade = CascadeType.ALL)
+    private List<Nominations> nominations;
 
 
     @JsonIgnore
@@ -82,6 +87,7 @@ public class Projects {
     public void setCompleted(boolean completed) {
         this.completed = completed;
     }
+
 
     @Override
     public String toString() {

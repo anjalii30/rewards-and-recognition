@@ -93,6 +93,9 @@ public class Rewards implements Serializable {
     )
     private List<RewardsCriteria> criteria = new ArrayList<>();
 
+    @OneToMany(mappedBy = "rewards",cascade = CascadeType.ALL)
+    private List<Nominations> nominations;
+
     public Rewards() {
     }
 
@@ -249,6 +252,7 @@ public class Rewards implements Serializable {
     public void setCoins(Long coins) {
         this.coins = coins;
     }
+
 
     @Override
     public String toString() {
