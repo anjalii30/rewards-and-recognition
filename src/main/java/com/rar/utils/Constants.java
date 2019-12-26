@@ -2,9 +2,7 @@ package com.rar.utils;
 
 import org.springframework.beans.factory.annotation.Value;
 
-import java.text.DecimalFormat;
-
-public final class Constants {
+public class Constants {
 
     private Constants() {
 
@@ -20,10 +18,12 @@ public final class Constants {
     public static final  Integer EDITED_AFTER_ROLL_OUT= 5;
     public static final  String PROJECT_ID_NOT_FOUND = "Project Id not found";
     public static final  String FOR = "for";
-
+    public static final String REWARD_ID = "Reward Id not found";
+    public static final String SUCCESS = "Successful";
 
     public static final  Integer ROLE_EMPLOYEE = 1;
     public static final  Integer ROLE_ADMIN = 2;
+
     
     @Value("${jwt.secret}")
     public static final  String SECRET = "xsNxAnioE69S0DZ4YUVUrCzR";

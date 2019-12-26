@@ -1,8 +1,8 @@
 package com.rar.service;
 
-import com.rar.DTO.CreateProjectPojo;
-import com.rar.DTO.ManagerProjectsPojo;
-import com.rar.DTO.UserProjectsPojo;
+import com.rar.dto.CreateProjectPojo;
+import com.rar.dto.ManagerProjectsPojo;
+import com.rar.dto.UserProjectsPojo;
 import com.rar.model.Projects;
 import com.rar.model.UserInfo;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +13,7 @@ public interface ProjectService {
 
     Projects projectSave(Projects projects);
 
-    ResponseEntity assign(UserProjectsPojo userProjectsPojo) throws Exception;
+    ResponseEntity assign(UserProjectsPojo userProjectsPojo) ;
 
     ResponseEntity<CreateProjectPojo> createProject(CreateProjectPojo createProjectPojo);
 
@@ -39,7 +39,6 @@ public interface ProjectService {
 
     List<Projects> findProjects(Long managerId,Long rewardId);
 
-    Long getCount();
 
     void setProjectStatus(Long id);
 

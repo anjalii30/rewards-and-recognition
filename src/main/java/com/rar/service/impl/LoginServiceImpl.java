@@ -1,5 +1,5 @@
 package com.rar.service.impl;
-import com.rar.DTO.LoginUserDetails;
+import com.rar.dto.LoginUserDetails;
 import com.rar.config.GenerateJWT;
 import com.rar.enums.RoleEnum;
 import com.rar.exception.InvalidTokenException;
@@ -17,12 +17,15 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.io.IOException;
 import java.util.*;
 @Service
 @Transactional
@@ -35,7 +38,7 @@ public class LoginServiceImpl implements LoginService {
 
     @Value("${jwt.secret}")
     private String secret;
-    public LoginUserDetails login(String token) throws Exception {
+    public LoginUserDetails login(String token) throws IOException, ParseException {
 
         try(CloseableHttpClient client = HttpClients.createDefault()) {
             HttpGet request = new HttpGet("https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=" + token);

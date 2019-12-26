@@ -1,8 +1,8 @@
 package com.rar.controller;
 
-import com.rar.DTO.CreateProjectPojo;
-import com.rar.DTO.ManagerProjectsPojo;
-import com.rar.DTO.UserProjectsPojo;
+import com.rar.dto.CreateProjectPojo;
+import com.rar.dto.ManagerProjectsPojo;
+import com.rar.dto.UserProjectsPojo;
 import com.rar.exception.RecordNotFoundException;
 import com.rar.model.Projects;
 import com.rar.model.UserInfo;
@@ -23,6 +23,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 import static com.rar.utils.Constants.PROJECT_ID_NOT_FOUND;
+
 
 @RestController
 @Api(value="Project Assigning System")
@@ -101,6 +102,7 @@ public class ProjectController {
             }
             else
                 throw new RecordNotFoundException(PROJECT_ID_NOT_FOUND);
+
     }
 
     /**
@@ -118,6 +120,7 @@ public class ProjectController {
                }
                else
                    throw new RecordNotFoundException(PROJECT_ID_NOT_FOUND);
+
     }
 
     /**
@@ -135,6 +138,7 @@ public class ProjectController {
         }
         else
             throw new RecordNotFoundException(PROJECT_ID_NOT_FOUND);
+
     }
 
     /**

@@ -1,4 +1,4 @@
-package com.rar.DTO;
+package com.rar.dto;
 
 import java.io.Serializable;
 import java.util.List;

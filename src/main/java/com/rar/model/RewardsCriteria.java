@@ -1,7 +1,7 @@
 package com.rar.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.rar.DTO.RewardsCriteriaId;
+import com.rar.dto.RewardsCriteriaId;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 

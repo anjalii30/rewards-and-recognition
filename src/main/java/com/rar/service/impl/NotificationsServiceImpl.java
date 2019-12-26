@@ -141,16 +141,16 @@ public class NotificationsServiceImpl implements NotificationsService {
     public ResponseEntity<List<Notifications>> getNewNotifications(String email) {
 
         List<Notifications> notifications=notificationsRepository.getUnseenNotifications(userRepository.getIdByEmail(email));
-        Long count=notificationsRepository.getCountOfUnseen(userRepository.getIdByEmail(email));
-        Map map=new HashMap();
+       // Long count=notificationsRepository.getCountOfUnseen(userRepository.getIdByEmail(email));
+       // Map map=new HashMap();
         for(int i=0;i<notifications.size();i++){
             Long notificationId=notifications.get(i).getNotificationId();
             notificationsRepository.updateViewed(notificationId);
 
         }
-        map.put("notifications",notifications);
-        map.put("count",count);
-        return new ResponseEntity(map, HttpStatus.OK);
+       /* map.put("notifications",notifications);
+        map.put("count",count);*/
+        return new ResponseEntity(notifications, HttpStatus.OK);
 
     }
 

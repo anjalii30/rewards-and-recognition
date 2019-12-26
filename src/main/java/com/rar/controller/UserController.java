@@ -1,6 +1,6 @@
 package com.rar.controller;
 
-import com.rar.DTO.EditUserDetails;
+import com.rar.dto.EditUserDetails;
 import com.rar.exception.RecordNotFoundException;
 import com.rar.repository.UserRepository;
 import com.rar.service.UserService;

@@ -97,7 +97,11 @@ public class UserInfo implements Serializable {
 
 
     public UserInfo() {
+        // empty constructor
+    }
 
+    public Long getUserId() {
+        return userId;
     }
 
     public UserInfo(Long userId, @NotNull @Email @Size(max = 100) String email, String name, Boolean firstSign, String imageUrl,  Set<Designation> designation, Set<Roles> roles, Set<Projects> projects) {
@@ -111,13 +115,24 @@ public class UserInfo implements Serializable {
         this.projects = projects;
     }
 
-
-    public Long getUserId() {
-        return userId;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
-    public void setUserId(Long uid) {
-        this.userId = uid;
+    public List<Notifications> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(List<Notifications> notifications) {
+        this.notifications = notifications;
+    }
+
+    public List<Nominations> getNominations() {
+        return nominations;
+    }
+
+    public void setNominations(List<Nominations> nominations) {
+        this.nominations = nominations;
     }
 
     public String getEmail() {
@@ -184,21 +199,6 @@ public class UserInfo implements Serializable {
         this.wallet = wallet;
     }
 
-    public List<Notifications> getNotifications() {
-        return notifications;
-    }
-
-    public void setNotifications(List<Notifications> notifications) {
-        this.notifications = notifications;
-    }
-
-    public List<Nominations> getNominations() {
-        return nominations;
-    }
-
-    public void setNominations(List<Nominations> nominations) {
-        this.nominations = nominations;
-    }
 
     @Override
     public String toString() {

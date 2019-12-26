@@ -1,8 +1,8 @@
 package com.rar.service.impl;
 
-import com.rar.DTO.CreateProjectPojo;
-import com.rar.DTO.ManagerProjectsPojo;
-import com.rar.DTO.UserProjectsPojo;
+import com.rar.dto.CreateProjectPojo;
+import com.rar.dto.ManagerProjectsPojo;
+import com.rar.dto.UserProjectsPojo;
 import com.rar.exception.InvalidProjectException;
 import com.rar.model.Projects;
 import com.rar.model.UserInfo;
@@ -51,7 +51,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public ResponseEntity assign(UserProjectsPojo userProjectsPojo) throws Exception {
+    public ResponseEntity assign(UserProjectsPojo userProjectsPojo)  {
 
             String[] employees = userProjectsPojo.getUserEmail();
              Long projectId = userProjectsPojo.getProjectId();
@@ -125,26 +125,19 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public void deleteUserFromProject(UserProjectsPojo userProjectsPojo) {
 
-      //  try {
             String[] employees = userProjectsPojo.getUserEmail();
-            System.out.println(employees+"emails");
 
-            for (int i = 0; i < employees.length; i++) {
 
-                Long userId = userRepository.getIdByEmail(employees[i]);
+        for (String employee : employees) {
 
-                Long projectId = userProjectsPojo.getProjectId();
+            Long userId = userRepository.getIdByEmail(employee);
 
-                projectRepository.deleteUser(userId, projectId);
+            Long projectId = userProjectsPojo.getProjectId();
 
-                notificationsService.MemberDeletedFromProject(userId,projectId);
-            }
-      /*  } catch (Exception e) {
+            projectRepository.deleteUser(userId, projectId);
 
-            throw new InvalidProjectException("Either employee or project is invalid...!!");
-
-        }*/
-
+            notificationsService.MemberDeletedFromProject(userId, projectId);
+        }
     }
 
     @Override
@@ -164,8 +157,7 @@ public class ProjectServiceImpl implements ProjectService {
             else {
                 int temp = 0;
                 String managerEmail = managerProjectsPojo.getManagerEmail();
-                System.out.println("line 159" + projectId + "line 159" + managerEmail);
-                String currentWorkingEmployees[] = projectRepository.getEmployeesById(projectId);
+                String[] currentWorkingEmployees = projectRepository.getEmployeesById(projectId);
                 for (int i = 0; i < currentWorkingEmployees.length; i++) {
                     if (managerEmail.equals(currentWorkingEmployees[i])) {
                         Long userId = userRepository.getUserId(currentWorkingEmployees[i]);
@@ -230,12 +222,6 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public List<Projects> findProjects(Long managerId,Long rewardId) {
         return projectRepository.findProject(managerId,rewardId);
-    }
-
-    @Override
-    public Long getCount() {
-
-        return null;
     }
 
     @Override

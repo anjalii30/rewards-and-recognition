@@ -90,37 +90,6 @@ public class Nominations implements Serializable {
     public Nominations() {
     }
 
-    public Nominations(Long rewardID, String reason, Long userID, List<Evidences> evidencesList) {
-        this.rewardID = rewardID;
-        this.reason = reason;
-        this.userID = userID;
-        this.evidencesList = evidencesList;
-    }
-
-    public Nominations(Long nominationID, Long rewardID, String reason, Long userID, boolean selected, boolean hrSelected, List<Evidences> evidencesList) {
-        this.nominationID = nominationID;
-        this.rewardID = rewardID;
-        this.reason = reason;
-        this.userID = userID;
-        this.selected = selected;
-        this.hrSelected = hrSelected;
-        this.evidencesList = evidencesList;
-    }
-
-    public Nominations(Long nominationID, String projectName, Long rewardID, String rewardName, String reason, Long userID, String userName, boolean selected, boolean hrSelected, Long projectId, Long managerId, List<Evidences> evidencesList) {
-        this.nominationID = nominationID;
-        this.projectName = projectName;
-        this.rewardID = rewardID;
-        this.rewardName = rewardName;
-        this.reason = reason;
-        this.userID = userID;
-        this.userName = userName;
-        this.selected = selected;
-        this.hrSelected = hrSelected;
-        this.projectId = projectId;
-        this.managerId = managerId;
-        this.evidencesList = evidencesList;
-    }
 
     public Long getNominationID() {
         return nominationID;

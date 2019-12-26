@@ -1,13 +1,13 @@
 package com.rar.controller;
 
-import com.rar.DTO.RewardPojo;
+import com.rar.dto.RewardPojo;
+import com.rar.config.CheckValidity;
 import com.rar.exception.IncorrectFieldException;
 import com.rar.exception.RecordNotFoundException;
 import com.rar.model.Rewards;
 import com.rar.repository.RewardsRepository;
 import com.rar.repository.UserRepository;
 import com.rar.service.RewardsService;
-import com.rar.config.CheckValidity;
 import com.rar.service.impl.SendEmail;
 import com.sun.xml.messaging.saaj.packaging.mime.MessagingException;
 import io.swagger.annotations.Api;
@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
+
+import static com.rar.utils.Constants.REWARD_ID;
 
 @RestController
 @Api(value="Rewards Management System")
@@ -68,7 +70,7 @@ public class RewardsController {
             ResponseEntity<Rewards> rewards = rewardsService.updateAwardStatus(id, rewardPojo);
             return new ResponseEntity(rewards, HttpStatus.OK);
         } else
-            throw new RecordNotFoundException("reward id not found");
+            throw new RecordNotFoundException(REWARD_ID);
     }
 
     /**
@@ -93,7 +95,7 @@ public class RewardsController {
         if(rewardsRepository.existsById(id))
             return new ResponseEntity(rewardsService.findById(id),HttpStatus.OK);
         else
-            throw new RecordNotFoundException("reward id not found");
+            throw new RecordNotFoundException(REWARD_ID);
     }
 
     /**
@@ -138,12 +140,12 @@ public class RewardsController {
      */
     @ApiOperation(value = "Update the reward by id")
     @PutMapping("/updateReward/{id}")
-    public ResponseEntity<Rewards> Update(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Reward Id to update reward object", required = true)@PathVariable Long id, @ApiParam(value = "Reward object ", required = true) @Valid @RequestBody Rewards rewards){
+    public ResponseEntity<Rewards> update(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Reward Id to update reward object", required = true)@PathVariable Long id, @ApiParam(value = "Reward object ", required = true) @Valid @RequestBody Rewards rewards){
         validity.check(token);
         if (rewardsRepository.existsById(id))
-            return new ResponseEntity(rewardsService.Update(id, rewards), HttpStatus.OK);
+            return new ResponseEntity(rewardsService.update(id, rewards), HttpStatus.OK);
         else
-            throw new RecordNotFoundException("reward id not found");
+            throw new RecordNotFoundException(REWARD_ID);
     }
 
     /**
@@ -169,7 +171,7 @@ public class RewardsController {
      */
     @ApiOperation(value = "Update the reward by id")
     @PutMapping("/updateRollOutReward/{id}")
-    public ResponseEntity<Rewards> RollOutUpdate(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Reward Id to update reward object", required = true)@PathVariable Long id, @ApiParam(value = "Reward object ", required = true) @Valid @RequestBody Rewards rewards) {
+    public ResponseEntity<Rewards> rollOutUpdate(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Reward Id to update reward object", required = true)@PathVariable Long id, @ApiParam(value = "Reward object ", required = true) @Valid @RequestBody Rewards rewards) {
         validity.check(token);
         if (rewardsRepository.existsById(id))
             return new ResponseEntity(rewardsService.rollOutUpdate(id, rewards), HttpStatus.OK);
