@@ -2,8 +2,8 @@ package com.rar.service;
 
 import com.rar.DTO.CreateProjectPojo;
 import com.rar.DTO.ManagerProjectsPojo;
-import com.rar.model.Projects;
 import com.rar.DTO.UserProjectsPojo;
+import com.rar.model.Projects;
 import com.rar.model.UserInfo;
 import org.springframework.http.ResponseEntity;
 
@@ -33,7 +33,7 @@ public interface ProjectService {
 
     ResponseEntity<UserInfo[]> findNotInId(Long projectId);
 
-    ResponseEntity findAllData();
+    ResponseEntity<Projects>findAllData();
 
     ResponseEntity<Object[]> unAssigned();
 

@@ -4,8 +4,10 @@ import com.rar.exception.InvalidTokenException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import org.springframework.stereotype.Service;
+
 import java.util.Date;
-import static com.rar.utils.Constants.*;
+
+import static com.rar.utils.Constants.secret;
 
 @Service
 public class CheckValidity  {

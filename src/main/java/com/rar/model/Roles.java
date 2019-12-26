@@ -3,6 +3,7 @@ package com.rar.model;
 import com.rar.enums.RoleEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;

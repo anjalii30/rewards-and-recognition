@@ -203,7 +203,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public ResponseEntity findAllData() {
+    public ResponseEntity<Projects> findAllData() {
          List<Projects> projects=projectRepository.findAllData();
          List parent=new ArrayList();
 

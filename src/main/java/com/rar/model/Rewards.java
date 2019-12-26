@@ -4,6 +4,7 @@ import com.rar.enums.CategoryEnum;
 import com.rar.enums.FrequencyEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotEmpty;
@@ -12,6 +13,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import static com.rar.utils.Constants.CREATED;
 
 @Entity

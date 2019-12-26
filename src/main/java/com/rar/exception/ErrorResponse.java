@@ -1,6 +1,5 @@
 package com.rar.exception;
 
-import java.util.Collections;
 import java.util.List;
 
 public class ErrorResponse {

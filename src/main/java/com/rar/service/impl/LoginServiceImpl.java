@@ -1,10 +1,12 @@
 package com.rar.service.impl;
 
+import com.rar.DTO.LoginUserDetails;
 import com.rar.enums.RoleEnum;
 import com.rar.exception.InvalidTokenException;
 import com.rar.exception.InvalidUserException;
-import com.rar.model.*;
-import com.rar.DTO.LoginUserDetails;
+import com.rar.model.Designation;
+import com.rar.model.Roles;
+import com.rar.model.UserInfo;
 import com.rar.repository.UserRepository;
 import com.rar.service.LoginService;
 import org.apache.http.HttpEntity;
@@ -53,7 +55,6 @@ public class LoginServiceImpl implements LoginService {
         if (!(status >= 200 && status < 300)) {
 
             //illegal token exception
-            System.out.println("Unexpected response status: " + status);
 
             throw new InvalidTokenException("The token is invalid");
             //throws an exception in case of invalid token;

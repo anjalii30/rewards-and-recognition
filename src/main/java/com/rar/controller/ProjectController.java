@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+import static com.rar.utils.Constants.projectId;
 
 @RestController
 @Api(value="Project Assigning System")
@@ -42,6 +43,8 @@ public class ProjectController {
     @Autowired
     private RewardsRepository rewardsRepository;
 
+
+
     /**
      * @param token jwt token
      * @param projects object
@@ -60,7 +63,7 @@ public class ProjectController {
      */
     @ApiOperation(value = "Get the list of all projects")
     @GetMapping(value = "/listProjects")
-    public ResponseEntity<?> projects(@RequestHeader(value = "Authorization") String token){
+    public ResponseEntity<Projects> projects(@RequestHeader(value = "Authorization") String token){
         validity.check(token);
         return new ResponseEntity(projectService.findAllData(),HttpStatus.OK);
     }
@@ -76,8 +79,9 @@ public class ProjectController {
     public ResponseEntity<List<Projects>> projectsOfManager(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Reward Id to show projects not been nominated for that reward", required = true)@PathVariable Long id){
         String email=validity.check(token);
         Long managerId=managerRepository.findByEmail(email);
-        if(rewardsRepository.existsById(id))
-        return new ResponseEntity(projectService.findProjects(managerId,id),HttpStatus.OK);
+        if(rewardsRepository.existsById(id)) {
+            return new ResponseEntity(projectService.findProjects(managerId, id), HttpStatus.OK);
+        }
         else
             throw new RecordNotFoundException("reward id not found");
     }
@@ -90,12 +94,13 @@ public class ProjectController {
      */
     @ApiOperation(value = "Get users assigned to some project")
     @GetMapping("/listAssignedUsers/{id}")
-    public ResponseEntity<UserInfo[]> UsersForProject(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Project Id to get employees under project", required = true) @PathVariable Long id){
+    public ResponseEntity<UserInfo[]> usersForProject(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Project Id to get employees under project", required = true) @PathVariable Long id){
             validity.check(token);
-            if(projectRepository.existsById(id))
-            return new ResponseEntity(projectService.findById(id), HttpStatus.OK);
+            if(projectRepository.existsById(id)) {
+                return new ResponseEntity(projectService.findById(id), HttpStatus.OK);
+            }
             else
-                throw new RecordNotFoundException("project id not found");
+                throw new RecordNotFoundException(projectId);
     }
 
     /**
@@ -106,12 +111,13 @@ public class ProjectController {
      */
     @ApiOperation(value = "Get managers assigned to the project")
     @GetMapping("/assignedManager/{id}")
-    public ResponseEntity<UserInfo[]> ManagerForProject(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Project Id to get managers of the project", required = true) @PathVariable Long id) {
+    public ResponseEntity<UserInfo[]> managerForProject(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Project Id to get managers of the project", required = true) @PathVariable Long id) {
                validity.check(token);
-               if(projectRepository.existsById(id))
-            return new ResponseEntity(projectService.findManagerById(id),HttpStatus.OK);
+               if(projectRepository.existsById(id)) {
+                   return new ResponseEntity(projectService.findManagerById(id), HttpStatus.OK);
+               }
                else
-                   throw new RecordNotFoundException("project id not found");
+                   throw new RecordNotFoundException(projectId);
     }
 
     /**
@@ -122,12 +128,13 @@ public class ProjectController {
      */
     @ApiOperation(value = "Get users not assigned to the project")
     @GetMapping("/listNotAssigned/{id}")
-    public  ResponseEntity<UserInfo[]>  UsersNotInProject(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Project Id to get managers of the project", required = true) @PathVariable Long id) {
+    public  ResponseEntity<UserInfo[]>  usersNotInProject(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Project Id to get managers of the project", required = true) @PathVariable Long id) {
         validity.check(token);
-        if(projectRepository.existsById(id))
-        return new ResponseEntity(projectService.findNotInId(id),HttpStatus.OK);
+        if(projectRepository.existsById(id)) {
+            return new ResponseEntity(projectService.findNotInId(id), HttpStatus.OK);
+        }
         else
-            throw new RecordNotFoundException("project id not found");
+            throw new RecordNotFoundException(projectId);
     }
 
     /**
@@ -139,7 +146,7 @@ public class ProjectController {
      */
     @ApiOperation(value = "to add manager for project")
     @PostMapping("/addManagerForProject")
-    public ResponseEntity<?> editManagerForProject(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Project name and manager email",required = true)@Valid @RequestBody ManagerProjectsPojo managerProjectsPojo) throws Exception{
+    public ResponseEntity<UserInfo []> editManagerForProject(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Project name and manager email",required = true)@Valid @RequestBody ManagerProjectsPojo managerProjectsPojo){
             validity.check(token);
             projectService.editManagerForProject(managerProjectsPojo);
             Long projectId = managerProjectsPojo.getProjectId();
@@ -155,7 +162,7 @@ public class ProjectController {
      */
     @ApiOperation(value = "to delete a manager from project")
     @DeleteMapping("/deleteManagerFromProject")
-    public ResponseEntity<?> deleteManagerFromProject(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Project name and manager email",required = true)@Valid @RequestBody ManagerProjectsPojo managerProjectsPojo) throws Exception {
+    public ResponseEntity<UserInfo []> deleteManagerFromProject(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Project name and manager email",required = true)@Valid @RequestBody ManagerProjectsPojo managerProjectsPojo)  {
             validity.check(token);
             Long projectId = managerProjectsPojo.getProjectId();
             projectService.deleteManagerFromProject(managerProjectsPojo);
@@ -169,7 +176,7 @@ public class ProjectController {
      */
     @ApiOperation(value = "Assign project to users")
     @PostMapping("/assignProjects")
-    public ResponseEntity<?> assignProjects(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Project name and employee emails ", required = true) @Valid @RequestBody UserProjectsPojo userProjectsPojo) throws Exception {
+    public ResponseEntity<UserInfo []> assignProjects(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Project name and employee emails ", required = true) @Valid @RequestBody UserProjectsPojo userProjectsPojo) throws Exception {
             validity.check(token);
             projectService.assign(userProjectsPojo);
             Long projectId = userProjectsPojo.getProjectId();
@@ -196,7 +203,7 @@ public class ProjectController {
      */
     @ApiOperation(value = "Delete user from  the project")
     @DeleteMapping("/deleteFromProject")
-    public ResponseEntity<UserInfo[]> deleteUserFromProject(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Project name and employee emails ", required = true) @Valid @RequestBody UserProjectsPojo userProjectsPojo) throws Exception {
+    public ResponseEntity<UserInfo[]> deleteUserFromProject(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Project name and employee emails ", required = true) @Valid @RequestBody UserProjectsPojo userProjectsPojo){
         validity.check(token);
         projectService.deleteUserFromProject(userProjectsPojo);
         Long projectId = userProjectsPojo.getProjectId();

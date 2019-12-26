@@ -1,7 +1,6 @@
 package com.rar.service.impl;
 
 import com.rar.model.Notifications;
-import com.rar.model.Roles;
 import com.rar.repository.*;
 import com.rar.service.NotificationsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,11 +8,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import static com.rar.utils.Constants.*;
-import java.time.LocalDate;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.rar.utils.Constants.DISCONTINUED;
+import static com.rar.utils.Constants.ROLLED_OUT;
 
 @Service
 @Transactional

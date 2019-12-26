@@ -45,7 +45,7 @@ public class RewardsServiceImpl implements RewardsService {
     @Autowired
     private NotificationsService notificationsService;
 
-    //private Constants constants;
+
 
     static String[] monthName = {"January", "February",
             "March", "April", "May", "June", "July",
@@ -88,12 +88,9 @@ public class RewardsServiceImpl implements RewardsService {
         Rewards rewardData1 =  rewardsRepository.save(CreateReward1);
 
 
-
-            for(Iterator<RewardsCriteria> itttt = CreateReward1.getCriteria().iterator(); itttt.hasNext();) {
-                RewardsCriteria ff = itttt.next();
-
-             rewardsCriteriaRepository.deleteById(ff.getRewardId(),ff.getCriteriaId());
-            }
+        for (RewardsCriteria ff : CreateReward1.getCriteria()) {
+            rewardsCriteriaRepository.deleteById(ff.getRewardId(), ff.getCriteriaId());
+        }
 
         RewardsCriteria rewardsCriteria;
 

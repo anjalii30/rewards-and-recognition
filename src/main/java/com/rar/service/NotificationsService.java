@@ -1,7 +1,6 @@
 package com.rar.service;
 
 import com.rar.model.Notifications;
-import com.rar.model.Roles;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;

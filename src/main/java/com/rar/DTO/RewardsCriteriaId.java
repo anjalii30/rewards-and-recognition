@@ -2,6 +2,7 @@ package com.rar.DTO;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.Embeddable;
 import java.io.Serializable;
 
