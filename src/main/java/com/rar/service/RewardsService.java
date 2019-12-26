@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface RewardsService {
 
-    ResponseEntity<Rewards> Update(Long id, Rewards createReward);
+    ResponseEntity<Rewards> update(Long id, Rewards createReward);
 
     ResponseEntity<Rewards> findById(Long id);
 

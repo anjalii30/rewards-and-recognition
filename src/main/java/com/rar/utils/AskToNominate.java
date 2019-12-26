@@ -36,7 +36,7 @@ public class AskToNominate {
 //Checking everyday if every manager has nominated someone for every reward and every project (4 days earlier it starts mailing)
     @Scheduled(cron = "0 0 12 * * ? ")
    // @Scheduled(cron="0 * * ? * *")
-    public void SendEmailToManager() throws IOException, MessagingException {
+    public void sendEmailToManager() throws IOException, MessagingException {
 
         Long[] managers=managerRepository.getAllIds();
         Long[] rewards=rewardsRepository.getAllIds();
@@ -46,30 +46,26 @@ public class AskToNominate {
             for(int j=0;j<rewards.length;j++) {
 
                 String rewardName=rewardsRepository.getRewardName(rewards[j]);
-                System.out.println(rewards[j]);
                 LocalDate endDate = rewardsRepository.getEndDate(rewards[j]);
-                System.out.println(endDate);
 
                 if (endDate.minusDays(5).isBefore(today) && endDate.isAfter(today)) {
 
-                    for (int i = 0; i < managers.length; i++) {
-
-                        System.out.println(managers[i]);
+                    for (Long manager : managers) {
 
 
-                        String email=managerRepository.getEmail(managers[i]);
-                        String name=userRepository.getName(email);
-                        Long[] projects = managerRepository.getProjectsOfManager(managers[i]);
+                        String email = managerRepository.getEmail(manager);
+                        String name = userRepository.getName(email);
+                        Long[] projects = managerRepository.getProjectsOfManager(manager);
 
-                        for(int k=0;k<projects.length;k++){
-                            String projectName=projectRepository.getProjectName(projects[k]);
+                        for (Long project : projects) {
+                            String projectName = projectRepository.getProjectName(project);
 
-                            Long nomination=nominationsRepository.checkIfExists(projects[k],managers[i],rewards[j]);
-                          if(nomination==0){
-                              sendEmail.sendEmailWithoutAttachment(email,"Please nominate",
-                                      "Hello, "+name.toUpperCase() +"You have not nominated any person from your team for project "+projectName+"for the reward "+rewardName+
-                                      ". Kindly, nominate, as last date to nominate for this reward is "+endDate);
-                          }
+                            Long nomination = nominationsRepository.checkIfExists(project, manager, rewards[j]);
+                            if (nomination == 0) {
+                                sendEmail.sendEmailWithoutAttachment(email, "Please nominate",
+                                        "Hello, " + name.toUpperCase() + "You have not nominated any person from your team for project " + projectName + "for the reward " + rewardName +
+                                                ". Kindly, nominate, as last date to nominate for this reward is " + endDate);
+                            }
                         }
 
 

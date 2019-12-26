@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-import static com.rar.utils.Constants.projectId;
+import static com.rar.utils.Constants.PROJECT_ID;
 
 @RestController
 @Api(value="Project Assigning System")
@@ -100,7 +100,7 @@ public class ProjectController {
                 return new ResponseEntity(projectService.findById(id), HttpStatus.OK);
             }
             else
-                throw new RecordNotFoundException(projectId);
+                throw new RecordNotFoundException(PROJECT_ID);
     }
 
     /**
@@ -117,7 +117,7 @@ public class ProjectController {
                    return new ResponseEntity(projectService.findManagerById(id), HttpStatus.OK);
                }
                else
-                   throw new RecordNotFoundException(projectId);
+                   throw new RecordNotFoundException(PROJECT_ID);
     }
 
     /**
@@ -134,7 +134,8 @@ public class ProjectController {
             return new ResponseEntity(projectService.findNotInId(id), HttpStatus.OK);
         }
         else
-            throw new RecordNotFoundException(projectId);
+            throw new RecordNotFoundException(PROJECT_ID);
+
     }
 
     /**

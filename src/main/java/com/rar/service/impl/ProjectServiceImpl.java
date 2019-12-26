@@ -51,7 +51,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public ResponseEntity assign(UserProjectsPojo userProjectsPojo) throws Exception {
+    public ResponseEntity assign(UserProjectsPojo userProjectsPojo)  {
 
             String[] employees = userProjectsPojo.getUserEmail();
              Long projectId = userProjectsPojo.getProjectId();
@@ -231,13 +231,7 @@ public class ProjectServiceImpl implements ProjectService {
     public List<Projects> findProjects(Long managerId,Long rewardId) {
         return projectRepository.findProject(managerId,rewardId);
     }
-
-    @Override
-    public Long getCount() {
-
-        return null;
-    }
-
+    
     @Override
     public ResponseEntity<Projects[]> projectDetails(Long id) {
         return new ResponseEntity(projectRepository.getProject(id),HttpStatus.OK);

@@ -22,7 +22,7 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 
-import static com.rar.utils.Constants.rewardId;
+import static com.rar.utils.Constants.REWARD_ID;
 
 @RestController
 @Api(value="Rewards Management System")
@@ -70,7 +70,7 @@ public class RewardsController {
             ResponseEntity<Rewards> rewards = rewardsService.updateAwardStatus(id, rewardPojo);
             return new ResponseEntity(rewards, HttpStatus.OK);
         } else
-            throw new RecordNotFoundException(rewardId);
+            throw new RecordNotFoundException(REWARD_ID);
     }
 
     /**
@@ -95,7 +95,7 @@ public class RewardsController {
         if(rewardsRepository.existsById(id))
             return new ResponseEntity(rewardsService.findById(id),HttpStatus.OK);
         else
-            throw new RecordNotFoundException(rewardId);
+            throw new RecordNotFoundException(REWARD_ID);
     }
 
     /**
@@ -143,9 +143,9 @@ public class RewardsController {
     public ResponseEntity<Rewards> update(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "Reward Id to update reward object", required = true)@PathVariable Long id, @ApiParam(value = "Reward object ", required = true) @Valid @RequestBody Rewards rewards){
         validity.check(token);
         if (rewardsRepository.existsById(id))
-            return new ResponseEntity(rewardsService.Update(id, rewards), HttpStatus.OK);
+            return new ResponseEntity(rewardsService.update(id, rewards), HttpStatus.OK);
         else
-            throw new RecordNotFoundException(rewardId);
+            throw new RecordNotFoundException(REWARD_ID);
     }
 
     /**

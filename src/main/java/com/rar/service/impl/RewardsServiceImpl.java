@@ -69,7 +69,7 @@ public class RewardsServiceImpl implements RewardsService {
     }
 
     @Override
-    public ResponseEntity<Rewards> Update(Long id, Rewards createReward) {
+    public ResponseEntity<Rewards> update(Long id, Rewards createReward) {
         Rewards CreateReward = rewardsRepository.findById(id).get();
         CreateReward.setRewardName(createReward.getRewardName());
         CreateReward.setFrequency(createReward.getFrequency());
@@ -282,7 +282,7 @@ public class RewardsServiceImpl implements RewardsService {
             return new ResponseEntity<>(reward,HttpStatus.OK);
         }
         else if(rewardsRepository.findEditRollOutId(id)==0 && rewardsRepository.checkingRewardInRolledOut(id)>0){
-            return Update(id,reward);
+            return update(id,reward);
         }
         return null;
     }

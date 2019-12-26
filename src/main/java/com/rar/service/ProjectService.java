@@ -13,7 +13,7 @@ public interface ProjectService {
 
     Projects projectSave(Projects projects);
 
-    ResponseEntity assign(UserProjectsPojo userProjectsPojo) throws Exception;
+    ResponseEntity assign(UserProjectsPojo userProjectsPojo) ;
 
     ResponseEntity<CreateProjectPojo> createProject(CreateProjectPojo createProjectPojo);
 
@@ -39,7 +39,6 @@ public interface ProjectService {
 
     List<Projects> findProjects(Long managerId,Long rewardId);
 
-    Long getCount();
 
     void setProjectStatus(Long id);
 

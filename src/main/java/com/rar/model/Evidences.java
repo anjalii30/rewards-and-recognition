@@ -5,11 +5,12 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "evidences")
 @ApiModel(description = "All the details about evidences submitted during nominations")
-public class Evidences {
+public class Evidences implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

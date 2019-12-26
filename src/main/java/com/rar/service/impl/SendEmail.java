@@ -17,6 +17,8 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
+import static com.rar.utils.Constants.SUCCESS;
+
 @Service
 public class SendEmail  {
 
@@ -35,7 +37,7 @@ public class SendEmail  {
             helper.setSubject(subject);
             helper.setText(message);
             javaMailSender.send(msg);
-            return ResponseEntity.ok("Successful");
+            return ResponseEntity.ok(SUCCESS);
 
         }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.CONFLICT);
@@ -61,7 +63,7 @@ public class SendEmail  {
 
 
             javaMailSender.send(msg);
-            return ResponseEntity.ok("Successful");
+            return ResponseEntity.ok(SUCCESS);
 
         }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.CONFLICT);
@@ -86,7 +88,7 @@ public class SendEmail  {
 
 
             javaMailSender.send(msg);
-            return ResponseEntity.ok("Successful");
+            return ResponseEntity.ok(SUCCESS);
 
         }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.CONFLICT);

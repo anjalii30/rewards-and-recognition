@@ -24,7 +24,7 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler
 {
 
       @ExceptionHandler(Exception.class)
-     public ResponseEntity<Object> handleAllException(Exception ex, WebRequest request) throws Exception {
+     public ResponseEntity<Object> handleAllException(Exception ex, WebRequest request) {
         List<String> details = new ArrayList<>();
         details.add(ex.getLocalizedMessage());
         ErrorResponse error = new ErrorResponse(500,"Server Error", details);
@@ -60,10 +60,8 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler
 
     @Override
     public ResponseEntity<Object> handleHttpRequestMethodNotSupported(HttpRequestMethodNotSupportedException ex, HttpHeaders headers, HttpStatus status, WebRequest request){
-        ObjectError objectError;
         String methodUsed=ex.getMethod().toUpperCase();
         Set<HttpMethod> httpMethods=ex.getSupportedHttpMethods();
-        System.out.println(methodUsed+" "+ex.getSupportedHttpMethods()+" "+ex.getSupportedMethods());
         ErrorResponse error = new ErrorResponse(405,"Method Not Allowed", Collections.singletonList(methodUsed+" method is not allowed for this api..!! Use "+httpMethods+" method instead.."));
         return new ResponseEntity<>(error,HttpStatus.METHOD_NOT_ALLOWED);
     }
