@@ -29,67 +29,68 @@ import java.util.*;
 public class LoginServiceImpl implements LoginService {
     @Autowired
     private UserRepository userRepository;
+
     @Autowired
     private GenerateJWT generateJWT;
+
     @Value("${jwt.secret}")
     private String secret;
     public LoginUserDetails login(String token) throws Exception {
 
-        CloseableHttpClient client = HttpClients.createDefault();
-        HttpGet request = new HttpGet("https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=" + token);
-        CloseableHttpResponse response = null;
-        response = client.execute(request);
-        int status = response.getStatusLine().getStatusCode();
-        if (!(status >= 200 && status < 300)) {
+        try(CloseableHttpClient client = HttpClients.createDefault()) {
+            HttpGet request = new HttpGet("https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=" + token);
+            CloseableHttpResponse response = null;
+            response = client.execute(request);
+            int status = response.getStatusLine().getStatusCode();
+            if (!(status >= 200 && status < 300)) {
 
-            throw new InvalidTokenException("The token is invalid");
-
-        }
-        HttpEntity httpEntity = response.getEntity();
-        String responseString = EntityUtils.toString(httpEntity, "UTF-8");
-
-        JSONObject json = (JSONObject) new JSONParser().parse(responseString);
-        String email = (String) json.get("email");
-        String imageUrl = (String) json.get("picture");
-        try {
-            Optional<UserInfo> repoEmail = userRepository.findByEmail(email);
-            UserInfo userInfo = userRepository.findByEmail(email).get();
-            Iterator<Roles> it= userInfo.getRoles().iterator();
-            Roles r=it.next();
-            RoleEnum roleEnum=r.getRole();
-            Iterator<Designation> itt= userInfo.getDesignation().iterator();
-            Designation d=itt.next();
-            String designation= d.getDesignation();
-            boolean isManager=true;
-            if(userRepository.managerOrEmployee(email) == 0)
-                isManager= false;
-            if (repoEmail.isPresent()) {
-
-                if (!userInfo.getFirstSign()) {
-                    userInfo.setFirstSign(true);
-                    userInfo.setImageUrl(imageUrl);
-                    userInfo.setEmail(userInfo.getEmail());
-                    userInfo.setName(userInfo.getName());
-                    userInfo.setDesignation(userInfo.getDesignation());
-                    userInfo.setRoles(userInfo.getRoles());
-                    userInfo.setUserId(userInfo.getUserId());
-                    userInfo.setWallet(userInfo.getWallet());
-                    userRepository.save(userInfo);
-                    String generatedToken=generateJWT.generateToken(email);
-                    return new LoginUserDetails(userInfo.getEmail()+"",userInfo.getName()+"",userInfo.getImageUrl()+"",""+generatedToken,roleEnum,designation,userInfo.getUserId(),isManager, userInfo.getWallet());
-                } else {
-                    String generatedToken=generateJWT.generateToken(email);
-                    return new LoginUserDetails(userInfo.getEmail()+"",userInfo.getName()+"",userInfo.getImageUrl()+"",""+generatedToken,roleEnum,designation,userInfo.getUserId(),isManager,userInfo.getWallet());
-                }
+                throw new InvalidTokenException("The token is invalid");
 
             }
-        } catch (Exception e) {
-            throw new InvalidUserException("you are not a user till now");
-        }
-        LoginUserDetails details1=new LoginUserDetails();
-        client.close();
-        return details1;
+            HttpEntity httpEntity = response.getEntity();
+            String responseString = EntityUtils.toString(httpEntity, "UTF-8");
 
+            JSONObject json = (JSONObject) new JSONParser().parse(responseString);
+            String email = (String) json.get("email");
+            String imageUrl = (String) json.get("picture");
+            try {
+                Optional<UserInfo> repoEmail = userRepository.findByEmail(email);
+                UserInfo userInfo = userRepository.findByEmail(email).get();
+                Iterator<Roles> it = userInfo.getRoles().iterator();
+                Roles r = it.next();
+                RoleEnum roleEnum = r.getRole();
+                Iterator<Designation> itt = userInfo.getDesignation().iterator();
+                Designation d = itt.next();
+                String designation = d.getDesignation();
+                boolean isManager = true;
+                if (userRepository.managerOrEmployee(email) == 0)
+                    isManager = false;
+                if (repoEmail.isPresent()) {
+
+                    if (!userInfo.getFirstSign()) {
+                        userInfo.setFirstSign(true);
+                        userInfo.setImageUrl(imageUrl);
+                        userInfo.setEmail(userInfo.getEmail());
+                        userInfo.setName(userInfo.getName());
+                        userInfo.setDesignation(userInfo.getDesignation());
+                        userInfo.setRoles(userInfo.getRoles());
+                        userInfo.setUserId(userInfo.getUserId());
+                        userInfo.setWallet(userInfo.getWallet());
+                        userRepository.save(userInfo);
+                        String generatedToken = generateJWT.generateToken(email);
+                        return new LoginUserDetails(userInfo.getEmail() + "", userInfo.getName() + "", userInfo.getImageUrl() + "", "" + generatedToken, roleEnum, designation, userInfo.getUserId(), isManager, userInfo.getWallet());
+                    } else {
+                        String generatedToken = generateJWT.generateToken(email);
+                        return new LoginUserDetails(userInfo.getEmail() + "", userInfo.getName() + "", userInfo.getImageUrl() + "", "" + generatedToken, roleEnum, designation, userInfo.getUserId(), isManager, userInfo.getWallet());
+                    }
+
+                }
+            } catch (Exception e) {
+                throw new InvalidUserException("you are not a user till now");
+            }
+            LoginUserDetails details1 = new LoginUserDetails();
+            return details1;
+        }
 
     }
     @Override

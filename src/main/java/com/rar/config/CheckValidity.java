@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
-import static com.rar.utils.Constants.secret;
+import static com.rar.utils.Constants.SECRET;
 
 @Service
 public class CheckValidity  {
@@ -28,7 +28,7 @@ public class CheckValidity  {
 
     private Claims extract(String token) {
         Claims claims = Jwts.parser()
-                .setSigningKey(secret)
+                .setSigningKey(SECRET)
                 .parseClaimsJws(token)
                 .getBody();
         return claims;
