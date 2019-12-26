@@ -52,18 +52,13 @@ public class Projects implements Serializable {
                     CascadeType.PERSIST,
                     CascadeType.MERGE,
             },
-            mappedBy = "manager_projects")
+            mappedBy = "projects")
 
     private Set<Manager> managers = new HashSet<>();
 
     public Projects() {
     }
 
-    public Projects(Long projectId, String projectName, Set<UserInfo> userInfo) {
-        this.projectId = projectId;
-        this.projectName = projectName;
-        this.userInfo = userInfo;
-    }
 
     public Long getProjectId() {
         return projectId;
@@ -89,6 +84,29 @@ public class Projects implements Serializable {
         this.completed = completed;
     }
 
+    public List<Nominations> getNominations() {
+        return nominations;
+    }
+
+    public void setNominations(List<Nominations> nominations) {
+        this.nominations = nominations;
+    }
+
+    public Set<UserInfo> getUserInfo() {
+        return userInfo;
+    }
+
+    public void setUserInfo(Set<UserInfo> userInfo) {
+        this.userInfo = userInfo;
+    }
+
+    public Set<Manager> getManagers() {
+        return managers;
+    }
+
+    public void setManagers(Set<Manager> managers) {
+        this.managers = managers;
+    }
 
     @Override
     public String toString() {
@@ -96,8 +114,8 @@ public class Projects implements Serializable {
                 "projectId=" + projectId +
                 ", projectName='" + projectName + '\'' +
                 ", completed=" + completed +
+                ", nominations=" + nominations +
                 ", userInfo=" + userInfo +
-                ", managers=" + managers +
                 '}';
     }
 }

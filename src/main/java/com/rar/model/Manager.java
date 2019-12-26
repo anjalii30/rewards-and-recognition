@@ -41,22 +41,34 @@ public class Manager implements Serializable {
             joinColumns ={@JoinColumn(name="manager_id")},
             inverseJoinColumns = {@JoinColumn(name="project_id")}
     )
-    private Set<Projects> manager_projects= new HashSet<>();
+    private Set<Projects> projects= new HashSet<>();
 
     public Manager() {
-    }
-
-    public Manager(long id, String managerEmail) {
-        this.managerId = id;
-        this.managerEmail = managerEmail;
+        // empty constructor
     }
 
     public long getManagerId() {
         return managerId;
     }
 
-    public void setManagerId(long ERid) {
-        this.managerId = ERid;
+    public void setManagerId(long managerId) {
+        this.managerId = managerId;
+    }
+
+    public List<Nominations> getNominations() {
+        return nominations;
+    }
+
+    public void setNominations(List<Nominations> nominations) {
+        this.nominations = nominations;
+    }
+
+    public Set<Projects> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(Set<Projects> projects) {
+        this.projects = projects;
     }
 
     public String getManagerEmail() {
@@ -67,12 +79,5 @@ public class Manager implements Serializable {
         this.managerEmail = managerEmail;
     }
 
-    @Override
-    public String toString() {
-        return "Manager{" +
-                "manager_id=" + managerId +
-                ", manager_email='" + managerEmail + '\'' +
-                ", manager_projects=" + manager_projects +
-                '}';
-    }
+
 }
