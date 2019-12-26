@@ -1,8 +1,8 @@
 package com.rar.service;
 
-import com.rar.DTO.CreateProjectPojo;
-import com.rar.DTO.ManagerProjectsPojo;
-import com.rar.DTO.UserProjectsPojo;
+import com.rar.dto.CreateProjectPojo;
+import com.rar.dto.ManagerProjectsPojo;
+import com.rar.dto.UserProjectsPojo;
 import com.rar.model.Projects;
 import com.rar.model.UserInfo;
 import org.springframework.http.ResponseEntity;

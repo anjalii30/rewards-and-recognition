@@ -1,6 +1,6 @@
 package com.rar.controller;
 
-import com.rar.DTO.RewardPojo;
+import com.rar.dto.RewardPojo;
 import com.rar.config.CheckValidity;
 import com.rar.exception.IncorrectFieldException;
 import com.rar.exception.RecordNotFoundException;

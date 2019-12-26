@@ -1,7 +1,7 @@
 package com.rar.service.impl;
 
-import com.rar.DTO.ListRollOutEdit;
-import com.rar.DTO.RewardPojo;
+import com.rar.dto.ListRollOutEdit;
+import com.rar.dto.RewardPojo;
 import com.rar.enums.FrequencyEnum;
 import com.rar.model.Rewards;
 import com.rar.model.RewardsCriteria;

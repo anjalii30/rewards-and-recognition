@@ -1,6 +1,6 @@
 package com.rar.controller;
 
-import com.rar.DTO.LoginUserDetails;
+import com.rar.dto.LoginUserDetails;
 import com.rar.exception.RecordNotFoundException;
 import com.rar.model.UserInfo;
 import com.rar.repository.UserRepository;

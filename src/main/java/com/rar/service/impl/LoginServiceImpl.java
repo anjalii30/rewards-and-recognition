@@ -1,5 +1,5 @@
 package com.rar.service.impl;
-import com.rar.DTO.LoginUserDetails;
+import com.rar.dto.LoginUserDetails;
 import com.rar.config.GenerateJWT;
 import com.rar.enums.RoleEnum;
 import com.rar.exception.InvalidTokenException;

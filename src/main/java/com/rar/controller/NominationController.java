@@ -1,7 +1,7 @@
 package com.rar.controller;
 
-import com.rar.DTO.History;
-import com.rar.DTO.NominationPojo;
+import com.rar.dto.History;
+import com.rar.dto.NominationPojo;
 import com.rar.exception.RecordNotFoundException;
 import com.rar.model.Nominations;
 import com.rar.model.Rewards;

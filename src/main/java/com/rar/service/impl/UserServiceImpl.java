@@ -1,8 +1,8 @@
 package com.rar.service.impl;
 
-import com.rar.DTO.DesignationSelected;
-import com.rar.DTO.EditUserDetails;
-import com.rar.DTO.ProjectDetailsUser;
+import com.rar.dto.DesignationSelected;
+import com.rar.dto.EditUserDetails;
+import com.rar.dto.ProjectDetailsUser;
 import com.rar.model.Designation;
 import com.rar.model.Projects;
 import com.rar.model.UserInfo;

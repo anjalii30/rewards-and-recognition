@@ -1,7 +1,7 @@
 package com.rar.service;
 
-import com.rar.DTO.History;
-import com.rar.DTO.NominationPojo;
+import com.rar.dto.History;
+import com.rar.dto.NominationPojo;
 import com.rar.model.Nominations;
 import com.rar.model.Rewards;
 import freemarker.template.TemplateException;

@@ -1,9 +1,9 @@
 package com.rar.service.impl;
 
-import com.rar.DTO.History;
-import com.rar.DTO.NominationPojo;
-import com.rar.DTO.ProjectNominationHistory;
-import com.rar.DTO.UserNominationDetails;
+import com.rar.dto.History;
+import com.rar.dto.NominationPojo;
+import com.rar.dto.ProjectNominationHistory;
+import com.rar.dto.UserNominationDetails;
 import com.rar.model.Evidences;
 import com.rar.model.Nominations;
 import com.rar.model.Rewards;

@@ -1,6 +1,6 @@
 package com.rar.service;
 
-import com.rar.DTO.LoginUserDetails;
+import com.rar.dto.LoginUserDetails;
 import com.rar.model.UserInfo;
 import org.springframework.http.ResponseEntity;
 

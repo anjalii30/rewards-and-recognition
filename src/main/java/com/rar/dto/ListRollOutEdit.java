@@ -1,4 +1,4 @@
-package com.rar.DTO;
+package com.rar.dto;
 
 import com.rar.enums.FrequencyEnum;
 import com.rar.model.RewardsCriteria;
