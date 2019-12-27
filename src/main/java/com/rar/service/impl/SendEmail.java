@@ -13,7 +13,6 @@ import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
@@ -29,7 +28,7 @@ public class SendEmail  {
     private Configuration freemarkerConfig;
 
 //used when award is rolled out or discontinued
-    public ResponseEntity sendEmailWithoutAttachment(String emails,String subject,String message) throws MessagingException, IOException {
+    public ResponseEntity sendEmailWithoutAttachment(String emails,String subject,String message) throws MessagingException {
         MimeMessage msg = javaMailSender.createMimeMessage();
         try {
             MimeMessageHelper helper = new MimeMessageHelper(msg, true);
@@ -45,41 +44,29 @@ public class SendEmail  {
     }
 
 
-//used only for winner email
-    public ResponseEntity sendEmailWithAttachment(Map root, String emails, String subject) throws MessagingException, IOException, TemplateException {
+    //used only for winner email
+    public void sendEmailWithAttachment(Map root, String emails, String subject) throws MessagingException, TemplateException {
 
-        MimeMessage msg = javaMailSender.createMimeMessage();
+        String template="Winner.html";
+        sendEmail(root,emails,subject,template);
 
-        try {
-            MimeMessageHelper helper = new MimeMessageHelper(msg, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED, StandardCharsets.UTF_8.name());
-
-
-            Template t = freemarkerConfig.getTemplate("Winner.html");
-            String text = FreeMarkerTemplateUtils.processTemplateIntoString(t, root);
-
-            helper.setTo(emails);
-            helper.setSubject(subject);
-            helper.setText(text, true);
-
-
-            javaMailSender.send(msg);
-            return ResponseEntity.ok(SUCCESS);
-
-        }catch (Exception e){
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
-        }
     }
 
     //used for self winner email
-    public ResponseEntity sendEmailToWinner(Map root, String emails, String subject) throws MessagingException, IOException, TemplateException {
+    public void sendEmailToWinner(Map root, String emails, String subject) throws MessagingException, TemplateException {
 
+        String template="selfWinner.html";
+        sendEmail(root,emails,subject,template);
+
+    }
+    public ResponseEntity sendEmail(Map root,String emails,String subject,String template)throws MessagingException,TemplateException{
         MimeMessage msg = javaMailSender.createMimeMessage();
 
         try {
             MimeMessageHelper helper = new MimeMessageHelper(msg, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED, StandardCharsets.UTF_8.name());
 
 
-            Template t = freemarkerConfig.getTemplate("selfWinner.html");
+            Template t = freemarkerConfig.getTemplate(template);
             String text = FreeMarkerTemplateUtils.processTemplateIntoString(t, root);
 
             helper.setTo(emails);
