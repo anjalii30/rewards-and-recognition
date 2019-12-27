@@ -142,6 +142,11 @@ public interface UserRepository extends CrudRepository< UserInfo,Long> {
 
     @Query(value="select user_id from user_roles where role_id=2",nativeQuery = true)
     Long[] getAdmins();
+
+    @Modifying
+    @Transactional
+    @Query(value = " update users set image_url= 'image' where user_id=?1",nativeQuery = true)
+    void updatingImgUrl(long id);
 }
 
 
