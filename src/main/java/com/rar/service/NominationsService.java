@@ -23,7 +23,6 @@ public interface NominationsService {
 
     ResponseEntity<List<Map<String,String>>> getAwardedPeople();
 
-    ResponseEntity<List<Nominations>> getAllNominations();
 
     void managerSelect(Nominations[] nominations,Long managerId, String managerName);
 

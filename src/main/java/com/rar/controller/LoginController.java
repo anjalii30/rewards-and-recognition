@@ -1,22 +1,21 @@
 package com.rar.controller;
 
+import com.rar.config.CheckValidity;
 import com.rar.dto.LoginUserDetails;
-import com.rar.exception.RecordNotFoundException;
-import com.rar.model.UserInfo;
 import com.rar.repository.UserRepository;
 import com.rar.service.LoginService;
-import com.rar.config.CheckValidity;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 
@@ -44,17 +43,6 @@ public class LoginController {
             return new ResponseEntity(loginService.login(token), HttpStatus.OK);
     }
 
-    /**
-     * @param token jwt token
-     * @param users object that contains user details
-     * @return saved user object.
-     */
-    @ApiOperation(value = "Save the user")
-    @PostMapping("/saveLoginUsers")
-    public ResponseEntity<UserInfo> saveLogin(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "User object store in database table", required = true) @Valid @RequestBody UserInfo users){
-           validity.check(token);
-           return new ResponseEntity(loginService.saveLogin(users),HttpStatus.OK);
-    }
 
     /**
      * @param token jwt token
@@ -67,19 +55,4 @@ public class LoginController {
         return new ResponseEntity(loginService.findAll(),HttpStatus.OK);
     }
 
-    /**
-     * @param token jwt token
-     * @param id user id
-     * @return String that displays user has been successfully deleted.
-     */
-    @ApiOperation(value = "Delete the user by user id")
-    @DeleteMapping("/deleteUsers/{id}")
-    public ResponseEntity<String> delete(@RequestHeader(value = "Authorization") String token,@ApiParam(value = "User Id to delete user object", required = true) @PathVariable long id){
-            validity.check(token);
-            if (userRepository.existsById(id)) {
-                loginService.deleteById(id);
-                return new ResponseEntity<>("Deleted Successfully", HttpStatus.OK);
-            }else
-                throw new RecordNotFoundException("user id not found");
-    }
 }

@@ -14,13 +14,10 @@ public interface LoginService {
 
     ResponseEntity<UserInfo> findById(Long id);
 
-    ResponseEntity<UserInfo> saveLogin(UserInfo userInfo);
-
     ResponseEntity<List<LoginUserDetails>> findAll();
 
     void deleteById(Long id);
 
-    void deleteByEmail(String email);
 
     Long getIdByName(String userEmail);
 }

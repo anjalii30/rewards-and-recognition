@@ -57,6 +57,7 @@ public class Projects implements Serializable {
     private Set<Manager> managers = new HashSet<>();
 
     public Projects() {
+        // empty constructor
     }
 
 

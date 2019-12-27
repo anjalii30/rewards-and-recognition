@@ -55,7 +55,6 @@ public class RewardsServiceImpl implements RewardsService {
 
     private Calendar cal = Calendar.getInstance();
     private String month = monthName[cal.get(Calendar.MONTH)];
-
     private String year = String.valueOf(cal.get(Calendar.YEAR));
 
     @Override
@@ -74,7 +73,6 @@ public class RewardsServiceImpl implements RewardsService {
         Rewards createRewards = null;
         if (rewardsRepository.findById(id).isPresent()) {
             createRewards = rewardsRepository.findById(id).orElseThrow(() -> new RecordNotFoundException("record not found"));
-            System.out.println(createRewards.getRewardName());
         }
         if (null != createRewards) {
             createRewards.setRewardName(createReward.getRewardName());
@@ -184,22 +182,6 @@ public class RewardsServiceImpl implements RewardsService {
         Long managerId = managerRepository.findByEmail(email);
         return new ResponseEntity(rewardsRepository.latest(managerId), HttpStatus.OK);
     }
-
-    @Override
-    public ResponseEntity<List<Rewards>> managerApprovalRewards(String email) {
-
-        List<Rewards> rewards = null;
-        Long managerId = managerRepository.findByEmail(email);
-        if (managerId != null) {
-            rewards = rewardsRepository.managerApprovalRewards();
-        } else {
-            rewards = new ArrayList<>();
-        }
-        return new ResponseEntity<>(rewards, HttpStatus.OK);
-
-
-    }
-
 
     @Override
     public ResponseEntity<List<Rewards>> findByRolled(String email) {

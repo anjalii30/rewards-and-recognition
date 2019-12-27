@@ -51,12 +51,6 @@ public class LoginUserDetails implements Serializable {
     public LoginUserDetails() {
     }
 
-    public LoginUserDetails(String s, String s1, String s2, String s3, RoleEnum roleEnum, Long id) {
-    }
-
-    public LoginUserDetails(String email, String name, String imageUrl, String generatedToken, RoleEnum roleEnum, String designation, Long id, boolean isManager, String wallet) {
-    }
-
     public String getEmail() {
         return email;
     }

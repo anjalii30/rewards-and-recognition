@@ -104,17 +104,6 @@ public class UserInfo implements Serializable {
         return userId;
     }
 
-    public UserInfo(Long userId, @NotNull @Email @Size(max = 100) String email, String name, Boolean firstSign, String imageUrl,  Set<Designation> designation, Set<Roles> roles, Set<Projects> projects) {
-        this.userId = userId;
-        this.email = email;
-        this.name = name;
-        this.firstSign = firstSign;
-        this.imageUrl = imageUrl;
-        this.designation = designation;
-        this.roles = roles;
-        this.projects = projects;
-    }
-
     public void setUserId(Long userId) {
         this.userId = userId;
     }

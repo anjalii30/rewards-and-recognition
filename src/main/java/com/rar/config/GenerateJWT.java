@@ -15,12 +15,13 @@ public class GenerateJWT {
     private String secret;
 
 
+
+
     public String generateToken(String email){
-        String generatedToken = Jwts.builder()
+        return Jwts.builder()
                 .setSubject(String.valueOf(email))
                 .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY * 1000))
                 .signWith(SignatureAlgorithm.HS512, secret)
                 .compact();
-        return generatedToken;
     }
 }

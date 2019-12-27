@@ -78,17 +78,6 @@ public class NominationController {
 
     /**
      * @param token jwt token
-     * @return list of all nominations.
-     */
-    @ApiOperation(value = "Get the list of all nominations for admin")
-    @GetMapping("/showAllNomination")
-    public ResponseEntity<List<Nominations>> show(@RequestHeader(value = "Authorization") String token){
-        validity.check(token);
-        return new ResponseEntity(nominationsService.getAllNominations(),HttpStatus.OK);
-    }
-
-    /**
-     * @param token jwt token
      * @return list of rewards that are nominated.
      */
     @ApiOperation(value = "Get the list of rewards for all the nominations")

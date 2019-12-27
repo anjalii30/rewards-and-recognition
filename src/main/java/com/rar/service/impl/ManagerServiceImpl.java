@@ -45,9 +45,5 @@ public class ManagerServiceImpl implements ManagerService {
         return new ResponseEntity(managerRepository.findById(id),HttpStatus.OK);
     }
 
-    @Override
-    public void assignValues(long managerId,long projectId){
-        managerRepository.assignValues(managerId,projectId);
-    }
 
 }

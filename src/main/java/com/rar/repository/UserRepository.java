@@ -13,9 +13,6 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends CrudRepository< UserInfo,Long> {
 
-    @Query(value = "DELETE from users where email = ?1", nativeQuery = true)
-    void deleteByEmail(String email);
-
     @Query(value="select name from users where email=?1",nativeQuery = true)
     String getName(String email);
 
@@ -27,9 +24,6 @@ public interface UserRepository extends CrudRepository< UserInfo,Long> {
 
     @Query(value="select user_id from users where email=?1", nativeQuery = true)
      Long getIdByEmail(String email);
-
-    @Query(value="select * from users",nativeQuery = true)
-    List findAllUsers();
 
     @Modifying
     @Transactional
@@ -76,11 +70,6 @@ public interface UserRepository extends CrudRepository< UserInfo,Long> {
     @Query(value="select manager_id from manager_projects where project_id=?1",nativeQuery = true)
     List<Long> getManagerIdFromProjectId(Long projectId);
 
-  /*  @Modifying
-    @Transactional
-    @Query(value="insert into user_manager (user_id,manager_id) values (:userId,:managerId)",nativeQuery = true)
-    void insertUserManager(Long userId,Long managerId);
-*/
     @Query(value="select * from users where user_id not in(select user_id from user_roles where role_id=2)",nativeQuery = true)
     List<UserInfo> getAll();
 
@@ -89,9 +78,6 @@ public interface UserRepository extends CrudRepository< UserInfo,Long> {
 
     @Query(value = "select count(manager_id) from managers where manager_email=?1", nativeQuery = true)
     int isManager(String email);
-
-    @Query(value = "select count(role_id) from user_roles where user_id=?1 and role_id=2", nativeQuery = true)
-    int isAdmin(Long userId);
 
     @Modifying
     @Transactional
@@ -108,11 +94,6 @@ public interface UserRepository extends CrudRepository< UserInfo,Long> {
     @Query(value="delete from user_projects where user_id=?1",nativeQuery = true)
     void deleteUserProjects(Long userId);
 
-    /*@Modifying
-    @Transactional
-    @Query(value="delete from user_manager where user_id=?1",nativeQuery = true)
-    void deleteUserManagers(Long userId);
-*/
     @Query(value="select email from users where user_id in(select user_id from user_roles where role_id=1)",nativeQuery = true)
     String[] getAllEmails();
 
@@ -128,9 +109,6 @@ public interface UserRepository extends CrudRepository< UserInfo,Long> {
     @Transactional
     @Query(value = " update users set first_sign= false where user_id=?1",nativeQuery = true)
     void changeFirstSign(long id);
-
-    @Query(value = "select email from users where user_id=?1",nativeQuery = true)
-    String getUserEmail(long id);
 
     @Query(value = "select name from users where user_id=?1", nativeQuery = true)
     String getUserName(long userId);

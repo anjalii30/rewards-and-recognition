@@ -28,7 +28,6 @@ public interface RewardsService {
 
     ResponseEntity<List<Rewards>> latest(String email);
 
-    ResponseEntity<List<Rewards>>  managerApprovalRewards(String email);
 
     ResponseEntity<ListRollOutEdit> rollOutListReward(long id);
 

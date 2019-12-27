@@ -58,7 +58,6 @@ public class ScheduleRewards {
 
         ArrayList<Rewards> rewards = (ArrayList<Rewards>) rewardsRepository.findAll();
         int i = 0;
-        System.out.println(rewards.size());
         while (i < rewards.size()) {
             Rewards oldReward = rewards.get(i);
             String oldRewardName = oldReward.getRewardName();
@@ -146,6 +145,7 @@ public class ScheduleRewards {
 
 
         String updatedYear=String.valueOf(cal.get(Calendar.YEAR)+1);
+
         commonCode("month",FrequencyEnum.ANNUALLY);
 
 

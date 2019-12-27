@@ -11,13 +11,11 @@ import java.util.List;
 
 public interface ProjectService {
 
-    Projects projectSave(Projects projects);
 
     ResponseEntity assign(UserProjectsPojo userProjectsPojo) ;
 
     ResponseEntity<CreateProjectPojo> createProject(CreateProjectPojo createProjectPojo);
 
-    Long getIdByProject(String projectName) ;
 
     void deleteUserFromProject(UserProjectsPojo userProjectsPojo);
 

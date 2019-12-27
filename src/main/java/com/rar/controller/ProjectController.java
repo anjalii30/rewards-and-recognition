@@ -45,19 +45,6 @@ public class ProjectController {
     private RewardsRepository rewardsRepository;
 
 
-
-    /**
-     * @param token jwt token
-     * @param projects object
-     * @return saved object of projects
-     */
-    @ApiOperation(value = "Save the new project")
-    @PostMapping("/projectSave")
-    public ResponseEntity<Projects> save(@RequestHeader(value = "Authorization") String token ,@ApiParam(value = "Project object store in database table", required = true) @Valid @RequestBody Projects projects){
-            validity.check(token);
-           return new ResponseEntity(projectService.projectSave(projects),HttpStatus.OK);
-    }
-
     /**
      * @param token jwt token
      * @return list of projects
@@ -180,7 +167,7 @@ public class ProjectController {
      */
     @ApiOperation(value = "Assign project to users")
     @PostMapping("/assignProjects")
-    public ResponseEntity<UserInfo []> assignProjects(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Project name and employee emails ", required = true) @Valid @RequestBody UserProjectsPojo userProjectsPojo) throws Exception {
+    public ResponseEntity<UserInfo []> assignProjects(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Project name and employee emails ", required = true) @Valid @RequestBody UserProjectsPojo userProjectsPojo)  {
             validity.check(token);
             projectService.assign(userProjectsPojo);
             Long projectId = userProjectsPojo.getProjectId();

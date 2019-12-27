@@ -19,5 +19,4 @@ public interface ManagerService {
 
     ResponseEntity<List<Map<String,String>>> getAllMembers(Long projectId);
 
-    void assignValues(long managerId,long projectId);
 }

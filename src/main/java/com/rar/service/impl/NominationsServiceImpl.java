@@ -137,10 +137,6 @@ public class NominationsServiceImpl implements NominationsService {
         return new ResponseEntity<>(nominationsRepository.getAwarded(),HttpStatus.OK);
     }
 
-   @Override
-    public ResponseEntity<List<Nominations>> getAllNominations() {
-        return new ResponseEntity<>(nominationsRepository.getAllNominations(),HttpStatus.OK);
- }
 
     @Override
     public void managerSelect(Nominations[] nominations,Long managerId,String managerName)  {

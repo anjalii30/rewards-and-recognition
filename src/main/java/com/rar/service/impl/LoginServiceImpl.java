@@ -97,10 +97,7 @@ public class LoginServiceImpl implements LoginService {
         }
 
     }
-    @Override
-    public ResponseEntity<UserInfo> saveLogin(UserInfo userInfo) {
-        return new ResponseEntity<>(userRepository.save(userInfo),HttpStatus.OK);
-    }
+
     @Override
     public ResponseEntity<List<LoginUserDetails>> findAll() {
         List<UserInfo> userInfos = userRepository.getAll();
@@ -120,10 +117,7 @@ public class LoginServiceImpl implements LoginService {
     public ResponseEntity<UserInfo> findById(Long uid) {
         return new ResponseEntity( userRepository.findById(uid), HttpStatus.OK);
     }
-    @Override
-    public void deleteByEmail(String email) {
-        userRepository.deleteByEmail(email);
-    }
+
     @Override
     public Long getIdByName(String userEmail) {
         return userRepository.getIdByEmail(userEmail);

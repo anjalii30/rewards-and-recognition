@@ -46,11 +46,6 @@ public class ProjectServiceImpl implements ProjectService {
     private NotificationsService notificationsService;
 
     @Override
-    public Projects projectSave(Projects projects) {
-        return projectRepository.save(projects);
-    }
-
-    @Override
     public ResponseEntity assign(UserProjectsPojo userProjectsPojo)  {
 
             String[] employees = userProjectsPojo.getUserEmail();
@@ -116,11 +111,6 @@ public class ProjectServiceImpl implements ProjectService {
         }
     }
 
-    @Override
-    public Long getIdByProject(String projectName){
-
-        return projectRepository.getIdByName(projectName);
-    }
 
     @Override
     public void deleteUserFromProject(UserProjectsPojo userProjectsPojo) {
@@ -158,11 +148,11 @@ public class ProjectServiceImpl implements ProjectService {
                 int temp = 0;
                 String managerEmail = managerProjectsPojo.getManagerEmail();
                 String[] currentWorkingEmployees = projectRepository.getEmployeesById(projectId);
-                for (int i = 0; i < currentWorkingEmployees.length; i++) {
-                    if (managerEmail.equals(currentWorkingEmployees[i])) {
-                        Long userId = userRepository.getUserId(currentWorkingEmployees[i]);
+                for (String currentWorkingEmployee : currentWorkingEmployees) {
+                    if (managerEmail.equals(currentWorkingEmployee)) {
+                        Long userId = userRepository.getUserId(currentWorkingEmployee);
                         projectRepository.deleteUser(userId, projectId);
-                        projectService.addManager(currentWorkingEmployees[i], projectId);
+                        projectService.addManager(currentWorkingEmployee, projectId);
                         temp = 1;
                         break;
                     }

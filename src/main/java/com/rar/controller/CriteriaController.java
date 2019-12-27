@@ -1,10 +1,9 @@
 package com.rar.controller;
 
-import com.rar.exception.RecordNotFoundException;
+import com.rar.config.CheckValidity;
 import com.rar.model.Criteria;
 import com.rar.repository.CriteriaRepository;
 import com.rar.service.CriteriaService;
-import com.rar.config.CheckValidity;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -52,20 +51,4 @@ public class CriteriaController {
         return new ResponseEntity(criteriaService.findAll(), HttpStatus.OK);
     }
 
-
-    /**
-     * @param token jwt token
-     * @param id    criteria id
-     * @return object of criteria based on id.
-     */
-    @ApiOperation(value = "Get criteria list by id")
-    @GetMapping("/listCriterion/{id}")
-    public ResponseEntity<Criteria> getById(@RequestHeader(value = "Authorization") String token, @ApiParam(value = "Criteria Id to get criteria object", required = true) @PathVariable Long id) {
-            validity.check(token);
-            if (criteriaRepository.existsById(id)) {
-                return new ResponseEntity(criteriaService.findById(id), HttpStatus.OK);
-            }
-       else
-           throw new RecordNotFoundException("criteria id not found");
-    }
 }

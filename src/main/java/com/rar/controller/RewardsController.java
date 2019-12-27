@@ -121,18 +121,6 @@ public class RewardsController {
         return new ResponseEntity(rewardsService.findByRolled(email),HttpStatus.OK);
     }
 
-    //used for self-nomination
-    /**
-     * @param token jwt token
-     * @return list of rewards for which the manager needs to approve.
-     */
-    @ApiOperation(value = "Get the list of self-nominated rewards for manager approval")
-    @GetMapping("/managerApprovalRewards")
-    public ResponseEntity<List<Rewards>> listSelfNominate(@RequestHeader(value = "Authorization") String token) {
-        String email=validity.check(token);
-        return new ResponseEntity(rewardsService.managerApprovalRewards(email),HttpStatus.OK);
-    }
-
     /**
      * @param token jwt token
      * @param id reward id

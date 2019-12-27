@@ -39,14 +39,8 @@ public interface ProjectRepository  extends CrudRepository<Projects,Long> {
     @Query(value="select email from users where user_id in(select user_id from user_projects where project_id=?1)",nativeQuery = true)
     String[] getEmployeesById(Long projectId);
 
-    @Query(value="select email,name from users where user_id in(select user_id from user_projects where project_id=?1)",nativeQuery = true)
-    Object[] getEmployeeById(Long projectId);
-
     @Query(value ="select manager_id from manager_projects where project_id=?1",nativeQuery = true)
     Long getManagerId(Long projectId);
-
-    @Query(value="select manager_email from managers where manager_id=?1",nativeQuery = true)
-    String getManagerEmail(Long managerId);
 
     @Query(value = "select email,name,image_url from users where email in (select manager_email from managers where manager_id=?1)",nativeQuery = true)
     Object[] getManagerDetails(Long managerId);
@@ -65,12 +59,7 @@ public interface ProjectRepository  extends CrudRepository<Projects,Long> {
 
     @Query(value = "select count(user_id) from user_projects where user_id=?1 and project_id= ?2",nativeQuery =true)
     int userProjectPresent(long userId, long projectId);
-
-    @Modifying
-    @Transactional
-    @Query(value="insert into projects (project_name) values(:projectName)",nativeQuery = true)
-    void saveProject(String projectName);
-
+    
     @Query(value="select * from projects where project_id in(select project_id from manager_projects where manager_id=?1) and project_id not in (select project_id from nominations where reward_id=?2)",nativeQuery = true)
     List<Projects> findProject(Long managerId,Long rewardId);
 

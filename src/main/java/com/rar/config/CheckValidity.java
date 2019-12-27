@@ -27,10 +27,9 @@ public class CheckValidity  {
     }
 
     private Claims extract(String token) {
-        Claims claims = Jwts.parser()
+        return Jwts.parser()
                 .setSigningKey(SECRET)
                 .parseClaimsJws(token)
                 .getBody();
-        return claims;
     }
 }

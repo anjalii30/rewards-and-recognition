@@ -11,9 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static com.rar.utils.Constants.DISCONTINUED;
 import static com.rar.utils.Constants.ROLLED_OUT;
@@ -141,15 +139,13 @@ public class NotificationsServiceImpl implements NotificationsService {
     public ResponseEntity<List<Notifications>> getNewNotifications(String email) {
 
         List<Notifications> notifications=notificationsRepository.getUnseenNotifications(userRepository.getIdByEmail(email));
-       // Long count=notificationsRepository.getCountOfUnseen(userRepository.getIdByEmail(email));
-       // Map map=new HashMap();
+
         for(int i=0;i<notifications.size();i++){
             Long notificationId=notifications.get(i).getNotificationId();
             notificationsRepository.updateViewed(notificationId);
 
         }
-       /* map.put("notifications",notifications);
-        map.put("count",count);*/
+
         return new ResponseEntity(notifications, HttpStatus.OK);
 
     }

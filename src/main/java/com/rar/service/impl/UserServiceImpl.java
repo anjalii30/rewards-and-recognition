@@ -138,7 +138,6 @@ public class UserServiceImpl implements UserService {
         for (int i = 0; i < editUserDetails.getDesignationSelected().size(); i++){
             userRepository.updateDesignation(id, editUserDetails.getDesignationSelected().get(i).getDid());}
         userRepository.deleteUserProjects(id);
-      //  userRepository.deleteUserManagers(id);
         long mid=0;
         if(userRepository.isManager(editUserDetails.getEmail())>0){
             mid = userRepository.findManagerId(editUserDetails.getEmail());}
