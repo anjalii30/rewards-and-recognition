@@ -116,8 +116,8 @@ public class ScheduleRewards {
         }
     }
 
-    @Scheduled(cron="0 * * ? * *")
-    //  @Scheduled(cron = "0 0 0 1/1 * ? ")
+    //@Scheduled(cron="0 * * ? * *")
+      @Scheduled(cron = "0 0 0 1/1 * ? ")
     public void scheduleMonthly() {
 
         String updatedMonth=monthName[(cal.get(Calendar.MONTH)+1)%12];
