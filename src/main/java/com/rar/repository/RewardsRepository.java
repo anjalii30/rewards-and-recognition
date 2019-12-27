@@ -94,7 +94,7 @@ public interface RewardsRepository extends CrudRepository<Rewards, Long> {
 
     @Transactional
     @Modifying
-    @Query(value = "update rewards set end_date= '3003-01-21' where reward_id=?1", nativeQuery = true)
+    @Query(value = "update rewards set end_date= '2050-01-22' where reward_id=?1", nativeQuery = true)
     void initialisingRollOutEditEndDate(long rewardId);
 
 }

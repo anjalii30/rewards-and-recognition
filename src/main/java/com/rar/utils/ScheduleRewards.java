@@ -63,7 +63,6 @@ public class ScheduleRewards {
             Rewards oldReward = rewards.get(i);
             String oldRewardName = oldReward.getRewardName();
             LocalDate oldRewardEndDate = oldReward.getEndDate();
-            System.out.println(""+oldRewardEndDate);
             if (oldReward.getFrequency() == frequencyEnum && today.isAfter(oldRewardEndDate) && oldReward.isRegenerated()) {
 
                 String[] arrOfStr = oldRewardName.split(" ");
