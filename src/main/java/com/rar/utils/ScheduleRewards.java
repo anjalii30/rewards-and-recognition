@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.Set;
-import java.text.DateFormatSymbols;
 
 import static com.rar.utils.Constants.*;
 
@@ -59,12 +58,12 @@ public class ScheduleRewards {
 
         ArrayList<Rewards> rewards = (ArrayList<Rewards>) rewardsRepository.findAll();
         int i = 0;
-
+        System.out.println(rewards.size());
         while (i < rewards.size()) {
             Rewards oldReward = rewards.get(i);
             String oldRewardName = oldReward.getRewardName();
             LocalDate oldRewardEndDate = oldReward.getEndDate();
-
+            System.out.println(""+oldRewardEndDate);
             if (oldReward.getFrequency() == frequencyEnum && today.isAfter(oldRewardEndDate) && oldReward.isRegenerated()) {
 
                 String[] arrOfStr = oldRewardName.split(" ");

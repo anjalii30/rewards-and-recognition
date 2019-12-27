@@ -288,6 +288,7 @@ public class RewardsServiceImpl implements RewardsService {
             rewardsRepository.regenerationCancel(id);
             rewardsRepository.updateRolledOutColumn(id, reward.getRewardId());
             rewardsRepository.updateRolledOutEditAwardStatus(reward.getRewardId());
+            rewardsRepository.initialisingRollOutEditEndDate(reward.getRewardId());
             return rewards;
         } else if (rewardsRepository.findEditRollOutId(id) == 0 && rewardsRepository.checkingRewardInRolledOut(id) > 0) {
             return update(id, reward);
