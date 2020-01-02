@@ -21,14 +21,14 @@ staging:
   - once merge is done, no changes should be made until feedback is received from the client.
 ​
 dev:
-  - should be the offset of dev branch.
-  - staging will have ongoing sprint work and may have unstable code.
-  - sonar analysis will be configured with staging.
+  - should be the offset of staging branch.
+  - dev will have ongoing sprint work and may have unstable code.
+  - sonar analysis will be configured with dev.
 ​
 Other branching strategy to be followed:
   * use feature branches for all new features and bug fixes
-  * merge feature branch into the staging branch using pull request
-  * keep the staging branch up-to-date
+  * merge feature branch into the dev branch using pull request
+  * keep the dev branch up-to-date
 ​
 Naming conventions to be followed for feature branches:
    
