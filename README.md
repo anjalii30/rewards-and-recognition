@@ -1,8 +1,8 @@
 # Rewards and Recognition tool
 
-Rewards and Recognition tool is a web based application designed specially for making the task of Nineleaps HR team simpler as to help them create, monitor, maintain rewards as well as for the Nineleaps employess to view who all are rewarded.
+Rewards and Recognition tool is a web based application designed specially for making the task of Nineleaps HR team simpler to help them create, monitor, maintain rewards as well as the Nineleaps employess to view who are rewarded.
 
-The main components of this application are the HR team able to create, edit, roll out, discontinue and publish rewards, the managers able to nominate their subordinates.
+The main components of this application are the HR team able to create, edit, roll out, discontinue and pubish rewards, the managers able to nominate their subordinates.
 
 ## Technologies Used
 + Front End -> ReactJs
@@ -40,256 +40,158 @@ There are several ways to run a Spring Boot application on your local machine.
 
 ## Files and directories
 ```
-.
+├── build.gradle
 ├── Documents
-│   └── GIT Branching Strategy
-├── mvnw
-├── mvnw.cmd
-├── pom.xml
-├── rar.iml
+│   ├── Git strategy.md
+│   ├── Schema.png
+│   └── SonarReport.pdf
+├── gradlew
+├── gradlew.bat
+├── HELP.md
 ├── README.md
-├── src
-│   ├── main
-│   │   ├── java
-│   │   │   └── com
-│   │   │       └── rar
-│   │   │           ├── config
-│   │   │           │   ├── SpringWebConfig.java
-│   │   │           │   └── Swagger2Config.java
-│   │   │           ├── controller
-│   │   │           │   ├── CriteriaController.java
-│   │   │           │   ├── DesignationController.java
-│   │   │           │   ├── LoginController.java
-│   │   │           │   ├── ManagerController.java
-│   │   │           │   ├── NominationController.java
-│   │   │           │   ├── NotificationsController.java
-│   │   │           │   ├── ProjectController.java
-│   │   │           │   ├── RewardsController.java
-│   │   │           │   ├── RewardsCriteriaController.java
-│   │   │           │   ├── RolesController.java
-│   │   │           │   └── UserController.java
-│   │   │           ├── DTO
-│   │   │           │   ├── CreateProjectPojo.java
-│   │   │           │   ├── DesignationSelected.java
-│   │   │           │   ├── EditUserDetails.java
-│   │   │           │   ├── EvidencesPojo.java
-│   │   │           │   ├── History.java
-│   │   │           │   ├── ListRollOutEdit.java
-│   │   │           │   ├── LoginUserDetails.java
-│   │   │           │   ├── ManagerProjectsPojo.java
-│   │   │           │   ├── NominationPojo.java
-│   │   │           │   ├── ProjectDetailsUser.java
-│   │   │           │   ├── ProjectNominationHistory.java
-│   │   │           │   ├── RewardPojo.java
-│   │   │           │   ├── RewardsCriteriaId.java
-│   │   │           │   ├── UserNominationDetails.java
-│   │   │           │   └── UserProjectsPojo.java
-│   │   │           ├── enums
-│   │   │           │   ├── CategoryEnum.java
-│   │   │           │   ├── FrequencyEnum.java
-│   │   │           │   └── RoleEnum.java
-│   │   │           ├── exception
-│   │   │           │   ├── CustomExceptionHandler.java
-│   │   │           │   ├── ErrorResponse.java
-│   │   │           │   ├── IncorrectFieldException.java
-│   │   │           │   ├── InvalidProjectException.java
-│   │   │           │   ├── InvalidTokenException.java
-│   │   │           │   ├── InvalidUserException.java
-│   │   │           │   └── RecordNotFoundException.java
-│   │   │           ├── model
-│   │   │           │   ├── Criteria.java
-│   │   │           │   ├── Designation.java
-│   │   │           │   ├── Evidences.java
-│   │   │           │   ├── Manager.java
-│   │   │           │   ├── Nominations.java
-│   │   │           │   ├── Notifications.java
-│   │   │           │   ├── Projects.java
-│   │   │           │   ├── RewardsCriteria.java
-│   │   │           │   ├── Rewards.java
-│   │   │           │   ├── Roles.java
-│   │   │           │   └── UserInfo.java
-│   │   │           ├── repository
-│   │   │           │   ├── CriteriaRepository.java
-│   │   │           │   ├── DesignationRepository.java
-│   │   │           │   ├── EvidencesRepository.java
-│   │   │           │   ├── ManagerRepository.java
-│   │   │           │   ├── NominationsRepository.java
-│   │   │           │   ├── NotificationsRepository.java
-│   │   │           │   ├── ProjectRepository.java
-│   │   │           │   ├── RewardsCriteriaRepository.java
-│   │   │           │   ├── RewardsRepository.java
-│   │   │           │   ├── RolesRepository.java
-│   │   │           │   └── UserRepository.java
-│   │   │           ├── RewardsAndRecognitionApplication.java
-│   │   │           ├── service
-│   │   │           │   ├── CriteriaService.java
-│   │   │           │   ├── DesignationService.java
-│   │   │           │   ├── impl
-│   │   │           │   │   ├── CheckValidity.java
-│   │   │           │   │   ├── CriteriaServiceImpl.java
-│   │   │           │   │   ├── DesignationServiceImpl.java
-│   │   │           │   │   ├── GenerateJWT.java
-│   │   │           │   │   ├── LoginServiceImpl.java
-│   │   │           │   │   ├── ManagerServiceImpl.java
-│   │   │           │   │   ├── NominationsServiceImpl.java
-│   │   │           │   │   ├── NotificationsServiceImpl.java
-│   │   │           │   │   ├── ProjectServiceImpl.java
-│   │   │           │   │   ├── RewardsCriteriaServiceImpl.java
-│   │   │           │   │   ├── RewardsServiceImpl.java
-│   │   │           │   │   ├── RolesServiceImpl.java
-│   │   │           │   │   ├── SendEmail.java
-│   │   │           │   │   └── UserServiceImpl.java
-│   │   │           │   ├── LoginService.java
-│   │   │           │   ├── ManagerService.java
-│   │   │           │   ├── NominationsService.java
-│   │   │           │   ├── NotificationsService.java
-│   │   │           │   ├── ProjectService.java
-│   │   │           │   ├── RewardsCriteriaService.java
-│   │   │           │   ├── RewardsService.java
-│   │   │           │   ├── RolesService.java
-│   │   │           │   └── UserService.java
-│   │   │           └── utils
-│   │   │               ├── AppContext.java
-│   │   │               ├── AskToNominate.java
-│   │   │               ├── Constants.java
-│   │   │               ├── ScheduleRewards.java
-│   │   │               └── SimpleCORSFile.java
-│   │   └── resources
-│   │       ├── application.properties
-│   │       ├── gift.jpg
-│   │       ├── image.jpg
-│   │       ├── nineleaps.png
-│   │       └── templates
-│   │           ├── selfWinner.html
-│   │           └── Winner.html
-│   └── test
-│       └── java
-│           └── com
-│               └── rar
-│                   └── RewardsAndRecognitionApplicationTests.java
-└── target
-    ├── classes
-    │   ├── application.properties
-    │   ├── com
-    │   │   └── rar
-    │   │       ├── config
-    │   │       │   ├── SpringWebConfig.class
-    │   │       │   └── Swagger2Config.class
-    │   │       ├── controller
-    │   │       │   ├── CriteriaController.class
-    │   │       │   ├── DesignationController.class
-    │   │       │   ├── LoginController.class
-    │   │       │   ├── ManagerController.class
-    │   │       │   ├── NominationController.class
-    │   │       │   ├── NotificationsController.class
-    │   │       │   ├── ProjectController.class
-    │   │       │   ├── RewardsController.class
-    │   │       │   ├── RewardsCriteriaController.class
-    │   │       │   ├── RolesController.class
-    │   │       │   └── UserController.class
-    │   │       ├── DTO
-    │   │       │   ├── CreateProjectPojo.class
-    │   │       │   ├── DesignationSelected.class
-    │   │       │   ├── EditUserDetails.class
-    │   │       │   ├── EvidencesPojo.class
-    │   │       │   ├── History.class
-    │   │       │   ├── ListRollOutEdit.class
-    │   │       │   ├── LoginUserDetails.class
-    │   │       │   ├── ManagerProjectsPojo.class
-    │   │       │   ├── NominationPojo.class
-    │   │       │   ├── ProjectDetailsUser.class
-    │   │       │   ├── ProjectNominationHistory.class
-    │   │       │   ├── RewardPojo.class
-    │   │       │   ├── RewardsCriteriaId.class
-    │   │       │   ├── UserNominationDetails.class
-    │   │       │   └── UserProjectsPojo.class
-    │   │       ├── enums
-    │   │       │   ├── CategoryEnum.class
-    │   │       │   ├── FrequencyEnum.class
-    │   │       │   └── RoleEnum.class
-    │   │       ├── exception
-    │   │       │   ├── CustomExceptionHandler.class
-    │   │       │   ├── ErrorResponse.class
-    │   │       │   ├── IncorrectFieldException.class
-    │   │       │   ├── InvalidProjectException.class
-    │   │       │   ├── InvalidTokenException.class
-    │   │       │   ├── InvalidUserException.class
-    │   │       │   └── RecordNotFoundException.class
-    │   │       ├── model
-    │   │       │   ├── Criteria.class
-    │   │       │   ├── Designation.class
-    │   │       │   ├── Evidences.class
-    │   │       │   ├── Manager.class
-    │   │       │   ├── Nominations.class
-    │   │       │   ├── Notifications.class
-    │   │       │   ├── Projects.class
-    │   │       │   ├── Rewards.class
-    │   │       │   ├── RewardsCriteria.class
-    │   │       │   ├── Roles.class
-    │   │       │   └── UserInfo.class
-    │   │       ├── repository
-    │   │       │   ├── CriteriaRepository.class
-    │   │       │   ├── DesignationRepository.class
-    │   │       │   ├── EvidencesRepository.class
-    │   │       │   ├── ManagerRepository.class
-    │   │       │   ├── NominationsRepository.class
-    │   │       │   ├── NotificationsRepository.class
-    │   │       │   ├── ProjectRepository.class
-    │   │       │   ├── RewardsCriteriaRepository.class
-    │   │       │   ├── RewardsRepository.class
-    │   │       │   ├── RolesRepository.class
-    │   │       │   └── UserRepository.class
-    │   │       ├── RewardsAndRecognitionApplication.class
-    │   │       ├── service
-    │   │       │   ├── CriteriaService.class
-    │   │       │   ├── DesignationService.class
-    │   │       │   ├── impl
-    │   │       │   │   ├── CheckValidity.class
-    │   │       │   │   ├── CriteriaServiceImpl.class
-    │   │       │   │   ├── DesignationServiceImpl.class
-    │   │       │   │   ├── GenerateJWT.class
-    │   │       │   │   ├── LoginServiceImpl.class
-    │   │       │   │   ├── ManagerServiceImpl.class
-    │   │       │   │   ├── NominationsServiceImpl.class
-    │   │       │   │   ├── NotificationsServiceImpl.class
-    │   │       │   │   ├── ProjectServiceImpl.class
-    │   │       │   │   ├── RewardsCriteriaServiceImpl.class
-    │   │       │   │   ├── RewardsServiceImpl.class
-    │   │       │   │   ├── RolesServiceImpl.class
-    │   │       │   │   ├── SendEmail.class
-    │   │       │   │   └── UserServiceImpl.class
-    │   │       │   ├── LoginService.class
-    │   │       │   ├── ManagerService.class
-    │   │       │   ├── NominationsService.class
-    │   │       │   ├── NotificationsService.class
-    │   │       │   ├── ProjectService.class
-    │   │       │   ├── RewardsCriteriaService.class
-    │   │       │   ├── RewardsService.class
-    │   │       │   ├── RolesService.class
-    │   │       │   └── UserService.class
-    │   │       └── utils
-    │   │           ├── AskToNominate.class
-    │   │           ├── Constants.class
-    │   │           ├── ScheduleRewards.class
-    │   │           └── SimpleCORSFile.class
-    │   ├── gift.jpg
-    │   ├── image.jpg
-    │   ├── META-INF
-    │   │   └── rar.kotlin_module
-    │   ├── nineleaps.png
-    │   └── templates
-    │       ├── selfWinner.html
-    │       └── Winner.html
-    ├── generated-sources
-    │   └── annotations
-    ├── generated-test-sources
-    │   └── test-annotations
-    ├── sonar
-    │   └── report-task.txt
-    └── test-classes
-        └── com
-            └── rar
-                └── RewardsAndRecognitionApplicationTests.class
+├── settings.gradle
+└── src
+    └── main
+       ├── java
+       │   └── com
+       │       └── demo
+       │           └── okrmanagement
+       │               ├── config
+       │               │   ├── APIConfiguration.java
+       │               │   ├── EmailConfig.java
+       │               │   ├── GmailAuthInterface.java
+       │               │   ├── RetrofitInterface.java
+       │               │   ├── RetrofitService.java
+       │               │   ├── ServiceConfiguration.java
+       │               │   └── SwaggerConfig.java
+       │               ├── controller
+       │               │   ├── ActivityController.java
+       │               │   ├── ChecksController.java
+       │               │   ├── CollaboratorController.java
+       │               │   ├── LoginController.java
+       │               │   ├── ObjectiveChallengeController.java
+       │               │   ├── ObjectiveController.java
+       │               │   ├── TrackProgressController.java
+       │               │   ├── UpcomingTaskController.java
+       │               │   └── WeeklyPlanController.java
+       │               ├── dto
+       │               │   ├── ActivityPojos
+       │               │   │   ├── ActivityPojo.java
+       │               │   │   └── ActivityResponsePojo.java
+       │               │   ├── CheckPojos
+       │               │   │   ├── CheckPojo.java
+       │               │   │   ├── CheckResponsePojo.java
+       │               │   │   └── CheckStatusPojo.java
+       │               │   ├── CollaboratorPojos
+       │               │   │   ├── CollabPojo.java
+       │               │   │   └── InvitationPojo.java
+       │               │   ├── KeyResultPojos
+       │               │   │   ├── KeyResultPojo.java
+       │               │   │   └── KeyResultResponsePojo.java
+       │               │   ├── ObjectiveChallengePojos
+       │               │   │   ├── ObjectiveChallengeCommentPojo.java
+       │               │   │   ├── ObjectiveChallengeCommentReturnPojo.java
+       │               │   │   ├── ObjectiveChallengePojo.java
+       │               │   │   └── ObjectiveChallengeReturnPojo.java
+       │               │   ├── ObjectivePojos
+       │               │   │   ├── ObjectiveCardsPojo.java
+       │               │   │   ├── ObjectivePojo.java
+       │               │   │   └── ObjectiveResponsePojo.java
+       │               │   ├── ProgressPojos
+       │               │   │   ├── ConfidenceMappingPojo.java
+       │               │   │   ├── KeyResultProgressGraphDataPojo.java
+       │               │   │   ├── KeyResultProgressHistoryPojo.java
+       │               │   │   ├── TrackConfidencePojo.java
+       │               │   │   ├── UpdateConfidencePojo.java
+       │               │   │   └── WeeklyPlanReportPojo.java
+       │               │   ├── UpcomingTaskPojo
+       │               │   │   ├── ResponseUpcomingTasksPojo.java
+       │               │   │   ├── UpcomingTaskDetailsPojo.java
+       │               │   │   └── UpcomingTaskPojo.java
+       │               │   ├── UserInfoPojos
+       │               │   │   ├── GmailPojo.java
+       │               │   │   └── UserPojo.java
+       │               │   └── WeeklyPlanPojos
+       │               │       ├── CommentDetailsPojo.java
+       │               │       ├── ReturnWeeklyPojo.java
+       │               │       ├── WeeklyPlanCommentPojo.java
+       │               │       ├── WeeklyPlanCommentReplyPojo.java
+       │               │       └── WeeklyPlanPojo.java
+       │               ├── exception
+       │               │   ├── BadRequestException.java
+       │               │   ├── DuplicateInvitationException.java
+       │               │   ├── DuplicateUpdationException.java
+       │               │   ├── InvalidDomainException.java
+       │               │   ├── InvalidTokenException.java
+       │               │   ├── InvalidUserException.java
+       │               │   └── NoDataException.java
+       │               ├── model
+       │               │   ├── ActivityLog.java
+       │               │   ├── Checks.java
+       │               │   ├── Confidence.java
+       │               │   ├── KeyResultProgressHistory.java
+       │               │   ├── KeyResults.java
+       │               │   ├── NineleapsUsers.java
+       │               │   ├── ObjectiveChallengeComments.java
+       │               │   ├── ObjectiveChallenges.java
+       │               │   ├── Objectives.java
+       │               │   ├── UpcomingTasks.java
+       │               │   ├── UserInfo.java
+       │               │   ├── UserObjectiveId.java
+       │               │   ├── UserObjective.java
+       │               │   ├── WeeklyPlanComments.java
+       │               │   └── WeeklyPlan.java
+       │               ├── OkrManagement.java
+       │               ├── repository
+       │               │   ├── ActivityLogRepository.java
+       │               │   ├── ChecksRepository.java
+       │               │   ├── ConfidenceRepository.java
+       │               │   ├── KeyResultProgressHistoryRepository.java
+       │               │   ├── KeyResultsRepository.java
+       │               │   ├── NineleapsUsersRepository.java
+       │               │   ├── ObjectiveChallengeCommentsRepository.java
+       │               │   ├── ObjectiveChallengesRepository.java
+       │               │   ├── ObjectiveRepository.java
+       │               │   ├── UpcomingTaskRepository.java
+       │               │   ├── UserObjectiveRepository.java
+       │               │   ├── UserRepository.java
+       │               │   ├── WeeklyPlanCommentRepository.java
+       │               │   └── WeeklyPlanRepository.java
+       │               ├── service
+       │               │   ├── ActivityService.java
+       │               │   ├── CheckService.java
+       │               │   ├── CollaboratorService.java
+       │               │   ├── impl
+       │               │   │   ├── ActivityServiceImpl.java
+       │               │   │   ├── CheckServiceImpl.java
+       │               │   │   ├── CollaboratorServiceImpl.java
+       │               │   │   ├── LoginServiceImpl.java
+       │               │   │   ├── ObjectiveChallengesServiceImpl.java
+       │               │   │   ├── ObjectiveServiceImpl.java
+       │               │   │   ├── TrackProgressServiceImpl.java
+       │               │   │   ├── UpcomingTaskServiceImpl.java
+       │               │   │   └── WeeklyPlanServiceImpl.java
+       │               │   ├── LoginService.java
+       │               │   ├── ObjectiveChallengeService.java
+       │               │   ├── ObjectiveService.java
+       │               │   ├── TrackProgressService.java
+       │               │   ├── UpcomingTaskService.java
+       │               │   └── WeeklyPlanService.java
+       │               └── util
+       │                   ├── ArchiveObjectiveService.java
+       │                   ├── DateProcessor.java
+       │                   ├── KeyResultProgressService.java
+       │                   ├── Progress.java
+       │                   ├── SendMail.java
+       │                   └── ValidateRequest.java
+       └── resources
+           ├── application.properties
+           └── templates
+               ├── invitation.ftl
+               ├── invitationResponse.ftl
+               ├── updatedConfidence.ftl
+               ├── updateReminder.ftl
+               └── welcome.ftl
 
 ```
 ## Packages
@@ -304,12 +206,52 @@ There are several ways to run a Spring Boot application on your local machine.
 - `dto` - contains all the pojos for getting and setting the values in the repository.
 
 ## API Reference
-The Test cases for the application can be found [here](https://docs.google.com/spreadsheets/d/1d9C-gvJPGcaIiWh-ROtiS2Zt1MLhltv0M300_7v-HJA/edit?usp=sharing).
+The Test cases for the application can be found [here]().
 
-The Swagger UI can be referred [here](http://localhost:8080/swagger-ui.html#/)
+The Swagger UI can be referred [here](/swagger-ui.html)
 
-## E-R schema
-The E-R schema can be found [here](https://drive.google.com/file/d/1p3nsRV59xatol0d7D9KF9RNn0Mf3q4x3/view?usp=sharing)
+## GIT Branching Strategy
+
+Branches:
+   * master
+   * staging
+   * dev
+​
+master is the default branch of the project, dev is the offset branch of the master branch and staging is the offset
+branch of dev.
+​
+Note: The following git conventions are to be followed for push and pull requests in the branches.
+​
+master:
+  - should be the default branch of the project.
+  - code should be merged to master from dev.
+  - no direct commits should be made in this branch.
+​
+staging:
+  - should be the offset of master branch.
+  - code is merged to dev from staging.
+  - merge can be done only after QA and testing are performed.
+  - once merge is done, no changes should be made until feedback is received from the client.
+​
+dev:
+  - should be the offset of staging branch.
+  - dev will have ongoing sprint work and may have unstable code.
+  - sonar analysis will be configured with dev.
+​
+Other branching strategy to be followed:
+  * use feature branches for all new features and bug fixes
+  * merge feature branch into the dev branch using pull request
+  * keep the dev branch up-to-date
+​
+Naming conventions to be followed for feature branches:
+   
+Use a consistent naming convention for your feature branches to identify the work done in the branch. You can also
+include other information in the branch name such as who created the branch. Some suggestions are: 
+     
+ * users/username/description
+ * bugfix/description
+ * features/featurename
+
 
 ## License
 &copy; Nineleaps | 2019 
