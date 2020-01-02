@@ -210,5 +210,48 @@ The Test cases for the application can be found [here]().
 
 The Swagger UI can be referred [here](/swagger-ui.html)
 
+## GIT Branching Strategy
+
+Branches:
+   * master
+   * staging
+   * dev
+​
+master is the default branch of the project, dev is the offset branch of the master branch and staging is the offset
+branch of dev.
+​
+Note: The following git conventions are to be followed for push and pull requests in the branches.
+​
+master:
+  - should be the default branch of the project.
+  - code should be merged to master from dev.
+  - no direct commits should be made in this branch.
+​
+staging:
+  - should be the offset of master branch.
+  - code is merged to dev from staging.
+  - merge can be done only after QA and testing are performed.
+  - once merge is done, no changes should be made until feedback is received from the client.
+​
+dev:
+  - should be the offset of staging branch.
+  - dev will have ongoing sprint work and may have unstable code.
+  - sonar analysis will be configured with dev.
+​
+Other branching strategy to be followed:
+  * use feature branches for all new features and bug fixes
+  * merge feature branch into the dev branch using pull request
+  * keep the dev branch up-to-date
+​
+Naming conventions to be followed for feature branches:
+   
+Use a consistent naming convention for your feature branches to identify the work done in the branch. You can also
+include other information in the branch name such as who created the branch. Some suggestions are: 
+     
+ * users/username/description
+ * bugfix/description
+ * features/featurename
+
+
 ## License
 &copy; Nineleaps | 2019 
