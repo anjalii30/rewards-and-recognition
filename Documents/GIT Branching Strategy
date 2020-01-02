@@ -4,19 +4,18 @@ Branches:
    * staging
    * dev
 ​
-master is the default branch of the project, dev is the offset branch of the master branch and staging is the offset
-branch of dev.
+master is the default branch of the project, staging is the offset branch of master, dev is the offset branch of the staging branch.
 ​
 Note: The following git conventions are to be followed for push and pull requests in the branches.
 ​
 master:
   - should be the default branch of the project.
-  - code should be merged to master from dev.
+  - code should be merged to master from staging.
   - no direct commits should be made in this branch.
 ​
 staging:
   - should be the offset of master branch.
-  - code is merged to dev from staging.
+  - code is merged to staging from dev.
   - merge can be done only after QA and testing are performed.
   - once merge is done, no changes should be made until feedback is received from the client.
 ​
